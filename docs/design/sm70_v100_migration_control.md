@@ -2,6 +2,19 @@
 
 Date: 2026-05-30
 
+## DFlash2 shared NVFP4 codes, 2026-09-08
+
+The [shared QPN2/TurboMind weight path](sm70_dflash2_shared_nvfp4.md) removes
+the extra QPN2 codes while retaining both scale formats and opaque dynamic-M
+dispatch. All 280 real TP4-shard operator cases match output bits, including
+gated output, padding and CUDA Graph replay with changed inputs. The removed
+target codes total approximately 2.836 GiB per rank for QUASAR 27B.
+
+Keep `VLLM_SM70_NVFP4_QPN2_SHARED_WEIGHT` opt-in: M8 is close to the original
+layout, but some M16 operators and gated M32 regress by about 9–15%. Do not
+claim model throughput from these operator measurements. The design note
+records build and harness failures so they are not repeated.
+
 ## DFlash2 E4M3 FP32 default policy, 2026-09-08
 
 [The precision-default change](sm70_dflash2_fp32_defaults.md) is based on
