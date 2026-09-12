@@ -3276,14 +3276,55 @@ class VllmConfig:
 
         # Mamba cache align-mode constraints
         if self.cache_config.mamba_cache_mode == "align":
-            assert block_size <= self.scheduler_config.max_num_batched_tokens, (
-                "In Mamba cache align mode, block_size "
-                f"({block_size}) must be <= "
-                "max_num_batched_tokens "
-                f"({self.scheduler_config.max_num_batched_tokens})."
-            )
-            if self.scheduler_config.long_prefill_token_threshold > 0:
-                assert self.scheduler_config.long_prefill_token_threshold >= block_size
+            # EXPERIMENT (not for merge as-is): the two size asserts below are the
+            # only thing preventing a per-step budget smaller than one Mamba state
+            # block. Scheduler._mamba_block_aligned_split already emits a shorter
+            # unaligned chunk when the budget cannot reach the next boundary, so
+            # sub-block chunks are mechanically supported -- but a multi-token
+            # chunk STARTING mid-block is an untested path, and this fork lacks the
+            # checkpoint-block machinery upstream added when it dropped these
+            # asserts (no num_prefill_checkpoint_blocks here). Opt in only to
+            # measure; the default stays exactly as before.
+            allow_sub_block = envs.VLLM_1CAT_ALLOW_SUB_BLOCK_PREFILL
+            if not allow_sub_block:
+                assert block_size <= self.scheduler_config.max_num_batched_tokens, (
+                    "In Mamba cache align mode, block_size "
+                    f"({block_size}) must be <= "
+                    "max_num_batched_tokens "
+                    f"({self.scheduler_config.max_num_batched_tokens})."
+                )
+                if self.scheduler_config.long_prefill_token_threshold > 0:
+                    assert (
+                        self.scheduler_config.long_prefill_token_threshold >= block_size
+                    )
+            else:
+                if block_size > self.scheduler_config.max_num_batched_tokens:
+                    logger.warning(
+                        "VLLM_1CAT_ALLOW_SUB_BLOCK_PREFILL is set: running with "
+                        "max_num_batched_tokens=%d below the Mamba align "
+                        "block_size=%d. Prefill chunks will start and end "
+                        "mid-block, which is not a validated path. "
+                        "Experimental only.",
+                        self.scheduler_config.max_num_batched_tokens,
+                        block_size,
+                    )
+                if (
+                    0
+                    < self.scheduler_config.long_prefill_token_threshold
+                    < block_size
+                ):
+                    # This assert is silenced by the same flag, so say so
+                    # separately: long_prefill_token_threshold is applied before
+                    # the block-aligned split (scheduler.py:587, :908), so a
+                    # sub-block threshold is its own unvalidated path.
+                    logger.warning(
+                        "VLLM_1CAT_ALLOW_SUB_BLOCK_PREFILL is set: "
+                        "long_prefill_token_threshold=%d is below the Mamba "
+                        "align block_size=%d. Long prefills will be capped "
+                        "mid-block. Experimental only.",
+                        self.scheduler_config.long_prefill_token_threshold,
+                        block_size,
+                    )
             assert not self.scheduler_config.disable_chunked_mm_input, (
                 "Chunked MM input is required because we need the flexibility "
                 "to schedule a multiple of block_size tokens even if they are "
