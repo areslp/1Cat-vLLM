@@ -288,8 +288,20 @@ def remove_rpath(path: Path) -> None:
 
 
 class CMakeExtension(Extension):
-    def __init__(self, name: str, cmake_lists_dir: str = ".", **kwa) -> None:
-        super().__init__(name, sources=[], py_limited_api=not is_freethreaded(), **kwa)
+    def __init__(
+        self,
+        name: str,
+        cmake_lists_dir: str = ".",
+        py_limited_api: bool | None = None,
+        **kwa,
+    ) -> None:
+        # Targets that CMakeLists.txt deliberately builds against the full
+        # CPython ABI (WITH_SOABI, no USE_SABI) must pass py_limited_api=False:
+        # CMake names those `.cpython-<ver>-<plat>.so`, and build_ext otherwise
+        # goes looking for an `.abi3.so` that is never produced.
+        if py_limited_api is None:
+            py_limited_api = not is_freethreaded()
+        super().__init__(name, sources=[], py_limited_api=py_limited_api, **kwa)
         self.cmake_lists_dir = os.path.abspath(cmake_lists_dir)
 
 
@@ -1247,11 +1259,19 @@ if _is_hip():
 if _is_cuda():
     if _cuda_arch_contains(7, 0):
         ext_modules.append(CMakeExtension(name="vllm._sm70_sampler_C"))
-        ext_modules.append(CMakeExtension(name="vllm._sm70_exact_reduce_C"))
-        ext_modules.append(CMakeExtension(name="vllm._h3_w8a16_C"))
-        ext_modules.append(CMakeExtension(name="vllm._h3_flashinfer_C"))
-        ext_modules.append(CMakeExtension(name="vllm._h3_flashattn_C"))
-        ext_modules.append(CMakeExtension(name="vllm._sm70_sparse_attention_C"))
+        # The H3 / exact-reduce / sparse-attention kernels are defined with
+        # WITH_SOABI and no USE_SABI, i.e. ordinary Torch/Python ABI, so they
+        # must not be declared limited-API here.
+        for _sm70_soabi_ext in (
+            "vllm._sm70_exact_reduce_C",
+            "vllm._h3_w8a16_C",
+            "vllm._h3_flashinfer_C",
+            "vllm._h3_flashattn_C",
+            "vllm._sm70_sparse_attention_C",
+        ):
+            ext_modules.append(
+                CMakeExtension(name=_sm70_soabi_ext, py_limited_api=False)
+            )
     build_sm70_fa2 = _cuda_arch_contains(7, 0) and not _cuda_arch_at_least(8, 0)
     if _cuda_arch_at_least(8, 0) or build_sm70_fa2:
         ext_modules.append(CMakeExtension(name="vllm.vllm_flash_attn._vllm_fa2_C"))
