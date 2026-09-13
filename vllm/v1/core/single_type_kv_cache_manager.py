@@ -311,6 +311,8 @@ class SingleTypeKVCacheManager(ABC):
         request: Request,
         num_tokens: int,
         alignment_tokens: int | None = None,
+        retention_interval: int | None = None,
+        replay_boundaries: Sequence[int] = (),
     ) -> None:
         """
         Cache the blocks for the request.
@@ -325,6 +327,14 @@ class SingleTypeKVCacheManager(ABC):
                 returns a subset of blocks per alignment-aligned segment
                 (SWA) skip the rest since they can never participate in a
                 future cache hit.
+            retention_interval: Sparse state-snapshot retention for Mamba
+                groups (``CacheConfig.prefix_cache_retention_interval``).
+                ``None`` keeps every block; ``0`` keeps only the blocks at
+                ``replay_boundaries``; a positive multiple of the scheduler
+                block size additionally keeps one block per that-sized
+                segment. Ignored by managers that must cache densely.
+            replay_boundaries: Token positions a later request can resume
+                this prompt from (see ``KVCacheCoordinator._replay_boundaries``).
         """
         num_cached_blocks = self.num_cached_block.get(request.request_id, 0)
         num_full_blocks = num_tokens // self.block_size
@@ -339,6 +349,14 @@ class SingleTypeKVCacheManager(ABC):
             block_mask = self._cache_block_mask(
                 num_cached_blocks, num_full_blocks, alignment_tokens
             )
+        block_mask = self._retention_block_mask(
+            block_mask,
+            num_cached_blocks,
+            num_full_blocks,
+            alignment_tokens,
+            retention_interval,
+            replay_boundaries,
+        )
         self.block_pool.cache_full_blocks(
             request=request,
             blocks=self.req_to_blocks[request.request_id],
@@ -365,6 +383,26 @@ class SingleTypeKVCacheManager(ABC):
         length.
         """
         return None
+
+    def _retention_block_mask(
+        self,
+        block_mask: list[bool] | None,
+        num_cached_blocks: int,
+        num_full_blocks: int,
+        alignment_tokens: int | None,
+        retention_interval: int | None,
+        replay_boundaries: Sequence[int],
+    ) -> list[bool] | None:
+        """Hook for sparse checkpoint retention
+        (``CacheConfig.prefix_cache_retention_interval``).
+
+        Attention groups hold per-token history and must cache densely, so the
+        default returns ``block_mask`` unchanged. ``MambaManager`` overrides it
+        to leave unreachable state snapshots unhashed.
+        """
+        del num_cached_blocks, num_full_blocks, alignment_tokens
+        del retention_interval, replay_boundaries
+        return block_mask
 
     def free(self, request_id: str) -> None:
         """
@@ -670,8 +708,11 @@ class CircularBufferManager(FullAttentionManager):
         request: Request,
         num_tokens: int,
         alignment_tokens: int | None = None,
+        retention_interval: int | None = None,
+        replay_boundaries: Sequence[int] = (),
     ) -> None:
         del request, num_tokens, alignment_tokens
+        del retention_interval, replay_boundaries
 
     def remove_skipped_blocks(
         self,
@@ -916,8 +957,11 @@ class KpoolTailManager(FullAttentionManager):
         request: Request,
         num_tokens: int,
         alignment_tokens: int | None = None,
+        retention_interval: int | None = None,
+        replay_boundaries: Sequence[int] = (),
     ) -> None:
         del request, num_tokens, alignment_tokens
+        del retention_interval, replay_boundaries
 
     def get_num_common_prefix_blocks(self, running_request_id: str) -> int:
         del running_request_id
@@ -1409,17 +1453,26 @@ class MambaManager(SingleTypeKVCacheManager):
         request: Request,
         num_tokens: int,
         alignment_tokens: int | None = None,
+        retention_interval: int | None = None,
+        replay_boundaries: Sequence[int] = (),
     ) -> None:
         num_cached_blocks_before = self.num_cached_block.get(request.request_id, 0)
-        super().cache_blocks(request, num_tokens, alignment_tokens=alignment_tokens)
+        super().cache_blocks(
+            request,
+            num_tokens,
+            alignment_tokens=alignment_tokens,
+            retention_interval=retention_interval,
+            replay_boundaries=replay_boundaries,
+        )
         num_cached_blocks_after = self.num_cached_block.get(request.request_id, 0)
         if num_cached_blocks_after > num_cached_blocks_before:
             blocks = self.req_to_blocks[request.request_id]
             for block_idx in range(num_cached_blocks_before, num_cached_blocks_after):
                 block = blocks[block_idx]
-                if block.is_null:
+                # Null blocks (align-mode skipped states) and snapshots left
+                # unhashed by sparse retention can never serve a hit.
+                if block.is_null or block.block_hash is None:
                     continue
-                assert block.block_hash is not None
                 self.cached_blocks_this_step.add(block.block_hash)
                 if self.mamba_cache_mode == "align":
                     self._pending_boundary_state_offloads.append(
@@ -1430,6 +1483,78 @@ class MambaManager(SingleTypeKVCacheManager):
                             (block_idx + 1) * self.block_size,
                         )
                     )
+
+    @staticmethod
+    def retention_block_mask(
+        start_block: int,
+        end_block: int,
+        block_size: int,
+        alignment_tokens: int | None,
+        retention_interval: int | None,
+        replay_boundaries: Sequence[int],
+    ) -> list[bool] | None:
+        """Which boundary states in ``[start_block, end_block)`` keep a hash.
+
+        ``retention_interval``:
+
+          ``None`` -> dense (cache every block; the default)
+          ``0``    -> only the states at ``replay_boundaries``
+          ``> 0``  -> additionally the last block of every
+                      ``retention_interval``-token segment
+
+        A Mamba hit needs exactly the single state block ending on the
+        boundary (block ``i`` ends at token ``(i + 1) * block_size``), so a
+        boundary at token ``t`` retains the last block ending at or before
+        ``t`` aligned down to ``alignment_tokens``.
+        """
+        if retention_interval is None:
+            return None
+        num_blocks = end_block - start_block
+        if num_blocks <= 0:
+            return None
+        mask = [False] * num_blocks
+
+        if retention_interval > 0:
+            per_segment = retention_interval // block_size
+            if per_segment <= 1:
+                # Interval at/below the block size: every block is a boundary.
+                return None
+            for i in range(start_block, end_block):
+                if (i + 1) % per_segment == 0:
+                    mask[i - start_block] = True
+
+        align = alignment_tokens if alignment_tokens else block_size
+        for boundary_tokens in replay_boundaries:
+            aligned = boundary_tokens // align * align
+            boundary_block = aligned // block_size - 1
+            if start_block <= boundary_block < end_block:
+                mask[boundary_block - start_block] = True
+        return mask
+
+    def _retention_block_mask(
+        self,
+        block_mask: list[bool] | None,
+        num_cached_blocks: int,
+        num_full_blocks: int,
+        alignment_tokens: int | None,
+        retention_interval: int | None,
+        replay_boundaries: Sequence[int],
+    ) -> list[bool] | None:
+        if retention_interval is None:
+            return block_mask
+        retention_mask = self.retention_block_mask(
+            start_block=num_cached_blocks,
+            end_block=num_full_blocks,
+            block_size=self.block_size,
+            alignment_tokens=alignment_tokens,
+            retention_interval=retention_interval,
+            replay_boundaries=replay_boundaries,
+        )
+        if retention_mask is None:
+            return block_mask
+        if block_mask is None:
+            return retention_mask
+        return [a and b for a, b in zip(block_mask, retention_mask)]
 
     def new_step_starts(self) -> None:
         self.cached_blocks_this_step.clear()
@@ -1454,6 +1579,8 @@ class CrossAttentionManager(SingleTypeKVCacheManager):
         request: Request,
         num_tokens: int,
         alignment_tokens: int | None = None,
+        retention_interval: int | None = None,
+        replay_boundaries: Sequence[int] = (),
     ) -> None:
         # We do not cache blocks for cross-attention to be shared between
         # requests, so this method is not relevant.

@@ -110,6 +110,25 @@ class CacheConfig:
       security risk tolerance against the performance benefits before turning this on.
     - "xxhash_cbor" combines canonical CBOR serialization with xxHash for
       reproducible hashing. Requires the optional ``xxhash`` package."""
+    prefix_cache_retention_interval: int | None = Field(default=None, ge=0)
+    """Token interval between retained Mamba prefix-cache checkpoints.
+
+    In ``mamba_cache_mode="align"`` every Mamba cache group snapshots its
+    recurrent state at each block boundary. This knob decides which of those
+    snapshots keep a prefix-cache hash once they are superseded:
+
+    - ``None`` (default): retain every boundary state (dense).
+    - ``0``: retain only the state a later request can resume from, i.e. the
+      prompt's last full block boundary.
+    - positive, a multiple of the scheduler block size: additionally retain
+      one state per ``interval``-token segment, so a request sharing only part
+      of a cached prompt recomputes at most ``interval`` tokens.
+
+    Non-retained snapshots carry no hash and are reused before every other
+    free block, so one long prefill no longer cycles the whole free queue and
+    evicts other requests' cached attention blocks (1CatAI/1Cat-vLLM#490).
+    Mirrors upstream vLLM's ``--prefix-cache-retention-interval`` for Mamba
+    groups; sliding-window groups are not affected in this fork."""
     calculate_kv_scales: bool = False
     """Deprecated: This option is deprecated and will be removed in v0.19.
     It enables dynamic calculation of `k_scale` and `v_scale` when
@@ -198,6 +217,7 @@ class CacheConfig:
             "num_gpu_blocks_override",
             "enable_prefix_caching",
             "prefix_caching_hash_algo",
+            "prefix_cache_retention_interval",
             # Prefix-caching implementation detail (doesn't affect compiled graph).
             "hash_block_size",
             "mamba_page_size_padded",

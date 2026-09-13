@@ -8,6 +8,21 @@ default off unless stated otherwise.
 
 ### Added
 
+- `--prefix-cache-retention-interval` / `CacheConfig.prefix_cache_retention_interval`
+  (default `None`, byte-identical): sparse retention of Mamba `align`-mode
+  state snapshots, ported from upstream vLLM (#43447, #45845, default 0 there
+  since #55353). Every 1568-token boundary used to leave a hashed snapshot per
+  Mamba group in the LRU tail, so one 221K prefill popped ~570 of the 683
+  blocks and evicted every other request's cached attention prefix (the
+  "221K healthy / 237K cliff" of 1CatAI/1Cat-vLLM#490). `0` keeps only the
+  prompt-end boundary state, `N` (multiple of the scheduler block size) also
+  keeps one snapshot per `N` tokens; non-retained snapshots carry no hash and
+  are reused before any other free block (`BlockPool(reuse_unhashed_first)`,
+  `FreeKVCacheBlockQueue.prepend_n`, enabled only with the knob set). With
+  `0`: resend of a 221K prompt after another 221K prefill hits 1.0 (was 0,
+  296 s), two 245,760-token contexts run concurrently with hit 0.995, TTFT
+  4.3 / 6.7 s, 9.3 / 14.0 tok/s, zero preemptions; greedy outputs after a miss
+  and after a hit identical. Test: `tests/v1/core/test_prefix_cache_retention.py`.
 - `VLLM_FLASH_V100_PREFILL_D256_BM32_ANY_PAGE` (default off): the SM70 D256
   BM32 phase paged-prefill kernel accepts any KV page size that is a multiple
   of its 16-token page slot. With MTP the align-mode attention block becomes

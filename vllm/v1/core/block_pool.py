@@ -153,11 +153,19 @@ class BlockPool:
         hash_block_size: int,
         enable_kv_cache_events: bool = False,
         metrics_collector: KVCacheMetricsCollector | None = None,
+        reuse_unhashed_first: bool = False,
     ):
         assert isinstance(num_gpu_blocks, int) and num_gpu_blocks > 0
         self.num_gpu_blocks = num_gpu_blocks
         self.enable_caching = enable_caching
         self.hash_block_size = hash_block_size
+        # When set, freed blocks without a prefix-cache hash (partial tails,
+        # Mamba running/unretained state snapshots) go to the front of the
+        # free queue and are reused first, so they never age out cached
+        # blocks. Upstream vLLM does this unconditionally; here it is enabled
+        # together with `prefix_cache_retention_interval` so the default free
+        # order stays unchanged.
+        self.reuse_unhashed_first = reuse_unhashed_first
         # All kv-cache blocks.
         self.blocks: list[KVCacheBlock] = [
             KVCacheBlock(idx) for idx in range(num_gpu_blocks)
@@ -420,6 +428,11 @@ class BlockPool:
         """Free a list of blocks. The blocks should be ordered by their
         eviction priority, where the first block will be evicted first.
 
+        With ``reuse_unhashed_first`` blocks that can never serve a prefix-cache
+        hit (no block hash, or caching disabled) are put at the front of the
+        free queue and reused first; hashed blocks go to the back and age out
+        LRU-style.
+
         Args:
             ordered_blocks: A list of blocks to free ordered by their eviction
                 priority.
@@ -428,9 +441,22 @@ class BlockPool:
         blocks_list = list(ordered_blocks)
         for block in blocks_list:
             block.ref_cnt -= 1
-        self.free_block_queue.append_n(
-            [block for block in blocks_list if block.ref_cnt == 0 and not block.is_null]
-        )
+        to_free = [
+            block for block in blocks_list if block.ref_cnt == 0 and not block.is_null
+        ]
+        if not self.reuse_unhashed_first:
+            self.free_block_queue.append_n(to_free)
+            return
+
+        blocks_to_evict_first: list[KVCacheBlock] = []
+        blocks_to_evict_last: list[KVCacheBlock] = []
+        for block in to_free:
+            if block.block_hash is None or not self.enable_caching:
+                blocks_to_evict_first.append(block)
+            else:
+                blocks_to_evict_last.append(block)
+        self.free_block_queue.prepend_n(blocks_to_evict_first)
+        self.free_block_queue.append_n(blocks_to_evict_last)
 
     def evict_blocks(self, block_ids: set[int]) -> None:
         """evict blocks from the prefix cache by their block IDs.

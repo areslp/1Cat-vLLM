@@ -5,7 +5,84 @@ retraction and process trap lives on the development host, git-excluded:
 `oh-my-gpu:/home/l/work/1Cat-vLLM/logs/handoff/HANDOFF.md` plus the
 task-lifecycle contract `packet.yaml` (validates `READY`).
 
-## 2026-09-13 — BM32 any-page kernel path (this commit)
+## 2026-09-14 — prefix-cache retention interval (this commit)
+
+**Task intent.** Item 2 of the #490 follow-up: the report's "221K healthy /
+237K cliff" is not the kernel but the prefix cache. In `mamba_cache_mode=align`
+every Mamba cache group snapshots its recurrent state into a fresh block at
+each 1568-token boundary and frees the superseded snapshot, hashed, into the
+LRU tail: one 221K prefill pops ~570 of the 683 blocks (1 attention + 3
+snapshots per boundary), so the next long prefill evicts the previous
+context's attention prefix while only its final snapshot survives, and the
+resend recomputes everything. Upstream vLLM hit the same problem and fixed it
+with `--prefix-cache-retention-interval` (vllm-project/vllm #43447, #45845,
+Marconi junctions #37898/#47782, default 0 since #55353); this commit ports
+that knob (the owner's choice over a fork-only evict-first flag).
+
+**Changed scope.**
+
+- `vllm/config/cache.py`, `vllm/engine/arg_utils.py`: the knob
+  (`None` = dense, the default; `0` = keep only the prompt-end boundary
+  state; `N` = also one snapshot per `N` tokens, `N` a multiple of the
+  scheduler block size), excluded from the compile hash.
+- `vllm/v1/kv_cache_interface.py`, `vllm/v1/core/kv_cache_utils.py`: carried
+  on `KVCacheConfig`; `FreeKVCacheBlockQueue.prepend_n`.
+- `vllm/v1/core/block_pool.py`: `reuse_unhashed_first` (set only with the
+  knob): unhashed frees go to the queue front, hashed ones to the back. The
+  default free order is unchanged.
+- `vllm/v1/core/single_type_kv_cache_manager.py`: `cache_blocks` takes
+  `retention_interval` / `replay_boundaries`; `MambaManager.retention_block_mask`
+  leaves unretained boundary states unhashed and skips them in
+  `cached_blocks_this_step` and the offload hand-off list.
+- `vllm/v1/core/kv_cache_coordinator.py`: validation, `_replay_boundaries`
+  (`num_prompt_tokens - 1` and `num_prompt_tokens`, plus one block earlier for
+  EAGLE/MTP groups), plumbing into both coordinators.
+- `tests/v1/core/test_prefix_cache_retention.py`: free-queue order with the
+  gate off/on, mask cases, and a full-attention + Mamba(align) end to end
+  (dense 6 snapshots / partial-prefix sibling hit 48; interval 0 -> 1 / 0;
+  interval 32 -> 3 / 32; fewer block pops with retention).
+- Not ported: Marconi shared-prefix junctions (a request sharing only part of
+  a cached prompt gets hit 0 at interval 0) and upstream's internal prefill
+  checkpoints (#52789, needs kernel work on V100).
+
+**Validation.**
+
+- `pytest tests/v1/core/test_prefix_cache_retention.py`: 11 passed.
+  `test_prefix_caching.py`, `test_single_type_kv_cache_manager.py`,
+  `test_mamba_align_chunk_split.py`, `test_kv_cache_utils.py`: 143 passed,
+  16 failed, the same 16 that fail on this host without the change (15 need
+  Hugging Face models, 1 pre-existing `SimpleNamespace` failure).
+  `ruff check` / `ruff format --check` clean.
+- End to end (Qwen3.8-27B-QUASAR-NVFP4, TP2 on 2x V100-PCIE-32GB,
+  fp8_e5m2 KV, decode-rows flag on, no MTP, zero preemptions):
+  interval 0 -> resend of a 221,184-token prompt after another 221K prefill
+  hits 221088/221183 in 1.5 s (dense: hit 0, 296 s); two distinct
+  245,760-token contexts warmed then fired concurrently: hit 0.995, TTFT
+  4.3 / 6.7 s, decode 9.3 / 14.0 tok/s; a prompt sharing the first 110.6K
+  tokens then diverging: hit 0 (121 s). Interval 25088 (16 blocks): the same
+  resend hits 1.0 and the shared-prefix prompt hits 0.891 (16.7 s). Dense:
+  0.974 (4.4 s) but the cliff. In all arms the greedy 64-token output after a
+  cache miss and after a hit is identical.
+- Not run: MTP with the knob set (the EAGLE-group boundary is unit-tested
+  only); any repeat (n=1).
+
+**Remaining risks / follow-ups.**
+
+- Shared-document-different-question workloads lose their Mamba resume point
+  at interval 0; use a positive interval (25088 costs ~27 blocks per 221K
+  context) or port Marconi junctions.
+- Capacity per TP2 server with the knob: about 4 x 262K contexts (171 blocks
+  each of 683); dense keeps only 1.
+- Recommended production settings on this hardware:
+  `--prefix-cache-retention-interval 0`,
+  `VLLM_FLASH_V100_PREFILL_PREFIX_DECODE_ROWS=1`,
+  `VLLM_FLASH_V100_PREFILL_D256_BM32_ANY_PAGE=1` whenever MTP is on,
+  `VLLM_1CAT_PREFILL_PACE_STEPS=4`.
+
+**Commit readiness.** Default behaviour byte-identical with the knob unset;
+nothing posted to #490; PR #616 does not include this change.
+
+## 2026-09-13 — BM32 any-page kernel path (commit 57670d4a6)
 
 **Task intent.** Close 1CatAI/1Cat-vLLM#490 on SM70: a resident 240K-context
 decoder collapsed to 0.5–0.6 tok/s while another request chunk-prefilled.

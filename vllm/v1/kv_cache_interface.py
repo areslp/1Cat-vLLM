@@ -972,6 +972,11 @@ class KVCacheConfig:
     For models with multiple types of attention, there will be multiple groups,
     see `_get_kv_cache_config_uniform_page_size` for more details.
     """
+    prefix_cache_retention_interval: int | None = None
+    """Mamba state-snapshot retention interval in tokens, copied from
+    ``CacheConfig.prefix_cache_retention_interval``: ``None`` retains every
+    block-boundary snapshot (dense), ``0`` only the prompt-end boundary, ``N``
+    additionally one snapshot per ``N``-token segment."""
 
     @property
     def has_mamba_layers(self) -> bool:

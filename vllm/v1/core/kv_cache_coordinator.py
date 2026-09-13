@@ -21,8 +21,35 @@ from vllm.v1.kv_cache_interface import (
     FullAttentionSpec,
     KVCacheConfig,
     KVCacheSpec,
+    MambaSpec,
 )
 from vllm.v1.request import Request
+
+
+def _validate_prefix_cache_retention_interval(
+    retention_interval: int | None,
+    hash_block_size: int,
+    kv_cache_config: KVCacheConfig,
+) -> None:
+    if retention_interval is None:
+        return
+    # Retention sparsifies Mamba (linear-attention) state snapshots; attention
+    # groups cache densely and ignore it.
+    if not any(
+        isinstance(g.kv_cache_spec, MambaSpec) for g in kv_cache_config.kv_cache_groups
+    ):
+        if retention_interval == 0:
+            return
+        raise ValueError(
+            "prefix_cache_retention_interval is set but this model has no Mamba "
+            "KV cache group, so retention has no effect. Unset it or set it to 0."
+        )
+    if retention_interval < 0 or retention_interval % hash_block_size != 0:
+        raise ValueError(
+            f"prefix_cache_retention_interval ({retention_interval}) must be "
+            "non-negative and a multiple of the scheduler block size "
+            f"({hash_block_size})."
+        )
 
 
 class KVCacheCoordinator(ABC):
@@ -46,6 +73,16 @@ class KVCacheCoordinator(ABC):
         self.kv_cache_config = kv_cache_config
         self.max_model_len = max_model_len
         self.enable_caching = enable_caching
+        self.hash_block_size = hash_block_size
+
+        # Mamba state-snapshot retention (`prefix_cache_retention_interval`):
+        # None = dense, 0 = only the prompt-end boundary, N = every N tokens
+        # as well. A positive value must be a multiple of the scheduler block
+        # size (`hash_block_size`) to land on real cache-hit boundaries.
+        self.retention_interval = kv_cache_config.prefix_cache_retention_interval
+        _validate_prefix_cache_retention_interval(
+            self.retention_interval, hash_block_size, kv_cache_config
+        )
 
         self.block_pool = BlockPool(
             num_gpu_blocks=kv_cache_config.num_blocks,
@@ -53,6 +90,7 @@ class KVCacheCoordinator(ABC):
             hash_block_size=hash_block_size,
             enable_kv_cache_events=enable_kv_cache_events,
             metrics_collector=metrics_collector,
+            reuse_unhashed_first=self.retention_interval is not None,
         )
 
         # KV cache group indices that get the EAGLE last-block drop.
@@ -206,7 +244,32 @@ class KVCacheCoordinator(ABC):
                 (including tokens that are already cached).
         """
         for manager in self.single_type_managers:
-            manager.cache_blocks(request, num_computed_tokens)
+            manager.cache_blocks(
+                request,
+                num_computed_tokens,
+                retention_interval=self.retention_interval,
+                replay_boundaries=self._replay_boundaries(request, manager),
+            )
+
+    def _replay_boundaries(
+        self, request: Request, manager: SingleTypeKVCacheManager
+    ) -> tuple[int, ...]:
+        """Token positions a later request can resume this prompt from, used
+        by sparse Mamba checkpoint retention.
+
+        A resend of the identical prompt hits at most ``num_prompt_tokens - 1``
+        (its last token is recomputed for logits) and a longer sibling matches
+        the final aligned block; they differ only on a block-aligned prompt,
+        so both are kept. EAGLE/MTP groups drop the final matched block, so
+        they also keep the boundary one block earlier.
+        """
+        if self.retention_interval is None:
+            return ()
+        num_prompt_tokens = request.num_prompt_tokens
+        boundaries = [num_prompt_tokens - 1, num_prompt_tokens]
+        if manager.kv_cache_group_id in self.eagle_group_ids:
+            boundaries.append(max(num_prompt_tokens - 1 - manager.block_size, 0))
+        return tuple(boundaries)
 
     def free(self, request_id: str) -> None:
         """
@@ -518,6 +581,8 @@ class HybridKVCacheCoordinator(KVCacheCoordinator):
                 request,
                 num_computed_tokens,
                 alignment_tokens=self.lcm_block_size,
+                retention_interval=self.retention_interval,
+                replay_boundaries=self._replay_boundaries(request, manager),
             )
 
     def find_longest_cache_hit(
