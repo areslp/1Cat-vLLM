@@ -85,6 +85,7 @@ from vllm.v1.worker.gpu.cudagraph_utils import (
     ModelCudaGraphManager,
     get_explicit_cudagraph_memory_reserve,
     get_uniform_token_count,
+    is_speculative_uniform_batch,
 )
 from vllm.v1.worker.gpu.dp_utils import dispatch_cg_and_sync_dp
 from vllm.v1.worker.gpu.eplb_utils import EPLBController, step_eplb_after
@@ -1459,6 +1460,20 @@ class GPUModelRunner(LoRAModelRunnerMixin):
         num_toks = scheduler_output.total_num_scheduled_tokens
         max_query_len = max(scheduler_output.num_scheduled_tokens.values())
         uniform_tok_count = get_uniform_token_count(num_reqs, num_toks, max_query_len)
+        if uniform_tok_count is not None and not is_speculative_uniform_batch(
+            uniform_tok_count,
+            scheduler_output.num_scheduled_tokens,
+            scheduler_output.scheduled_spec_decode_tokens,
+        ):
+            # Uniform by shape only (e.g. a prefill chunk of exactly
+            # 1 + num_draft tokens): the captured verify graph would consume
+            # stale spec-state metadata. Run it as a regular batch.
+            logger.info_once(
+                "Uniform %d-token batch without matching draft tokens is not "
+                "dispatched to the speculative-decode cudagraph.",
+                uniform_tok_count,
+            )
+            uniform_tok_count = None
 
         skip_compiled = False
         if self.is_encoder_decoder and scheduler_output.scheduled_encoder_inputs:

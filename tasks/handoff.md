@@ -5,6 +5,37 @@ retraction and process trap lives on the development host, git-excluded:
 `oh-my-gpu:/home/l/work/1Cat-vLLM/logs/handoff/HANDOFF.md` plus the
 task-lifecycle contract `packet.yaml` (validates `READY`).
 
+## 2026-09-14 — speculative cudagraph dispatch guard
+
+**Task intent.** Find the exact site of the retention-0 x DFlash2 garbage
+output (token 248320) that the deferred front insertion only hid.
+
+**Changed scope.** `vllm/v1/worker/gpu/cudagraph_utils.py`
+(`is_speculative_uniform_batch`), `vllm/v1/worker/gpu/model_runner.py`
+(guard before `dispatch_cg_and_sync_dp`, one info_once log),
+`tests/v1/worker/test_gpu_cudagraph_uniform_guard.py`, CHANGELOG correction.
+Root cause: a prefill chunk of exactly 1 + K tokens per request has the shape
+of a verify batch, `get_uniform_token_count` returns K + 1 and the FULL
+speculative cudagraph is replayed while the spec-state metadata buffers were
+last written for the previous occupant of the request slot; the replayed GDN
+kernels write that request's stale slot pages, the running state falls one
+chunk behind, and when the stale pages now belong to another group the next
+chunk's first attention layer produces NaN.
+
+**Validation.** Unit test 6/6; `tests/v1/worker` cudagraph/v2-runner tests 30
+passed, 1 failure identical on clean HEAD; dev-pair e2e: immediate-reuse repro
+config + fix 2/2 clean (9/9 bad before), production config + fix 2/2 clean;
+grouped verify routes still active, pair timing unchanged.
+
+**Remaining risks / follow-ups.** MTP4 (5-token chunks) not exercised
+in-server; the `_pending_front` deferral is redundant now (owner's call to
+remove); production is exposed until redeployed.
+
+**Commit readiness.** Default behaviour identical for real verify batches;
+only shape-only uniform batches change path. Committed via /cpm on
+2026-09-14; production redeploy (fp8_e5m2 KV, 2 slots, DFlash2 q7) follows
+in the same session (see logs/handoff/HANDOFF.md deployment notes).
+
 ## 2026-09-14 — grouped verify for multi-request verify batches (this commit)
 
 **Task intent.** Round 9 left verify steps with several requests (two

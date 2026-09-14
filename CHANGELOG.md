@@ -8,16 +8,29 @@ default off unless stated otherwise.
 
 ### Fixed
 
+- Speculative decoding: a batch that is uniform by shape only (every request
+  scheduled with exactly `1 + num_speculative_tokens` tokens but no draft
+  tokens, e.g. a prefill chunk of 8 tokens with DFlash2 K=7 or 5 tokens with
+  MTP4) is no longer dispatched to the FULL cudagraph captured for the
+  speculative query length (`vllm/v1/worker/gpu/cudagraph_utils.py`:
+  `is_speculative_uniform_batch`, guard in `model_runner.execute_model`).
+  That graph replays the verify kernels, whose spec-state metadata (Mamba
+  slot page ids, slot selectors, verify block tables) is only rebuilt for
+  requests carrying draft tokens, so the replay ran on the previous
+  occupant's metadata: the GDN layers wrote the finished request's stale
+  slot pages, the running state fell one chunk behind, and once the stale
+  pages belonged to another group the next chunk's first attention layer
+  went NaN (out-of-vocabulary token id 248320 until max_tokens). Such a
+  batch now runs as a regular piecewise/eager batch; real verify batches
+  are unchanged.
 - `--prefix-cache-retention-interval`: blocks freed without a prefix-cache
-  hash are now put at the front of the free queue only when the next
-  scheduler step starts (`BlockPool.flush_pending_front` from
+  hash are put at the front of the free queue only when the next scheduler
+  step starts (`BlockPool.flush_pending_front` from
   `KVCacheCoordinator.new_step_starts`), never within the scheduling pass
-  that freed them. With DFlash2 speculative decoding in `mamba_cache_mode=
-  align` the immediate reuse handed a state block that the step in flight
-  still used to the next allocation and a multimodal request after two long
-  prefix-cache requests answered with an out-of-vocabulary token id (248320)
-  until max_tokens; MTP4 was not affected. Reproduced 5/5, clean 4/4 with
-  the fix; retention behaviour otherwise unchanged (dense default untouched).
+  that freed them. Correction: this was first recorded as the fix for the
+  DFlash2 garbage output above; it only changed which pages the stale spec
+  metadata pointed at (same-group pages, finite garbage) and hid the
+  symptom. Kept because it is harmless; the real fix is the dispatch guard.
 
 ### Added
 
