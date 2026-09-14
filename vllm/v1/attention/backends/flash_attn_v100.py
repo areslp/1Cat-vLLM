@@ -19,6 +19,7 @@ from collections.abc import Callable
 from contextlib import suppress
 from dataclasses import dataclass
 from functools import partial
+from types import SimpleNamespace
 from typing import cast
 
 import torch
@@ -38,7 +39,10 @@ from vllm.v1.attention.backends.triton_attn import (
 )
 from vllm.v1.attention.ops.sm70_e4m3_grouped import (
     grouped_e4m3_fp32_allowed,
+    grouped_e4m3_fp32_kv_head_views,
     load_grouped_e4m3_fp32,
+    multi_kv_head_enabled,
+    run_grouped_e4m3_fp32_per_kv_head,
 )
 from vllm.v1.kv_cache_interface import PrefixAnchoredSWASpec
 from vllm.v1.worker.gpu.spec_decode import uses_dflash_selector_engine
@@ -534,6 +538,7 @@ _logged_prefill_prefix_splitkv = False
 _logged_prefill_paged_cache = False
 _logged_prefill_smallq_decode = False
 _logged_prefill_prefix_decode_rows = False
+_logged_prefill_prefix_decode_rows_grouped = False
 _logged_prefill_smallq_decode_xqa = False
 _logged_prefill_smallq_grouped_verify = False
 _logged_prefill_smallq_grouped_verify_gate = False
@@ -5612,6 +5617,37 @@ class FlashAttnV100Impl(TritonAttentionImpl):
             _log_fp8_kv_cache_route("decode", self.kv_cache_dtype, "grouped_fp32")
             _record_route("prefill_smallq_e4m3_grouped_fp32")
             return
+        if grouped_op is not None and run_grouped_e4m3_fp32_per_kv_head(
+            grouped_op,
+            self,
+            query,
+            key_cache,
+            value_cache,
+            block_table,
+            seq_lens,
+            attn_metadata,
+            out=out,
+            softmax_scale=self.scale,
+            k_scale=float(layer._k_scale_float),
+            v_scale=float(layer._v_scale_float),
+            partition_size_hint=partition_size_hint,
+        ):
+            # Opt-in (1CatAI/1Cat-vLLM#490 follow-up): a TP rank holding
+            # several KV heads runs the one-pass grouped verifier once per KV
+            # head instead of scanning the context once per verify row.
+            logger.info_once(
+                "FLASH_ATTN_V100 E4M3 grouped FP32 per-KV-head route selected "
+                "(rows=%d, kv_heads=%d, page=%d).",
+                query.shape[0],
+                key_cache.shape[2],
+                key_cache.shape[1],
+                scope="process",
+            )
+            _log_fp8_kv_cache_route(
+                "decode", self.kv_cache_dtype, "grouped_fp32_per_kv_head"
+            )
+            _record_route("prefill_smallq_e4m3_grouped_fp32_per_kv_head")
+            return
         window_size = self._flash_v100_window_size(causal=True)
         if self._smallq_decode_xqa_allowed(
             query,
@@ -7299,6 +7335,39 @@ class FlashAttnV100Impl(TritonAttentionImpl):
                 out=out_view,
             )
             return output
+        if self.use_dflash2_grouped_verify and multi_kv_head_enabled():
+            # Opt-in (1CatAI/1Cat-vLLM#490 follow-up): a TP rank holding
+            # several KV heads runs the exact one-pass verifier once per KV
+            # head. Each head view is the entry's native single-head layout;
+            # the entry addresses the KV slice through its runtime strides.
+            head_views = grouped_e4m3_fp32_kv_head_views(
+                query[:num_query_tokens],
+                key_cache,
+                value_cache,
+                output[:num_query_tokens],
+            )
+            if head_views is not None and all(
+                self._dflash2_grouped_verify_allowed(
+                    q_h,
+                    k_h,
+                    v_h,
+                    attn_metadata,
+                    num_query_tokens=num_query_tokens,
+                )
+                for q_h, k_h, v_h, _ in head_views
+            ):
+                for head, (q_h, k_h, v_h, out_h) in enumerate(head_views):
+                    self._call_dflash2_grouped_verify(
+                        layer,
+                        q_h,
+                        k_h,
+                        v_h,
+                        attn_metadata,
+                        out=out_h,
+                    )
+                    output[:num_query_tokens, head * 6 : (head + 1) * 6, :].copy_(out_h)
+                _record_route("prefill_smallq_dflash2_grouped_verify_per_kv_head")
+                return output
 
         persistent_decode_block_table = getattr(
             attn_metadata,
@@ -7844,6 +7913,26 @@ class FlashAttnV100Impl(TritonAttentionImpl):
         if not rows or len(rows) == num_seqs:
             return set()
 
+        # Opt-in (1CatAI/1Cat-vLLM#490 follow-up): a verify row of one request
+        # runs the one-pass grouped verifier per KV head instead of one context
+        # scan per query token. Each such row gets the single-request view the
+        # entries expect (its own block-table row and per-token lengths).
+        grouped_rows = self._run_prefill_prefix_decode_rows_grouped(
+            layer,
+            query,
+            key_cache,
+            value_cache,
+            attn_metadata,
+            out_view,
+            rows,
+            qsl,
+            seq_lens_host,
+        )
+        if grouped_rows:
+            rows = [i for i in rows if i not in grouped_rows]
+            if not rows:
+                return grouped_rows
+
         token_idx: list[int] = []
         token_rows: list[int] = []
         token_seq_lens: list[int] = []
@@ -7993,7 +8082,124 @@ class FlashAttnV100Impl(TritonAttentionImpl):
         )
         _record_route(route)
         out_view.index_copy_(0, start_idx, out_rows)
-        return set(rows)
+        return set(rows) | grouped_rows
+
+    def _run_prefill_prefix_decode_rows_grouped(
+        self,
+        layer: torch.nn.Module,
+        query: torch.Tensor,
+        key_cache: torch.Tensor,
+        value_cache: torch.Tensor,
+        attn_metadata: TritonAttentionMetadata,
+        out_view: torch.Tensor,
+        rows: list[int],
+        qsl: list[int],
+        seq_lens_host: list[int],
+    ) -> set[int]:
+        """Per-KV-head grouped verify for the verify rows of a mixed batch.
+
+        fp8_e4m3: the E4M3 FP32 entry (2 <= q <= 8). fp8_e5m2: the legacy
+        one-pass verifier of a DFlash2 target (q = 8 or 16). Rows the entries
+        cannot take stay on the per-token decode expansion.
+        """
+        global _logged_prefill_prefix_decode_rows_grouped
+        if not multi_kv_head_enabled():
+            return set()
+        if key_cache.dtype != torch.uint8 or value_cache.dtype != torch.uint8:
+            return set()
+        grouped_op = getattr(self, "flash_attn_grouped_e4m3_fp32_paged", None)
+        use_e4m3 = grouped_op is not None and self.kv_cache_dtype == "fp8_e4m3"
+        use_e5m2 = (
+            self.kv_cache_dtype == "fp8_e5m2"
+            and self.use_dflash2_grouped_verify
+            and getattr(attn_metadata, "is_dflash_selector_target", False)
+        )
+        if not (use_e4m3 or use_e5m2):
+            return set()
+        device = query.device
+        k_scale = float(layer._k_scale_float)
+        v_scale = float(layer._v_scale_float)
+        handled: set[int] = set()
+        for i in rows:
+            q_len = qsl[i + 1] - qsl[i]
+            seq_len = int(seq_lens_host[i])
+            parent_table = attn_metadata.block_table[i : i + 1]
+            parent_seq = attn_metadata.seq_lens[i : i + 1]
+            q_rows = query[qsl[i] : qsl[i + 1]]
+            out_rows = out_view[qsl[i] : qsl[i + 1]]
+            if use_e4m3:
+                if not 2 <= q_len <= 8:
+                    continue
+                request_meta = SimpleNamespace(
+                    block_table=parent_table, seq_lens=parent_seq, causal=True
+                )
+                lengths = torch.arange(
+                    seq_len - q_len + 1,
+                    seq_len + 1,
+                    device=device,
+                    dtype=torch.int32,
+                )
+                if run_grouped_e4m3_fp32_per_kv_head(
+                    grouped_op,
+                    self,
+                    q_rows,
+                    key_cache,
+                    value_cache,
+                    parent_table.expand(q_len, -1).contiguous(),
+                    lengths,
+                    request_meta,
+                    out=out_rows,
+                    softmax_scale=self.scale,
+                    k_scale=k_scale,
+                    v_scale=v_scale,
+                    partition_size_hint=None,
+                ):
+                    handled.add(i)
+                continue
+            # fp8_e5m2 DFlash2 target: the exact one-pass verifier.
+            if q_len not in (8, 16):
+                continue
+            request_meta = SimpleNamespace(
+                block_table=parent_table,
+                seq_lens=parent_seq,
+                causal=True,
+                is_dflash_selector_target=True,
+                max_model_len=getattr(attn_metadata, "max_model_len", 0),
+                num_reqs=1,
+                max_query_len=q_len,
+            )
+            head_views = grouped_e4m3_fp32_kv_head_views(
+                q_rows, key_cache, value_cache, out_rows
+            )
+            if head_views is None or not all(
+                self._dflash2_grouped_verify_allowed(
+                    q_h, k_h, v_h, request_meta, num_query_tokens=q_len
+                )
+                for q_h, k_h, v_h, _ in head_views
+            ):
+                continue
+            for head, (q_h, k_h, v_h, out_h) in enumerate(head_views):
+                self._call_dflash2_grouped_verify(
+                    layer, q_h, k_h, v_h, request_meta, out=out_h
+                )
+                out_rows[:, head * 6 : (head + 1) * 6, :].copy_(out_h)
+            handled.add(i)
+        if handled:
+            if not _logged_prefill_prefix_decode_rows_grouped:
+                logger.info(
+                    "FLASH_ATTN_V100 mixed-batch verify rows take the grouped "
+                    "per-KV-head route (%s, rows=%d, kv_heads=%d, page=%d).",
+                    self.kv_cache_dtype,
+                    len(handled),
+                    int(key_cache.shape[2]),
+                    int(key_cache.shape[1]),
+                )
+                _logged_prefill_prefix_decode_rows_grouped = True
+            _log_fp8_kv_cache_route(
+                "decode", self.kv_cache_dtype, "grouped_per_kv_head"
+            )
+            _record_route("prefill_prefix_decode_rows_grouped_per_kv_head")
+        return handled
 
     def _run_prefill_paged_call(
         self,

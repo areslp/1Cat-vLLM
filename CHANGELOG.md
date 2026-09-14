@@ -8,6 +8,16 @@ default off unless stated otherwise.
 
 ### Added
 
+- `VLLM_FLASH_V100_GROUPED_VERIFY_MULTI_KV_HEAD` (default off): on a TP rank
+  that holds several KV heads (TP2 of the 24/4-head Qwen3.8-27B), the SM70
+  one-pass grouped verifiers (E4M3 FP32 q2..8 and the legacy E5M2 DFlash2
+  q8/q16 entry) run once per KV head on strided KV views instead of falling
+  back to one context scan per verify row. Covers the single-request verify
+  step and the verify rows of a mixed prefill+decode batch. At 240K on
+  2x V100 the DFlash2 q7 step drops from ~0.20 s to ~0.075 s on fp8_e5m2
+  (23 -> 77-107 tok/s solo; 7 -> 19 tok/s while another request prefills)
+  and from 0.43 s to 0.12 s on fp8_e4m3. Test:
+  `tests/kernels/attention/test_sm70_grouped_e4m3_fp32_multi_kv_head.py`.
 - `--prefix-cache-retention-interval` / `CacheConfig.prefix_cache_retention_interval`
   (default `None`, byte-identical): sparse retention of Mamba `align`-mode
   state snapshots, ported from upstream vLLM (#43447, #45845, default 0 there

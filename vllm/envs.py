@@ -401,6 +401,7 @@ if TYPE_CHECKING:
     VLLM_SM70_DECODE_TILE_PROFILE: bool = False
     VLLM_FLASH_V100_ROUTE_SUMMARY: bool = False
     VLLM_FLASH_V100_PREFILL_PREFIX_DECODE_ROWS: bool = False
+    VLLM_FLASH_V100_GROUPED_VERIFY_MULTI_KV_HEAD: bool = False
     VLLM_FLASH_V100_FP8_PREFILL_BRIDGE: bool = True
     VLLM_FLASH_V100_DECODE_FP8_XQA_MIN_SEQ_LEN: int = 16384
     VLLM_FLASH_V100_KERNEL_BLOCK_SIZE16: bool = False
@@ -2889,6 +2890,14 @@ environment_variables: dict[str, Callable[[], Any]] = {
     # per-sequence paged prefill kernel. Default off; default path unchanged.
     "VLLM_FLASH_V100_PREFILL_PREFIX_DECODE_ROWS": lambda: bool(
         int(os.getenv("VLLM_FLASH_V100_PREFILL_PREFIX_DECODE_ROWS", "0"))
+    ),
+    # Experimental (1CatAI/1Cat-vLLM#490 follow-up): with an fp8_e4m3 KV cache,
+    # run the single-request E4M3 FP32 grouped verifier (q2..8, six query
+    # heads per KV head) once per KV head on TP ranks that hold several KV
+    # heads (TP2 of a 24/4-head model), instead of one context scan per verify
+    # row. Default off; default path unchanged.
+    "VLLM_FLASH_V100_GROUPED_VERIFY_MULTI_KV_HEAD": lambda: bool(
+        int(os.getenv("VLLM_FLASH_V100_GROUPED_VERIFY_MULTI_KV_HEAD", "0"))
     ),
     "VLLM_FLASH_V100_FP8_PREFILL_BRIDGE": lambda: bool(
         int(os.getenv("VLLM_FLASH_V100_FP8_PREFILL_BRIDGE", "1"))

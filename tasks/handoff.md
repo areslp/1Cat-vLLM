@@ -5,7 +5,45 @@ retraction and process trap lives on the development host, git-excluded:
 `oh-my-gpu:/home/l/work/1Cat-vLLM/logs/handoff/HANDOFF.md` plus the
 task-lifecycle contract `packet.yaml` (validates `READY`).
 
-## 2026-09-14 — prefix-cache retention interval (this commit)
+## 2026-09-14 — per-KV-head grouped verify on TP2 (this commit)
+
+**Task intent.** Long-context speculative decoding on 2x V100. The fork's
+one-pass grouped verifiers only accept the TP4 layout (6 query heads and one
+KV head per rank), so on TP2 every MTP/DFlash2 verify row scanned the 240K
+context separately: MTP4 30 tok/s, DFlash2 q7 23 tok/s (fp8_e5m2). Both
+native entries address the paged KV through runtime strides, so the rank's
+query and KV are sliced per KV head and the entry is called once per head.
+
+**Changed scope.**
+
+- `vllm/v1/attention/ops/sm70_e4m3_grouped.py`: `grouped_e4m3_fp32_kv_head_views`
+  and `run_grouped_e4m3_fp32_per_kv_head` (gate every head view, then run).
+- `vllm/v1/attention/backends/flash_attn_v100.py`: the per-KV-head route in
+  the single-request E4M3 FP32 path, the legacy E5M2 DFlash2 verifier, and
+  the verify rows of a mixed prefill+decode batch
+  (`_run_prefill_prefix_decode_rows_grouped`).
+- `vllm/envs.py`: `VLLM_FLASH_V100_GROUPED_VERIFY_MULTI_KV_HEAD` (default off).
+- `tests/kernels/attention/test_sm70_grouped_e4m3_fp32_multi_kv_head.py`.
+
+**Validation.** Kernel tests 10/10 on GPU 0 (per-head result bitwise equal to
+a contiguous single-head call, FP64 oracle, CUDA-graph replay, gating);
+existing E4M3 grouped tests unchanged. End to end at 240K (TP2, fp8, ROWS +
+ANY_PAGE + pacing 4): DFlash2 q7 fp8_e5m2 solo 23 -> 77-107 tok/s
+(0.20 -> 0.073 s per step), during a 16K prefill 7 -> 19 tok/s, after it
+19 -> 97-115; fp8_e4m3 8.7 -> 56-66 tok/s. Outputs coherent; the e5m2 and
+e4m3 arms with the flag are identical over 512 tokens. tok/s differs with
+the branch the fixed prompt takes at token 12 (a copy of corpus text drafts
+at 8/8), so compare step times across arms.
+
+**Remaining risks / follow-ups.** Verify batches with several requests still
+scan per row (log "MTP verifier XQA path active (rows=24)"). MTP4 on fp8_e4m3
+cannot serve a long request on this branch (draft-layer E4M3 XQA guard,
+with and without `VLLM_FLASH_V100_E4M3_BATCH_XQA`). DFlash2 shrinks the KV
+pool to 634K tokens (2.42 x 262K). All numbers n=1.
+
+**Commit readiness.** Default behaviour unchanged with the flag unset.
+
+## 2026-09-14 — prefix-cache retention interval (commit 59f54f8bea)
 
 **Task intent.** Item 2 of the #490 follow-up: the report's "221K healthy /
 237K cliff" is not the kernel but the prefix cache. In `mamba_cache_mode=align`
