@@ -45,6 +45,14 @@ def _free_order(reuse_unhashed_first: bool) -> list[int]:
     b1, b2, b3 = pool.get_new_blocks(3)
     b2.block_hash = make_block_hash_with_group_id(BlockHash(b"hash-b2"), 0)
     pool.free_blocks([b1, b2, b3])
+    if reuse_unhashed_first:
+        # Unhashed frees are held back until the next step starts.
+        assert [b.block_id for b in pool.free_block_queue.get_all_free_blocks()] == [
+            4,
+            5,
+            2,
+        ]
+        pool.flush_pending_front()
     return [b.block_id for b in pool.free_block_queue.get_all_free_blocks()]
 
 
@@ -166,6 +174,7 @@ def _prefill(manager: KVCacheManager, req, chunk: int = BLOCK_SIZE) -> int:
     first = True
     while pos < req.num_tokens:
         num_new = min(chunk, req.num_tokens - pos)
+        manager.new_step_starts()
         blocks = manager.allocate_slots(
             req,
             num_new,

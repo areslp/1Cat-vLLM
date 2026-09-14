@@ -5,7 +5,39 @@ retraction and process trap lives on the development host, git-excluded:
 `oh-my-gpu:/home/l/work/1Cat-vLLM/logs/handoff/HANDOFF.md` plus the
 task-lifecycle contract `packet.yaml` (validates `READY`).
 
-## 2026-09-14 — per-KV-head grouped verify on TP2 (this commit)
+## 2026-09-14 — retention interval: defer front insertion by one step (this commit)
+
+**Task intent.** Deploying DFlash2 q7 on the 2x V100 service with
+`--prefix-cache-retention-interval 0` produced, for a multimodal request that
+followed two long prefix-cache requests, an answer made of the out-of-vocab
+token id 248320 repeated to max_tokens (0 accepted drafts). Bisect: DFlash2 +
+retention 0 fails with and without the per-KV-head flag; DFlash2 + dense
+retention and MTP4 + retention 0 are clean. The retention knob handed a block
+freed in the current scheduling pass straight back out in the same pass, and
+the Mamba align + DFlash2 path still used that block in the step in flight.
+
+**Changed scope.**
+
+- `vllm/v1/core/block_pool.py`: unhashed frees under `reuse_unhashed_first`
+  wait in `_pending_front`; `flush_pending_front()` prepends them.
+- `vllm/v1/core/kv_cache_coordinator.py`: `new_step_starts()` flushes first.
+- `tests/v1/core/test_prefix_cache_retention.py`: pending order asserted, the
+  end-to-end helper calls `new_step_starts()` per step like the scheduler.
+
+**Validation.** `pytest tests/v1/core/test_prefix_cache_retention.py
+test_prefix_caching.py test_single_type_kv_cache_manager.py`: 85 passed.
+Reproduction probe (two 15.5K prefix requests then a fresh 3-image prompt,
+DFlash2 q7, retention 0, flag on, GPUs 0,1): 5/5 bad before, 4/4 clean after.
+Sequential cliff probe with retention 0 (warm A, resend A, warm B, resend A)
+re-run after the fix: see logs/cliff7_r0d_seq.json on the host.
+
+**Remaining risks / follow-ups.** The exact freeing site under speculative
+decoding is not identified; the deferral is the containment. Pending blocks
+are not counted as free for one step.
+
+**Commit readiness.** Dense default (knob unset) untouched.
+
+## 2026-09-14 — per-KV-head grouped verify on TP2 (commit 75319e2d39)
 
 **Task intent.** Long-context speculative decoding on 2x V100. The fork's
 one-pass grouped verifiers only accept the TP4 layout (6 query heads and one

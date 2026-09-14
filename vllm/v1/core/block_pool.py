@@ -166,6 +166,11 @@ class BlockPool:
         # together with `prefix_cache_retention_interval` so the default free
         # order stays unchanged.
         self.reuse_unhashed_first = reuse_unhashed_first
+        # Unhashed frees wait here until the next scheduler step starts. A
+        # block freed while a step is being scheduled can still be read by the
+        # step in flight (Mamba align state copies, speculative state
+        # relocation), so it must not be handed out again within that step.
+        self._pending_front: list[KVCacheBlock] = []
         # All kv-cache blocks.
         self.blocks: list[KVCacheBlock] = [
             KVCacheBlock(idx) for idx in range(num_gpu_blocks)
@@ -455,8 +460,15 @@ class BlockPool:
                 blocks_to_evict_first.append(block)
             else:
                 blocks_to_evict_last.append(block)
-        self.free_block_queue.prepend_n(blocks_to_evict_first)
+        self._pending_front.extend(blocks_to_evict_first)
         self.free_block_queue.append_n(blocks_to_evict_last)
+
+    def flush_pending_front(self) -> None:
+        """Make the unhashed blocks freed during the previous step reusable,
+        at the front of the free queue. Called when a scheduler step starts."""
+        if self._pending_front:
+            self.free_block_queue.prepend_n(self._pending_front)
+            self._pending_front = []
 
     def evict_blocks(self, block_ids: set[int]) -> None:
         """evict blocks from the prefix cache by their block IDs.
@@ -486,6 +498,7 @@ class BlockPool:
             bool: True if the prefix cache is successfully reset,
             False otherwise.
         """
+        self.flush_pending_front()
         num_used_blocks = self.num_gpu_blocks - self.get_num_free_blocks()
         if num_used_blocks != 1:  # The null block is always marked as used
             logger.warning(

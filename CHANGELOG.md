@@ -6,6 +6,19 @@ default off unless stated otherwise.
 
 ## Unreleased (branch `exp/sub-block-chunks`)
 
+### Fixed
+
+- `--prefix-cache-retention-interval`: blocks freed without a prefix-cache
+  hash are now put at the front of the free queue only when the next
+  scheduler step starts (`BlockPool.flush_pending_front` from
+  `KVCacheCoordinator.new_step_starts`), never within the scheduling pass
+  that freed them. With DFlash2 speculative decoding in `mamba_cache_mode=
+  align` the immediate reuse handed a state block that the step in flight
+  still used to the next allocation and a multimodal request after two long
+  prefix-cache requests answered with an out-of-vocabulary token id (248320)
+  until max_tokens; MTP4 was not affected. Reproduced 5/5, clean 4/4 with
+  the fix; retention behaviour otherwise unchanged (dense default untouched).
+
 ### Added
 
 - `VLLM_FLASH_V100_GROUPED_VERIFY_MULTI_KV_HEAD` (default off): on a TP rank
