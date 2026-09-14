@@ -5,7 +5,34 @@ retraction and process trap lives on the development host, git-excluded:
 `oh-my-gpu:/home/l/work/1Cat-vLLM/logs/handoff/HANDOFF.md` plus the
 task-lifecycle contract `packet.yaml` (validates `READY`).
 
-## 2026-09-14 — retention interval: defer front insertion by one step (this commit)
+## 2026-09-14 — grouped verify for multi-request verify batches (this commit)
+
+**Task intent.** Round 9 left verify steps with several requests (two
+decoders both speculating) on the per-row XQA path ("MTP verifier XQA path
+active (rows=16)"). The request-major batch has one uniform query span per
+request, so each request gets the single-request view (its block-table row,
+its per-token lengths) and the one-pass grouped verifier runs per request and
+per KV head, without host synchronisation (CUDA-graph replay safe).
+
+**Changed scope.** `vllm/v1/attention/backends/flash_attn_v100.py`:
+`_smallq_grouped_per_request`, tried first in `_call_flash_attn_smallq_decode_paged`
+when `num_reqs >= 2`; E5M2 DFlash2 targets (q 8/16) and E4M3 (q 2..8); all
+requests must pass the gates or the batch stays on the per-row path.
+
+**Validation.** Two decoders (A 240K + B 16K, 256 tokens each, DFlash2 q7,
+fp8_e5m2, 2 slots): 22.5 s -> 14.5 s wall, 0.274 -> 0.148 s per step, A 12.5
+-> 21.4 tok/s, B 11.4 -> 17.6; outputs differ from the baseline only at
+near-tie tokens (A ':' -0.73 vs '_bytes' -0.74, B ' validate' -1.14 vs
+' logger' -1.35); garbage probe clean; SM70 attention/spec tests 233/233 with
+the flag off and on.
+
+**Remaining risks / follow-ups.** n=1; three decoders and E4M3 batches not
+run in-server; padded MTP verify batches stay per-row by design.
+
+**Commit readiness.** Default behaviour unchanged with the flag unset. Not
+deployed (owner to decide).
+
+## 2026-09-14 — retention interval: defer front insertion by one step (commit 3040730392)
 
 **Task intent.** Deploying DFlash2 q7 on the 2x V100 service with
 `--prefix-cache-retention-interval 0` produced, for a multimodal request that

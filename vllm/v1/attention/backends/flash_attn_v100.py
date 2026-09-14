@@ -539,6 +539,7 @@ _logged_prefill_paged_cache = False
 _logged_prefill_smallq_decode = False
 _logged_prefill_prefix_decode_rows = False
 _logged_prefill_prefix_decode_rows_grouped = False
+_logged_smallq_grouped_per_request = False
 _logged_prefill_smallq_decode_xqa = False
 _logged_prefill_smallq_grouped_verify = False
 _logged_prefill_smallq_grouped_verify_gate = False
@@ -5566,6 +5567,154 @@ class FlashAttnV100Impl(TritonAttentionImpl):
             min_seq_len = max(min_seq_len, _decode_fp8_xqa_min_seq_len())
         return effective_seq_hint >= max(1, min_seq_len)
 
+    def _smallq_grouped_per_request(
+        self,
+        layer: torch.nn.Module,
+        query: torch.Tensor,
+        key_cache: torch.Tensor,
+        value_cache: torch.Tensor,
+        block_table: torch.Tensor,
+        seq_lens: torch.Tensor,
+        attn_metadata: TritonAttentionMetadata,
+        *,
+        out: torch.Tensor,
+        partition_size_hint: int | None,
+    ) -> bool:
+        """Verify batch of several requests: one-pass grouped verifier per
+        request and per KV head (opt-in).
+
+        The verify rows are request-major with the same span per request
+        (``query.shape[0] == num_reqs * q``). ``block_table`` / ``seq_lens``
+        are the per-token expansions. Every request must qualify before any
+        call is issued; otherwise the batch stays on the per-row path.
+        """
+        global _logged_smallq_grouped_per_request
+        if not multi_kv_head_enabled():
+            return False
+        parent_table = getattr(attn_metadata, "block_table", None)
+        parent_seq = getattr(attn_metadata, "seq_lens", None)
+        if parent_table is None or parent_seq is None:
+            return False
+        num_reqs = int(parent_table.shape[0])
+        num_tokens = int(query.shape[0])
+        if num_reqs < 2 or num_tokens % num_reqs != 0:
+            return False
+        q_per_req = num_tokens // num_reqs
+        if (
+            key_cache.dtype != torch.uint8
+            or value_cache.dtype != torch.uint8
+            or int(parent_seq.shape[0]) < num_reqs
+            or int(block_table.shape[0]) < num_tokens
+            or int(seq_lens.shape[0]) < num_tokens
+        ):
+            return False
+        grouped_op = getattr(self, "flash_attn_grouped_e4m3_fp32_paged", None)
+        use_e4m3 = (
+            grouped_op is not None
+            and self.kv_cache_dtype == "fp8_e4m3"
+            and 2 <= q_per_req <= 8
+        )
+        use_e5m2 = (
+            self.kv_cache_dtype == "fp8_e5m2"
+            and self.use_dflash2_grouped_verify
+            and getattr(attn_metadata, "is_dflash_selector_target", False)
+            and q_per_req in (8, 16)
+        )
+        if not (use_e4m3 or use_e5m2):
+            return False
+        max_model_len = getattr(attn_metadata, "max_model_len", 0)
+        plans = []
+        for i in range(num_reqs):
+            start, end = i * q_per_req, (i + 1) * q_per_req
+            q_rows = query[start:end]
+            out_rows = out[start:end]
+            if use_e4m3:
+                request_meta = SimpleNamespace(
+                    block_table=parent_table[i : i + 1],
+                    seq_lens=parent_seq[i : i + 1],
+                    causal=True,
+                )
+                table_rows = block_table[start:end]
+                length_rows = seq_lens[start:end]
+                views = grouped_e4m3_fp32_kv_head_views(
+                    q_rows, key_cache, value_cache, out_rows
+                )
+                if views is None or not all(
+                    grouped_e4m3_fp32_allowed(
+                        self,
+                        q_h,
+                        k_h,
+                        v_h,
+                        table_rows,
+                        length_rows,
+                        request_meta,
+                        out=out_h,
+                        partition_size_hint=partition_size_hint,
+                    )
+                    for q_h, k_h, v_h, out_h in views
+                ):
+                    return False
+                plans.append((request_meta, table_rows, length_rows, views, out_rows))
+            else:
+                request_meta = SimpleNamespace(
+                    block_table=parent_table[i : i + 1],
+                    seq_lens=parent_seq[i : i + 1],
+                    causal=True,
+                    is_dflash_selector_target=True,
+                    max_model_len=max_model_len,
+                    num_reqs=1,
+                    max_query_len=q_per_req,
+                )
+                views = grouped_e4m3_fp32_kv_head_views(
+                    q_rows, key_cache, value_cache, out_rows
+                )
+                if views is None or not all(
+                    self._dflash2_grouped_verify_allowed(
+                        q_h, k_h, v_h, request_meta, num_query_tokens=q_per_req
+                    )
+                    for q_h, k_h, v_h, _ in views
+                ):
+                    return False
+                plans.append((request_meta, None, None, views, out_rows))
+        k_scale = float(layer._k_scale_float)
+        v_scale = float(layer._v_scale_float)
+        for request_meta, table_rows, length_rows, views, out_rows in plans:
+            for head, (q_h, k_h, v_h, out_h) in enumerate(views):
+                if use_e4m3:
+                    grouped_op(
+                        q_h,
+                        k_h,
+                        v_h,
+                        request_meta.block_table,
+                        length_rows,
+                        out=out_h,
+                        softmax_scale=self.scale,
+                        k_scale=k_scale,
+                        v_scale=v_scale,
+                    )
+                else:
+                    self._call_dflash2_grouped_verify(
+                        layer, q_h, k_h, v_h, request_meta, out=out_h
+                    )
+                out_rows[:, head * 6 : (head + 1) * 6, :].copy_(out_h)
+        if not _logged_smallq_grouped_per_request:
+            logger.info(
+                "FLASH_ATTN_V100 multi-request verify batch takes the grouped "
+                "per-request, per-KV-head route (%s, reqs=%d, q=%d, kv_heads=%d, "
+                "page=%d).",
+                self.kv_cache_dtype,
+                num_reqs,
+                q_per_req,
+                int(key_cache.shape[2]),
+                int(key_cache.shape[1]),
+            )
+            _logged_smallq_grouped_per_request = True
+        _log_fp8_kv_cache_route(
+            "decode", self.kv_cache_dtype, "grouped_per_request_per_kv_head"
+        )
+        _record_route("prefill_smallq_grouped_per_request_per_kv_head")
+        return True
+
     def _call_flash_attn_smallq_decode_paged(
         self,
         layer: torch.nn.Module,
@@ -5583,6 +5732,20 @@ class FlashAttnV100Impl(TritonAttentionImpl):
     ) -> None:
         global _logged_prefill_smallq_decode_xqa
         grouped_op = getattr(self, "flash_attn_grouped_e4m3_fp32_paged", None)
+        # getattr: policy tests drive this method with a bare namespace as self.
+        grouped_per_request = getattr(self, "_smallq_grouped_per_request", None)
+        if grouped_per_request is not None and grouped_per_request(
+            layer,
+            query,
+            key_cache,
+            value_cache,
+            block_table,
+            seq_lens,
+            attn_metadata,
+            out=out,
+            partition_size_hint=partition_size_hint,
+        ):
+            return
         if grouped_op is not None and grouped_e4m3_fp32_allowed(
             self,
             query,

@@ -31,6 +31,9 @@ default off unless stated otherwise.
   (23 -> 77-107 tok/s solo; 7 -> 19 tok/s while another request prefills)
   and from 0.43 s to 0.12 s on fp8_e4m3. Test:
   `tests/kernels/attention/test_sm70_grouped_e4m3_fp32_multi_kv_head.py`.
+  Verify batches holding several requests (request-major, one span per
+  request) take the same route per request: two decoders at 240K + 16K go
+  from 0.274 s to 0.148 s per step (A 12.5 -> 21.4 tok/s, B 11.4 -> 17.6).
 - `--prefix-cache-retention-interval` / `CacheConfig.prefix_cache_retention_interval`
   (default `None`, byte-identical): sparse retention of Mamba `align`-mode
   state snapshots, ported from upstream vLLM (#43447, #45845, default 0 there
