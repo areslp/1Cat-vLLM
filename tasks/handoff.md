@@ -5,6 +5,30 @@ retraction and process trap lives on the development host, git-excluded:
 `oh-my-gpu:/home/l/work/1Cat-vLLM/logs/handoff/HANDOFF.md` plus the
 task-lifecycle contract `packet.yaml` (validates `READY`).
 
+## 2026-09-14 — TP4: per-request grouped verify for single-KV-head ranks
+
+**Task intent.** Owner moved production to TP4 on all four V100s; multi-request
+verify batches had fallen to the per-row XQA scan (0.225 s/step).
+
+**Changed scope.** `vllm/v1/attention/backends/flash_attn_v100.py`
+(`_smallq_grouped_per_request`: single-KV-head branch, one native call per
+request, distinct log/route tag), tests in
+`tests/kernels/attention/test_sm70_grouped_e4m3_fp32_multi_kv_head.py` and
+`tests/v1/attention/test_sm70_flash_v100_policy.py`. Run script gained TP/PP/GPUS
+tunables; 2-card unit `qwen38-27b-vllm-tp2.service` kept (disabled).
+
+**Validation.** 155 kernel+policy tests pass on GPU; production TP4: smoke and
+garbage probe clean, two decoders 240K+16K 0.124 s/step (was 0.225; TP2 0.148),
+solo 240K 46 ms/step (TP2 73). Profile: target_forward 33 ms, draft 7, sample 3.
+
+**Remaining risks / follow-ups.** E4M3 single-head branch not run in-server;
+two-decoder phase looks CPU-bound (verifier wall 110 ms vs gpu 27 ms); NCCL P2P
+within PHB pairs untested (hard-coded `NCCL_P2P_DISABLE=1`); first-verify
+Triton JIT spike; mixed prefill+decode rows still need two KV heads.
+
+**Commit readiness.** Flag-gated; default behaviour unchanged. Committed via
+/cpm on 2026-09-14; production TP4 already runs this tree.
+
 ## 2026-09-14 — speculative cudagraph dispatch guard
 
 **Task intent.** Find the exact site of the retention-0 x DFlash2 garbage

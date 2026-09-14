@@ -3295,3 +3295,255 @@ def test_e4m3_fp32_smallq_forwards_live_lengths_or_falls_back(monkeypatch, mode)
         assert calls[0][0][3] is table
         assert routes == ["prefill_smallq_decode_scalar"]
         assert bool((out == 2).all())
+
+
+# ---------------------------------------------------------------------------
+# Multi-request verify batch on a rank holding a single KV head (TP4 layout).
+# _smallq_grouped_per_request verifies each request's contiguous q slice
+# (q, 6, 256) with one native call per request -- no per-KV-head views. These
+# are CPU/plumbing tests (fake native ops); numerics live in the kernel suite.
+# ---------------------------------------------------------------------------
+
+
+def _single_head_verify_batch(q_per_req, num_reqs, page, dtype):
+    parent_table = torch.arange(1, num_reqs * 2 + 1, dtype=torch.int32).reshape(
+        num_reqs, 2
+    )
+    lengths_per_req = [2050 + 1024 * i for i in range(num_reqs)]
+    parent_seq = torch.tensor(lengths_per_req, dtype=torch.int32)
+    num_tokens = q_per_req * num_reqs
+    query = torch.zeros((num_tokens, 6, 256), dtype=torch.float16)
+    out = torch.zeros_like(query)
+    key_cache = torch.zeros((4, page, 1, 256), dtype=torch.uint8)
+    value_cache = torch.zeros_like(key_cache)
+    block_table = parent_table.repeat_interleave(q_per_req, dim=0).contiguous()
+    seq_lens = torch.cat(
+        [
+            torch.arange(n - q_per_req + 1, n + 1, dtype=torch.int32)
+            for n in lengths_per_req
+        ]
+    )
+    attn_metadata = SimpleNamespace(
+        block_table=parent_table,
+        seq_lens=parent_seq,
+        is_dflash_selector_target=True,
+        max_model_len=262144,
+        causal=True,
+    )
+    return SimpleNamespace(
+        parent_table=parent_table,
+        parent_seq=parent_seq,
+        query=query,
+        out=out,
+        key_cache=key_cache,
+        value_cache=value_cache,
+        block_table=block_table,
+        seq_lens=seq_lens,
+        attn_metadata=attn_metadata,
+        q_per_req=q_per_req,
+        num_reqs=num_reqs,
+    )
+
+
+def test_smallq_grouped_per_request_single_kv_head_e5m2(monkeypatch):
+    import vllm.v1.attention.backends.flash_attn_v100 as flash_v100
+
+    impl = flash_v100.FlashAttnV100Impl(
+        num_heads=6,
+        head_size=256,
+        scale=0.0625,
+        num_kv_heads=1,
+        alibi_slopes=None,
+        sliding_window=None,
+        kv_cache_dtype="fp8_e5m2",
+    )
+    impl.use_dflash2_grouped_verify = True
+    impl.dflash2_grouped_verify_max_query_tokens = 16
+    impl.dflash2_grouped_verify_min_model_len = 32768
+
+    calls = []
+
+    def grouped_verify(query, key_cache, value_cache, block_table, seq_lens, **kwargs):
+        calls.append(
+            SimpleNamespace(
+                rows=int(query.shape[0]),
+                block_table=block_table.clone(),
+                seq_lens=seq_lens.clone(),
+                out_ptr=kwargs["out"].data_ptr(),
+                one_pass=kwargs["one_pass"],
+                k_scale=kwargs["k_scale"],
+                v_scale=kwargs["v_scale"],
+            )
+        )
+        kwargs["out"].fill_(len(calls))
+
+    impl.flash_attn_grouped_verify_paged = grouped_verify
+    impl.flash_attn_decode_paged = lambda *a, **k: pytest.fail("fell to per-row path")
+
+    routes: list[str] = []
+    monkeypatch.setattr(flash_v100, "_record_route", routes.append)
+    monkeypatch.setenv("VLLM_FLASH_V100_GROUPED_VERIFY_MULTI_KV_HEAD", "1")
+
+    b = _single_head_verify_batch(q_per_req=8, num_reqs=2, page=1648, dtype="fp8_e5m2")
+    layer = SimpleNamespace(_k_scale_float=0.5, _v_scale_float=2.0)
+    ran = impl._smallq_grouped_per_request(
+        layer,
+        b.query,
+        b.key_cache,
+        b.value_cache,
+        b.block_table,
+        b.seq_lens,
+        b.attn_metadata,
+        out=b.out,
+        partition_size_hint=None,
+    )
+
+    assert ran is True
+    # One native call per request, in order, on the request's own metadata row.
+    assert len(calls) == b.num_reqs
+    for i, call in enumerate(calls):
+        assert call.rows == b.q_per_req
+        assert call.one_pass is True
+        assert call.k_scale == 0.5 and call.v_scale == 2.0
+        assert torch.equal(call.block_table, b.parent_table[i : i + 1])
+        assert torch.equal(call.seq_lens, b.parent_seq[i : i + 1])
+        # Writes straight into the request's output slice (no per-head copy).
+        assert call.out_ptr == b.out[i * b.q_per_req : (i + 1) * b.q_per_req].data_ptr()
+    assert bool((b.out[: b.q_per_req] == 1).all())
+    assert bool((b.out[b.q_per_req :] == 2).all())
+    # Distinct single-KV-head route, not the per-KV-head (TP2) tag; the
+    # underlying one-pass verifier ran once per request (each records its own
+    # dflash2 route before the batch's closing single-KV-head tag).
+    assert routes[-3:] == [
+        "fp8_kv_decode",
+        "fp8_kv_decode_grouped_per_request_single_kv_head",
+        "prefill_smallq_grouped_per_request_single_kv_head",
+    ]
+    assert "prefill_smallq_grouped_per_request_per_kv_head" not in routes
+    assert routes.count("prefill_smallq_dflash2_grouped_verify") == b.num_reqs
+
+
+def test_smallq_grouped_per_request_single_kv_head_opt_in_and_gated(monkeypatch):
+    import vllm.v1.attention.backends.flash_attn_v100 as flash_v100
+
+    impl = flash_v100.FlashAttnV100Impl(
+        num_heads=6,
+        head_size=256,
+        scale=0.0625,
+        num_kv_heads=1,
+        alibi_slopes=None,
+        sliding_window=None,
+        kv_cache_dtype="fp8_e5m2",
+    )
+    impl.use_dflash2_grouped_verify = True
+    impl.dflash2_grouped_verify_max_query_tokens = 16
+    impl.dflash2_grouped_verify_min_model_len = 32768
+
+    calls = []
+    impl.flash_attn_grouped_verify_paged = lambda *a, **k: calls.append(1)
+
+    routes: list[str] = []
+    monkeypatch.setattr(flash_v100, "_record_route", routes.append)
+    layer = SimpleNamespace(_k_scale_float=0.5, _v_scale_float=2.0)
+
+    def run(batch):
+        return impl._smallq_grouped_per_request(
+            layer,
+            batch.query,
+            batch.key_cache,
+            batch.value_cache,
+            batch.block_table,
+            batch.seq_lens,
+            batch.attn_metadata,
+            out=batch.out,
+            partition_size_hint=None,
+        )
+
+    # Opt-in: with the flag unset the route is never taken and out is untouched.
+    monkeypatch.delenv("VLLM_FLASH_V100_GROUPED_VERIFY_MULTI_KV_HEAD", raising=False)
+    b_off = _single_head_verify_batch(8, 2, 1648, "fp8_e5m2")
+    b_off.out.fill_(7.0)
+    assert run(b_off) is False
+    assert len(calls) == 0
+    assert bool((b_off.out == 7.0).all())
+    assert routes == []
+
+    # Flag on but a page size the verifier gate rejects: every request must gate
+    # before any call, so the batch falls back with out untouched.
+    monkeypatch.setenv("VLLM_FLASH_V100_GROUPED_VERIFY_MULTI_KV_HEAD", "1")
+    b_bad = _single_head_verify_batch(8, 2, 999, "fp8_e5m2")
+    b_bad.out.fill_(7.0)
+    assert run(b_bad) is False
+    assert len(calls) == 0
+    assert bool((b_bad.out == 7.0).all())
+    assert routes == []
+
+
+def test_smallq_grouped_per_request_single_kv_head_e4m3(monkeypatch):
+    import vllm.v1.attention.backends.flash_attn_v100 as flash_v100
+
+    impl = flash_v100.FlashAttnV100Impl(
+        num_heads=6,
+        head_size=256,
+        scale=0.0625,
+        num_kv_heads=1,
+        alibi_slopes=None,
+        sliding_window=None,
+        kv_cache_dtype="fp8_e4m3",
+    )
+    impl.use_smallq_decode_xqa = True
+
+    calls = []
+
+    def grouped_e4m3(q, k, v, table, lengths, **kwargs):
+        calls.append(
+            SimpleNamespace(
+                rows=int(q.shape[0]),
+                table=table.clone(),
+                lengths=lengths.clone(),
+                out_ptr=kwargs["out"].data_ptr(),
+                k_scale=kwargs["k_scale"],
+                v_scale=kwargs["v_scale"],
+            )
+        )
+        kwargs["out"].fill_(len(calls))
+
+    impl.flash_attn_grouped_e4m3_fp32_paged = grouped_e4m3
+
+    routes: list[str] = []
+    monkeypatch.setattr(flash_v100, "_record_route", routes.append)
+    monkeypatch.setenv("VLLM_FLASH_V100_GROUPED_VERIFY_MULTI_KV_HEAD", "1")
+    monkeypatch.delenv("VLLM_FLASH_V100_DECODE_PARTITION_SIZE", raising=False)
+
+    b = _single_head_verify_batch(q_per_req=4, num_reqs=2, page=1648, dtype="fp8_e4m3")
+    layer = SimpleNamespace(_k_scale_float=0.5, _v_scale_float=1.25)
+    ran = impl._smallq_grouped_per_request(
+        layer,
+        b.query,
+        b.key_cache,
+        b.value_cache,
+        b.block_table,
+        b.seq_lens,
+        b.attn_metadata,
+        out=b.out,
+        partition_size_hint=None,
+    )
+
+    assert ran is True
+    assert len(calls) == b.num_reqs
+    for i, call in enumerate(calls):
+        assert call.rows == b.q_per_req
+        assert call.k_scale == 0.5 and call.v_scale == 1.25
+        # Per-request single block-table row and the request's per-token lengths.
+        assert torch.equal(call.table, b.parent_table[i : i + 1])
+        assert torch.equal(
+            call.lengths, b.seq_lens[i * b.q_per_req : (i + 1) * b.q_per_req]
+        )
+        assert call.out_ptr == b.out[i * b.q_per_req : (i + 1) * b.q_per_req].data_ptr()
+    assert bool((b.out[: b.q_per_req] == 1).all())
+    assert bool((b.out[b.q_per_req :] == 2).all())
+    assert routes == [
+        "fp8_kv_decode",
+        "fp8_kv_decode_grouped_per_request_single_kv_head",
+        "prefill_smallq_grouped_per_request_single_kv_head",
+    ]

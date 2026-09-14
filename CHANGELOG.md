@@ -34,6 +34,15 @@ default off unless stated otherwise.
 
 ### Added
 
+- `VLLM_FLASH_V100_GROUPED_VERIFY_MULTI_KV_HEAD`: multi-request verify batches
+  on a rank that holds a single KV head (the TP4 layout of Qwen3.8-27B) now
+  take the per-request one-pass grouped verifier as well, one native call per
+  request on its contiguous q x 6 x 256 slice (E5M2 q 8/16, E4M3 FP32 q 2..8),
+  instead of falling past the B=1 native gate to the per-row XQA scan. TP4 two
+  decoders 240K+16K: 0.225 -> 0.124 s/step. Log line "multi-request verify
+  batch takes the grouped per-request single-KV-head route". The two-KV-head
+  branch and the flag-unset behaviour are unchanged.
+
 - `VLLM_FLASH_V100_GROUPED_VERIFY_MULTI_KV_HEAD` (default off): on a TP rank
   that holds several KV heads (TP2 of the 24/4-head Qwen3.8-27B), the SM70
   one-pass grouped verifiers (E4M3 FP32 q2..8 and the legacy E5M2 DFlash2

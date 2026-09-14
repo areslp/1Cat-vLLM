@@ -5603,11 +5603,19 @@ class FlashAttnV100Impl(TritonAttentionImpl):
         if (
             key_cache.dtype != torch.uint8
             or value_cache.dtype != torch.uint8
+            or key_cache.ndim != 4
+            or value_cache.ndim != 4
             or int(parent_seq.shape[0]) < num_reqs
             or int(block_table.shape[0]) < num_tokens
             or int(seq_lens.shape[0]) < num_tokens
         ):
             return False
+        # A TP4 rank holds a single KV head: each request's contiguous q slice
+        # (q, 6, 256) is already the native single-request layout, so it is
+        # verified with one call per request and no per-KV-head views. A rank
+        # holding several KV heads (TP2) still slices the query and paged KV
+        # per head; that path is byte-identical to before.
+        single_head = int(key_cache.shape[2]) == 1
         grouped_op = getattr(self, "flash_attn_grouped_e4m3_fp32_paged", None)
         use_e4m3 = (
             grouped_op is not None
@@ -5636,8 +5644,12 @@ class FlashAttnV100Impl(TritonAttentionImpl):
                 )
                 table_rows = block_table[start:end]
                 length_rows = seq_lens[start:end]
-                views = grouped_e4m3_fp32_kv_head_views(
-                    q_rows, key_cache, value_cache, out_rows
+                views = (
+                    [(q_rows, key_cache, value_cache, out_rows)]
+                    if single_head
+                    else grouped_e4m3_fp32_kv_head_views(
+                        q_rows, key_cache, value_cache, out_rows
+                    )
                 )
                 if views is None or not all(
                     grouped_e4m3_fp32_allowed(
@@ -5665,8 +5677,12 @@ class FlashAttnV100Impl(TritonAttentionImpl):
                     num_reqs=1,
                     max_query_len=q_per_req,
                 )
-                views = grouped_e4m3_fp32_kv_head_views(
-                    q_rows, key_cache, value_cache, out_rows
+                views = (
+                    [(q_rows, key_cache, value_cache, out_rows)]
+                    if single_head
+                    else grouped_e4m3_fp32_kv_head_views(
+                        q_rows, key_cache, value_cache, out_rows
+                    )
                 )
                 if views is None or not all(
                     self._dflash2_grouped_verify_allowed(
@@ -5696,23 +5712,38 @@ class FlashAttnV100Impl(TritonAttentionImpl):
                     self._call_dflash2_grouped_verify(
                         layer, q_h, k_h, v_h, request_meta, out=out_h
                     )
-                out_rows[:, head * 6 : (head + 1) * 6, :].copy_(out_h)
+                if not single_head:
+                    out_rows[:, head * 6 : (head + 1) * 6, :].copy_(out_h)
         if not _logged_smallq_grouped_per_request:
-            logger.info(
-                "FLASH_ATTN_V100 multi-request verify batch takes the grouped "
-                "per-request, per-KV-head route (%s, reqs=%d, q=%d, kv_heads=%d, "
-                "page=%d).",
-                self.kv_cache_dtype,
-                num_reqs,
-                q_per_req,
-                int(key_cache.shape[2]),
-                int(key_cache.shape[1]),
-            )
+            if single_head:
+                logger.info(
+                    "FLASH_ATTN_V100 multi-request verify batch takes the "
+                    "grouped per-request single-KV-head route (%s, reqs=%d, "
+                    "q=%d, kv_heads=1, page=%d).",
+                    self.kv_cache_dtype,
+                    num_reqs,
+                    q_per_req,
+                    int(key_cache.shape[1]),
+                )
+            else:
+                logger.info(
+                    "FLASH_ATTN_V100 multi-request verify batch takes the grouped "
+                    "per-request, per-KV-head route (%s, reqs=%d, q=%d, kv_heads=%d, "
+                    "page=%d).",
+                    self.kv_cache_dtype,
+                    num_reqs,
+                    q_per_req,
+                    int(key_cache.shape[2]),
+                    int(key_cache.shape[1]),
+                )
             _logged_smallq_grouped_per_request = True
-        _log_fp8_kv_cache_route(
-            "decode", self.kv_cache_dtype, "grouped_per_request_per_kv_head"
+        route_tag = (
+            "grouped_per_request_single_kv_head"
+            if single_head
+            else "grouped_per_request_per_kv_head"
         )
-        _record_route("prefill_smallq_grouped_per_request_per_kv_head")
+        _log_fp8_kv_cache_route("decode", self.kv_cache_dtype, route_tag)
+        _record_route("prefill_smallq_" + route_tag)
         return True
 
     def _call_flash_attn_smallq_decode_paged(
