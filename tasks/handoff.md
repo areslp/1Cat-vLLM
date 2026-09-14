@@ -5,6 +5,33 @@ retraction and process trap lives on the development host, git-excluded:
 `oh-my-gpu:/home/l/work/1Cat-vLLM/logs/handoff/HANDOFF.md` plus the
 task-lifecycle contract `packet.yaml` (validates `READY`).
 
+## 2026-09-14 — TP4 round 12b: verify skeleton cache, metadata-kernel warmup
+
+**Task intent.** Attribute and cut host-side cost of multi-request verify
+steps on TP4; settle the NCCL question.
+
+**Changed scope.** `vllm/v1/attention/backends/flash_attn_v100.py`
+(`_dflash2_per_request_skeleton`, per-step cache consumed by
+`_smallq_grouped_per_request`; native calls unchanged),
+`vllm/v1/worker/gpu/model_runner.py` (`_warmup_sm70_dflash2_smallq_metadata_kernel`
+from `_warmup_sm70_aux_kernels`), CPU plumbing tests in
+`tests/v1/attention/test_sm70_flash_v100_policy.py`. Serve script exports
+`VLLM_FLASH_V100_DFLASH2_BATCHED_GROUPED_VERIFY=1` and NCCL tunables (defaults unchanged).
+
+**Validation.** GPU tests 194 pass (grouped verify, smallq metadata, multi-KV-head,
+policy) in the stop window; production TP4 boot with the patch + batched env:
+smoke and garbage probe clean, route "request-major B2/q8/H6/Hkv1", two decoders
+240K+16K 0.114 s/step (per-request 0.124), solo 240K 46 ms unchanged, aux warmup
+lists `dflash2_smallq_metadata`. NCCL microbench: P2P on gives no all-reduce gain;
+`NCCL_P2P_LEVEL=PHB` hangs all four GPUs — `NCCL_P2P_DISABLE=1` is mandatory.
+
+**Remaining risks / follow-ups.** ~70-80 ms host-side time per multi-request
+step (verifier wall 116 ms vs GPU 33 ms) is unattributed (not in the attention
+files); eight other Triton kernels still JIT once during inference.
+
+**Commit readiness.** Numerics unchanged; flag-gated paths only. Committed via
+/cpm on 2026-09-14 and deployed on TP4.
+
 ## 2026-09-14 — TP4: per-request grouped verify for single-KV-head ranks
 
 **Task intent.** Owner moved production to TP4 on all four V100s; multi-request

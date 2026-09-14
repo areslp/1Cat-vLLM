@@ -715,10 +715,116 @@ class GPUModelRunner(LoRAModelRunnerMixin):
         if speculator_warmup is not None:
             warmed.extend(speculator_warmup(self._dummy_run))
 
+        if self._warmup_sm70_dflash2_smallq_metadata_kernel():
+            warmed.append("dflash2_smallq_metadata")
+
         if warmed:
             logger.info_once(
                 "SM70 V2 auxiliary kernel warmup finished: %s", tuple(warmed)
             )
+
+    def _warmup_sm70_dflash2_smallq_metadata_kernel(self) -> bool:
+        """Pre-compile the grouped small-query verifier metadata Triton kernel.
+
+        ``_sm70_prepare_grouped_smallq_decode_metadata_kernel`` is launched once
+        per verify step by ``prepare_dflash2_smallq_group_metadata``. Its
+        ``BLOCK_COLS`` constexpr is fixed by the full-attention block-table
+        width and its ``REQ_BLOCK`` constexpr follows ``num_reqs``. The kernel is
+        skipped during CUDA-graph capture (capture builds no grouped small-query
+        metadata), so the first real verify of each ``num_reqs`` otherwise pays a
+        multi-hundred-ms Triton JIT spike (jit_monitor warns
+        ``_sm70_prepare_grouped_smallq_decode_metadata_kernel``). Compile every
+        ``num_reqs`` in 1..max_num_seqs (q = decode_query_len) ahead of time.
+        """
+        if not (
+            envs.VLLM_SM70_DFLASH2_FUSED_SMALLQ_METADATA
+            and envs.VLLM_SM70_DFLASH2_GROUPED_SMALLQ_METADATA
+        ):
+            return False
+        attn_groups = getattr(self, "attn_groups", None)
+        block_tables = getattr(self, "block_tables", None)
+        if not attn_groups or block_tables is None:
+            return False
+        try:
+            from vllm.v1.attention.backends.flash_attn_v100 import (
+                FlashAttnV100MetadataBuilder,
+                _sm70_prepare_grouped_smallq_decode_metadata,
+            )
+
+            # Full-attention block-table widths that drive the BLOCK_COLS
+            # constexpr, taken from the same per-group block tables the runtime
+            # launch reads.
+            group_block_tables = block_tables.block_tables
+            block_cols_set: set[int] = set()
+            for kv_cache_group_id, groups in enumerate(attn_groups):
+                if kv_cache_group_id >= len(group_block_tables):
+                    continue
+                for group in groups:
+                    builder = group.get_metadata_builder(0)
+                    if not isinstance(builder, FlashAttnV100MetadataBuilder):
+                        continue
+                    width = int(group_block_tables[kv_cache_group_id].gpu.shape[1])
+                    if width > 0:
+                        block_cols_set.add(width)
+            if not block_cols_set:
+                return False
+
+            q = int(self.decode_query_len)
+            device = self.device
+            for block_cols in sorted(block_cols_set):
+                for num_reqs in range(1, self.max_num_reqs + 1):
+                    num_query_tokens = num_reqs * q
+                    # Cover the steady-state (all rows live) shape the service
+                    # uses, plus, for multi-request steps, the partially-live
+                    # shape a just-finished request leaves behind (a distinct
+                    # real-token Triton specialization).
+                    real_variants = {num_query_tokens}
+                    if num_reqs >= 2:
+                        real_variants.add(q)
+                    for real_num_query_tokens in sorted(real_variants):
+                        out_bt = torch.zeros(
+                            (num_query_tokens, block_cols),
+                            dtype=torch.int32,
+                            device=device,
+                        )
+                        out_sl = torch.zeros(
+                            (num_query_tokens,), dtype=torch.int32, device=device
+                        )
+                        out_qsl = torch.zeros(
+                            (num_reqs + 1,), dtype=torch.int32, device=device
+                        )
+                        in_bt = torch.zeros(
+                            (num_reqs, block_cols), dtype=torch.int32, device=device
+                        )
+                        seq_lens = torch.full(
+                            (num_reqs,), max(q, 1), dtype=torch.int32, device=device
+                        )
+                        query_start_loc = torch.arange(
+                            0,
+                            (num_reqs + 1) * q,
+                            q,
+                            dtype=torch.int32,
+                            device=device,
+                        )
+                        _sm70_prepare_grouped_smallq_decode_metadata(
+                            [out_bt],
+                            [out_sl],
+                            [out_qsl],
+                            [in_bt],
+                            seq_lens,
+                            query_start_loc,
+                            num_reqs=num_reqs,
+                            num_query_tokens=num_query_tokens,
+                            real_num_query_tokens=real_num_query_tokens,
+                        )
+            torch.cuda.synchronize()
+            return True
+        except Exception as exc:  # pragma: no cover - warmup must never block boot
+            logger.warning_once(
+                "SM70 DFlash2 grouped small-query metadata warmup skipped: %s",
+                exc,
+            )
+            return False
 
     @torch.inference_mode()
     @step_eplb_after(is_dummy=True)

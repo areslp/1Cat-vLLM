@@ -34,6 +34,17 @@ default off unless stated otherwise.
 
 ### Added
 
+- SM70 DFlash2 verify: the per-request grouped-verify skeleton (request
+  metadata rows, seq_lens views, output slices) is built once per step and
+  reused across the 16 full-attention layers (`_dflash2_per_request_skeleton`),
+  and the Triton small-query metadata kernel is compiled at boot for reqs
+  1..max_num_seqs (`_warmup_sm70_dflash2_smallq_metadata_kernel`) so the first
+  verify of a new batch shape no longer pays a JIT spike. Native calls and
+  numerics unchanged. Production note: `VLLM_FLASH_V100_DFLASH2_BATCHED_GROUPED_VERIFY=1`
+  (request-major batched verifier, bitwise-identical to per-request) takes the
+  TP4 two-decoder step from 0.124 to 0.114 s and is now exported by the serve
+  script.
+
 - `VLLM_FLASH_V100_GROUPED_VERIFY_MULTI_KV_HEAD`: multi-request verify batches
   on a rank that holds a single KV head (the TP4 layout of Qwen3.8-27B) now
   take the per-request one-pass grouped verifier as well, one native call per

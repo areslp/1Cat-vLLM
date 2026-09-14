@@ -5567,6 +5567,78 @@ class FlashAttnV100Impl(TritonAttentionImpl):
             min_seq_len = max(min_seq_len, _decode_fp8_xqa_min_seq_len())
         return effective_seq_hint >= max(1, min_seq_len)
 
+    def _dflash2_per_request_skeleton(
+        self,
+        attn_metadata: TritonAttentionMetadata,
+        parent_table: torch.Tensor,
+        parent_seq: torch.Tensor,
+        block_table: torch.Tensor,
+        seq_lens: torch.Tensor,
+        *,
+        num_reqs: int,
+        q_per_req: int,
+        use_e4m3: bool,
+        max_model_len: int,
+    ) -> list[
+        tuple[int, int, SimpleNamespace, torch.Tensor | None, torch.Tensor | None]
+    ]:
+        """Per-step-invariant request skeleton, built once and reused per layer.
+
+        The full-attention layers in a verify step share one ``attn_metadata``,
+        so the request metadata (single-row ``block_table``/``seq_lens`` views)
+        and the per-request row spans do not change from layer to layer. Cache
+        the skeleton on ``attn_metadata`` keyed by the identities of every tensor
+        it slices from, plus the shape counts and route. The cached skeleton
+        holds those source tensors alive, so a signature match can only occur
+        while the exact same tensors are live -- a stale slice is impossible.
+        Only the per-layer query/output slices and the native calls run per
+        layer, byte-identical to the un-hoisted path.
+        """
+        sig = (
+            id(parent_table),
+            id(parent_seq),
+            num_reqs,
+            q_per_req,
+            use_e4m3,
+            max_model_len,
+            id(block_table) if use_e4m3 else 0,
+            id(seq_lens) if use_e4m3 else 0,
+        )
+        cached = getattr(attn_metadata, "_dflash2_per_request_skeleton_cache", None)
+        if cached is not None and cached[0] == sig:
+            return cached[1]
+        skeleton: list[
+            tuple[int, int, SimpleNamespace, torch.Tensor | None, torch.Tensor | None]
+        ] = []
+        for i in range(num_reqs):
+            start, end = i * q_per_req, (i + 1) * q_per_req
+            if use_e4m3:
+                request_meta = SimpleNamespace(
+                    block_table=parent_table[i : i + 1],
+                    seq_lens=parent_seq[i : i + 1],
+                    causal=True,
+                )
+                table_rows: torch.Tensor | None = block_table[start:end]
+                length_rows: torch.Tensor | None = seq_lens[start:end]
+            else:
+                request_meta = SimpleNamespace(
+                    block_table=parent_table[i : i + 1],
+                    seq_lens=parent_seq[i : i + 1],
+                    causal=True,
+                    is_dflash_selector_target=True,
+                    max_model_len=max_model_len,
+                    num_reqs=1,
+                    max_query_len=q_per_req,
+                )
+                table_rows = None
+                length_rows = None
+            skeleton.append((start, end, request_meta, table_rows, length_rows))
+        # Metadata objects without a writable __dict__ simply skip the cache;
+        # the skeleton is still correct, just rebuilt per layer.
+        with suppress(AttributeError, TypeError):
+            attn_metadata._dflash2_per_request_skeleton_cache = (sig, skeleton)
+        return skeleton
+
     def _smallq_grouped_per_request(
         self,
         layer: torch.nn.Module,
@@ -5631,26 +5703,34 @@ class FlashAttnV100Impl(TritonAttentionImpl):
         if not (use_e4m3 or use_e5m2):
             return False
         max_model_len = getattr(attn_metadata, "max_model_len", 0)
+        # Build the per-request skeleton (request metadata + row spans + e4m3
+        # per-token views) once per step and reuse it across the verify step's
+        # full-attention layers, instead of re-slicing and re-allocating it per
+        # layer. The per-layer query/output slices, the admission gate, and the
+        # native verify calls below are unchanged and byte-identical.
+        skeleton = self._dflash2_per_request_skeleton(
+            attn_metadata,
+            parent_table,
+            parent_seq,
+            block_table,
+            seq_lens,
+            num_reqs=num_reqs,
+            q_per_req=q_per_req,
+            use_e4m3=use_e4m3,
+            max_model_len=max_model_len,
+        )
         plans = []
-        for i in range(num_reqs):
-            start, end = i * q_per_req, (i + 1) * q_per_req
+        for start, end, request_meta, table_rows, length_rows in skeleton:
             q_rows = query[start:end]
             out_rows = out[start:end]
+            views = (
+                [(q_rows, key_cache, value_cache, out_rows)]
+                if single_head
+                else grouped_e4m3_fp32_kv_head_views(
+                    q_rows, key_cache, value_cache, out_rows
+                )
+            )
             if use_e4m3:
-                request_meta = SimpleNamespace(
-                    block_table=parent_table[i : i + 1],
-                    seq_lens=parent_seq[i : i + 1],
-                    causal=True,
-                )
-                table_rows = block_table[start:end]
-                length_rows = seq_lens[start:end]
-                views = (
-                    [(q_rows, key_cache, value_cache, out_rows)]
-                    if single_head
-                    else grouped_e4m3_fp32_kv_head_views(
-                        q_rows, key_cache, value_cache, out_rows
-                    )
-                )
                 if views is None or not all(
                     grouped_e4m3_fp32_allowed(
                         self,
@@ -5668,22 +5748,6 @@ class FlashAttnV100Impl(TritonAttentionImpl):
                     return False
                 plans.append((request_meta, table_rows, length_rows, views, out_rows))
             else:
-                request_meta = SimpleNamespace(
-                    block_table=parent_table[i : i + 1],
-                    seq_lens=parent_seq[i : i + 1],
-                    causal=True,
-                    is_dflash_selector_target=True,
-                    max_model_len=max_model_len,
-                    num_reqs=1,
-                    max_query_len=q_per_req,
-                )
-                views = (
-                    [(q_rows, key_cache, value_cache, out_rows)]
-                    if single_head
-                    else grouped_e4m3_fp32_kv_head_views(
-                        q_rows, key_cache, value_cache, out_rows
-                    )
-                )
                 if views is None or not all(
                     self._dflash2_grouped_verify_allowed(
                         q_h, k_h, v_h, request_meta, num_query_tokens=q_per_req

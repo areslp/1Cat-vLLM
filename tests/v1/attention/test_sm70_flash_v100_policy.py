@@ -3547,3 +3547,190 @@ def test_smallq_grouped_per_request_single_kv_head_e4m3(monkeypatch):
         "fp8_kv_decode_grouped_per_request_single_kv_head",
         "prefill_smallq_grouped_per_request_single_kv_head",
     ]
+
+
+# ---------------------------------------------------------------------------
+# The per-request skeleton (request metadata rows + query spans) is invariant
+# across a verify step's full-attention layers, so it is built once, cached on
+# attn_metadata, and reused. These CPU tests pin the caching/invalidation
+# contract and that per-layer query/output slicing stays independent of it.
+# ---------------------------------------------------------------------------
+
+
+def test_smallq_grouped_per_request_reuses_skeleton_across_layers(monkeypatch):
+    import vllm.v1.attention.backends.flash_attn_v100 as flash_v100
+
+    impl = flash_v100.FlashAttnV100Impl(
+        num_heads=6,
+        head_size=256,
+        scale=0.0625,
+        num_kv_heads=1,
+        alibi_slopes=None,
+        sliding_window=None,
+        kv_cache_dtype="fp8_e5m2",
+    )
+    impl.use_dflash2_grouped_verify = True
+    impl.dflash2_grouped_verify_max_query_tokens = 16
+    impl.dflash2_grouped_verify_min_model_len = 32768
+
+    calls = []
+
+    def grouped_verify(query, key_cache, value_cache, block_table, seq_lens, **kwargs):
+        calls.append(
+            SimpleNamespace(
+                rows=int(query.shape[0]),
+                block_table=block_table.clone(),
+                out_ptr=kwargs["out"].data_ptr(),
+            )
+        )
+        kwargs["out"].fill_(len(calls))
+
+    impl.flash_attn_grouped_verify_paged = grouped_verify
+    monkeypatch.setenv("VLLM_FLASH_V100_GROUPED_VERIFY_MULTI_KV_HEAD", "1")
+
+    b = _single_head_verify_batch(q_per_req=8, num_reqs=2, page=1648, dtype="fp8_e5m2")
+    layer = SimpleNamespace(_k_scale_float=0.5, _v_scale_float=2.0)
+
+    def run_layer(query, out):
+        return impl._smallq_grouped_per_request(
+            layer,
+            query,
+            b.key_cache,
+            b.value_cache,
+            b.block_table,
+            b.seq_lens,
+            b.attn_metadata,
+            out=out,
+            partition_size_hint=None,
+        )
+
+    # First full-attention layer builds and caches the skeleton.
+    assert run_layer(b.query, b.out) is True
+    cache = getattr(b.attn_metadata, "_dflash2_per_request_skeleton_cache", None)
+    assert cache is not None
+    skel1 = cache[1]
+    assert len(skel1) == b.num_reqs
+
+    # A later layer with its own query/output buffers reuses the same skeleton.
+    query2 = torch.zeros_like(b.query)
+    out2 = torch.zeros_like(b.out)
+    assert run_layer(query2, out2) is True
+    cache2 = getattr(b.attn_metadata, "_dflash2_per_request_skeleton_cache", None)
+    assert cache2[1] is skel1
+
+    # Both layers issued one native call per request on the parent rows, and the
+    # second layer wrote into its own output buffer.
+    assert len(calls) == 2 * b.num_reqs
+    for j, call in enumerate(calls):
+        i = j % b.num_reqs
+        assert call.rows == b.q_per_req
+        assert torch.equal(call.block_table, b.parent_table[i : i + 1])
+    assert calls[b.num_reqs].out_ptr == out2[: b.q_per_req].data_ptr()
+    assert bool((out2[: b.q_per_req] == 3).all())
+    assert bool((out2[b.q_per_req :] == 4).all())
+
+
+def test_dflash2_per_request_skeleton_caches_and_invalidates():
+    import vllm.v1.attention.backends.flash_attn_v100 as flash_v100
+
+    impl = flash_v100.FlashAttnV100Impl(
+        num_heads=6,
+        head_size=256,
+        scale=0.0625,
+        num_kv_heads=1,
+        alibi_slopes=None,
+        sliding_window=None,
+        kv_cache_dtype="fp8_e5m2",
+    )
+    b = _single_head_verify_batch(q_per_req=8, num_reqs=2, page=1648, dtype="fp8_e5m2")
+    md = b.attn_metadata
+
+    def build(parent_table, parent_seq, block_table, seq_lens, num_reqs):
+        return impl._dflash2_per_request_skeleton(
+            md,
+            parent_table,
+            parent_seq,
+            block_table,
+            seq_lens,
+            num_reqs=num_reqs,
+            q_per_req=8,
+            use_e4m3=False,
+            max_model_len=262144,
+        )
+
+    skel = build(b.parent_table, b.parent_seq, b.block_table, b.seq_lens, 2)
+    assert len(skel) == 2
+    for i, (start, end, rm, table_rows, length_rows) in enumerate(skel):
+        assert (start, end) == (i * 8, (i + 1) * 8)
+        assert torch.equal(rm.block_table, b.parent_table[i : i + 1])
+        assert torch.equal(rm.seq_lens, b.parent_seq[i : i + 1])
+        assert rm.num_reqs == 1 and rm.max_query_len == 8
+        assert rm.is_dflash_selector_target is True
+        assert rm.max_model_len == 262144 and rm.causal is True
+        # e5m2 verifies the parent block-table row directly: no per-token views.
+        assert table_rows is None and length_rows is None
+
+    # Identical signature returns the cached object.
+    assert build(b.parent_table, b.parent_seq, b.block_table, b.seq_lens, 2) is skel
+
+    # e5m2 ignores the (unused) block_table/seq_lens identity in its signature.
+    reuse = build(
+        b.parent_table, b.parent_seq, b.block_table.clone(), b.seq_lens.clone(), 2
+    )
+    assert reuse is skel
+
+    # A different parent_table identity rebuilds the skeleton.
+    parent2 = b.parent_table.clone()
+    skel3 = build(parent2, b.parent_seq, b.block_table, b.seq_lens, 2)
+    assert skel3 is not skel
+    assert torch.equal(skel3[0][2].block_table, parent2[0:1])
+
+    # A different num_reqs rebuilds the skeleton.
+    skel4 = build(b.parent_table[:1], b.parent_seq[:1], b.block_table, b.seq_lens, 1)
+    assert skel4 is not skel3
+    assert len(skel4) == 1
+
+
+def test_dflash2_per_request_skeleton_e4m3_expansions_and_keying():
+    import vllm.v1.attention.backends.flash_attn_v100 as flash_v100
+
+    impl = flash_v100.FlashAttnV100Impl(
+        num_heads=6,
+        head_size=256,
+        scale=0.0625,
+        num_kv_heads=1,
+        alibi_slopes=None,
+        sliding_window=None,
+        kv_cache_dtype="fp8_e4m3",
+    )
+    b = _single_head_verify_batch(q_per_req=4, num_reqs=2, page=1648, dtype="fp8_e4m3")
+    md = SimpleNamespace()
+
+    def build(block_table, seq_lens):
+        return impl._dflash2_per_request_skeleton(
+            md,
+            b.parent_table,
+            b.parent_seq,
+            block_table,
+            seq_lens,
+            num_reqs=2,
+            q_per_req=4,
+            use_e4m3=True,
+            max_model_len=262144,
+        )
+
+    skel = build(b.block_table, b.seq_lens)
+    assert len(skel) == 2
+    for i, (start, end, rm, table_rows, length_rows) in enumerate(skel):
+        assert (start, end) == (i * 4, (i + 1) * 4)
+        assert torch.equal(rm.block_table, b.parent_table[i : i + 1])
+        assert rm.causal is True
+        # e4m3 request metadata carries no dflash selector fields.
+        assert getattr(rm, "is_dflash_selector_target", None) is None
+        # The per-token expansions come from the block_table/seq_lens arguments.
+        assert torch.equal(table_rows, b.block_table[i * 4 : (i + 1) * 4])
+        assert torch.equal(length_rows, b.seq_lens[i * 4 : (i + 1) * 4])
+
+    # e4m3 keys on the expansion tensors, so a new block_table identity rebuilds.
+    assert build(b.block_table, b.seq_lens) is skel
+    assert build(b.block_table.clone(), b.seq_lens) is not skel
