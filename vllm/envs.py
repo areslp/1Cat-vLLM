@@ -218,6 +218,8 @@ if TYPE_CHECKING:
     VLLM_SM70_AWQ_WARMUP_MAX_M: int = 16
     VLLM_SM70_AWQ_WARMUP_MAX_MOE_TOKENS: int = 8
     VLLM_SM70_AUX_KERNEL_WARMUP: bool = True
+    VLLM_KERNEL_WARMUP_COVERAGE: bool = True
+    VLLM_TRITON_JIT_MANIFEST: str | None = None
     VLLM_SM70_GEMM_LUT_PATH: str | None = None
     VLLM_SM70_AWQ_DENSE_TUNE_MAX_M: int = 16
     VLLM_SM70_FP8_DENSE_TUNE_MAX_M: int = 16
@@ -2118,6 +2120,18 @@ environment_variables: dict[str, Callable[[], Any]] = {
     "VLLM_SM70_AUX_KERNEL_WARMUP": lambda: bool(
         int(os.getenv("VLLM_SM70_AUX_KERNEL_WARMUP", "1"))
     ),
+    # Besides the default prefill/decode warmup iteration, warm up every
+    # request-count class up to max_num_seqs, greedy and generation-config
+    # sampling, and the prompt lengths that fill each power-of-two query
+    # bucket, so the Triton specializations serving selects compile at startup.
+    "VLLM_KERNEL_WARMUP_COVERAGE": lambda: bool(
+        int(os.getenv("VLLM_KERNEL_WARMUP_COVERAGE", "1"))
+    ),
+    # JSONL manifest of Triton kernel specializations first compiled during
+    # inference. Workers append new specializations and preload the recorded
+    # ones before serving, so a shape seen once never JIT-compiles while
+    # serving again. Unset disables recording and preloading.
+    "VLLM_TRITON_JIT_MANIFEST": lambda: os.getenv("VLLM_TRITON_JIT_MANIFEST") or None,
     "VLLM_SM70_GEMM_LUT_PATH": lambda: os.getenv("VLLM_SM70_GEMM_LUT_PATH"),
     "VLLM_SM70_AWQ_DENSE_TUNE_MAX_M": lambda: int(
         os.getenv("VLLM_SM70_AWQ_DENSE_TUNE_MAX_M", "16")
@@ -4964,6 +4978,8 @@ def compile_factors() -> dict[str, object]:
         "VLLM_ENABLE_CUDA_COMPATIBILITY",
         "VLLM_CUDA_COMPATIBILITY_PATH",
         "VLLM_SKIP_MODEL_NAME_VALIDATION",
+        "VLLM_KERNEL_WARMUP_COVERAGE",
+        "VLLM_TRITON_JIT_MANIFEST",
         "LOCAL_RANK",
         "CUDA_VISIBLE_DEVICES",
         "NO_COLOR",

@@ -34,6 +34,23 @@ default off unless stated otherwise.
 
 ### Added
 
+- Startup warmup covers the Triton kernel specializations serving selects
+  (`VLLM_KERNEL_WARMUP_COVERAGE`, default on): every request-count class up to
+  the warmup batch with the all-features, greedy and generation-config sampling
+  profiles, plus one greedy prompt per power-of-two per-request query bucket up
+  to the largest scheduler chunk. Before, the first real requests compiled
+  these (up to ~4 s for `_topk_topp_kernel` on the TP4 DFlash2 service,
+  stalling every running request). `VLLM_KERNEL_WARMUP_COVERAGE=0` restores the
+  single warmup batch.
+
+- `VLLM_TRITON_JIT_MANIFEST=<path>` (unset by default): each Triton
+  specialization first compiled during inference is appended to a JSONL
+  manifest, and the next startup compiles the recorded ones before serving
+  (`jit_monitor.preload_recorded_kernels`), so a shape seen once does not
+  JIT-compile while serving again, including after a code or config change
+  resets the compile cache. The JIT monitor now warns once per specialization
+  with its constexpr values and compile time.
+
 - `VLLM_SM70_CG_DISPATCH_DEBUG` (default off): the MRV2 runner logs one line
   per step with `num_reqs`, `uniform_tok_count` and the chosen cudagraph mode,
   used to attribute the two-decoder step cost on TP4 (clean 2 x 8 verify steps

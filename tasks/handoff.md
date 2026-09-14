@@ -5,6 +5,67 @@ retraction and process trap lives on the development host, git-excluded:
 `oh-my-gpu:/home/l/work/1Cat-vLLM/logs/handoff/HANDOFF.md` plus the
 task-lifecycle contract `packet.yaml` (validates `READY`).
 
+## 2026-09-14 — Serving-time Triton JIT: warmup coverage and preload manifest
+
+**Task intent.** Requests on a freshly started server paid Triton JIT compiles
+that stall the whole engine step. After the 18:58 production boot, rank 0
+compiled 14 kernel variants while serving; a real client request (temperature
+1.0, top_p 0.95, top_k 20) paid `_dflash2_sparse_topk_rejection_kernel` (0.5 s)
+and `_topk_topp_kernel` (~4 s). Warmup ran one batch shape (max_num_seqs
+requests with `for_sampler_warmup` sampling), while serving selects
+specializations by request count (Triton specializes integers equal to 1 or
+divisible by 16), by sampling path (generation-config defaults take the compact
+top-k rejection path) and by per-request query bucket
+(`_prepare_dflash_inputs_kernel` BLOCK_SIZE 16-256). The worker Triton cache sits
+inside the torch.compile hash directory, so each code or config change
+recompiles every variant on first use.
+
+**Changed scope.**
+
+- `vllm/v1/worker/gpu/warmup.py`: with `VLLM_KERNEL_WARMUP_COVERAGE` (default on)
+  `warmup_kernels` also runs every request-count class up to the warmup batch
+  (1, powers of two, 3, the maximum) with the all-features, greedy and
+  generation-config sampling profiles, plus one greedy request per prompt length
+  that fills each power-of-two query bucket up to the largest chunk the
+  scheduler emits (capped by the align-mode Mamba block). Off reproduces the
+  previous iterations.
+- `vllm/triton_utils/jit_monitor.py`: warns once per specialization, with its
+  constexpr values and compile time, instead of once per kernel name. With
+  `VLLM_TRITON_JIT_MANIFEST` each specialization first compiled during inference
+  is appended to a JSONL manifest (flock-deduplicated across TP workers, vLLM
+  modules only); `preload_recorded_kernels()` compiles the recorded
+  specializations through `JITFunction.preload` and initializes their launchers.
+- `vllm/v1/worker/gpu_worker.py`: preload right before the monitor activates.
+- `vllm/envs.py`: both variables, excluded from the compile-cache factors.
+- Tests: `tests/test_jit_monitor.py` (per-specialization warnings and timing,
+  manifest recording, cross-worker dedupe and malformed lines, preload counts,
+  wrapper resolution, a GPU round trip record -> clear cache -> preload -> no JIT),
+  `tests/v1/worker/test_gpu_warmup_blocks.py` (coverage iterations, request-count
+  classes, bucket lengths capped by the align block, sampling profiles).
+
+**Validation.** `pytest tests/test_jit_monitor.py
+tests/v1/worker/test_gpu_warmup_blocks.py -k "not TestTritonJitHookIntegration"`:
+45 passed; `ruff check` and `ruff format --check` clean. Not run: the GPU
+integration class, because production holds all four GPUs.
+
+**Remaining risks / follow-ups.**
+
+- Not yet measured: the GPU round-trip test, and a cold-cache replay (seed the
+  manifest, move the compile cache aside, restart, expect no serving-time JIT
+  warnings). `jit_warmup_validate.sh` and `jit_replay.py` in
+  `/home/l/work/qwen38-27b-serve` implement it; it needs a service window.
+- A specialization never seen before still compiles once while serving (for
+  example a new image-size class, a logprobs width or top-p-only sampling); the
+  manifest makes that a one-time cost rather than one per restart.
+- Recorded entries whose kernel signature changes fail to preload (counted, not
+  raised) and are recorded again on first use.
+- A cold compile cache lengthens startup by the compile time of the covered
+  variants.
+
+**Commit readiness.** Serving outputs are unchanged; only startup work and
+logging change. `VLLM_KERNEL_WARMUP_COVERAGE=0` with `VLLM_TRITON_JIT_MANIFEST`
+unset restores the previous behaviour.
+
 ## 2026-09-14 — TP4 round 12c: cudagraph dispatch diagnostic
 
 **Task intent.** Attribute the apparent 70-80 ms host-side gap of two-decoder
