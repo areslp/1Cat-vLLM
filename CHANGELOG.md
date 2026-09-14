@@ -34,6 +34,12 @@ default off unless stated otherwise.
 
 ### Added
 
+- `VLLM_SM70_CG_DISPATCH_DEBUG` (default off): the MRV2 runner logs one line
+  per step with `num_reqs`, `uniform_tok_count` and the chosen cudagraph mode,
+  used to attribute the two-decoder step cost on TP4 (clean 2 x 8 verify steps
+  replay the FULL graph at 47 ms; the ~11% non-uniform steps run eagerly).
+  CPU regression test pins the dispatch decision for a 2-request verify batch.
+
 - SM70 DFlash2 verify: the per-request grouped-verify skeleton (request
   metadata rows, seq_lens views, output slices) is built once per step and
   reused across the 16 full-attention layers (`_dflash2_per_request_skeleton`),

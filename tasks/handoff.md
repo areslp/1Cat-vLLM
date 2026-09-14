@@ -5,6 +5,29 @@ retraction and process trap lives on the development host, git-excluded:
 `oh-my-gpu:/home/l/work/1Cat-vLLM/logs/handoff/HANDOFF.md` plus the
 task-lifecycle contract `packet.yaml` (validates `READY`).
 
+## 2026-09-14 — TP4 round 12c: cudagraph dispatch diagnostic
+
+**Task intent.** Attribute the apparent 70-80 ms host-side gap of two-decoder
+verify steps on TP4.
+
+**Changed scope.** `vllm/v1/worker/gpu/model_runner.py` (env-gated dispatch log,
+`VLLM_SM70_CG_DISPATCH_DEBUG`, default off), new
+`tests/v1/worker/test_gpu_cudagraph_2req_verify_dispatch.py`.
+
+**Validation.** CPU tests 5/5 (plus the uniform-guard and long-attention graph
+tests, 18 total in the window); production window with the log on: two-request
+steps 156 FULL / 20 NONE, single-request 808 FULL / 816 NONE (prefill chunks and
+non-8-token decode steps); py-spy shows the gap is the eager forward on
+non-uniform batches, no host syncs. The `dev-repro-2dec.py` engine-step count
+undercounts; a two-decoder window is 176 steps in 11.2 s (64 ms/step), a clean
+2 x 8 step is 47 ms GPU-bound.
+
+**Remaining risks / follow-ups.** Non-uniform verify steps (first step after
+prefill, max_tokens-truncated drafts) stay eager; graph capture for those shapes
+would need per-replay spec-state refill. Not pursued.
+
+**Commit readiness.** Diagnostic only, default off; numerics unchanged.
+
 ## 2026-09-14 — TP4 round 12b: verify skeleton cache, metadata-kernel warmup
 
 **Task intent.** Attribute and cut host-side cost of multi-request verify

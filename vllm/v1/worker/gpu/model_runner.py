@@ -1598,6 +1598,25 @@ class GPUModelRunner(LoRAModelRunnerMixin):
             need_eager=is_profile or skip_compiled,
         )
 
+        if os.environ.get("VLLM_SM70_CG_DISPATCH_DEBUG") == "1" and max_query_len > 1:
+            # Diagnostic (default off): record whether a speculative verify
+            # step dispatched to a FULL cudagraph. Two resident decoders at
+            # very different context lengths frequently produce non-uniform
+            # verify batches (uniform_tok_count=None) that fall back to the
+            # PIECEWISE/eager forward -- the dominant host cost at reqs>1.
+            n = getattr(self, "_cg_dispatch_debug_count", 0) + 1
+            self._cg_dispatch_debug_count = n
+            if n <= 2000 or batch_desc.cg_mode != CUDAGraphMode.FULL:
+                logger.info(
+                    "SM70 CG dispatch: num_reqs=%d num_tokens=%d "
+                    "max_query_len=%d uniform_tok_count=%s cg_mode=%s",
+                    num_reqs,
+                    num_toks,
+                    max_query_len,
+                    uniform_tok_count,
+                    batch_desc.cg_mode.name,
+                )
+
         if batch_desc.num_tokens == 0:
             # All DP ranks have zero tokens to run.
             empty_output = self.kv_connector.no_forward(scheduler_output)
