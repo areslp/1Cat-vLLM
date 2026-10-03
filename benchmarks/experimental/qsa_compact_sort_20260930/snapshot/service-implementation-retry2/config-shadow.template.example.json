@@ -1,0 +1,381 @@
+{
+  "arm_file": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/evidence/config-example-shadow/epoch-arm.json",
+  "baseline_off_capture_dir": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/evidence/config-example-off/capture",
+  "baseline_off_receipts": [],
+  "candidate_binary": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/build/candidate1/qsa_planner58.so",
+  "candidate_binary_sha256": "e5ac0b418ebb9a387e0838b230dd15114185f637804e9d14b336897ab24bb7e3",
+  "cohort_dir": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/evidence/config-example-shadow/client",
+  "diagnostic_host_audit": false,
+  "drain_file": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/evidence/config-example-shadow/drain-arm.json",
+  "drain_ids": [
+    "e00-short-c1",
+    "e01-short-c2",
+    "e02-short-c3",
+    "e03-short-c4",
+    "e04-short-c5",
+    "e05-short-c6",
+    "e06-short-c7",
+    "e07-short-c8",
+    "e08-8k-c4",
+    "e09-8k-c8",
+    "e10-32k-c4",
+    "e11-32k-c8",
+    "e12-shared-c4",
+    "e13-shared-c8",
+    "e14-mixed-c4",
+    "e15-mixed-c8",
+    "e16-slotreuse-c4",
+    "e17-slotreuse-c8",
+    "e18-fallback-c4",
+    "e19-fallback-c8"
+  ],
+  "epochs": {
+    "e00-short-c1": {
+      "declared_concurrency": 1,
+      "external_request_ids": [
+        "cmpl-step58-service1-shadow-e00-short-c1-main-r00-0"
+      ],
+      "route_expectation": "short_original",
+      "scenario_label_not_runtime_proof": "short",
+      "sentinel_external_request_id": "cmpl-step58-service1-shadow-e00-short-c1-sentinel-r00-0"
+    },
+    "e01-short-c2": {
+      "declared_concurrency": 2,
+      "external_request_ids": [
+        "cmpl-step58-service1-shadow-e01-short-c2-main-r00-0",
+        "cmpl-step58-service1-shadow-e01-short-c2-main-r01-0"
+      ],
+      "route_expectation": "short_original",
+      "scenario_label_not_runtime_proof": "short",
+      "sentinel_external_request_id": "cmpl-step58-service1-shadow-e01-short-c2-sentinel-r00-0"
+    },
+    "e02-short-c3": {
+      "declared_concurrency": 3,
+      "external_request_ids": [
+        "cmpl-step58-service1-shadow-e02-short-c3-main-r00-0",
+        "cmpl-step58-service1-shadow-e02-short-c3-main-r01-0",
+        "cmpl-step58-service1-shadow-e02-short-c3-main-r02-0"
+      ],
+      "route_expectation": "short_original",
+      "scenario_label_not_runtime_proof": "short",
+      "sentinel_external_request_id": "cmpl-step58-service1-shadow-e02-short-c3-sentinel-r00-0"
+    },
+    "e03-short-c4": {
+      "declared_concurrency": 4,
+      "external_request_ids": [
+        "cmpl-step58-service1-shadow-e03-short-c4-main-r00-0",
+        "cmpl-step58-service1-shadow-e03-short-c4-main-r01-0",
+        "cmpl-step58-service1-shadow-e03-short-c4-main-r02-0",
+        "cmpl-step58-service1-shadow-e03-short-c4-main-r03-0"
+      ],
+      "route_expectation": "eligible_consumer",
+      "scenario_label_not_runtime_proof": "short",
+      "sentinel_external_request_id": "cmpl-step58-service1-shadow-e03-short-c4-sentinel-r00-0"
+    },
+    "e04-short-c5": {
+      "declared_concurrency": 5,
+      "external_request_ids": [
+        "cmpl-step58-service1-shadow-e04-short-c5-main-r00-0",
+        "cmpl-step58-service1-shadow-e04-short-c5-main-r01-0",
+        "cmpl-step58-service1-shadow-e04-short-c5-main-r02-0",
+        "cmpl-step58-service1-shadow-e04-short-c5-main-r03-0",
+        "cmpl-step58-service1-shadow-e04-short-c5-main-r04-0"
+      ],
+      "route_expectation": "eligible_consumer",
+      "scenario_label_not_runtime_proof": "short",
+      "sentinel_external_request_id": "cmpl-step58-service1-shadow-e04-short-c5-sentinel-r00-0"
+    },
+    "e05-short-c6": {
+      "declared_concurrency": 6,
+      "external_request_ids": [
+        "cmpl-step58-service1-shadow-e05-short-c6-main-r00-0",
+        "cmpl-step58-service1-shadow-e05-short-c6-main-r01-0",
+        "cmpl-step58-service1-shadow-e05-short-c6-main-r02-0",
+        "cmpl-step58-service1-shadow-e05-short-c6-main-r03-0",
+        "cmpl-step58-service1-shadow-e05-short-c6-main-r04-0",
+        "cmpl-step58-service1-shadow-e05-short-c6-main-r05-0"
+      ],
+      "route_expectation": "eligible_consumer",
+      "scenario_label_not_runtime_proof": "short",
+      "sentinel_external_request_id": "cmpl-step58-service1-shadow-e05-short-c6-sentinel-r00-0"
+    },
+    "e06-short-c7": {
+      "declared_concurrency": 7,
+      "external_request_ids": [
+        "cmpl-step58-service1-shadow-e06-short-c7-main-r00-0",
+        "cmpl-step58-service1-shadow-e06-short-c7-main-r01-0",
+        "cmpl-step58-service1-shadow-e06-short-c7-main-r02-0",
+        "cmpl-step58-service1-shadow-e06-short-c7-main-r03-0",
+        "cmpl-step58-service1-shadow-e06-short-c7-main-r04-0",
+        "cmpl-step58-service1-shadow-e06-short-c7-main-r05-0",
+        "cmpl-step58-service1-shadow-e06-short-c7-main-r06-0"
+      ],
+      "route_expectation": "eligible_consumer",
+      "scenario_label_not_runtime_proof": "short",
+      "sentinel_external_request_id": "cmpl-step58-service1-shadow-e06-short-c7-sentinel-r00-0"
+    },
+    "e07-short-c8": {
+      "declared_concurrency": 8,
+      "external_request_ids": [
+        "cmpl-step58-service1-shadow-e07-short-c8-main-r00-0",
+        "cmpl-step58-service1-shadow-e07-short-c8-main-r01-0",
+        "cmpl-step58-service1-shadow-e07-short-c8-main-r02-0",
+        "cmpl-step58-service1-shadow-e07-short-c8-main-r03-0",
+        "cmpl-step58-service1-shadow-e07-short-c8-main-r04-0",
+        "cmpl-step58-service1-shadow-e07-short-c8-main-r05-0",
+        "cmpl-step58-service1-shadow-e07-short-c8-main-r06-0",
+        "cmpl-step58-service1-shadow-e07-short-c8-main-r07-0"
+      ],
+      "route_expectation": "eligible_consumer",
+      "scenario_label_not_runtime_proof": "short",
+      "sentinel_external_request_id": "cmpl-step58-service1-shadow-e07-short-c8-sentinel-r00-0"
+    },
+    "e08-8k-c4": {
+      "declared_concurrency": 4,
+      "external_request_ids": [
+        "cmpl-step58-service1-shadow-e08-8k-c4-main-r00-0",
+        "cmpl-step58-service1-shadow-e08-8k-c4-main-r01-0",
+        "cmpl-step58-service1-shadow-e08-8k-c4-main-r02-0",
+        "cmpl-step58-service1-shadow-e08-8k-c4-main-r03-0"
+      ],
+      "route_expectation": "eligible_consumer",
+      "scenario_label_not_runtime_proof": "8k",
+      "sentinel_external_request_id": "cmpl-step58-service1-shadow-e08-8k-c4-sentinel-r00-0"
+    },
+    "e09-8k-c8": {
+      "declared_concurrency": 8,
+      "external_request_ids": [
+        "cmpl-step58-service1-shadow-e09-8k-c8-main-r00-0",
+        "cmpl-step58-service1-shadow-e09-8k-c8-main-r01-0",
+        "cmpl-step58-service1-shadow-e09-8k-c8-main-r02-0",
+        "cmpl-step58-service1-shadow-e09-8k-c8-main-r03-0",
+        "cmpl-step58-service1-shadow-e09-8k-c8-main-r04-0",
+        "cmpl-step58-service1-shadow-e09-8k-c8-main-r05-0",
+        "cmpl-step58-service1-shadow-e09-8k-c8-main-r06-0",
+        "cmpl-step58-service1-shadow-e09-8k-c8-main-r07-0"
+      ],
+      "route_expectation": "eligible_consumer",
+      "scenario_label_not_runtime_proof": "8k",
+      "sentinel_external_request_id": "cmpl-step58-service1-shadow-e09-8k-c8-sentinel-r00-0"
+    },
+    "e10-32k-c4": {
+      "declared_concurrency": 4,
+      "external_request_ids": [
+        "cmpl-step58-service1-shadow-e10-32k-c4-main-r00-0",
+        "cmpl-step58-service1-shadow-e10-32k-c4-main-r01-0",
+        "cmpl-step58-service1-shadow-e10-32k-c4-main-r02-0",
+        "cmpl-step58-service1-shadow-e10-32k-c4-main-r03-0"
+      ],
+      "route_expectation": "eligible_consumer",
+      "scenario_label_not_runtime_proof": "32k",
+      "sentinel_external_request_id": "cmpl-step58-service1-shadow-e10-32k-c4-sentinel-r00-0"
+    },
+    "e11-32k-c8": {
+      "declared_concurrency": 8,
+      "external_request_ids": [
+        "cmpl-step58-service1-shadow-e11-32k-c8-main-r00-0",
+        "cmpl-step58-service1-shadow-e11-32k-c8-main-r01-0",
+        "cmpl-step58-service1-shadow-e11-32k-c8-main-r02-0",
+        "cmpl-step58-service1-shadow-e11-32k-c8-main-r03-0",
+        "cmpl-step58-service1-shadow-e11-32k-c8-main-r04-0",
+        "cmpl-step58-service1-shadow-e11-32k-c8-main-r05-0",
+        "cmpl-step58-service1-shadow-e11-32k-c8-main-r06-0",
+        "cmpl-step58-service1-shadow-e11-32k-c8-main-r07-0"
+      ],
+      "route_expectation": "eligible_consumer",
+      "scenario_label_not_runtime_proof": "32k",
+      "sentinel_external_request_id": "cmpl-step58-service1-shadow-e11-32k-c8-sentinel-r00-0"
+    },
+    "e12-shared-c4": {
+      "declared_concurrency": 4,
+      "external_request_ids": [
+        "cmpl-step58-service1-shadow-e12-shared-c4-main-r00-0",
+        "cmpl-step58-service1-shadow-e12-shared-c4-main-r01-0",
+        "cmpl-step58-service1-shadow-e12-shared-c4-main-r02-0",
+        "cmpl-step58-service1-shadow-e12-shared-c4-main-r03-0"
+      ],
+      "route_expectation": "eligible_consumer",
+      "scenario_label_not_runtime_proof": "shared",
+      "sentinel_external_request_id": "cmpl-step58-service1-shadow-e12-shared-c4-sentinel-r00-0"
+    },
+    "e13-shared-c8": {
+      "declared_concurrency": 8,
+      "external_request_ids": [
+        "cmpl-step58-service1-shadow-e13-shared-c8-main-r00-0",
+        "cmpl-step58-service1-shadow-e13-shared-c8-main-r01-0",
+        "cmpl-step58-service1-shadow-e13-shared-c8-main-r02-0",
+        "cmpl-step58-service1-shadow-e13-shared-c8-main-r03-0",
+        "cmpl-step58-service1-shadow-e13-shared-c8-main-r04-0",
+        "cmpl-step58-service1-shadow-e13-shared-c8-main-r05-0",
+        "cmpl-step58-service1-shadow-e13-shared-c8-main-r06-0",
+        "cmpl-step58-service1-shadow-e13-shared-c8-main-r07-0"
+      ],
+      "route_expectation": "eligible_consumer",
+      "scenario_label_not_runtime_proof": "shared",
+      "sentinel_external_request_id": "cmpl-step58-service1-shadow-e13-shared-c8-sentinel-r00-0"
+    },
+    "e14-mixed-c4": {
+      "declared_concurrency": 4,
+      "external_request_ids": [
+        "cmpl-step58-service1-shadow-e14-mixed-c4-main-r00-0",
+        "cmpl-step58-service1-shadow-e14-mixed-c4-main-r01-0",
+        "cmpl-step58-service1-shadow-e14-mixed-c4-main-r02-0",
+        "cmpl-step58-service1-shadow-e14-mixed-c4-main-r03-0"
+      ],
+      "route_expectation": "mixed_original_witness",
+      "scenario_label_not_runtime_proof": "mixed",
+      "sentinel_external_request_id": "cmpl-step58-service1-shadow-e14-mixed-c4-sentinel-r00-0"
+    },
+    "e15-mixed-c8": {
+      "declared_concurrency": 8,
+      "external_request_ids": [
+        "cmpl-step58-service1-shadow-e15-mixed-c8-main-r00-0",
+        "cmpl-step58-service1-shadow-e15-mixed-c8-main-r01-0",
+        "cmpl-step58-service1-shadow-e15-mixed-c8-main-r02-0",
+        "cmpl-step58-service1-shadow-e15-mixed-c8-main-r03-0",
+        "cmpl-step58-service1-shadow-e15-mixed-c8-main-r04-0",
+        "cmpl-step58-service1-shadow-e15-mixed-c8-main-r05-0",
+        "cmpl-step58-service1-shadow-e15-mixed-c8-main-r06-0",
+        "cmpl-step58-service1-shadow-e15-mixed-c8-main-r07-0"
+      ],
+      "route_expectation": "mixed_original_witness",
+      "scenario_label_not_runtime_proof": "mixed",
+      "sentinel_external_request_id": "cmpl-step58-service1-shadow-e15-mixed-c8-sentinel-r00-0"
+    },
+    "e16-slotreuse-c4": {
+      "declared_concurrency": 4,
+      "external_request_ids": [
+        "cmpl-step58-service1-shadow-e16-slotreuse-c4-main-r00-0",
+        "cmpl-step58-service1-shadow-e16-slotreuse-c4-main-r01-0",
+        "cmpl-step58-service1-shadow-e16-slotreuse-c4-main-r02-0",
+        "cmpl-step58-service1-shadow-e16-slotreuse-c4-main-r03-0"
+      ],
+      "route_expectation": "eligible_consumer",
+      "scenario_label_not_runtime_proof": "slotreuse",
+      "sentinel_external_request_id": "cmpl-step58-service1-shadow-e16-slotreuse-c4-sentinel-r00-0"
+    },
+    "e17-slotreuse-c8": {
+      "declared_concurrency": 8,
+      "external_request_ids": [
+        "cmpl-step58-service1-shadow-e17-slotreuse-c8-main-r00-0",
+        "cmpl-step58-service1-shadow-e17-slotreuse-c8-main-r01-0",
+        "cmpl-step58-service1-shadow-e17-slotreuse-c8-main-r02-0",
+        "cmpl-step58-service1-shadow-e17-slotreuse-c8-main-r03-0",
+        "cmpl-step58-service1-shadow-e17-slotreuse-c8-main-r04-0",
+        "cmpl-step58-service1-shadow-e17-slotreuse-c8-main-r05-0",
+        "cmpl-step58-service1-shadow-e17-slotreuse-c8-main-r06-0",
+        "cmpl-step58-service1-shadow-e17-slotreuse-c8-main-r07-0"
+      ],
+      "route_expectation": "eligible_consumer",
+      "scenario_label_not_runtime_proof": "slotreuse",
+      "sentinel_external_request_id": "cmpl-step58-service1-shadow-e17-slotreuse-c8-sentinel-r00-0"
+    },
+    "e18-fallback-c4": {
+      "declared_concurrency": 4,
+      "external_request_ids": [
+        "cmpl-step58-service1-shadow-e18-fallback-c4-main-r00-0",
+        "cmpl-step58-service1-shadow-e18-fallback-c4-main-r01-0",
+        "cmpl-step58-service1-shadow-e18-fallback-c4-main-r02-0",
+        "cmpl-step58-service1-shadow-e18-fallback-c4-main-r03-0"
+      ],
+      "route_expectation": "fallback_original_only",
+      "scenario_label_not_runtime_proof": "fallback",
+      "sentinel_external_request_id": "cmpl-step58-service1-shadow-e18-fallback-c4-sentinel-r00-0"
+    },
+    "e19-fallback-c8": {
+      "declared_concurrency": 8,
+      "external_request_ids": [
+        "cmpl-step58-service1-shadow-e19-fallback-c8-main-r00-0",
+        "cmpl-step58-service1-shadow-e19-fallback-c8-main-r01-0",
+        "cmpl-step58-service1-shadow-e19-fallback-c8-main-r02-0",
+        "cmpl-step58-service1-shadow-e19-fallback-c8-main-r03-0",
+        "cmpl-step58-service1-shadow-e19-fallback-c8-main-r04-0",
+        "cmpl-step58-service1-shadow-e19-fallback-c8-main-r05-0",
+        "cmpl-step58-service1-shadow-e19-fallback-c8-main-r06-0",
+        "cmpl-step58-service1-shadow-e19-fallback-c8-main-r07-0"
+      ],
+      "route_expectation": "fallback_original_only",
+      "scenario_label_not_runtime_proof": "fallback",
+      "sentinel_external_request_id": "cmpl-step58-service1-shadow-e19-fallback-c8-sentinel-r00-0"
+    }
+  },
+  "inventory_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/evidence/cohort-inventory.input.json",
+  "inventory_sha256": "5cbbfda0a2d2588f2258fbe13a854bedd0c623e5627d5d03dc95ca70ab024e11",
+  "max_added_allocated_bytes_per_rank": 268435456,
+  "max_added_reserved_bytes_per_rank": 536870912,
+  "max_drains_per_rank": 20,
+  "max_failure_artifact_bytes_per_rank": 67108864,
+  "max_failure_bank_bytes_per_rank": 67108864,
+  "max_host_events_per_rank": 4096,
+  "max_lifecycle_bytes_per_rank": 4194304,
+  "max_lifecycle_events_per_rank": 4096,
+  "max_private_bytes_per_rank": 33554432,
+  "max_shadow_seconds": 600,
+  "mode": "shadow",
+  "original_binary": "/home/l/work/flash-next/prod-w48/flash_attn_v100_cuda.cpython-312-x86_64-linux-gnu.so",
+  "original_binary_sha256": "a2c3c845572e36a6eb788e53c1861734285e2512ffb12bc5b3c19909871e433b",
+  "original_shim": "/home/l/work/flash-next/prod-w12/sitecustomize.py",
+  "original_shim_sha256": "96fb14138879162fdafd77a3078150198714c483b1cb6277f9b7907e78916953",
+  "output_dir": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/evidence/config-example-shadow/capture",
+  "required_flags": {
+    "HOST_INSIGHT_STAGE_MARKERS": "1",
+    "ONECAT_QSA48": "split",
+    "VLLM_SM70_QSA_GROUPED_PAD_FIX": "0",
+    "VLLM_SM70_QSA_GROUPED_PAGE4": "1"
+  },
+  "required_kv_tokens": 663816,
+  "source_pins": {
+    "block_table": {
+      "path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/v1/worker/gpu/block_table.py",
+      "sha256": "a646d37f4926437aa20878249d8641a412c47f472d9fac5c11ea2859472f2d0f"
+    },
+    "cg": {
+      "path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/v1/worker/gpu/cudagraph_utils.py",
+      "sha256": "477d892d04d6983bc320e3fa9a2f1b905b3a475b7b3da9fedca24122dc044a24"
+    },
+    "completion_serving": {
+      "path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/entrypoints/openai/completion/serving.py",
+      "sha256": "096dd9ce6799c382fea265771cd5f48ba107d2d420e358af94b41f13cb5cb1ee"
+    },
+    "engine_serving": {
+      "path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/entrypoints/openai/engine/serving.py",
+      "sha256": "a7bca64cebc8670f9644e7ca8a729e5841b07a8e9e2cd6a50aaf886e5a9536a3"
+    },
+    "input_batch": {
+      "path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/v1/worker/gpu/input_batch.py",
+      "sha256": "60d7ce37d1cdd238c5a09c8beb7767267edd88cc8628b25603ccbb22422c6b88"
+    },
+    "input_processor": {
+      "path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/v1/engine/input_processor.py",
+      "sha256": "c5673988c0f7cfec268220e3f044e718702c015a4f236c020937cfd40a793f15"
+    },
+    "marker": {
+      "path": "/home/l/work/host-insight-mcp/python/host_insight_stage_markers.py",
+      "sha256": "0c80f553ed9e890ffe21d31b749807de53fb50d7508d0f9d6e6d7396ec6fc649"
+    },
+    "model": {
+      "path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/models/qwen4_exp/nvidia/model.py",
+      "sha256": "95a81726d387c2b4c2adab5cddb60ffb5738ed8a2683a43726aa89f5f536d48f"
+    },
+    "mtp": {
+      "path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/models/qwen4_exp/nvidia/mtp.py",
+      "sha256": "95459f1d875600ad372e6a938415d11751ef1d36b1b4866aaf1162db67910e50"
+    },
+    "ops": {
+      "path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/models/qwen4_exp/nvidia/ops/qsa.py",
+      "sha256": "ee03f537412a5063d5f280a017bc6fffaf13a9af8e818fc3df63e364205b2694"
+    },
+    "owner": {
+      "path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/models/qwen4_exp/nvidia/qsa.py",
+      "sha256": "c6551ea2976f7c39785def7431dc764d5812c11b83eb94ec9c9f19f175b63141"
+    },
+    "runner": {
+      "path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/v1/worker/gpu/model_runner.py",
+      "sha256": "a6c0b1ae02cbdb14979b361a129866054ce8eca80b7b8cece170e960b5fc2cfe"
+    },
+    "states": {
+      "path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/v1/worker/gpu/states.py",
+      "sha256": "ceae07c540c98cbfa0b60d99c6f6f9dcc92afcda1ca3aee5b3853f1442289645"
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "status": "SOURCE_CPU_ONLY_NOT_LAUNCHED",
+  "scope": "ONE_A0_RESOURCE_DIAGNOSTIC_NOT_FORMAL_MATRIX",
+  "diagnostic_contract": "DIAGNOSTIC.json",
+  "inventory": {
+    "groups": 11,
+    "measured_requests": 44,
+    "prime_requests": 18,
+    "HTTP_requests": 62,
+    "outputs": 11282
+  },
+  "caps": {
+    "process_NVML_MiB": 32000,
+    "device_NVML_MiB": 32384,
+    "model_cgroup_bytes": 128849018880,
+    "client_cgroup_bytes": 536870912,
+    "swap_bytes": 0,
+    "KV_tokens": 663816
+  },
+  "budgets": {
+    "inner_s": 10000,
+    "inner_kill_s": 20,
+    "expiry_s": 10140,
+    "outer_s": 13500,
+    "restore_s": 2100,
+    "restore_kill_s": 20,
+    "ready_s": 1080,
+    "maturity_s": 360,
+    "startup_binding_s": 60,
+    "request_s": 600,
+    "group_s": 660,
+    "client_s": 7200,
+    "client_runtime_s": 7210,
+    "client_wrapper_s": 7230,
+    "model_runtime_s": 8730,
+    "start_s": 30,
+    "final_guard_s": 30,
+    "stop_s": 50,
+    "drain_s": 65,
+    "inner_cleanup_s": 750,
+    "outer_cleanup_s": 700,
+    "preflight_stop_s": 300,
+    "end_audit_s": 60,
+    "analysis_s": 60
+  },
+  "explicit_charged_chain": {
+    "per_arm_s": 8545,
+    "inner_chain_s": 9655,
+    "inner_margin_s": 345,
+    "outer_chain_s": 12970,
+    "outer_margin_s": 530,
+    "bounds_only_not_ETA": true
+  },
+  "resource_gate_changed": false,
+  "B_A2_allowed": false,
+  "formal_data_reuse": false,
+  "append_group12": false,
+  "restoration_contract": "existing_complete53_named17_new_PID",
+  "CPU_fixture_result": "evidence/CPU-RESULT.json",
+  "no_implementation_gpu_hooks_or_additional_nvml_queries": true
+}

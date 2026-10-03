@@ -1,0 +1,2780 @@
+{
+  "status": "COMPLETE_EVIDENCE_WITH_REQUEST_LEVEL_OUTPUT_DISAGREEMENTS_NO_ADMISSION",
+  "plan_sha256": "355ef8caeee318fc79abad12cf4dcf70b05dd3a822177eb17b03ec2675b64ba4",
+  "method": "Independent Ruby raw-SSE main token extraction, GROUP and raw SHA verification; metrics compared against independent raw auditor and recomputed paired arithmetic. Original frozen files and exits unchanged.",
+  "raw_main_streams": 438,
+  "main_tokens": 112128,
+  "request_triples": 146,
+  "request_triple_counts": {
+    "ALL_THREE_EQUAL": 88,
+    "AA_SELF_VARIATION": 48,
+    "A0_A2_EQUAL_B_DIFFERS": 10
+  },
+  "group_level_status_counts": {
+    "PASS_OUTPUT_TOKENS_ONLY": 27,
+    "INCONCLUSIVE_AA_SELF_VARIATION": 11
+  },
+  "elapsed_HTTP_s": {
+    "A0": 3003.246580453124,
+    "B": 3018.2936038710177,
+    "A2": 3032.4409602500964
+  },
+  "rows": [
+    {
+      "row_id": "context-512-greedy-c1",
+      "input_tokens": 512,
+      "concurrency": 1,
+      "request_triple_counts": {
+        "ALL_THREE_EQUAL": 2
+      },
+      "pairs": [
+        {
+          "repeat": 0,
+          "ms_per_token": [
+            8.589938685626668,
+            8.59865907068346,
+            8.58046665477256
+          ],
+          "B_vs_A0_pct": -0.10151859490432624,
+          "B_vs_A2_pct": -0.2120212879189065,
+          "B_vs_mean_A_pct": -0.15673946208114575,
+          "AA_drift_pct": 0.11032972916280565
+        },
+        {
+          "repeat": 1,
+          "ms_per_token": [
+            8.591911152881735,
+            8.586604631158943,
+            8.583346352565522
+          ],
+          "B_vs_A0_pct": 0.061761831894779906,
+          "B_vs_A2_pct": -0.037960469723419266,
+          "B_vs_mean_A_pct": 0.011925545388302705,
+          "AA_drift_pct": 0.09973417066377849
+        }
+      ]
+    },
+    {
+      "row_id": "context-512-greedy-c4",
+      "input_tokens": 512,
+      "concurrency": 4,
+      "request_triple_counts": {
+        "ALL_THREE_EQUAL": 2,
+        "AA_SELF_VARIATION": 6
+      },
+      "pairs": [
+        {
+          "repeat": 0,
+          "ms_per_token": [
+            13.050895203896149,
+            12.935066012955192,
+            13.078776966617468
+          ],
+          "B_vs_A0_pct": 0.887519125173708,
+          "B_vs_A2_pct": 1.0988103400576987,
+          "B_vs_mean_A_pct": 0.993277462149389,
+          "AA_drift_pct": 0.21341073504001523
+        },
+        {
+          "repeat": 1,
+          "ms_per_token": [
+            13.089076363615504,
+            12.885090806726161,
+            13.038484915159643
+          ],
+          "B_vs_A0_pct": 1.5584411857843095,
+          "B_vs_A2_pct": 1.1764718786853257,
+          "B_vs_mean_A_pct": 1.3678263405821345,
+          "AA_drift_pct": 0.38726498746716037
+        }
+      ]
+    },
+    {
+      "row_id": "context-512-greedy-c8",
+      "input_tokens": 512,
+      "concurrency": 8,
+      "request_triple_counts": {
+        "AA_SELF_VARIATION": 12,
+        "A0_A2_EQUAL_B_DIFFERS": 4
+      },
+      "pairs": [
+        {
+          "repeat": 0,
+          "ms_per_token": [
+            15.11800248548687,
+            14.984037771982734,
+            15.153595228588076
+          ],
+          "B_vs_A0_pct": 0.8861270768591334,
+          "B_vs_A2_pct": 1.1189256017968718,
+          "B_vs_mean_A_pct": 1.0026631992679835,
+          "AA_drift_pct": 0.23515602603727664
+        },
+        {
+          "repeat": 1,
+          "ms_per_token": [
+            15.139407073908867,
+            14.991110290569114,
+            15.145626539944057
+          ],
+          "B_vs_A0_pct": 0.9795415541426711,
+          "B_vs_A2_pct": 1.0202037463912905,
+          "B_vs_mean_A_pct": 0.9998768255491841,
+          "AA_drift_pct": 0.04107286862871923
+        }
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c1",
+      "input_tokens": 2048,
+      "concurrency": 1,
+      "request_triple_counts": {
+        "ALL_THREE_EQUAL": 2
+      },
+      "pairs": [
+        {
+          "repeat": 0,
+          "ms_per_token": [
+            9.788758513134193,
+            9.828754458759054,
+            9.805562878575396
+          ],
+          "B_vs_A0_pct": -0.40859058450768426,
+          "B_vs_A2_pct": -0.23651452212223312,
+          "B_vs_mean_A_pct": -0.3224787658900663,
+          "AA_drift_pct": 0.1715228111784784
+        },
+        {
+          "repeat": 1,
+          "ms_per_token": [
+            9.798727340667563,
+            9.820173474430453,
+            9.807388489956365
+          ],
+          "B_vs_A0_pct": -0.21886652232767645,
+          "B_vs_A2_pct": -0.1303607426908826,
+          "B_vs_mean_A_pct": -0.17459408346200966,
+          "AA_drift_pct": 0.08835150586301693
+        }
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c4",
+      "input_tokens": 2048,
+      "concurrency": 4,
+      "request_triple_counts": {
+        "AA_SELF_VARIATION": 6,
+        "A0_A2_EQUAL_B_DIFFERS": 2
+      },
+      "pairs": [
+        {
+          "repeat": 0,
+          "ms_per_token": [
+            15.126957658659583,
+            15.02884197767795,
+            15.173442434376408
+          ],
+          "B_vs_A0_pct": 0.6486147657421837,
+          "B_vs_A2_pct": 0.9529838553369863,
+          "B_vs_mean_A_pct": 0.8010327815304197,
+          "AA_drift_pct": 0.3068261512989666
+        },
+        {
+          "repeat": 1,
+          "ms_per_token": [
+            14.91851648646585,
+            14.810587288433963,
+            15.1947660672542
+          ],
+          "B_vs_A0_pct": 0.7234579800866947,
+          "B_vs_A2_pct": 2.5283625764280115,
+          "B_vs_mean_A_pct": 1.63418908574392,
+          "AA_drift_pct": 1.8347357535369335
+        }
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c8",
+      "input_tokens": 2048,
+      "concurrency": 8,
+      "request_triple_counts": {
+        "AA_SELF_VARIATION": 15,
+        "ALL_THREE_EQUAL": 1
+      },
+      "pairs": [
+        {
+          "repeat": 0,
+          "ms_per_token": [
+            18.23035038181508,
+            18.08977100800528,
+            18.386898984970745
+          ],
+          "B_vs_A0_pct": 0.7711282057970115,
+          "B_vs_A2_pct": 1.6159765559615846,
+          "B_vs_mean_A_pct": 1.1953583579991656,
+          "AA_drift_pct": 0.8550538659392924
+        },
+        {
+          "repeat": 1,
+          "ms_per_token": [
+            18.22274843610832,
+            18.088307577163924,
+            18.16580548636229
+          ],
+          "B_vs_A0_pct": 0.7377638966798217,
+          "B_vs_A2_pct": 0.42661421898714247,
+          "B_vs_mean_A_pct": 0.5824325104930361,
+          "AA_drift_pct": 0.3129717650629895
+        }
+      ]
+    },
+    {
+      "row_id": "context-8192-greedy-c1",
+      "input_tokens": 8192,
+      "concurrency": 1,
+      "request_triple_counts": {
+        "ALL_THREE_EQUAL": 2
+      },
+      "pairs": [
+        {
+          "repeat": 0,
+          "ms_per_token": [
+            7.960199376604721,
+            7.962793306283214,
+            7.941384133243678
+          ],
+          "B_vs_A0_pct": -0.032586240064746974,
+          "B_vs_A2_pct": -0.2695899440239291,
+          "B_vs_mean_A_pct": -0.1509478770033379,
+          "AA_drift_pct": 0.2366461597914499
+        },
+        {
+          "repeat": 1,
+          "ms_per_token": [
+            7.9535481885221655,
+            7.967249933155436,
+            7.9559180036406305
+          ],
+          "B_vs_A0_pct": -0.1722721018154294,
+          "B_vs_A2_pct": -0.14243396562936272,
+          "B_vs_mean_A_pct": -0.15735081143330998,
+          "AA_drift_pct": 0.029791258736668536
+        }
+      ]
+    },
+    {
+      "row_id": "context-8192-greedy-c4",
+      "input_tokens": 8192,
+      "concurrency": 4,
+      "request_triple_counts": {
+        "ALL_THREE_EQUAL": 5,
+        "AA_SELF_VARIATION": 2,
+        "A0_A2_EQUAL_B_DIFFERS": 1
+      },
+      "pairs": [
+        {
+          "repeat": 0,
+          "ms_per_token": [
+            15.088298255635529,
+            15.0138138227542,
+            15.098047953317456
+          ],
+          "B_vs_A0_pct": 0.49365694937472115,
+          "B_vs_A2_pct": 0.5579140483836342,
+          "B_vs_mean_A_pct": 0.5257958758768555,
+          "AA_drift_pct": 0.0645967392968938
+        },
+        {
+          "repeat": 1,
+          "ms_per_token": [
+            15.08539153391798,
+            15.006080887256827,
+            15.099801089963876
+          ],
+          "B_vs_A0_pct": 0.525744701308084,
+          "B_vs_A2_pct": 0.6206717701025877,
+          "B_vs_mean_A_pct": 0.5732308934523811,
+          "AA_drift_pct": 0.09547433554885179
+        }
+      ]
+    },
+    {
+      "row_id": "context-8192-greedy-c8",
+      "input_tokens": 8192,
+      "concurrency": 8,
+      "request_triple_counts": {
+        "ALL_THREE_EQUAL": 6,
+        "A0_A2_EQUAL_B_DIFFERS": 3,
+        "AA_SELF_VARIATION": 7
+      },
+      "pairs": [
+        {
+          "repeat": 0,
+          "ms_per_token": [
+            18.540009050183112,
+            18.395097286010813,
+            18.522913749002218
+          ],
+          "B_vs_A0_pct": 0.7816164694421701,
+          "B_vs_A2_pct": 0.6900451231561244,
+          "B_vs_mean_A_pct": 0.735851914975516,
+          "AA_drift_pct": 0.09225015130900857
+        },
+        {
+          "repeat": 1,
+          "ms_per_token": [
+            18.583863516462152,
+            18.83641502482536,
+            18.58272624646321
+          ],
+          "B_vs_A0_pct": -1.3589827978422786,
+          "B_vs_A2_pct": -1.3651860066034915,
+          "B_vs_mean_A_pct": -1.3620843073161026,
+          "AA_drift_pct": 0.006119851222275523
+        }
+      ]
+    },
+    {
+      "row_id": "context-32768-greedy-c1",
+      "input_tokens": 32768,
+      "concurrency": 1,
+      "request_triple_counts": {
+        "ALL_THREE_EQUAL": 2
+      },
+      "pairs": [
+        {
+          "repeat": 0,
+          "ms_per_token": [
+            8.143130039759711,
+            8.163108666628307,
+            8.13837578775836
+          ],
+          "B_vs_A0_pct": -0.2453433356835566,
+          "B_vs_A2_pct": -0.3039043602182989,
+          "B_vs_mean_A_pct": -0.27461529794727824,
+          "AA_drift_pct": 0.05840064244323303
+        },
+        {
+          "repeat": 1,
+          "ms_per_token": [
+            8.136397874092355,
+            8.146930129869896,
+            8.143743768553524
+          ],
+          "B_vs_A0_pct": -0.12944617434549333,
+          "B_vs_A2_pct": -0.039126492764607335,
+          "B_vs_mean_A_pct": -0.08426595661781278,
+          "AA_drift_pct": 0.09024361854354479
+        }
+      ]
+    },
+    {
+      "row_id": "context-32768-greedy-c4",
+      "input_tokens": 32768,
+      "concurrency": 4,
+      "request_triple_counts": {
+        "ALL_THREE_EQUAL": 8
+      },
+      "pairs": [
+        {
+          "repeat": 0,
+          "ms_per_token": [
+            16.94220842778901,
+            16.861792578969947,
+            16.985638861861904
+          ],
+          "B_vs_A0_pct": 0.4746479726170816,
+          "B_vs_A2_pct": 0.7291234901386723,
+          "B_vs_mean_A_pct": 0.6020486061705577,
+          "AA_drift_pct": 0.25601644396780454
+        },
+        {
+          "repeat": 1,
+          "ms_per_token": [
+            16.94640120400141,
+            16.83626920016281,
+            16.989497766890146
+          ],
+          "B_vs_A0_pct": 0.6498843176957037,
+          "B_vs_A2_pct": 0.9019016855574935,
+          "B_vs_mean_A_pct": 0.7760530251219588,
+          "AA_drift_pct": 0.25398804331484465
+        }
+      ]
+    },
+    {
+      "row_id": "context-32768-greedy-c8",
+      "input_tokens": 32768,
+      "concurrency": 8,
+      "request_triple_counts": {
+        "ALL_THREE_EQUAL": 16
+      },
+      "pairs": [
+        {
+          "repeat": 0,
+          "ms_per_token": [
+            20.55694762315224,
+            20.63328682124416,
+            20.54657097417906
+          ],
+          "B_vs_A0_pct": -0.37135473364704463,
+          "B_vs_A2_pct": -0.42204534846266295,
+          "B_vs_mean_A_pct": -0.39669364259147244,
+          "AA_drift_pct": 0.05049031969664766
+        },
+        {
+          "repeat": 1,
+          "ms_per_token": [
+            20.62974134333858,
+            20.487192789940828,
+            20.57646501923318
+          ],
+          "B_vs_A0_pct": 0.6909856552505089,
+          "B_vs_A2_pct": 0.43385600592185103,
+          "B_vs_mean_A_pct": 0.5625870546061118,
+          "AA_drift_pct": 0.2585839794938868
+        }
+      ]
+    },
+    {
+      "row_id": "context-65536-greedy-c1",
+      "input_tokens": 65536,
+      "concurrency": 1,
+      "request_triple_counts": {
+        "ALL_THREE_EQUAL": 2
+      },
+      "pairs": [
+        {
+          "repeat": 0,
+          "ms_per_token": [
+            7.840246961032059,
+            7.973646541473036,
+            7.9596840237796895
+          ],
+          "B_vs_A0_pct": -1.7014716641453376,
+          "B_vs_A2_pct": -0.1754154769414651,
+          "B_vs_mean_A_pct": -0.932675581152731,
+          "AA_drift_pct": 1.5118681576830155
+        },
+        {
+          "repeat": 1,
+          "ms_per_token": [
+            8.002218454345769,
+            7.977865733133227,
+            7.95382186679133
+          ],
+          "B_vs_A0_pct": 0.3043246238712216,
+          "B_vs_A2_pct": -0.30229324649933,
+          "B_vs_mean_A_pct": 0.0019356611316356798,
+          "AA_drift_pct": 0.6066240317822191
+        }
+      ]
+    },
+    {
+      "row_id": "context-65536-greedy-c4",
+      "input_tokens": 65536,
+      "concurrency": 4,
+      "request_triple_counts": {
+        "ALL_THREE_EQUAL": 8
+      },
+      "pairs": [
+        {
+          "repeat": 0,
+          "ms_per_token": [
+            17.17180168491683,
+            17.08229082370443,
+            17.21715645128084
+          ],
+          "B_vs_A0_pct": 0.5212665674506511,
+          "B_vs_A2_pct": 0.783321148053906,
+          "B_vs_mean_A_pct": 0.6524666664810552,
+          "AA_drift_pct": 0.26377516983435395
+        },
+        {
+          "repeat": 1,
+          "ms_per_token": [
+            17.229564677262907,
+            17.111343685101872,
+            17.192247696329673
+          ],
+          "B_vs_A0_pct": 0.6861519392712623,
+          "B_vs_A2_pct": 0.47058425784007873,
+          "B_vs_mean_A_pct": 0.578484947938418,
+          "AA_drift_pct": 0.2168217090269331
+        }
+      ]
+    },
+    {
+      "row_id": "context-65536-greedy-c8",
+      "input_tokens": 65536,
+      "concurrency": 8,
+      "request_triple_counts": {
+        "ALL_THREE_EQUAL": 16
+      },
+      "pairs": [
+        {
+          "repeat": 0,
+          "ms_per_token": [
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "repeat": 1,
+          "ms_per_token": [
+            null,
+            null,
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "row_id": "context-131072-greedy-c1",
+      "input_tokens": 131072,
+      "concurrency": 1,
+      "request_triple_counts": {
+        "ALL_THREE_EQUAL": 2
+      },
+      "pairs": [
+        {
+          "repeat": 0,
+          "ms_per_token": [
+            8.14744318817176,
+            8.128977960486914,
+            8.021747243280211
+          ],
+          "B_vs_A0_pct": 0.22663831165651294,
+          "B_vs_A2_pct": -1.3367501362814505,
+          "B_vs_mean_A_pct": -0.548979182960152,
+          "AA_drift_pct": 1.5547586680288867
+        },
+        {
+          "repeat": 1,
+          "ms_per_token": [
+            8.141952968549495,
+            8.139563902445575,
+            8.01205634522964
+          ],
+          "B_vs_A0_pct": 0.029342666472631507,
+          "B_vs_A2_pct": -1.5914460872688885,
+          "B_vs_mean_A_pct": -0.7745352171196984,
+          "AA_drift_pct": 1.6082276640642386
+        }
+      ]
+    },
+    {
+      "row_id": "context-131072-greedy-c4",
+      "input_tokens": 131072,
+      "concurrency": 4,
+      "request_triple_counts": {
+        "ALL_THREE_EQUAL": 8
+      },
+      "pairs": [
+        {
+          "repeat": 0,
+          "ms_per_token": [
+            18.68141241645918,
+            18.564036180403956,
+            18.58201953546527
+          ],
+          "B_vs_A0_pct": 0.6283049345445213,
+          "B_vs_A2_pct": 0.09677825936514894,
+          "B_vs_mean_A_pct": 0.3632504684248472,
+          "AA_drift_pct": 0.5334606920916072
+        },
+        {
+          "repeat": 1,
+          "ms_per_token": [
+            18.70055085513225,
+            18.491655877566043,
+            18.663397045621444
+          ],
+          "B_vs_A0_pct": 1.1170525359624706,
+          "B_vs_A2_pct": 0.9202031529179311,
+          "B_vs_mean_A_pct": 1.018725715581914,
+          "AA_drift_pct": 0.19887518101402551
+        }
+      ]
+    },
+    {
+      "row_id": "context-261632-greedy-c1",
+      "input_tokens": 261632,
+      "concurrency": 1,
+      "request_triple_counts": {
+        "ALL_THREE_EQUAL": 2
+      },
+      "pairs": [
+        {
+          "repeat": 0,
+          "ms_per_token": [
+            7.824287995440411,
+            7.8061900512479685,
+            7.806919623787205
+          ],
+          "B_vs_A0_pct": 0.23130467849584724,
+          "B_vs_A2_pct": 0.009345203670518831,
+          "B_vs_mean_A_pct": 0.12044825448112029,
+          "AA_drift_pct": 0.22222686917473727
+        },
+        {
+          "repeat": 1,
+          "ms_per_token": [
+            7.812011784271283,
+            7.81329971847727,
+            7.806240772718892
+          ],
+          "B_vs_A0_pct": -0.016486588110131706,
+          "B_vs_A2_pct": -0.0904269540730418,
+          "B_vs_mean_A_pct": -0.05344311044983563,
+          "AA_drift_pct": 0.07390086094884474
+        }
+      ]
+    },
+    {
+      "row_id": "context-261632-greedy-c2",
+      "input_tokens": 261632,
+      "concurrency": 2,
+      "request_triple_counts": {
+        "ALL_THREE_EQUAL": 4
+      },
+      "pairs": [
+        {
+          "repeat": 0,
+          "ms_per_token": [
+            10.92459286049472,
+            10.982119448932732,
+            10.655754936049526
+          ],
+          "B_vs_A0_pct": -0.5265787857965831,
+          "B_vs_A2_pct": -3.0628004758168847,
+          "B_vs_mean_A_pct": -1.7788920963669241,
+          "AA_drift_pct": 2.4915068744929485
+        },
+        {
+          "repeat": 1,
+          "ms_per_token": [
+            11.004199288311836,
+            10.912746598728225,
+            10.707140439673108
+          ],
+          "B_vs_A0_pct": 0.831070822942559,
+          "B_vs_A2_pct": -1.9202714320742942,
+          "B_vs_mean_A_pct": -0.5257780998395356,
+          "AA_drift_pct": 2.7364395966392934
+        }
+      ]
+    }
+  ],
+  "output_disagreements": [
+    {
+      "row_id": "context-512-greedy-c4",
+      "repeat": 0,
+      "request_index": 1,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 5,
+          "left_token": 20480,
+          "right_token": 7936
+        },
+        "A0_B": {
+          "first_token_index": 5,
+          "left_token": 20480,
+          "right_token": 7936
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/002-context-512-greedy-c4-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/002-context-512-greedy-c4-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/002-context-512-greedy-c4-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-512-greedy-c4",
+      "repeat": 0,
+      "request_index": 2,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 155,
+          "left_token": 11,
+          "right_token": 471
+        },
+        "A0_B": {
+          "first_token_index": 155,
+          "left_token": 11,
+          "right_token": 471
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/002-context-512-greedy-c4-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/002-context-512-greedy-c4-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/002-context-512-greedy-c4-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-512-greedy-c4",
+      "repeat": 0,
+      "request_index": 3,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 5,
+          "left_token": 7936,
+          "right_token": 20480
+        },
+        "A0_B": {
+          "first_token_index": 5,
+          "left_token": 7936,
+          "right_token": 20480
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/002-context-512-greedy-c4-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/002-context-512-greedy-c4-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/002-context-512-greedy-c4-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-512-greedy-c4",
+      "repeat": 1,
+      "request_index": 1,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 5,
+          "left_token": 20480,
+          "right_token": 7936
+        },
+        "A0_B": {
+          "first_token_index": 5,
+          "left_token": 20480,
+          "right_token": 7936
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/003-context-512-greedy-c4-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/003-context-512-greedy-c4-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/003-context-512-greedy-c4-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-512-greedy-c4",
+      "repeat": 1,
+      "request_index": 2,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 134,
+          "left_token": 10207,
+          "right_token": 8019
+        },
+        "A0_B": {
+          "first_token_index": 134,
+          "left_token": 10207,
+          "right_token": 8019
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/003-context-512-greedy-c4-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/003-context-512-greedy-c4-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/003-context-512-greedy-c4-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-512-greedy-c4",
+      "repeat": 1,
+      "request_index": 3,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 5,
+          "left_token": 7936,
+          "right_token": 20480
+        },
+        "A0_B": {
+          "first_token_index": 5,
+          "left_token": 7936,
+          "right_token": 20480
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/003-context-512-greedy-c4-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/003-context-512-greedy-c4-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/003-context-512-greedy-c4-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-512-greedy-c8",
+      "repeat": 0,
+      "request_index": 0,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 167,
+          "left_token": 332,
+          "right_token": 92217
+        },
+        "A0_B": {
+          "first_token_index": 167,
+          "left_token": 332,
+          "right_token": 92217
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/004-context-512-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/004-context-512-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/004-context-512-greedy-c8-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-512-greedy-c8",
+      "repeat": 0,
+      "request_index": 1,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 5,
+          "left_token": 7936,
+          "right_token": 20480
+        },
+        "A0_B": {
+          "first_token_index": 5,
+          "left_token": 7936,
+          "right_token": 20480
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/004-context-512-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/004-context-512-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/004-context-512-greedy-c8-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-512-greedy-c8",
+      "repeat": 0,
+      "request_index": 2,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 5,
+          "left_token": 7936,
+          "right_token": 20480
+        },
+        "A2_B": {
+          "first_token_index": 5,
+          "left_token": 20480,
+          "right_token": 7936
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/004-context-512-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/004-context-512-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/004-context-512-greedy-c8-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-512-greedy-c8",
+      "repeat": 0,
+      "request_index": 3,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 5,
+          "left_token": 20480,
+          "right_token": 7936
+        },
+        "A0_B": {
+          "first_token_index": 237,
+          "left_token": 62,
+          "right_token": 17396
+        },
+        "A2_B": {
+          "first_token_index": 5,
+          "left_token": 7936,
+          "right_token": 20480
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/004-context-512-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/004-context-512-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/004-context-512-greedy-c8-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-512-greedy-c8",
+      "repeat": 0,
+      "request_index": 4,
+      "classification": "A0_A2_EQUAL_B_DIFFERS",
+      "first_differences": {
+        "A0_B": {
+          "first_token_index": 5,
+          "left_token": 20480,
+          "right_token": 7936
+        },
+        "A2_B": {
+          "first_token_index": 5,
+          "left_token": 20480,
+          "right_token": 7936
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/004-context-512-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/004-context-512-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/004-context-512-greedy-c8-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-512-greedy-c8",
+      "repeat": 0,
+      "request_index": 5,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 5,
+          "left_token": 20480,
+          "right_token": 7936
+        },
+        "A0_B": {
+          "first_token_index": 237,
+          "left_token": 17396,
+          "right_token": 62
+        },
+        "A2_B": {
+          "first_token_index": 5,
+          "left_token": 7936,
+          "right_token": 20480
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/004-context-512-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/004-context-512-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/004-context-512-greedy-c8-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-512-greedy-c8",
+      "repeat": 0,
+      "request_index": 6,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 5,
+          "left_token": 20480,
+          "right_token": 7936
+        },
+        "A0_B": {
+          "first_token_index": 167,
+          "left_token": 92217,
+          "right_token": 332
+        },
+        "A2_B": {
+          "first_token_index": 5,
+          "left_token": 7936,
+          "right_token": 20480
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/004-context-512-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/004-context-512-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/004-context-512-greedy-c8-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-512-greedy-c8",
+      "repeat": 0,
+      "request_index": 7,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 5,
+          "left_token": 7936,
+          "right_token": 20480
+        },
+        "A2_B": {
+          "first_token_index": 5,
+          "left_token": 20480,
+          "right_token": 7936
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/004-context-512-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/004-context-512-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/004-context-512-greedy-c8-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-512-greedy-c8",
+      "repeat": 1,
+      "request_index": 0,
+      "classification": "A0_A2_EQUAL_B_DIFFERS",
+      "first_differences": {
+        "A0_B": {
+          "first_token_index": 167,
+          "left_token": 332,
+          "right_token": 92217
+        },
+        "A2_B": {
+          "first_token_index": 167,
+          "left_token": 332,
+          "right_token": 92217
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/005-context-512-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/005-context-512-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/005-context-512-greedy-c8-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-512-greedy-c8",
+      "repeat": 1,
+      "request_index": 1,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 5,
+          "left_token": 7936,
+          "right_token": 20480
+        },
+        "A0_B": {
+          "first_token_index": 5,
+          "left_token": 7936,
+          "right_token": 20480
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/005-context-512-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/005-context-512-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/005-context-512-greedy-c8-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-512-greedy-c8",
+      "repeat": 1,
+      "request_index": 2,
+      "classification": "A0_A2_EQUAL_B_DIFFERS",
+      "first_differences": {
+        "A0_B": {
+          "first_token_index": 5,
+          "left_token": 20480,
+          "right_token": 7936
+        },
+        "A2_B": {
+          "first_token_index": 5,
+          "left_token": 20480,
+          "right_token": 7936
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/005-context-512-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/005-context-512-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/005-context-512-greedy-c8-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-512-greedy-c8",
+      "repeat": 1,
+      "request_index": 3,
+      "classification": "A0_A2_EQUAL_B_DIFFERS",
+      "first_differences": {
+        "A0_B": {
+          "first_token_index": 237,
+          "left_token": 62,
+          "right_token": 17396
+        },
+        "A2_B": {
+          "first_token_index": 237,
+          "left_token": 62,
+          "right_token": 17396
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/005-context-512-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/005-context-512-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/005-context-512-greedy-c8-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-512-greedy-c8",
+      "repeat": 1,
+      "request_index": 4,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 5,
+          "left_token": 20480,
+          "right_token": 7936
+        },
+        "A0_B": {
+          "first_token_index": 5,
+          "left_token": 20480,
+          "right_token": 7936
+        },
+        "A2_B": {
+          "first_token_index": 213,
+          "left_token": 25,
+          "right_token": 318
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/005-context-512-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/005-context-512-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/005-context-512-greedy-c8-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-512-greedy-c8",
+      "repeat": 1,
+      "request_index": 5,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 167,
+          "left_token": 332,
+          "right_token": 92217
+        },
+        "A2_B": {
+          "first_token_index": 167,
+          "left_token": 92217,
+          "right_token": 332
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/005-context-512-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/005-context-512-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/005-context-512-greedy-c8-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-512-greedy-c8",
+      "repeat": 1,
+      "request_index": 6,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 134,
+          "left_token": 2425,
+          "right_token": 7678
+        },
+        "A2_B": {
+          "first_token_index": 134,
+          "left_token": 7678,
+          "right_token": 2425
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/005-context-512-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/005-context-512-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/005-context-512-greedy-c8-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-512-greedy-c8",
+      "repeat": 1,
+      "request_index": 7,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 134,
+          "left_token": 7678,
+          "right_token": 2425
+        },
+        "A0_B": {
+          "first_token_index": 5,
+          "left_token": 7936,
+          "right_token": 20480
+        },
+        "A2_B": {
+          "first_token_index": 5,
+          "left_token": 7936,
+          "right_token": 20480
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/005-context-512-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/005-context-512-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/005-context-512-greedy-c8-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c4",
+      "repeat": 0,
+      "request_index": 0,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 161,
+          "left_token": 62,
+          "right_token": 4922
+        },
+        "A2_B": {
+          "first_token_index": 161,
+          "left_token": 4922,
+          "right_token": 62
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/008-context-2048-greedy-c4-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/008-context-2048-greedy-c4-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/008-context-2048-greedy-c4-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c4",
+      "repeat": 0,
+      "request_index": 1,
+      "classification": "A0_A2_EQUAL_B_DIFFERS",
+      "first_differences": {
+        "A0_B": {
+          "first_token_index": 79,
+          "left_token": 7678,
+          "right_token": 2425
+        },
+        "A2_B": {
+          "first_token_index": 79,
+          "left_token": 7678,
+          "right_token": 2425
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/008-context-2048-greedy-c4-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/008-context-2048-greedy-c4-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/008-context-2048-greedy-c4-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c4",
+      "repeat": 0,
+      "request_index": 2,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 161,
+          "left_token": 4922,
+          "right_token": 62
+        },
+        "A0_B": {
+          "first_token_index": 1,
+          "left_token": 25914,
+          "right_token": 248046
+        },
+        "A2_B": {
+          "first_token_index": 1,
+          "left_token": 25914,
+          "right_token": 248046
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/008-context-2048-greedy-c4-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/008-context-2048-greedy-c4-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/008-context-2048-greedy-c4-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c4",
+      "repeat": 0,
+      "request_index": 3,
+      "classification": "A0_A2_EQUAL_B_DIFFERS",
+      "first_differences": {
+        "A0_B": {
+          "first_token_index": 1,
+          "left_token": 248046,
+          "right_token": 25914
+        },
+        "A2_B": {
+          "first_token_index": 1,
+          "left_token": 248046,
+          "right_token": 25914
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/008-context-2048-greedy-c4-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/008-context-2048-greedy-c4-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/008-context-2048-greedy-c4-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c4",
+      "repeat": 1,
+      "request_index": 0,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 1,
+          "left_token": 248046,
+          "right_token": 25914
+        },
+        "A0_B": {
+          "first_token_index": 1,
+          "left_token": 248046,
+          "right_token": 25914
+        },
+        "A2_B": {
+          "first_token_index": 5,
+          "left_token": 248046,
+          "right_token": 16720
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/009-context-2048-greedy-c4-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/009-context-2048-greedy-c4-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/009-context-2048-greedy-c4-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c4",
+      "repeat": 1,
+      "request_index": 1,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 197,
+          "left_token": 5459,
+          "right_token": 12454
+        },
+        "A0_B": {
+          "first_token_index": 1,
+          "left_token": 25914,
+          "right_token": 248046
+        },
+        "A2_B": {
+          "first_token_index": 1,
+          "left_token": 25914,
+          "right_token": 248046
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/009-context-2048-greedy-c4-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/009-context-2048-greedy-c4-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/009-context-2048-greedy-c4-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c4",
+      "repeat": 1,
+      "request_index": 2,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 79,
+          "left_token": 7678,
+          "right_token": 2425
+        },
+        "A0_B": {
+          "first_token_index": 58,
+          "left_token": 14293,
+          "right_token": 52483
+        },
+        "A2_B": {
+          "first_token_index": 58,
+          "left_token": 14293,
+          "right_token": 52483
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/009-context-2048-greedy-c4-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/009-context-2048-greedy-c4-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/009-context-2048-greedy-c4-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c4",
+      "repeat": 1,
+      "request_index": 3,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 1,
+          "left_token": 25914,
+          "right_token": 248046
+        },
+        "A0_B": {
+          "first_token_index": 5,
+          "left_token": 16720,
+          "right_token": 248046
+        },
+        "A2_B": {
+          "first_token_index": 1,
+          "left_token": 248046,
+          "right_token": 25914
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/009-context-2048-greedy-c4-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/009-context-2048-greedy-c4-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/009-context-2048-greedy-c4-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c8",
+      "repeat": 0,
+      "request_index": 0,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 58,
+          "left_token": 14293,
+          "right_token": 52483
+        },
+        "A0_B": {
+          "first_token_index": 1,
+          "left_token": 248046,
+          "right_token": 25914
+        },
+        "A2_B": {
+          "first_token_index": 1,
+          "left_token": 248046,
+          "right_token": 25914
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/010-context-2048-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/010-context-2048-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/010-context-2048-greedy-c8-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c8",
+      "repeat": 0,
+      "request_index": 1,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 1,
+          "left_token": 248046,
+          "right_token": 25914
+        },
+        "A0_B": {
+          "first_token_index": 58,
+          "left_token": 52483,
+          "right_token": 14293
+        },
+        "A2_B": {
+          "first_token_index": 1,
+          "left_token": 25914,
+          "right_token": 248046
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/010-context-2048-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/010-context-2048-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/010-context-2048-greedy-c8-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c8",
+      "repeat": 0,
+      "request_index": 2,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 37,
+          "left_token": 279,
+          "right_token": 2708
+        },
+        "A0_B": {
+          "first_token_index": 5,
+          "left_token": 248046,
+          "right_token": 16720
+        },
+        "A2_B": {
+          "first_token_index": 5,
+          "left_token": 248046,
+          "right_token": 16720
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/010-context-2048-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/010-context-2048-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/010-context-2048-greedy-c8-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c8",
+      "repeat": 0,
+      "request_index": 3,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 1,
+          "left_token": 248046,
+          "right_token": 25914
+        },
+        "A0_B": {
+          "first_token_index": 1,
+          "left_token": 248046,
+          "right_token": 25914
+        },
+        "A2_B": {
+          "first_token_index": 8,
+          "left_token": 248046,
+          "right_token": 28365
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/010-context-2048-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/010-context-2048-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/010-context-2048-greedy-c8-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c8",
+      "repeat": 0,
+      "request_index": 4,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 5,
+          "left_token": 248046,
+          "right_token": 16720
+        },
+        "A0_B": {
+          "first_token_index": 37,
+          "left_token": 2708,
+          "right_token": 279
+        },
+        "A2_B": {
+          "first_token_index": 5,
+          "left_token": 16720,
+          "right_token": 248046
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/010-context-2048-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/010-context-2048-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/010-context-2048-greedy-c8-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c8",
+      "repeat": 0,
+      "request_index": 5,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 5,
+          "left_token": 16720,
+          "right_token": 248046
+        },
+        "A0_B": {
+          "first_token_index": 1,
+          "left_token": 25914,
+          "right_token": 248046
+        },
+        "A2_B": {
+          "first_token_index": 1,
+          "left_token": 25914,
+          "right_token": 248046
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/010-context-2048-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/010-context-2048-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/010-context-2048-greedy-c8-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c8",
+      "repeat": 0,
+      "request_index": 6,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 188,
+          "left_token": 506,
+          "right_token": 871
+        },
+        "A0_B": {
+          "first_token_index": 1,
+          "left_token": 25914,
+          "right_token": 248046
+        },
+        "A2_B": {
+          "first_token_index": 1,
+          "left_token": 25914,
+          "right_token": 248046
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/010-context-2048-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/010-context-2048-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/010-context-2048-greedy-c8-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c8",
+      "repeat": 0,
+      "request_index": 7,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 26,
+          "left_token": 561,
+          "right_token": 6558
+        },
+        "A0_B": {
+          "first_token_index": 51,
+          "left_token": 74563,
+          "right_token": 2972
+        },
+        "A2_B": {
+          "first_token_index": 26,
+          "left_token": 6558,
+          "right_token": 561
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/010-context-2048-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/010-context-2048-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/010-context-2048-greedy-c8-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c8",
+      "repeat": 1,
+      "request_index": 0,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 1,
+          "left_token": 248046,
+          "right_token": 25914
+        },
+        "A0_B": {
+          "first_token_index": 1,
+          "left_token": 248046,
+          "right_token": 25914
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/011-context-2048-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/011-context-2048-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/011-context-2048-greedy-c8-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c8",
+      "repeat": 1,
+      "request_index": 1,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 79,
+          "left_token": 2425,
+          "right_token": 7678
+        },
+        "A0_B": {
+          "first_token_index": 79,
+          "left_token": 2425,
+          "right_token": 7678
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/011-context-2048-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/011-context-2048-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/011-context-2048-greedy-c8-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c8",
+      "repeat": 1,
+      "request_index": 2,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 1,
+          "left_token": 248046,
+          "right_token": 25914
+        },
+        "A0_B": {
+          "first_token_index": 1,
+          "left_token": 248046,
+          "right_token": 25914
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/011-context-2048-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/011-context-2048-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/011-context-2048-greedy-c8-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c8",
+      "repeat": 1,
+      "request_index": 3,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 1,
+          "left_token": 25914,
+          "right_token": 248046
+        },
+        "A0_B": {
+          "first_token_index": 160,
+          "left_token": 318,
+          "right_token": 11
+        },
+        "A2_B": {
+          "first_token_index": 1,
+          "left_token": 248046,
+          "right_token": 25914
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/011-context-2048-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/011-context-2048-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/011-context-2048-greedy-c8-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c8",
+      "repeat": 1,
+      "request_index": 4,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 1,
+          "left_token": 25914,
+          "right_token": 248046
+        },
+        "A0_B": {
+          "first_token_index": 1,
+          "left_token": 25914,
+          "right_token": 248046
+        },
+        "A2_B": {
+          "first_token_index": 58,
+          "left_token": 52483,
+          "right_token": 14293
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/011-context-2048-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/011-context-2048-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/011-context-2048-greedy-c8-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c8",
+      "repeat": 1,
+      "request_index": 5,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 5,
+          "left_token": 248046,
+          "right_token": 16720
+        },
+        "A0_B": {
+          "first_token_index": 1,
+          "left_token": 25914,
+          "right_token": 248046
+        },
+        "A2_B": {
+          "first_token_index": 1,
+          "left_token": 25914,
+          "right_token": 248046
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/011-context-2048-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/011-context-2048-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/011-context-2048-greedy-c8-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-2048-greedy-c8",
+      "repeat": 1,
+      "request_index": 7,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 5,
+          "left_token": 16720,
+          "right_token": 248046
+        },
+        "A0_B": {
+          "first_token_index": 5,
+          "left_token": 16720,
+          "right_token": 248046
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/011-context-2048-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/011-context-2048-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/011-context-2048-greedy-c8-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-8192-greedy-c4",
+      "repeat": 1,
+      "request_index": 0,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 91,
+          "left_token": 248046,
+          "right_token": 198
+        },
+        "A2_B": {
+          "first_token_index": 91,
+          "left_token": 198,
+          "right_token": 248046
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/015-context-8192-greedy-c4-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/015-context-8192-greedy-c4-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/015-context-8192-greedy-c4-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-8192-greedy-c4",
+      "repeat": 1,
+      "request_index": 1,
+      "classification": "A0_A2_EQUAL_B_DIFFERS",
+      "first_differences": {
+        "A0_B": {
+          "first_token_index": 91,
+          "left_token": 248046,
+          "right_token": 198
+        },
+        "A2_B": {
+          "first_token_index": 91,
+          "left_token": 248046,
+          "right_token": 198
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/015-context-8192-greedy-c4-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/015-context-8192-greedy-c4-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/015-context-8192-greedy-c4-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-8192-greedy-c4",
+      "repeat": 1,
+      "request_index": 3,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 91,
+          "left_token": 198,
+          "right_token": 248046
+        },
+        "A0_B": {
+          "first_token_index": 91,
+          "left_token": 198,
+          "right_token": 248046
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/015-context-8192-greedy-c4-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/015-context-8192-greedy-c4-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/015-context-8192-greedy-c4-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-8192-greedy-c8",
+      "repeat": 0,
+      "request_index": 1,
+      "classification": "A0_A2_EQUAL_B_DIFFERS",
+      "first_differences": {
+        "A0_B": {
+          "first_token_index": 146,
+          "left_token": 14293,
+          "right_token": 52483
+        },
+        "A2_B": {
+          "first_token_index": 146,
+          "left_token": 14293,
+          "right_token": 52483
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/016-context-8192-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/016-context-8192-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/016-context-8192-greedy-c8-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-8192-greedy-c8",
+      "repeat": 0,
+      "request_index": 3,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 168,
+          "left_token": 10207,
+          "right_token": 8019
+        },
+        "A0_B": {
+          "first_token_index": 146,
+          "left_token": 52483,
+          "right_token": 14293
+        },
+        "A2_B": {
+          "first_token_index": 146,
+          "left_token": 52483,
+          "right_token": 14293
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/016-context-8192-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/016-context-8192-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/016-context-8192-greedy-c8-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-8192-greedy-c8",
+      "repeat": 0,
+      "request_index": 4,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 186,
+          "left_token": 8387,
+          "right_token": 5972
+        },
+        "A2_B": {
+          "first_token_index": 186,
+          "left_token": 5972,
+          "right_token": 8387
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/016-context-8192-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/016-context-8192-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/016-context-8192-greedy-c8-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-8192-greedy-c8",
+      "repeat": 0,
+      "request_index": 5,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 168,
+          "left_token": 8019,
+          "right_token": 10207
+        },
+        "A0_B": {
+          "first_token_index": 168,
+          "left_token": 8019,
+          "right_token": 10207
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/016-context-8192-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/016-context-8192-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/016-context-8192-greedy-c8-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-8192-greedy-c8",
+      "repeat": 0,
+      "request_index": 7,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 186,
+          "left_token": 5972,
+          "right_token": 8387
+        },
+        "A0_B": {
+          "first_token_index": 186,
+          "left_token": 5972,
+          "right_token": 8387
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/016-context-8192-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/016-context-8192-greedy-c8-repeat0/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/016-context-8192-greedy-c8-repeat0/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-8192-greedy-c8",
+      "repeat": 1,
+      "request_index": 1,
+      "classification": "A0_A2_EQUAL_B_DIFFERS",
+      "first_differences": {
+        "A0_B": {
+          "first_token_index": 146,
+          "left_token": 52483,
+          "right_token": 14293
+        },
+        "A2_B": {
+          "first_token_index": 146,
+          "left_token": 52483,
+          "right_token": 14293
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/017-context-8192-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/017-context-8192-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/017-context-8192-greedy-c8-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-8192-greedy-c8",
+      "repeat": 1,
+      "request_index": 3,
+      "classification": "A0_A2_EQUAL_B_DIFFERS",
+      "first_differences": {
+        "A0_B": {
+          "first_token_index": 146,
+          "left_token": 14293,
+          "right_token": 52483
+        },
+        "A2_B": {
+          "first_token_index": 146,
+          "left_token": 14293,
+          "right_token": 52483
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/017-context-8192-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/017-context-8192-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/017-context-8192-greedy-c8-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-8192-greedy-c8",
+      "repeat": 1,
+      "request_index": 4,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 146,
+          "left_token": 52483,
+          "right_token": 14293
+        },
+        "A0_B": {
+          "first_token_index": 146,
+          "left_token": 52483,
+          "right_token": 14293
+        },
+        "A2_B": {
+          "first_token_index": 186,
+          "left_token": 5972,
+          "right_token": 8387
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/017-context-8192-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/017-context-8192-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/017-context-8192-greedy-c8-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-8192-greedy-c8",
+      "repeat": 1,
+      "request_index": 5,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 146,
+          "left_token": 14293,
+          "right_token": 52483
+        },
+        "A0_B": {
+          "first_token_index": 94,
+          "left_token": 74455,
+          "right_token": 846
+        },
+        "A2_B": {
+          "first_token_index": 94,
+          "left_token": 74455,
+          "right_token": 846
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/017-context-8192-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/017-context-8192-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/017-context-8192-greedy-c8-repeat1/GROUP.json"
+      ]
+    },
+    {
+      "row_id": "context-8192-greedy-c8",
+      "repeat": 1,
+      "request_index": 6,
+      "classification": "AA_SELF_VARIATION",
+      "first_differences": {
+        "A0_A2": {
+          "first_token_index": 186,
+          "left_token": 5972,
+          "right_token": 8387
+        },
+        "A0_B": {
+          "first_token_index": 186,
+          "left_token": 5972,
+          "right_token": 8387
+        }
+      },
+      "groups": [
+        "context-qsa-run4/control/attempt1/A0/http/017-context-8192-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/B/http/017-context-8192-greedy-c8-repeat1/GROUP.json",
+        "context-qsa-run4/control/attempt1/A2/http/017-context-8192-greedy-c8-repeat1/GROUP.json"
+      ]
+    }
+  ],
+  "resources": {
+    "A0": {
+      "client_peak_bytes": 681353216,
+      "client_checks": {
+        "memory_max_1GiB": true,
+        "current_peak_within_1GiB": true,
+        "events_max_zero": true,
+        "swap_zero": true,
+        "oom_zero": true,
+        "client_cpu14_42": true
+      },
+      "sampled_max": {
+        "PROCESS_MEMORY": {
+          "GPU-54a5dec0-85a9-837b-c54d-4a3752c1b620": 32124,
+          "GPU-94e7fdea-085e-eea4-86a5-83bbd6ad0883": 32124,
+          "GPU-7aaea8dd-2241-2730-1234-96a9cd033e11": 32124,
+          "GPU-72ca49d9-70ae-f881-70b3-a16295209e47": 32124
+        },
+        "DEVICE_MEMORY": {
+          "GPU-54a5dec0-85a9-837b-c54d-4a3752c1b620": 32165,
+          "GPU-94e7fdea-085e-eea4-86a5-83bbd6ad0883": 32165,
+          "GPU-7aaea8dd-2241-2730-1234-96a9cd033e11": 32165,
+          "GPU-72ca49d9-70ae-f881-70b3-a16295209e47": 32165
+        }
+      }
+    },
+    "B": {
+      "client_peak_bytes": 689508352,
+      "client_checks": {
+        "memory_max_1GiB": true,
+        "current_peak_within_1GiB": true,
+        "events_max_zero": true,
+        "swap_zero": true,
+        "oom_zero": true,
+        "client_cpu14_42": true
+      },
+      "sampled_max": {
+        "PROCESS_MEMORY": {
+          "GPU-54a5dec0-85a9-837b-c54d-4a3752c1b620": 32124,
+          "GPU-94e7fdea-085e-eea4-86a5-83bbd6ad0883": 32124,
+          "GPU-7aaea8dd-2241-2730-1234-96a9cd033e11": 32124,
+          "GPU-72ca49d9-70ae-f881-70b3-a16295209e47": 32124
+        },
+        "DEVICE_MEMORY": {
+          "GPU-54a5dec0-85a9-837b-c54d-4a3752c1b620": 32165,
+          "GPU-94e7fdea-085e-eea4-86a5-83bbd6ad0883": 32165,
+          "GPU-7aaea8dd-2241-2730-1234-96a9cd033e11": 32165,
+          "GPU-72ca49d9-70ae-f881-70b3-a16295209e47": 32165
+        }
+      }
+    },
+    "A2": {
+      "client_peak_bytes": 652791808,
+      "client_checks": {
+        "memory_max_1GiB": true,
+        "current_peak_within_1GiB": true,
+        "events_max_zero": true,
+        "swap_zero": true,
+        "oom_zero": true,
+        "client_cpu14_42": true
+      },
+      "sampled_max": {
+        "PROCESS_MEMORY": {
+          "GPU-54a5dec0-85a9-837b-c54d-4a3752c1b620": 32124,
+          "GPU-94e7fdea-085e-eea4-86a5-83bbd6ad0883": 32124,
+          "GPU-7aaea8dd-2241-2730-1234-96a9cd033e11": 32124,
+          "GPU-72ca49d9-70ae-f881-70b3-a16295209e47": 32124
+        },
+        "DEVICE_MEMORY": {
+          "GPU-54a5dec0-85a9-837b-c54d-4a3752c1b620": 32165,
+          "GPU-94e7fdea-085e-eea4-86a5-83bbd6ad0883": 32165,
+          "GPU-7aaea8dd-2241-2730-1234-96a9cd033e11": 32165,
+          "GPU-72ca49d9-70ae-f881-70b3-a16295209e47": 32165
+        }
+      }
+    }
+  },
+  "restoration": {
+    "pid": 188448,
+    "invocation_id": "30e0f4501bfe471c8d9871c8a2090322",
+    "requests": 53,
+    "gates": 17,
+    "fast": 24,
+    "slow": 0
+  },
+  "limitations": [
+    "A0=A2 in one request is not a deterministic execution-plan or QSA causal proof.",
+    "Group-level AA_SELF_VARIATION can coexist with individual A0=A2/B-different requests.",
+    "n=2 is descriptive; SSE is not GPU timing or a hardware lower bound.",
+    "GPU maxima are samples, not continuous peaks."
+  ],
+  "pins": {
+    "context-qsa-run4/control/plan.json": "355ef8caeee318fc79abad12cf4dcf70b05dd3a822177eb17b03ec2675b64ba4",
+    "context-qsa-run4/analysis/RESULT.json": "1e6faaaa0edebd923c22d2de034fd9ab52ad6c2aa928870bfc53c0f94c8ba8fc",
+    "review/context-qsa-run4-postprocess-20261003/RAW-AUDIT.json": "88b67f36027a29840ac76917aa54152bb37c8d0f6de95005f9d97a8a00a2d56b",
+    "review/context-qsa-run4-restoration-20261002/PARENT-RESTORATION-REVIEW.json": "b483d2c9235e2c5ad181201a78f1def376f355686bc389bd3695d4121c1de182",
+    "review/context-qsa-run4-memory-review-20261002/actual-final-closed/MEMORY-REVIEW.json": "c98491313a690788a2eae2dbc75195f3c3de122cf25f69452afff1bdd5533ca7",
+    "context-qsa-run4/control/attempt1/A0/http/RESULT.json": "88fbfb4cb7003f34bc954ab5aeebe64fa611568f2c87de644949f70fda3cb169",
+    "context-qsa-run4/control/attempt1/A0/http/000-context-512-greedy-c1-repeat0/GROUP.json": "7f795f2f21f8dac2384176081b743d267d476959ef64194518b3ae3280bcdb80",
+    "context-qsa-run4/control/attempt1/A0/http/000-context-512-greedy-c1-repeat0/request-00/raw-lines.jsonl": "fab306381555e7267e8ae2580a70159bffe4c3ab9b8af5a65f8bb409ed0b7915",
+    "context-qsa-run4/control/attempt1/A0/http/001-context-512-greedy-c1-repeat1/GROUP.json": "eef4a97b19de6625403f4951f8f9ad3508605cbd3e158f7d1dd225c3660f08e6",
+    "context-qsa-run4/control/attempt1/A0/http/001-context-512-greedy-c1-repeat1/request-00/raw-lines.jsonl": "4116934c477d710567aed49233fad8eaaca036012092ccb5c82140168956a4d5",
+    "context-qsa-run4/control/attempt1/A0/http/002-context-512-greedy-c4-repeat0/GROUP.json": "88428242224b28d4c04358d2c53e8c98ea7e2ebee58481f0f0d873c618de1014",
+    "context-qsa-run4/control/attempt1/A0/http/002-context-512-greedy-c4-repeat0/request-00/raw-lines.jsonl": "090794174961e1e6126c6ea38dac3a8e3962f2c8a11b9ab4d1cc70a5d7726084",
+    "context-qsa-run4/control/attempt1/A0/http/002-context-512-greedy-c4-repeat0/request-01/raw-lines.jsonl": "4f4f933c38ec38f0fa0058b7374257784db85da12d4864b637eff69c8fe52de0",
+    "context-qsa-run4/control/attempt1/A0/http/002-context-512-greedy-c4-repeat0/request-02/raw-lines.jsonl": "692b07364d4d5e491e769bdc7478feff2a793e27f48b98f45d2f307d864e9f79",
+    "context-qsa-run4/control/attempt1/A0/http/002-context-512-greedy-c4-repeat0/request-03/raw-lines.jsonl": "29c8026e68ab45e5583217da691ceb1a51347669051c1c5aa82375585ad2d749",
+    "context-qsa-run4/control/attempt1/A0/http/003-context-512-greedy-c4-repeat1/GROUP.json": "126cdd62230a744c0a630cfdbe74b74c0995aa6fa5fa96d0a75f8fe2ebe5b88b",
+    "context-qsa-run4/control/attempt1/A0/http/003-context-512-greedy-c4-repeat1/request-00/raw-lines.jsonl": "1c4d042fd8a0f22151db714a2b991dd641e6933136e499ae14e38d218c0ef1d9",
+    "context-qsa-run4/control/attempt1/A0/http/003-context-512-greedy-c4-repeat1/request-01/raw-lines.jsonl": "484f403dff4fbe79d06d0be4e29bcf237a537bde5cf99d4c0867024b5366ccba",
+    "context-qsa-run4/control/attempt1/A0/http/003-context-512-greedy-c4-repeat1/request-02/raw-lines.jsonl": "44ffaf2d416b615217a81363ea432e08a457dbd0983f28e62b22637a9e23de44",
+    "context-qsa-run4/control/attempt1/A0/http/003-context-512-greedy-c4-repeat1/request-03/raw-lines.jsonl": "9832d66f4d3ea9b5c432fb2bfa4324da4f9d09d5a542cf9a20afb9dfca75ef87",
+    "context-qsa-run4/control/attempt1/A0/http/004-context-512-greedy-c8-repeat0/GROUP.json": "66e9370e9e5f80b551f6e054b5478661a69a5903abc87ab44280f205619faed1",
+    "context-qsa-run4/control/attempt1/A0/http/004-context-512-greedy-c8-repeat0/request-00/raw-lines.jsonl": "71552f4698fe34ca98c23468f447df3a92b2b20b941bc9f5570d232ffa8fc4e0",
+    "context-qsa-run4/control/attempt1/A0/http/004-context-512-greedy-c8-repeat0/request-01/raw-lines.jsonl": "b2710c0aa32458172393f5498c240dc34bc6216504eb1c17cfcc89040b9e5c8d",
+    "context-qsa-run4/control/attempt1/A0/http/004-context-512-greedy-c8-repeat0/request-02/raw-lines.jsonl": "69c8aaf50246bd99c2ca55e1cefaea99ac5778ff295612160698b82c09167dc5",
+    "context-qsa-run4/control/attempt1/A0/http/004-context-512-greedy-c8-repeat0/request-03/raw-lines.jsonl": "0b7253d7f13f275f0e7ede2e4c69436f1608f96a356b469a62936635ea15de55",
+    "context-qsa-run4/control/attempt1/A0/http/004-context-512-greedy-c8-repeat0/request-04/raw-lines.jsonl": "4b5b192fc6e7c008880dd10715f7ed21d4ee41e1b2a07719c3ad9f50765b38ca",
+    "context-qsa-run4/control/attempt1/A0/http/004-context-512-greedy-c8-repeat0/request-05/raw-lines.jsonl": "e0dbd753dc3f8c835a893bf7425ccfd8049b0752953b602829f180e6707bddc4",
+    "context-qsa-run4/control/attempt1/A0/http/004-context-512-greedy-c8-repeat0/request-06/raw-lines.jsonl": "776b2930581c7a0cb4c6ae6228f4142ccd77b75c886c0d5e80f03e815b78798e",
+    "context-qsa-run4/control/attempt1/A0/http/004-context-512-greedy-c8-repeat0/request-07/raw-lines.jsonl": "5e9fcc7bb67c9b0a28f3ee5dc125dccbf9de0c4a7986148f9bed4f4433191b38",
+    "context-qsa-run4/control/attempt1/A0/http/005-context-512-greedy-c8-repeat1/GROUP.json": "c702915eb74260dd1866442b69e101a87385bea70c4668aefc212bb8e9363d8b",
+    "context-qsa-run4/control/attempt1/A0/http/005-context-512-greedy-c8-repeat1/request-00/raw-lines.jsonl": "113bb60ec305ddf6c656d639c8a8cb72f98c8c89f52d75b0601c5965459f4403",
+    "context-qsa-run4/control/attempt1/A0/http/005-context-512-greedy-c8-repeat1/request-01/raw-lines.jsonl": "533e8b31797e2e0dff9d40b94089e88f28023a02df6a9a3c7628dd771def2adf",
+    "context-qsa-run4/control/attempt1/A0/http/005-context-512-greedy-c8-repeat1/request-02/raw-lines.jsonl": "2f8175284769fe042a27ca96c70d581f70c55c02a393ab98bb7e095943974f8e",
+    "context-qsa-run4/control/attempt1/A0/http/005-context-512-greedy-c8-repeat1/request-03/raw-lines.jsonl": "0e18ed712e5344d275b4724393cb7572ce9a67846a2c4620be87dfb397c99dc2",
+    "context-qsa-run4/control/attempt1/A0/http/005-context-512-greedy-c8-repeat1/request-04/raw-lines.jsonl": "cea6ebd5755cb830b0bf270a95bbbdb013495658cdd9b1c74d7e1e46527d307d",
+    "context-qsa-run4/control/attempt1/A0/http/005-context-512-greedy-c8-repeat1/request-05/raw-lines.jsonl": "7a9ac27213c128a8e1ee46ef167051e7cbd30158b07b4929d087fa7a62c240fc",
+    "context-qsa-run4/control/attempt1/A0/http/005-context-512-greedy-c8-repeat1/request-06/raw-lines.jsonl": "a962326c48e4d4628860e49bc7f5cf4819bdc2b96ebf0b560add8a8aaf0ea3ed",
+    "context-qsa-run4/control/attempt1/A0/http/005-context-512-greedy-c8-repeat1/request-07/raw-lines.jsonl": "5e417d4c8199048940c0c9d9b70d674b361c609f18250c787023949a9a2249cb",
+    "context-qsa-run4/control/attempt1/A0/http/006-context-2048-greedy-c1-repeat0/GROUP.json": "49b503e5403f8470630362e2c7d7e1022459e99e76e768342d2e872c0090b346",
+    "context-qsa-run4/control/attempt1/A0/http/006-context-2048-greedy-c1-repeat0/request-00/raw-lines.jsonl": "96a83cc78b33c4c9b6b666651f02f0fdf70ddde465a7689c760801a313aea24d",
+    "context-qsa-run4/control/attempt1/A0/http/007-context-2048-greedy-c1-repeat1/GROUP.json": "7910e412df67e46d4cb838f2e4b6880f9ebf1ff63bec790da07189f66661859a",
+    "context-qsa-run4/control/attempt1/A0/http/007-context-2048-greedy-c1-repeat1/request-00/raw-lines.jsonl": "7cbb1c2943f10f5cc788cdfd96b54c3529c9134f6da48af74a5909cde201b36d",
+    "context-qsa-run4/control/attempt1/A0/http/008-context-2048-greedy-c4-repeat0/GROUP.json": "c12d4dc85cdf18677b669f277b232d4e9d182a9f92c5bb196b358f1220249e65",
+    "context-qsa-run4/control/attempt1/A0/http/008-context-2048-greedy-c4-repeat0/request-00/raw-lines.jsonl": "787ebfb55916b51166451bc11a2dd056eba20312ff428c81c22ec5f694327a3f",
+    "context-qsa-run4/control/attempt1/A0/http/008-context-2048-greedy-c4-repeat0/request-01/raw-lines.jsonl": "5a16e26a54d4065613889fcd4f4dc2e3c966b49be44799d056f6d7d28adb0bdd",
+    "context-qsa-run4/control/attempt1/A0/http/008-context-2048-greedy-c4-repeat0/request-02/raw-lines.jsonl": "1802f32d2016fccf4a6eac9155857326e0959049792ede1c57aae8bbd50a587e",
+    "context-qsa-run4/control/attempt1/A0/http/008-context-2048-greedy-c4-repeat0/request-03/raw-lines.jsonl": "6bd8775fda0cc3eadce2b7ffc334af6100d7d6540c257ba162c0e858b1ad05c2",
+    "context-qsa-run4/control/attempt1/A0/http/009-context-2048-greedy-c4-repeat1/GROUP.json": "c5738c0b4837e315aa1d6d2649559ff9061a674e9281e52fce4207a700a0b9f6",
+    "context-qsa-run4/control/attempt1/A0/http/009-context-2048-greedy-c4-repeat1/request-00/raw-lines.jsonl": "19ddb228dddd65ee0e2b4d9627870bdae5874c2488d022134d837c687886db57",
+    "context-qsa-run4/control/attempt1/A0/http/009-context-2048-greedy-c4-repeat1/request-01/raw-lines.jsonl": "a67f9fbfa55524c8e9a719346c9c3eaa92a7afd3f454a5f0d339c71f4ec86b01",
+    "context-qsa-run4/control/attempt1/A0/http/009-context-2048-greedy-c4-repeat1/request-02/raw-lines.jsonl": "21fe9825ef488dfa050f7dbd4e013e061aed5b635392047a9dc4e0dc898bf73d",
+    "context-qsa-run4/control/attempt1/A0/http/009-context-2048-greedy-c4-repeat1/request-03/raw-lines.jsonl": "cd89f49f35b543c78225e6dce2415a606a20caf72f3046155f35a49a915fc1bc",
+    "context-qsa-run4/control/attempt1/A0/http/010-context-2048-greedy-c8-repeat0/GROUP.json": "9795ec69e565fbf366f2b3546c4268fcdfcf580e48b0f2ba1352dd063c655eed",
+    "context-qsa-run4/control/attempt1/A0/http/010-context-2048-greedy-c8-repeat0/request-00/raw-lines.jsonl": "a9f5d3928327db2f8f0a6bbac94d14cfcf98e06d916186bb135ddf8f5ac6905e",
+    "context-qsa-run4/control/attempt1/A0/http/010-context-2048-greedy-c8-repeat0/request-01/raw-lines.jsonl": "aaf40d655f9a2c1bb6746ba4deab12bb3e9a3eea471610db64717df05328d90f",
+    "context-qsa-run4/control/attempt1/A0/http/010-context-2048-greedy-c8-repeat0/request-02/raw-lines.jsonl": "2dc942a0084bff82db6a85de96f8dde04657fd21e4ac34c1d2371d7f5871f376",
+    "context-qsa-run4/control/attempt1/A0/http/010-context-2048-greedy-c8-repeat0/request-03/raw-lines.jsonl": "bbdd3804fb76e7f04ee0a845ac6ef5334667a92fd2696931b508346dae94ff28",
+    "context-qsa-run4/control/attempt1/A0/http/010-context-2048-greedy-c8-repeat0/request-04/raw-lines.jsonl": "a6b803ceb07de847be1710d5f865be94bd2a419fc0f08bf9347732727b1d9177",
+    "context-qsa-run4/control/attempt1/A0/http/010-context-2048-greedy-c8-repeat0/request-05/raw-lines.jsonl": "ab0fa855cda1c84e3c91e656105324a884fa939242561f65d37d22dec127b4d3",
+    "context-qsa-run4/control/attempt1/A0/http/010-context-2048-greedy-c8-repeat0/request-06/raw-lines.jsonl": "616bd43f0b07d291fd1da20ec63c6e92f53c3d7fe6ef53bbb943c093f6169466",
+    "context-qsa-run4/control/attempt1/A0/http/010-context-2048-greedy-c8-repeat0/request-07/raw-lines.jsonl": "b88ee23b509c7f919646361727a9f0ff6d71d7e5008130be37615d7a3beab37e",
+    "context-qsa-run4/control/attempt1/A0/http/011-context-2048-greedy-c8-repeat1/GROUP.json": "051ec2b2566fdbf69eb0665262e43c6ea3c38d86fc2a56d8fc6e1d226fe1b24d",
+    "context-qsa-run4/control/attempt1/A0/http/011-context-2048-greedy-c8-repeat1/request-00/raw-lines.jsonl": "b3bf4d929bb62e17bdf44cd267e98825ff996e72e806badb290abb080186e26d",
+    "context-qsa-run4/control/attempt1/A0/http/011-context-2048-greedy-c8-repeat1/request-01/raw-lines.jsonl": "65a17e104befda6bc33d3332299fb32863cbd30065bbc3caafc929ace9469827",
+    "context-qsa-run4/control/attempt1/A0/http/011-context-2048-greedy-c8-repeat1/request-02/raw-lines.jsonl": "9622276ad51332e4f7ffda19ef524500d90dfc6180ac6254a44e88609a5d71d2",
+    "context-qsa-run4/control/attempt1/A0/http/011-context-2048-greedy-c8-repeat1/request-03/raw-lines.jsonl": "4576c878214c1533e0aaf1b2853ff9cb06569a7bd3f51ba0867dd3e6d55b4aef",
+    "context-qsa-run4/control/attempt1/A0/http/011-context-2048-greedy-c8-repeat1/request-04/raw-lines.jsonl": "2cc7a892bfbb390c181323ae65f358131f3bd395438db51e0b994e4b4e63aafc",
+    "context-qsa-run4/control/attempt1/A0/http/011-context-2048-greedy-c8-repeat1/request-05/raw-lines.jsonl": "e7405a55e2756a52f4a5dde766bdf8b11c3fda6b488b0783a05ada3fec3ac6b8",
+    "context-qsa-run4/control/attempt1/A0/http/011-context-2048-greedy-c8-repeat1/request-06/raw-lines.jsonl": "3e6bc8ffd197bf470d65d6ae2c731c1b6b2d224568eea23a69148d88d84f61fd",
+    "context-qsa-run4/control/attempt1/A0/http/011-context-2048-greedy-c8-repeat1/request-07/raw-lines.jsonl": "7de65e3eba1cdfccbeeba30dcb324ecce210a50a08df17429d87f418e26a9381",
+    "context-qsa-run4/control/attempt1/A0/http/012-context-8192-greedy-c1-repeat0/GROUP.json": "fb27784a7a14948f9cefcfd831367f9b9137500bd5ef5ba268db97b9e05dbfcf",
+    "context-qsa-run4/control/attempt1/A0/http/012-context-8192-greedy-c1-repeat0/request-00/raw-lines.jsonl": "f895093e836a073b507813039b24f1b45f07dfc7b0e2979e5289b8889eef337e",
+    "context-qsa-run4/control/attempt1/A0/http/013-context-8192-greedy-c1-repeat1/GROUP.json": "c452fe5a17e873d6a7bb559df1cc00c2a6c80c1a75f3c15ce31a0cbdc04a37d6",
+    "context-qsa-run4/control/attempt1/A0/http/013-context-8192-greedy-c1-repeat1/request-00/raw-lines.jsonl": "67d45767f7d6b5ed98a16a604c2b4ac2bcaa57d1ed252e5d4c42cab477286c1a",
+    "context-qsa-run4/control/attempt1/A0/http/014-context-8192-greedy-c4-repeat0/GROUP.json": "5e7f34cc2240c5ee58a9e123473d53577ed0eff8f4c949433c42dc2d0a2990d8",
+    "context-qsa-run4/control/attempt1/A0/http/014-context-8192-greedy-c4-repeat0/request-00/raw-lines.jsonl": "8aabd6fddeecfa63a9caaccd056d7d6b37c8925e12067eb94ab184bd8193c88c",
+    "context-qsa-run4/control/attempt1/A0/http/014-context-8192-greedy-c4-repeat0/request-01/raw-lines.jsonl": "2a468fcb475203f50cfece1f777a9bf5dc58e64bcb0f69f656a00fbb9db0ad96",
+    "context-qsa-run4/control/attempt1/A0/http/014-context-8192-greedy-c4-repeat0/request-02/raw-lines.jsonl": "e1a9faf2540aa4b2f5e17bc2887af266afc5093a2a176d11ae5e6370a19645b0",
+    "context-qsa-run4/control/attempt1/A0/http/014-context-8192-greedy-c4-repeat0/request-03/raw-lines.jsonl": "21e937c6940e2ade90f324b8125a993f3c7de46301205044c21be56b78bedb63",
+    "context-qsa-run4/control/attempt1/A0/http/015-context-8192-greedy-c4-repeat1/GROUP.json": "a39fb569995256c4ba4e6aaf2a4f70da215e8629a23d763b27ccfe41b9acf615",
+    "context-qsa-run4/control/attempt1/A0/http/015-context-8192-greedy-c4-repeat1/request-00/raw-lines.jsonl": "d668f75316607a4e99fcc04e2973d450af4f397f52aa8480cf6f5db0751db73e",
+    "context-qsa-run4/control/attempt1/A0/http/015-context-8192-greedy-c4-repeat1/request-01/raw-lines.jsonl": "773b99c6ba26697642e84010ae48fccf0cbb8859ab591198d6b5d771f0060eb9",
+    "context-qsa-run4/control/attempt1/A0/http/015-context-8192-greedy-c4-repeat1/request-02/raw-lines.jsonl": "3e7e904e1afe98a67c34374166f9c8a7b2011362c89e0cdc8f3479864f8efc70",
+    "context-qsa-run4/control/attempt1/A0/http/015-context-8192-greedy-c4-repeat1/request-03/raw-lines.jsonl": "4193bbc7f3e7d6941856396b648904feb6b8eb6238c3024b06f885eefd1faf3c",
+    "context-qsa-run4/control/attempt1/A0/http/016-context-8192-greedy-c8-repeat0/GROUP.json": "b0d5850f9ddb19e2424c80a99dc0edefa1b837c5ba1b329ce8e68e1d123e92c7",
+    "context-qsa-run4/control/attempt1/A0/http/016-context-8192-greedy-c8-repeat0/request-00/raw-lines.jsonl": "01cdee37e073dcd9e674e329774d610ea96fc5221feb2619c095e4ff21c885f9",
+    "context-qsa-run4/control/attempt1/A0/http/016-context-8192-greedy-c8-repeat0/request-01/raw-lines.jsonl": "200a32401c11f6286a9aef24be8881d8686c39d98bc538260ae75c9c9451f468",
+    "context-qsa-run4/control/attempt1/A0/http/016-context-8192-greedy-c8-repeat0/request-02/raw-lines.jsonl": "3c79df93672ea7f50374047f52fa177559f42c04e358e88063208a7e206803a3",
+    "context-qsa-run4/control/attempt1/A0/http/016-context-8192-greedy-c8-repeat0/request-03/raw-lines.jsonl": "218007f8248434881b35e1a42909fa4f739527c60f7ef3d7e79cea51f6cbab7a",
+    "context-qsa-run4/control/attempt1/A0/http/016-context-8192-greedy-c8-repeat0/request-04/raw-lines.jsonl": "74b00e93f78d11a90bd501008cefef9d22c5ab5979c9b277fa8ab0f6a0875f7b",
+    "context-qsa-run4/control/attempt1/A0/http/016-context-8192-greedy-c8-repeat0/request-05/raw-lines.jsonl": "b8a965e0c197aa7cb16b94df0cfa83318fd83a7ded65a6daabd80c14166fcdd0",
+    "context-qsa-run4/control/attempt1/A0/http/016-context-8192-greedy-c8-repeat0/request-06/raw-lines.jsonl": "3f9c2ee45a4ea7becfdd9b73629e0ae1006886a23451d6da0b3c997f5f1e0ba9",
+    "context-qsa-run4/control/attempt1/A0/http/016-context-8192-greedy-c8-repeat0/request-07/raw-lines.jsonl": "6818157b3dc3c11ebc6b22ae249e6fd982756332adade7b17d882ff6e55e4722",
+    "context-qsa-run4/control/attempt1/A0/http/017-context-8192-greedy-c8-repeat1/GROUP.json": "e2c7d0163a9ed9e01f2895e2d1784ae2ff20d0d85c9ed22c34d2be4dabdf2f49",
+    "context-qsa-run4/control/attempt1/A0/http/017-context-8192-greedy-c8-repeat1/request-00/raw-lines.jsonl": "f33496881b9a678fa316cf6383701c6a8abdafab3fa94b02d76e4cd7140da853",
+    "context-qsa-run4/control/attempt1/A0/http/017-context-8192-greedy-c8-repeat1/request-01/raw-lines.jsonl": "8a2541c80870dd430256984465484fb5287aab161af14d1a1bd504d422a8ca33",
+    "context-qsa-run4/control/attempt1/A0/http/017-context-8192-greedy-c8-repeat1/request-02/raw-lines.jsonl": "89a972fcebfbad7cf0b14f8b85102136a7936ec4c4bfaed1ba4b68ad208543b2",
+    "context-qsa-run4/control/attempt1/A0/http/017-context-8192-greedy-c8-repeat1/request-03/raw-lines.jsonl": "f5fd30e2b4ee857e93d9262aa9922c68c1b053082065faa4b4cfe72a60f42733",
+    "context-qsa-run4/control/attempt1/A0/http/017-context-8192-greedy-c8-repeat1/request-04/raw-lines.jsonl": "c9bd23e80389262c06dcaa782ecc8abe683cb303d50c9b8b13fa43d001f6fd55",
+    "context-qsa-run4/control/attempt1/A0/http/017-context-8192-greedy-c8-repeat1/request-05/raw-lines.jsonl": "df9740d97ee46d82c65bfadb113bf00286677f534ea4aae2fd83b6ba483358b5",
+    "context-qsa-run4/control/attempt1/A0/http/017-context-8192-greedy-c8-repeat1/request-06/raw-lines.jsonl": "2c929523831862de865e3b39a9ef884050b3bb2e977839d068ef367a4e46eddf",
+    "context-qsa-run4/control/attempt1/A0/http/017-context-8192-greedy-c8-repeat1/request-07/raw-lines.jsonl": "afb77b97244a949200ba2eb70c3d19e6c9764e020e6340e28e362137ae45fd98",
+    "context-qsa-run4/control/attempt1/A0/http/018-context-32768-greedy-c1-repeat0/GROUP.json": "6f01685efa73f5c79790a9e477aaf353ebb8c45c299288cb4062c84b4c9a13f6",
+    "context-qsa-run4/control/attempt1/A0/http/018-context-32768-greedy-c1-repeat0/request-00/raw-lines.jsonl": "04f2ded58ee624c3d5bdaca35d37cd952fbdb4c010ae9bbd9fa8c044e78b46a1",
+    "context-qsa-run4/control/attempt1/A0/http/019-context-32768-greedy-c1-repeat1/GROUP.json": "6809e178b6a97c905f96faa5f94cfd72d81cb271f7bacfc01bae9507da7948b0",
+    "context-qsa-run4/control/attempt1/A0/http/019-context-32768-greedy-c1-repeat1/request-00/raw-lines.jsonl": "d1f037b5b8b3e8222a34e44d2f7e3524729ab027948ba3594acf31eae64e4557",
+    "context-qsa-run4/control/attempt1/A0/http/020-context-32768-greedy-c4-repeat0/GROUP.json": "85d4236afff09527dbfd06c16a4bd012e94772ebf94dc6b4bff693322a31132f",
+    "context-qsa-run4/control/attempt1/A0/http/020-context-32768-greedy-c4-repeat0/request-00/raw-lines.jsonl": "0d41d9aeefd12a1520f9a4d60f4ab3a4c611e703c467140fff893d2696a952a1",
+    "context-qsa-run4/control/attempt1/A0/http/020-context-32768-greedy-c4-repeat0/request-01/raw-lines.jsonl": "fa129f55313fe270da98890f17193de3442e59e9427002948a9302da2a875522",
+    "context-qsa-run4/control/attempt1/A0/http/020-context-32768-greedy-c4-repeat0/request-02/raw-lines.jsonl": "f998f5a6c8c85f4b4a38856d0bc00f187f357d6ee6deba56f82fd0747ef34d21",
+    "context-qsa-run4/control/attempt1/A0/http/020-context-32768-greedy-c4-repeat0/request-03/raw-lines.jsonl": "f136159cfcdb2125344117a4aea3f2a679e0da7037b02b1c36beeed71e371458",
+    "context-qsa-run4/control/attempt1/A0/http/021-context-32768-greedy-c4-repeat1/GROUP.json": "4e251bb79e18b4077e312e103fa7c91cda1b6698d8a130b5010153736866e597",
+    "context-qsa-run4/control/attempt1/A0/http/021-context-32768-greedy-c4-repeat1/request-00/raw-lines.jsonl": "05ca349ac0de81cae1154a621ce89e8f036d27d66c0db10d9433604d30801427",
+    "context-qsa-run4/control/attempt1/A0/http/021-context-32768-greedy-c4-repeat1/request-01/raw-lines.jsonl": "51ceb43f15d6460bff17549fdb12fe709590b3972a5828d61507fab63f6c6208",
+    "context-qsa-run4/control/attempt1/A0/http/021-context-32768-greedy-c4-repeat1/request-02/raw-lines.jsonl": "6adddfe015bc20e751521ff43d0467299d2e6899d7f3b7e3eb36235d05127b00",
+    "context-qsa-run4/control/attempt1/A0/http/021-context-32768-greedy-c4-repeat1/request-03/raw-lines.jsonl": "622b21638274b43508fd6c24f86104a562146a0770ad1e319e5b3e9123a7c52b",
+    "context-qsa-run4/control/attempt1/A0/http/022-context-32768-greedy-c8-repeat0/GROUP.json": "183d59c89bef3e1e1a1e766d0eea247710814af0be6e36a0545c4bf435d63ee5",
+    "context-qsa-run4/control/attempt1/A0/http/022-context-32768-greedy-c8-repeat0/request-00/raw-lines.jsonl": "2d5c34684acf9c824aa0bb76536c85533bd6330cc5fa0b3a56c98c8fd83fe1cf",
+    "context-qsa-run4/control/attempt1/A0/http/022-context-32768-greedy-c8-repeat0/request-01/raw-lines.jsonl": "f38bf1f2df095f5216bc374b7c4690a4bf83cd00801506ca044ae0c4b8275306",
+    "context-qsa-run4/control/attempt1/A0/http/022-context-32768-greedy-c8-repeat0/request-02/raw-lines.jsonl": "bec74059a8ed7fc34064184646d3e37d7c57d68557d17b0ca245a67e6ae9e2bb",
+    "context-qsa-run4/control/attempt1/A0/http/022-context-32768-greedy-c8-repeat0/request-03/raw-lines.jsonl": "a232e292ef6e848df69fc35840c8980842ba9506cfafde55aa51084001460683",
+    "context-qsa-run4/control/attempt1/A0/http/022-context-32768-greedy-c8-repeat0/request-04/raw-lines.jsonl": "58ce9f8fb377715ef1d23223fa97ea23dc7d4d5d18fd2e24a125bc334d7d210f",
+    "context-qsa-run4/control/attempt1/A0/http/022-context-32768-greedy-c8-repeat0/request-05/raw-lines.jsonl": "5a1bba933f257fcb355dd95d3a85d37d9e7e5cdb455c979e62bc5d4cd97e3fbd",
+    "context-qsa-run4/control/attempt1/A0/http/022-context-32768-greedy-c8-repeat0/request-06/raw-lines.jsonl": "7faf63390abbb7df81ff9ee1b9622149538efb4df262f4a124eb0665769216dd",
+    "context-qsa-run4/control/attempt1/A0/http/022-context-32768-greedy-c8-repeat0/request-07/raw-lines.jsonl": "53343d7fa284603bda4f2a8b5a20453ce681a5a55d2dad4a70fe2b704b991ac8",
+    "context-qsa-run4/control/attempt1/A0/http/023-context-32768-greedy-c8-repeat1/GROUP.json": "fc58d5fc17cd1b140a6a9d28dac86f84a29fd68e027392236d77903c51e26289",
+    "context-qsa-run4/control/attempt1/A0/http/023-context-32768-greedy-c8-repeat1/request-00/raw-lines.jsonl": "defeaee07864857cfc498aa156572ee13ecbd52530648924a75d37ecbed3743e",
+    "context-qsa-run4/control/attempt1/A0/http/023-context-32768-greedy-c8-repeat1/request-01/raw-lines.jsonl": "ff047f8d82cb05f850a1281aa733ffa1306ef425b63bd685ae336b4a35a254c3",
+    "context-qsa-run4/control/attempt1/A0/http/023-context-32768-greedy-c8-repeat1/request-02/raw-lines.jsonl": "0c75c79b1c56c54f22ee1990295535203f44dfd3f93c76681d551905adf2b548",
+    "context-qsa-run4/control/attempt1/A0/http/023-context-32768-greedy-c8-repeat1/request-03/raw-lines.jsonl": "701fa09e5e523b4e510e05ebdbee9f8d433b06e11a59ff540a370497c7d06f4a",
+    "context-qsa-run4/control/attempt1/A0/http/023-context-32768-greedy-c8-repeat1/request-04/raw-lines.jsonl": "2d33d3973e125e49d5ed9bac6ca97311b7b7035fd1a6baf7eccd679bb1b7da59",
+    "context-qsa-run4/control/attempt1/A0/http/023-context-32768-greedy-c8-repeat1/request-05/raw-lines.jsonl": "96a6a5dbb862c9cfe01ebb9342b81c57b65e7066ac3b5e05ce68296f005c4afc",
+    "context-qsa-run4/control/attempt1/A0/http/023-context-32768-greedy-c8-repeat1/request-06/raw-lines.jsonl": "a0b6215a28382f0ab6b2ddfaab6eb374e064c2070793fe2ce7b3b2eb95aca850",
+    "context-qsa-run4/control/attempt1/A0/http/023-context-32768-greedy-c8-repeat1/request-07/raw-lines.jsonl": "ed320ae6ff1fb37ee03c7b5d525d07b0a5dd24365712a256a32b557a338423c4",
+    "context-qsa-run4/control/attempt1/A0/http/024-context-65536-greedy-c1-repeat0/GROUP.json": "1fa49dea77d25bac5146aec6dc68e915143f8c2fe8de8c4f4c1fc2cf6ecb816c",
+    "context-qsa-run4/control/attempt1/A0/http/024-context-65536-greedy-c1-repeat0/request-00/raw-lines.jsonl": "6397b3d1ee4b4ef214eef21d06857174d12649851ebf70e4f56b91c8c9329405",
+    "context-qsa-run4/control/attempt1/A0/http/025-context-65536-greedy-c1-repeat1/GROUP.json": "5e24bb9834be5d8a2d6ff93afe899ba19cada12f4b20082ff1809d13d0021f0d",
+    "context-qsa-run4/control/attempt1/A0/http/025-context-65536-greedy-c1-repeat1/request-00/raw-lines.jsonl": "a16ad58921314f0a2fbef99c4f0106874e68296ca2662929d8d781a4af0609b1",
+    "context-qsa-run4/control/attempt1/A0/http/026-context-65536-greedy-c4-repeat0/GROUP.json": "589bd75cde76abe3d5808565c11ce1ee77db1bd9aa123bce4a6517af24828704",
+    "context-qsa-run4/control/attempt1/A0/http/026-context-65536-greedy-c4-repeat0/request-00/raw-lines.jsonl": "c0c91e58c5ad3978fa7a9bc7c73a681dbb7e59549b5a8261c108468daa31f831",
+    "context-qsa-run4/control/attempt1/A0/http/026-context-65536-greedy-c4-repeat0/request-01/raw-lines.jsonl": "5a29977072f12a346bbf1054112e9bea4d340a5783563758ec3156fc0ea622a5",
+    "context-qsa-run4/control/attempt1/A0/http/026-context-65536-greedy-c4-repeat0/request-02/raw-lines.jsonl": "4d2fd6df65c4db53c02bab7926d922f9151df92760ce0ad75ec97c0a2cf8aac5",
+    "context-qsa-run4/control/attempt1/A0/http/026-context-65536-greedy-c4-repeat0/request-03/raw-lines.jsonl": "e0ba79c56fb7d4e7b8b1638bd70e5d641d6120950f0e59af49887b77cc1900fa",
+    "context-qsa-run4/control/attempt1/A0/http/027-context-65536-greedy-c4-repeat1/GROUP.json": "324902eff0320dcfb8ed6d1757c49909102eaabbabf623703b709385c1a0268e",
+    "context-qsa-run4/control/attempt1/A0/http/027-context-65536-greedy-c4-repeat1/request-00/raw-lines.jsonl": "2d4bedad7e27cf761a477bcdffa875d655fbeb80a0fc6450f6a4a4eab2b43811",
+    "context-qsa-run4/control/attempt1/A0/http/027-context-65536-greedy-c4-repeat1/request-01/raw-lines.jsonl": "76fc18dda54a217124857d4c166dd8b7af115a3362bab3196c99a798c0812e47",
+    "context-qsa-run4/control/attempt1/A0/http/027-context-65536-greedy-c4-repeat1/request-02/raw-lines.jsonl": "5298b6c4c18eefd67203615540ac63c60a2c3f6403f12e9dc6bd2af9a43fed74",
+    "context-qsa-run4/control/attempt1/A0/http/027-context-65536-greedy-c4-repeat1/request-03/raw-lines.jsonl": "fcd4d58b0ec282ab2226df2286eca440424fe0d4f41f75a1bc148a69f41dae41",
+    "context-qsa-run4/control/attempt1/A0/http/028-context-65536-greedy-c8-repeat0/GROUP.json": "eb13c5dd738be3c644ee46c2361f3ab4a80342b55bc5ca5b7ee6d985a196f278",
+    "context-qsa-run4/control/attempt1/A0/http/028-context-65536-greedy-c8-repeat0/request-00/raw-lines.jsonl": "5861f82796269f883992d6647e5b5a490f20275552a40febcf9933a0d395a6bf",
+    "context-qsa-run4/control/attempt1/A0/http/028-context-65536-greedy-c8-repeat0/request-01/raw-lines.jsonl": "4357f5e67f2b90c5dd75975fcb1605713cb10d8456ca009cd85f1fb8f37b5d06",
+    "context-qsa-run4/control/attempt1/A0/http/028-context-65536-greedy-c8-repeat0/request-02/raw-lines.jsonl": "c05172c5d6b71f553d6d086f8af60d02c0d39abd94032d62a2253da91b6e2784",
+    "context-qsa-run4/control/attempt1/A0/http/028-context-65536-greedy-c8-repeat0/request-03/raw-lines.jsonl": "2347f18f8b4624213121acf638a7df7a7ac71250afe3378bf7d6969e93e28f01",
+    "context-qsa-run4/control/attempt1/A0/http/028-context-65536-greedy-c8-repeat0/request-04/raw-lines.jsonl": "d10ee1b9efe645ea09df5ae34292da349578289455b09abf101d61fdd02aa21b",
+    "context-qsa-run4/control/attempt1/A0/http/028-context-65536-greedy-c8-repeat0/request-05/raw-lines.jsonl": "4b841908c2821d6a960023f947492bbec7c2588e8275c859ca7428ee876ef8a6",
+    "context-qsa-run4/control/attempt1/A0/http/028-context-65536-greedy-c8-repeat0/request-06/raw-lines.jsonl": "7886b78858176a54ad5b4a8485374b75c6ce1e09709f58afd62aeef1a198756f",
+    "context-qsa-run4/control/attempt1/A0/http/028-context-65536-greedy-c8-repeat0/request-07/raw-lines.jsonl": "7171ea9253f33e5ffdff76aec77cd56c2b83aa147138bc261f5c9e606343b29a",
+    "context-qsa-run4/control/attempt1/A0/http/029-context-65536-greedy-c8-repeat1/GROUP.json": "3fb8141df070de77da38dfce51aceca780b4330fcb6550be7a1432a8025019a9",
+    "context-qsa-run4/control/attempt1/A0/http/029-context-65536-greedy-c8-repeat1/request-00/raw-lines.jsonl": "bf8bbfae8320940b879e002ac495930d0850bd5c1433168721e46b4adf67175a",
+    "context-qsa-run4/control/attempt1/A0/http/029-context-65536-greedy-c8-repeat1/request-01/raw-lines.jsonl": "5baf2ec277e3c655e5d0a698c03c246ff9fdcbf65e191c58eb2b455592004a8f",
+    "context-qsa-run4/control/attempt1/A0/http/029-context-65536-greedy-c8-repeat1/request-02/raw-lines.jsonl": "f39fd157d25cf2a1d1ec7195c3121f9b3cf0026cf94552f1b68d8151ca4cf7ab",
+    "context-qsa-run4/control/attempt1/A0/http/029-context-65536-greedy-c8-repeat1/request-03/raw-lines.jsonl": "1894d8f5ff020a23ccb2a16fbba65c15277756edc704d023275a5028a0fe49b1",
+    "context-qsa-run4/control/attempt1/A0/http/029-context-65536-greedy-c8-repeat1/request-04/raw-lines.jsonl": "8837c37f625475f00e000b445ba978fb18555d48792a13f8e5f99d8f8397c941",
+    "context-qsa-run4/control/attempt1/A0/http/029-context-65536-greedy-c8-repeat1/request-05/raw-lines.jsonl": "162c1e2c81135e310469bd88aa2ab26765f4faa2fa209cb45bfcd022012e56d4",
+    "context-qsa-run4/control/attempt1/A0/http/029-context-65536-greedy-c8-repeat1/request-06/raw-lines.jsonl": "938e7bdc14e236d737893d118a4b0b9447189d6e9a3ed166faa201dedef724df",
+    "context-qsa-run4/control/attempt1/A0/http/029-context-65536-greedy-c8-repeat1/request-07/raw-lines.jsonl": "8d2bf86780250e23d87a4fe18fbefc93cf8edddb50a69f8b18999156ad3c6f4e",
+    "context-qsa-run4/control/attempt1/A0/http/030-context-131072-greedy-c1-repeat0/GROUP.json": "4bdac5be226694b7c0617aed909107d97d89364ea9bbb23ed95b9ec798303d4a",
+    "context-qsa-run4/control/attempt1/A0/http/030-context-131072-greedy-c1-repeat0/request-00/raw-lines.jsonl": "eb69d8dab1bb4445a6e8f4448b12ea6416796e9b6441ce69bd1f9fc380ae718f",
+    "context-qsa-run4/control/attempt1/A0/http/031-context-131072-greedy-c1-repeat1/GROUP.json": "359a371abc12f204ee0d5f3d163345bc07caa32961e2ba9775ed4adf3780f595",
+    "context-qsa-run4/control/attempt1/A0/http/031-context-131072-greedy-c1-repeat1/request-00/raw-lines.jsonl": "6eef01a641bd7eadadb581f0fec90e88548d5ad3922df635ccfc446693e1be81",
+    "context-qsa-run4/control/attempt1/A0/http/032-context-131072-greedy-c4-repeat0/GROUP.json": "bf104c08f09e299944124fcd413c766942b4c87480c3d2e49ffb30188cc07f4e",
+    "context-qsa-run4/control/attempt1/A0/http/032-context-131072-greedy-c4-repeat0/request-00/raw-lines.jsonl": "b16465d975fdd742e8c7d220e519e74a5e339df693660e18abaec21aa7d16ed1",
+    "context-qsa-run4/control/attempt1/A0/http/032-context-131072-greedy-c4-repeat0/request-01/raw-lines.jsonl": "4f5a964e4180bd5f05a5785d810a012770b0659ceee667f7c0dc58444d56e9e5",
+    "context-qsa-run4/control/attempt1/A0/http/032-context-131072-greedy-c4-repeat0/request-02/raw-lines.jsonl": "56510d5caaf76ac828dc94f11713725070b42ca9b3530c15301e3dba8213c8d7",
+    "context-qsa-run4/control/attempt1/A0/http/032-context-131072-greedy-c4-repeat0/request-03/raw-lines.jsonl": "ebd6a17649e0ff653ddd7435807f0f3235c3e276a5b50c1e214e06ad2699cff0",
+    "context-qsa-run4/control/attempt1/A0/http/033-context-131072-greedy-c4-repeat1/GROUP.json": "bed8999f9988d5513c466fcf30abb7698a05b8372cbdc90d2b56aea54fcd46cf",
+    "context-qsa-run4/control/attempt1/A0/http/033-context-131072-greedy-c4-repeat1/request-00/raw-lines.jsonl": "a786087e3c22d2afd8befc6fdeaaddc7dda9e759318fb480163ccfe2aa8ceaee",
+    "context-qsa-run4/control/attempt1/A0/http/033-context-131072-greedy-c4-repeat1/request-01/raw-lines.jsonl": "efd1476b2ea7ac43ab060a2449f8ec88718dc53719a28ad96dfaaeeb9dffb1cb",
+    "context-qsa-run4/control/attempt1/A0/http/033-context-131072-greedy-c4-repeat1/request-02/raw-lines.jsonl": "b3feecbcee3a5393a55464518dd83e773edfdb18167f28861de12ceac917530b",
+    "context-qsa-run4/control/attempt1/A0/http/033-context-131072-greedy-c4-repeat1/request-03/raw-lines.jsonl": "4fae5594597b59b22f9cffa5dfeb4ce26eb88c1e56b62ae1f4619d07dbaaa14b",
+    "context-qsa-run4/control/attempt1/A0/http/034-context-261632-greedy-c1-repeat0/GROUP.json": "9d1868a28226a04d24551d9db21a6a7801a0d7b241464ea1d10045d1bcf396ed",
+    "context-qsa-run4/control/attempt1/A0/http/034-context-261632-greedy-c1-repeat0/request-00/raw-lines.jsonl": "9ddd5d4461848ee6f7fb77b378092bde9fe5207360db1372bec5b2d0705dfe66",
+    "context-qsa-run4/control/attempt1/A0/http/035-context-261632-greedy-c1-repeat1/GROUP.json": "77780a806fb76e1c3961099a7716a7ce46cb2004b099211ef314bc45d76c0ede",
+    "context-qsa-run4/control/attempt1/A0/http/035-context-261632-greedy-c1-repeat1/request-00/raw-lines.jsonl": "d34b40ae4c382952e6599188971fcfdfcd1bf512f6bf7c933277876f62ab6e14",
+    "context-qsa-run4/control/attempt1/A0/http/036-context-261632-greedy-c2-repeat0/GROUP.json": "fee6aec18f87007ef887e80d7143bc647b719087706506e4fc40f75d2dbd6ad9",
+    "context-qsa-run4/control/attempt1/A0/http/036-context-261632-greedy-c2-repeat0/request-00/raw-lines.jsonl": "67a3c2a46862a6c6c8356e8321a763b30d1781c8fc0e8b874934c1df6f479642",
+    "context-qsa-run4/control/attempt1/A0/http/036-context-261632-greedy-c2-repeat0/request-01/raw-lines.jsonl": "03ed8147c501e4b0117a8af2081427b20e409e815eb4fc95c09d423a26f43fa5",
+    "context-qsa-run4/control/attempt1/A0/http/037-context-261632-greedy-c2-repeat1/GROUP.json": "723fc3b90d8751a4a3ffc7ac02fc371578d11c8419f53c662cb19ca522d558d4",
+    "context-qsa-run4/control/attempt1/A0/http/037-context-261632-greedy-c2-repeat1/request-00/raw-lines.jsonl": "b4be147a676065b660865b170318de7718f5b9138642a53b598c556882a71c41",
+    "context-qsa-run4/control/attempt1/A0/http/037-context-261632-greedy-c2-repeat1/request-01/raw-lines.jsonl": "a2de057558f7a37716cb7159fb3610eaab4581c741a13d40acc1b2d28b8626d2",
+    "context-qsa-run4/control/attempt1/B/http/RESULT.json": "b12f9395bf459df92271babad06944c8b4e36259cca0c34a8494f678c4bbff06",
+    "context-qsa-run4/control/attempt1/B/http/000-context-512-greedy-c1-repeat0/GROUP.json": "9f99eb707ffea80d710b32151f6aee11583cbd2a1237be48fd5bffbd660c8525",
+    "context-qsa-run4/control/attempt1/B/http/000-context-512-greedy-c1-repeat0/request-00/raw-lines.jsonl": "e00f53c62736ace902187a28228ab4d65b9ad3aa68927062fe9418c3aa209480",
+    "context-qsa-run4/control/attempt1/B/http/001-context-512-greedy-c1-repeat1/GROUP.json": "db4de7397b0305e2397a0dc2cb01fbb3e30339133f40efde1e29e1da4bae8161",
+    "context-qsa-run4/control/attempt1/B/http/001-context-512-greedy-c1-repeat1/request-00/raw-lines.jsonl": "ae309717d0e17702f3c3978d48adebe8122f9248bad8632c6668f04a1c27ad9b",
+    "context-qsa-run4/control/attempt1/B/http/002-context-512-greedy-c4-repeat0/GROUP.json": "8799e62647b9d1fb2e5e016ec5c056d56b3afe7614319ecafc745bf35ce3f6d2",
+    "context-qsa-run4/control/attempt1/B/http/002-context-512-greedy-c4-repeat0/request-00/raw-lines.jsonl": "18f34c0b284e6abb4620d1faafa8ad9e964032f94f3365e8ac4913c09d910463",
+    "context-qsa-run4/control/attempt1/B/http/002-context-512-greedy-c4-repeat0/request-01/raw-lines.jsonl": "a987aa4be7b7bb2fe7cbf7a7df90c9679fe430bf3003e804eb5fca653bc5ef1b",
+    "context-qsa-run4/control/attempt1/B/http/002-context-512-greedy-c4-repeat0/request-02/raw-lines.jsonl": "72f2ba63c62675e8643433fc8b9319b9dba6e5ad194f783b41c63101869dbf88",
+    "context-qsa-run4/control/attempt1/B/http/002-context-512-greedy-c4-repeat0/request-03/raw-lines.jsonl": "0d2202d47278c83aca86723b5bb433b8a68956a0bda7ea17fef3aa65fe880c21",
+    "context-qsa-run4/control/attempt1/B/http/003-context-512-greedy-c4-repeat1/GROUP.json": "b30b81ec8f4f6a95aa9e08f135e1635dad4c31ef340c9d7547e2bbed8a288e8d",
+    "context-qsa-run4/control/attempt1/B/http/003-context-512-greedy-c4-repeat1/request-00/raw-lines.jsonl": "0d2df6b7ff612be23a46180b904dee404f1abff64bf39752631f12bc199f330c",
+    "context-qsa-run4/control/attempt1/B/http/003-context-512-greedy-c4-repeat1/request-01/raw-lines.jsonl": "7d58e7a156fdf3e960ddd169f8db7d271135c5b0fc2cec6ea0d4b006ddfd44db",
+    "context-qsa-run4/control/attempt1/B/http/003-context-512-greedy-c4-repeat1/request-02/raw-lines.jsonl": "74c57de6c2cd221b4c33408063d6c5de4eebd80692fb8a69a69579b72b0036d9",
+    "context-qsa-run4/control/attempt1/B/http/003-context-512-greedy-c4-repeat1/request-03/raw-lines.jsonl": "dd83f70510471c1fd802e12987b89d442bae6a78e9bcb17567c864ad62f9a5ed",
+    "context-qsa-run4/control/attempt1/B/http/004-context-512-greedy-c8-repeat0/GROUP.json": "e543aae044ebc0f5740c20a4cb805a3b1460281bcaa12dc22bef8dbc8055078f",
+    "context-qsa-run4/control/attempt1/B/http/004-context-512-greedy-c8-repeat0/request-00/raw-lines.jsonl": "3b90dc86f57e43f7d8ee2bebdeca35d3a842e75eb6339d8b07b083c758fb13af",
+    "context-qsa-run4/control/attempt1/B/http/004-context-512-greedy-c8-repeat0/request-01/raw-lines.jsonl": "24188d2e3a8735d7de56318403a6285daa602b08bdca36199c0c90d8555aa6f2",
+    "context-qsa-run4/control/attempt1/B/http/004-context-512-greedy-c8-repeat0/request-02/raw-lines.jsonl": "eea01c96bcba51242e0bb2b34aa386d10db5a3df5c80ef08fdeef6e3761ae4be",
+    "context-qsa-run4/control/attempt1/B/http/004-context-512-greedy-c8-repeat0/request-03/raw-lines.jsonl": "828f1dbf0bcaeb803cc4fc7adec696e9e2e84fea56eec47c0454f9de852c6ec6",
+    "context-qsa-run4/control/attempt1/B/http/004-context-512-greedy-c8-repeat0/request-04/raw-lines.jsonl": "6de849dbd07a161793d9f6d0610a281c5a2b581de43643437d5f41c4cb906b06",
+    "context-qsa-run4/control/attempt1/B/http/004-context-512-greedy-c8-repeat0/request-05/raw-lines.jsonl": "35714b76d7e2080770b0b3c44c8914f38e1c53dbfc8a3653edb161438e083c98",
+    "context-qsa-run4/control/attempt1/B/http/004-context-512-greedy-c8-repeat0/request-06/raw-lines.jsonl": "9a54157c0d69f870bfb7e8ab3609c03cc1b24cf88e2dc1475868d9e09289bd85",
+    "context-qsa-run4/control/attempt1/B/http/004-context-512-greedy-c8-repeat0/request-07/raw-lines.jsonl": "550d62d9038b626c697758af6b161f74362a5033e5d8ed3bb2882e02af33743a",
+    "context-qsa-run4/control/attempt1/B/http/005-context-512-greedy-c8-repeat1/GROUP.json": "764e908bba97cb0ae704164feb4725b719e6b8e1058f9fbeba526cc21c755576",
+    "context-qsa-run4/control/attempt1/B/http/005-context-512-greedy-c8-repeat1/request-00/raw-lines.jsonl": "bc5aee9c75ab336e383d64c6eae9920119c017c287c10ad596bcccc4750a6785",
+    "context-qsa-run4/control/attempt1/B/http/005-context-512-greedy-c8-repeat1/request-01/raw-lines.jsonl": "6f643c27b75bbc9fabc814407b109c4f5ac995505dfbd9ee72151d80931b816e",
+    "context-qsa-run4/control/attempt1/B/http/005-context-512-greedy-c8-repeat1/request-02/raw-lines.jsonl": "9c4326d192e41453c501244fcce649aea32bc4c34599a71ee0d7516c6947195f",
+    "context-qsa-run4/control/attempt1/B/http/005-context-512-greedy-c8-repeat1/request-03/raw-lines.jsonl": "552677917cab4aa374140429be7f5108d923629e6b1bbf7b27e5b60dd16448e2",
+    "context-qsa-run4/control/attempt1/B/http/005-context-512-greedy-c8-repeat1/request-04/raw-lines.jsonl": "ad6f6499da9ca59af208aa152d8f5d9fd4df9bf424e13dce7d9d74e186608b37",
+    "context-qsa-run4/control/attempt1/B/http/005-context-512-greedy-c8-repeat1/request-05/raw-lines.jsonl": "0d7b7b1fc616335a28338913e6fd42793795f82ddab62be82ace77ad264964cb",
+    "context-qsa-run4/control/attempt1/B/http/005-context-512-greedy-c8-repeat1/request-06/raw-lines.jsonl": "cfa63149358884dd337b264abf59849da9b0fb1e86cf04131ebfbdc5b1402633",
+    "context-qsa-run4/control/attempt1/B/http/005-context-512-greedy-c8-repeat1/request-07/raw-lines.jsonl": "8a31eee42adb0adfe9e7b8e140ef05e2f9b26829813e8d2e3e3c06e870b892ac",
+    "context-qsa-run4/control/attempt1/B/http/006-context-2048-greedy-c1-repeat0/GROUP.json": "23222955960d81cfb65687326d34b026a9ff79d7de297ccc2851808da027521d",
+    "context-qsa-run4/control/attempt1/B/http/006-context-2048-greedy-c1-repeat0/request-00/raw-lines.jsonl": "ee5936581cf631e2a979eef6d27f8376b71d7d1ffe62d9cf824d12d9e4ed5392",
+    "context-qsa-run4/control/attempt1/B/http/007-context-2048-greedy-c1-repeat1/GROUP.json": "fdc49727e26e6518634dc3f5ae621a5a660265306a6a19371579c8617f4f6b9b",
+    "context-qsa-run4/control/attempt1/B/http/007-context-2048-greedy-c1-repeat1/request-00/raw-lines.jsonl": "69f4fcb22ab03f7ba5634e0fa36ed7a440607b529096769349b8f5610100535d",
+    "context-qsa-run4/control/attempt1/B/http/008-context-2048-greedy-c4-repeat0/GROUP.json": "fd3ca280b0ef3c8815ece3a1af4affac69feb0814b6a117a2acca150ebf2a795",
+    "context-qsa-run4/control/attempt1/B/http/008-context-2048-greedy-c4-repeat0/request-00/raw-lines.jsonl": "9b5b12ea98537608efdf9ae8cc41a92fa41a8d1720c51fb09303c31135fd6df9",
+    "context-qsa-run4/control/attempt1/B/http/008-context-2048-greedy-c4-repeat0/request-01/raw-lines.jsonl": "433bf906562c58ae9cba7c0691f675087d6c0012d5654b19f173f7858fbf7151",
+    "context-qsa-run4/control/attempt1/B/http/008-context-2048-greedy-c4-repeat0/request-02/raw-lines.jsonl": "4b4e227bc6a0a21122e874972cc95c04c100982657b76abfb8a610fe648928a6",
+    "context-qsa-run4/control/attempt1/B/http/008-context-2048-greedy-c4-repeat0/request-03/raw-lines.jsonl": "74003c10cb644b3753d94f28a6874902afb00256e456a6dad26ebea55f01404f",
+    "context-qsa-run4/control/attempt1/B/http/009-context-2048-greedy-c4-repeat1/GROUP.json": "9b4af571c1a2660bbbd4a7f664affc6a8f9368fe92f3da18b0a2a9cbff75fe19",
+    "context-qsa-run4/control/attempt1/B/http/009-context-2048-greedy-c4-repeat1/request-00/raw-lines.jsonl": "691b3acdcbfabe9638b1f43eb791ee396aaaf663bfbcea34871e283143ba7f7f",
+    "context-qsa-run4/control/attempt1/B/http/009-context-2048-greedy-c4-repeat1/request-01/raw-lines.jsonl": "942823d4af7c44204a3d26442cfbb7e02104a82b54bc8efe52c079782d5b78e8",
+    "context-qsa-run4/control/attempt1/B/http/009-context-2048-greedy-c4-repeat1/request-02/raw-lines.jsonl": "8684a6726c18c30171c53415a25340719fd92c0bf6629db62afc556b5bc91f79",
+    "context-qsa-run4/control/attempt1/B/http/009-context-2048-greedy-c4-repeat1/request-03/raw-lines.jsonl": "5d71937238bdb0c9d3e12122fbd46a5a8051a9b943b35b4c4871b490e5891581",
+    "context-qsa-run4/control/attempt1/B/http/010-context-2048-greedy-c8-repeat0/GROUP.json": "669aaa8ad85093805566322b5e2fea52efa098bf0b915b39021c4067f10048b2",
+    "context-qsa-run4/control/attempt1/B/http/010-context-2048-greedy-c8-repeat0/request-00/raw-lines.jsonl": "aa3d5c9b97816427077288ad4be0a63534fa45ec4094df90657dafe41f4a40a8",
+    "context-qsa-run4/control/attempt1/B/http/010-context-2048-greedy-c8-repeat0/request-01/raw-lines.jsonl": "83cf76d9fc947b1f7a402c7656acc86be9a828b5596a7764cce9b366743c4b2d",
+    "context-qsa-run4/control/attempt1/B/http/010-context-2048-greedy-c8-repeat0/request-02/raw-lines.jsonl": "9cb9f66da0d1a8aa89f12aad3e5258cf3bf491b5759f9df244a46e3beb799e4c",
+    "context-qsa-run4/control/attempt1/B/http/010-context-2048-greedy-c8-repeat0/request-03/raw-lines.jsonl": "055287c5bb477985969070e17759086f600ee267580bef9db3f11af8c8cad995",
+    "context-qsa-run4/control/attempt1/B/http/010-context-2048-greedy-c8-repeat0/request-04/raw-lines.jsonl": "d46bf2f9fc394e8afb9d6c9e7be2b28d97ba1796c359864ded6f0932eeab6904",
+    "context-qsa-run4/control/attempt1/B/http/010-context-2048-greedy-c8-repeat0/request-05/raw-lines.jsonl": "7925ecf2fa7888dbf75d98b4d1ddacdb49d9f978fb9a315f4ea8afcd3a492cd1",
+    "context-qsa-run4/control/attempt1/B/http/010-context-2048-greedy-c8-repeat0/request-06/raw-lines.jsonl": "2ee6a6f8d388f7a9d8e69b87cf1c4cda7b78bfd68201c74b95165c265c40b235",
+    "context-qsa-run4/control/attempt1/B/http/010-context-2048-greedy-c8-repeat0/request-07/raw-lines.jsonl": "ef9466b4d62ea740cf85d70e19cf2c5ae807b9e2c7f0c86fd5d0d090c4945fb8",
+    "context-qsa-run4/control/attempt1/B/http/011-context-2048-greedy-c8-repeat1/GROUP.json": "67e0538774591f40dde1ec5fb38a0f2ce6cae715472d073ec0bf67f86be1d01f",
+    "context-qsa-run4/control/attempt1/B/http/011-context-2048-greedy-c8-repeat1/request-00/raw-lines.jsonl": "4e8714ea71542ee65ef5cd9f5991aafbb0ec97e35e0d728100a2a95fbbe082fc",
+    "context-qsa-run4/control/attempt1/B/http/011-context-2048-greedy-c8-repeat1/request-01/raw-lines.jsonl": "9bc07aaf9bed1bfd2c10c622e7665e2030f0bd1d3db99796acb7fe35863e938a",
+    "context-qsa-run4/control/attempt1/B/http/011-context-2048-greedy-c8-repeat1/request-02/raw-lines.jsonl": "7b46c8aa225bc4e049aebab2df79948678b1716831ffac8e4eb5b2635d2a9345",
+    "context-qsa-run4/control/attempt1/B/http/011-context-2048-greedy-c8-repeat1/request-03/raw-lines.jsonl": "ed0118679b41685958f72ce3006b9348b18a82056bee0d8335d6fd41f75dc43e",
+    "context-qsa-run4/control/attempt1/B/http/011-context-2048-greedy-c8-repeat1/request-04/raw-lines.jsonl": "a8d4c566bbc6c10afbc7d7d9347e427514fdfd58dfb35fb54488594554bd21fe",
+    "context-qsa-run4/control/attempt1/B/http/011-context-2048-greedy-c8-repeat1/request-05/raw-lines.jsonl": "c8efebfa75c451faa71527b5e1d37489ff9e50706cbc41877bb3f89feefb4975",
+    "context-qsa-run4/control/attempt1/B/http/011-context-2048-greedy-c8-repeat1/request-06/raw-lines.jsonl": "7de9950c72d6f4a75da5a765f0ac75723a4ea758d8b31e488e8928bff2272bf5",
+    "context-qsa-run4/control/attempt1/B/http/011-context-2048-greedy-c8-repeat1/request-07/raw-lines.jsonl": "59bf977b9b74696e5853dcb69d457c52b9fd8abe0abb8cf7b04dd2b028e68098",
+    "context-qsa-run4/control/attempt1/B/http/012-context-8192-greedy-c1-repeat0/GROUP.json": "f0d1f52cc97ad9d7db9db55ca3a74e74b4867c8a99d9d163153a59d05e247430",
+    "context-qsa-run4/control/attempt1/B/http/012-context-8192-greedy-c1-repeat0/request-00/raw-lines.jsonl": "079572532a9006f753d481389614cdbdea465e22604b09879850916057fc0764",
+    "context-qsa-run4/control/attempt1/B/http/013-context-8192-greedy-c1-repeat1/GROUP.json": "a47bbcc2ec180746674c38dc8bccd3b614c73e93ddad42f29a3c54452577a40f",
+    "context-qsa-run4/control/attempt1/B/http/013-context-8192-greedy-c1-repeat1/request-00/raw-lines.jsonl": "1a8124df6cd4578336441f08068f0ef0300de11df8b78d9bcf464432c6b9e7f2",
+    "context-qsa-run4/control/attempt1/B/http/014-context-8192-greedy-c4-repeat0/GROUP.json": "063aab6a4139d60549a02c93684a3f4663da7cc89f2385c9d0536243c2ca4d38",
+    "context-qsa-run4/control/attempt1/B/http/014-context-8192-greedy-c4-repeat0/request-00/raw-lines.jsonl": "00ede2fbf59c2450cb1df7106613c392be39357f0537823ded848e1e9f8a067e",
+    "context-qsa-run4/control/attempt1/B/http/014-context-8192-greedy-c4-repeat0/request-01/raw-lines.jsonl": "4bbde9cb18eeb1951c839ff3ff90f714c5ad5e962b492a002ab0a155eb6debb9",
+    "context-qsa-run4/control/attempt1/B/http/014-context-8192-greedy-c4-repeat0/request-02/raw-lines.jsonl": "5affdee0063b195000c02c49f9a225aaf2010aeccefba3dcf23e70141d17cb6e",
+    "context-qsa-run4/control/attempt1/B/http/014-context-8192-greedy-c4-repeat0/request-03/raw-lines.jsonl": "dcb2e406c1c3767ba903611876bb65bfb9e089ab9231b6b74b2f9b6a9498d432",
+    "context-qsa-run4/control/attempt1/B/http/015-context-8192-greedy-c4-repeat1/GROUP.json": "7f1c09cb73b371fd298240a4aff312708fd32dcd36c0d42b607e1fc87ba2e489",
+    "context-qsa-run4/control/attempt1/B/http/015-context-8192-greedy-c4-repeat1/request-00/raw-lines.jsonl": "35a3196f552e7c4464e76da5273ba49db0463fbe84f32002a3e721f3d7fc56f6",
+    "context-qsa-run4/control/attempt1/B/http/015-context-8192-greedy-c4-repeat1/request-01/raw-lines.jsonl": "8d6b1e94d6c0ef882af3f13fd8af2614740fe9217d2dbf1e8b393995011f431c",
+    "context-qsa-run4/control/attempt1/B/http/015-context-8192-greedy-c4-repeat1/request-02/raw-lines.jsonl": "7dd3c85f955695b934dbe774c1151812b256a165f60a909b137d03658ebffdde",
+    "context-qsa-run4/control/attempt1/B/http/015-context-8192-greedy-c4-repeat1/request-03/raw-lines.jsonl": "52398911799357df3680b7721d7778f67f424c144d1203b4989565a60f18460b",
+    "context-qsa-run4/control/attempt1/B/http/016-context-8192-greedy-c8-repeat0/GROUP.json": "16e41e9c6c5cd7c7add6dac1fe7ae92d6527c464bbd06ba5faa328b6d2f45bb7",
+    "context-qsa-run4/control/attempt1/B/http/016-context-8192-greedy-c8-repeat0/request-00/raw-lines.jsonl": "0c8e774112ffb18d4b939430cc153d5b6ea1f6575c9c03392ca9ca02ddcd8a53",
+    "context-qsa-run4/control/attempt1/B/http/016-context-8192-greedy-c8-repeat0/request-01/raw-lines.jsonl": "b5bb61302bcf9cde679605a1456ed33c0e883e646f5ee53018ae577103d934cd",
+    "context-qsa-run4/control/attempt1/B/http/016-context-8192-greedy-c8-repeat0/request-02/raw-lines.jsonl": "855cebb9782e7c9561d3d68b64569ddca2a546e46f30ea58c10e4d2063b197ed",
+    "context-qsa-run4/control/attempt1/B/http/016-context-8192-greedy-c8-repeat0/request-03/raw-lines.jsonl": "1d3ca9c985d22090b079bc3a5a86b38d7a03bc5c0b43e65ef8aeedfbd6c6c8c7",
+    "context-qsa-run4/control/attempt1/B/http/016-context-8192-greedy-c8-repeat0/request-04/raw-lines.jsonl": "f8e880de971e4f089181a4d4b40ef54f29f8b2915807d9af8375b1bf8a2e0a43",
+    "context-qsa-run4/control/attempt1/B/http/016-context-8192-greedy-c8-repeat0/request-05/raw-lines.jsonl": "e8c32a17d0aee8ae6d31160639e1de573022a9ee9f072429964b6e2216b06eb7",
+    "context-qsa-run4/control/attempt1/B/http/016-context-8192-greedy-c8-repeat0/request-06/raw-lines.jsonl": "ec4aeaa714e268c59faa09936efb4ff2d725bd4ba616d321354dd4c3b5178012",
+    "context-qsa-run4/control/attempt1/B/http/016-context-8192-greedy-c8-repeat0/request-07/raw-lines.jsonl": "0435c35d820b3e43665b0b35419396847918c3c90d498594d06f91838b1116b3",
+    "context-qsa-run4/control/attempt1/B/http/017-context-8192-greedy-c8-repeat1/GROUP.json": "5b5320eef6386b511518cf876c80fdee01c74ab3400b4214d05a9c1cce01378c",
+    "context-qsa-run4/control/attempt1/B/http/017-context-8192-greedy-c8-repeat1/request-00/raw-lines.jsonl": "899c71d12975970840bc7cc138c5c5b24e5d3a9c853d5313cfba39c9b4ede7c4",
+    "context-qsa-run4/control/attempt1/B/http/017-context-8192-greedy-c8-repeat1/request-01/raw-lines.jsonl": "9ab429a882d66dd7d1a1fb82d431c214cec10f4534a8d6fb34041d9ea46f99be",
+    "context-qsa-run4/control/attempt1/B/http/017-context-8192-greedy-c8-repeat1/request-02/raw-lines.jsonl": "2882a7d424d173a5eb14f061bd0a909046ca44094326199d00e0281017a75c7d",
+    "context-qsa-run4/control/attempt1/B/http/017-context-8192-greedy-c8-repeat1/request-03/raw-lines.jsonl": "1fa631ff2761d4de8a7d41e064e2942eb29827efb9d55605a4e172d643374077",
+    "context-qsa-run4/control/attempt1/B/http/017-context-8192-greedy-c8-repeat1/request-04/raw-lines.jsonl": "67084f7903d2e9327e90d7c68914795b6e84354c6ca937a5d82ddcf459313490",
+    "context-qsa-run4/control/attempt1/B/http/017-context-8192-greedy-c8-repeat1/request-05/raw-lines.jsonl": "b238ed3bb293553700e8f961c9f26c6e74b8fe83adbc3d5245fc1570695a5a25",
+    "context-qsa-run4/control/attempt1/B/http/017-context-8192-greedy-c8-repeat1/request-06/raw-lines.jsonl": "a3c1f0afd8958f3637833728d5912dabdc8abd2cd9b3e4df8611e2eeba8c9044",
+    "context-qsa-run4/control/attempt1/B/http/017-context-8192-greedy-c8-repeat1/request-07/raw-lines.jsonl": "8525a053e25726b30bb2df967596265c9670528ca9bd0444b2cc12e739f68d78",
+    "context-qsa-run4/control/attempt1/B/http/018-context-32768-greedy-c1-repeat0/GROUP.json": "c6bc62da8ce779f65d6c4dbe05782e40af0b49bcb75cafe37fff5f385db9aca8",
+    "context-qsa-run4/control/attempt1/B/http/018-context-32768-greedy-c1-repeat0/request-00/raw-lines.jsonl": "fe338e4e130b27106511eec1d79becc45f75637c9d52ddb708435fc5e87f9cdb",
+    "context-qsa-run4/control/attempt1/B/http/019-context-32768-greedy-c1-repeat1/GROUP.json": "71861336c8ee5bcd60ca6fcdc3e5f60267324cffdcd34e813e3f888117c058c8",
+    "context-qsa-run4/control/attempt1/B/http/019-context-32768-greedy-c1-repeat1/request-00/raw-lines.jsonl": "57153a420f8ba71cc93177779e88eb552f8c6297ad841525b2de4caeb7134926",
+    "context-qsa-run4/control/attempt1/B/http/020-context-32768-greedy-c4-repeat0/GROUP.json": "713a33a1c8b33f797e6b2c1112ebc8518cc030dce35a82ff91a6e8f6288802ac",
+    "context-qsa-run4/control/attempt1/B/http/020-context-32768-greedy-c4-repeat0/request-00/raw-lines.jsonl": "b370167787a4a8dfaf7414c3d53c870183210176845b83da362af0c25de2f179",
+    "context-qsa-run4/control/attempt1/B/http/020-context-32768-greedy-c4-repeat0/request-01/raw-lines.jsonl": "38d061f3f589ea31aafcbd5e75b7863cbc4e5a0bd9bcce8cfa8c9e272aedbd9c",
+    "context-qsa-run4/control/attempt1/B/http/020-context-32768-greedy-c4-repeat0/request-02/raw-lines.jsonl": "7a6ec038032501e5b95d47d41fce4adaca2d2ac342477b57b9f0a3a2177b20d3",
+    "context-qsa-run4/control/attempt1/B/http/020-context-32768-greedy-c4-repeat0/request-03/raw-lines.jsonl": "071c2bd1dd3880e58fd08d7fbe02016e0499bbfd1bb58848ef4ed776770d2ae5",
+    "context-qsa-run4/control/attempt1/B/http/021-context-32768-greedy-c4-repeat1/GROUP.json": "a5b79c7162e8964de023cb649b3ecfb4f4184026aef75fee30d4cef83a32f586",
+    "context-qsa-run4/control/attempt1/B/http/021-context-32768-greedy-c4-repeat1/request-00/raw-lines.jsonl": "cea9be38f83981d7b75ed8ee1e17f50a29aa0dd0da932169442d27468a5e8fbf",
+    "context-qsa-run4/control/attempt1/B/http/021-context-32768-greedy-c4-repeat1/request-01/raw-lines.jsonl": "de9ae81cdd7005e84c4ebe0d191bfd5edf449afbb8d556d354b5e631e7659a96",
+    "context-qsa-run4/control/attempt1/B/http/021-context-32768-greedy-c4-repeat1/request-02/raw-lines.jsonl": "5e66466d67caaa0ad5e9a862f59bd3dd72aa9f2fa82694135c13f45de7147a5c",
+    "context-qsa-run4/control/attempt1/B/http/021-context-32768-greedy-c4-repeat1/request-03/raw-lines.jsonl": "b574e7727c694ffc691a550190e5f84778b5cfb5e2d004c9693827324273c2f4",
+    "context-qsa-run4/control/attempt1/B/http/022-context-32768-greedy-c8-repeat0/GROUP.json": "8a23e3236369325ab6d75e77d0dde04aee7f3bedd930da0773c765fe2de04571",
+    "context-qsa-run4/control/attempt1/B/http/022-context-32768-greedy-c8-repeat0/request-00/raw-lines.jsonl": "7206e53079c9f4819302b42ccc5f9f94fca8467db236e2bc6f284885b5080d4f",
+    "context-qsa-run4/control/attempt1/B/http/022-context-32768-greedy-c8-repeat0/request-01/raw-lines.jsonl": "ad849862e56ef45250cee74e76ab3b72a03aa76e0d3339753fa242d4ddbb8fe2",
+    "context-qsa-run4/control/attempt1/B/http/022-context-32768-greedy-c8-repeat0/request-02/raw-lines.jsonl": "328d2080b329a5fe9b539249e7ac06a833d222b3182b0aca8a19730e56a74152",
+    "context-qsa-run4/control/attempt1/B/http/022-context-32768-greedy-c8-repeat0/request-03/raw-lines.jsonl": "2f3b9e112b9256cfa3350a03c3e76cc3515162427c3cde2a463ebb4dd9362aef",
+    "context-qsa-run4/control/attempt1/B/http/022-context-32768-greedy-c8-repeat0/request-04/raw-lines.jsonl": "cb5608ff6d8351ff927a25a739cca9e44e2158152332973020671515ae103aa3",
+    "context-qsa-run4/control/attempt1/B/http/022-context-32768-greedy-c8-repeat0/request-05/raw-lines.jsonl": "33dabe78a07ef9daf72bbff090a661da153077e852211002b276bdb19b923d32",
+    "context-qsa-run4/control/attempt1/B/http/022-context-32768-greedy-c8-repeat0/request-06/raw-lines.jsonl": "c45305230e127bdd130c74708df79c6c6ce8d15e99c7c689c560b0b607c56cbd",
+    "context-qsa-run4/control/attempt1/B/http/022-context-32768-greedy-c8-repeat0/request-07/raw-lines.jsonl": "7377ff1c6e2b46bf438b8f41859f5ef6f4eb9d03b992dccff7778c95bbb15bd2",
+    "context-qsa-run4/control/attempt1/B/http/023-context-32768-greedy-c8-repeat1/GROUP.json": "5d268cbba4a18ff9212f1df86032c6c667000289880cb8dbb6f19a19106d60a0",
+    "context-qsa-run4/control/attempt1/B/http/023-context-32768-greedy-c8-repeat1/request-00/raw-lines.jsonl": "0f93e38eb9fd8b5fedce03c550dccba4a7550fcdd14b5de83e50ef5804c5c7b5",
+    "context-qsa-run4/control/attempt1/B/http/023-context-32768-greedy-c8-repeat1/request-01/raw-lines.jsonl": "b6aadb6c9fa7fb129ed1fc44f6a5f2e37ff61f5edd850c0e76ca71471a4fc84b",
+    "context-qsa-run4/control/attempt1/B/http/023-context-32768-greedy-c8-repeat1/request-02/raw-lines.jsonl": "a38b39407e8eed51321f9bbd2c1f081e8f7c146a8241d4847a492c6e9d403974",
+    "context-qsa-run4/control/attempt1/B/http/023-context-32768-greedy-c8-repeat1/request-03/raw-lines.jsonl": "5f3d49ca0fd909569910611a1863df113135ef1d001e0c7a79fc30000a9e771f",
+    "context-qsa-run4/control/attempt1/B/http/023-context-32768-greedy-c8-repeat1/request-04/raw-lines.jsonl": "5bf2de88fc55c96cb3544e56442c962d0261f5ea561e8044b68f63ebde7c739c",
+    "context-qsa-run4/control/attempt1/B/http/023-context-32768-greedy-c8-repeat1/request-05/raw-lines.jsonl": "da75976c6a5c9a74c0ae9b8e75a483958f0a5355be7d15536e80622777bae90a",
+    "context-qsa-run4/control/attempt1/B/http/023-context-32768-greedy-c8-repeat1/request-06/raw-lines.jsonl": "fb561b3d335f7e03f32a9ec03e3cc9e04ffe71c490c3f731e0df52e0a5a983a8",
+    "context-qsa-run4/control/attempt1/B/http/023-context-32768-greedy-c8-repeat1/request-07/raw-lines.jsonl": "67f7aed43a680a2efaf38abe8d2eef5586ffdc685787ce3897261dfeaeab92ca",
+    "context-qsa-run4/control/attempt1/B/http/024-context-65536-greedy-c1-repeat0/GROUP.json": "ba35df670a610a9bb7bdfd1027456d107c5a2943e9bf598bbf38b819fd915e17",
+    "context-qsa-run4/control/attempt1/B/http/024-context-65536-greedy-c1-repeat0/request-00/raw-lines.jsonl": "20096c1f1e650a138f589250b387120c28bd6e68c165730b2a58f1668a241e1b",
+    "context-qsa-run4/control/attempt1/B/http/025-context-65536-greedy-c1-repeat1/GROUP.json": "ac63b062002e8b0af97b293671a244079d953fe67f986ca35325f84d38af64aa",
+    "context-qsa-run4/control/attempt1/B/http/025-context-65536-greedy-c1-repeat1/request-00/raw-lines.jsonl": "01fdc6767091a6d2f9a58e5f72da30d76791812bfe322575bc867967f5dc5c70",
+    "context-qsa-run4/control/attempt1/B/http/026-context-65536-greedy-c4-repeat0/GROUP.json": "6800f689b598f5bb5da43702887f5790c5d9e6fb228f3d3acc203392e9390c0d",
+    "context-qsa-run4/control/attempt1/B/http/026-context-65536-greedy-c4-repeat0/request-00/raw-lines.jsonl": "763282c7b545f57f1e43b7ec4c212cc0345929ec806745f45d374715b5a9c682",
+    "context-qsa-run4/control/attempt1/B/http/026-context-65536-greedy-c4-repeat0/request-01/raw-lines.jsonl": "4f47a8f35310502064f10d3323a7a268ffa8f48e6fb536cf2a60f40b1535938c",
+    "context-qsa-run4/control/attempt1/B/http/026-context-65536-greedy-c4-repeat0/request-02/raw-lines.jsonl": "532ca9225acbdaa30ae17df075501f6d2cde26f1d1c3da68bda371e13af37186",
+    "context-qsa-run4/control/attempt1/B/http/026-context-65536-greedy-c4-repeat0/request-03/raw-lines.jsonl": "a0180362fe1bd5bc0fecb8873d7d05eaeaf29c0547caa957db1bec27463ecac1",
+    "context-qsa-run4/control/attempt1/B/http/027-context-65536-greedy-c4-repeat1/GROUP.json": "ae15a5cf6ceeb804445ff035ad4120a0c042be53cd7fcf309d834f7235ce4419",
+    "context-qsa-run4/control/attempt1/B/http/027-context-65536-greedy-c4-repeat1/request-00/raw-lines.jsonl": "4df31df2b55e2ee48d8adc8f922c18786f18da77c2281dc6aa0a43d700bcd7cb",
+    "context-qsa-run4/control/attempt1/B/http/027-context-65536-greedy-c4-repeat1/request-01/raw-lines.jsonl": "3fcca62cb3eed88a58f7f03b8ae8db583191596f6067761e914cbe7c3175d327",
+    "context-qsa-run4/control/attempt1/B/http/027-context-65536-greedy-c4-repeat1/request-02/raw-lines.jsonl": "f3b90b6a7e0bf45ef8f0b10296c9f9c6e32137163ce33eaa184e6702edd1df20",
+    "context-qsa-run4/control/attempt1/B/http/027-context-65536-greedy-c4-repeat1/request-03/raw-lines.jsonl": "d161fe8014cd56a476b5174dba83e9c80564dc99c7b961bec7a94f5d9c41500e",
+    "context-qsa-run4/control/attempt1/B/http/028-context-65536-greedy-c8-repeat0/GROUP.json": "470a3e50b5bb7fa8f49eec13ae92bbb989c66638d67695c420b291ce002ba770",
+    "context-qsa-run4/control/attempt1/B/http/028-context-65536-greedy-c8-repeat0/request-00/raw-lines.jsonl": "61db6da653d2e9b0fb1718384a57a8b4b253ebd53009ce4a8f2fa1c3783de980",
+    "context-qsa-run4/control/attempt1/B/http/028-context-65536-greedy-c8-repeat0/request-01/raw-lines.jsonl": "c3f5760a4903ad912d6e6a549468b70e0c3110fde8c8b6ef39fd0f39a0685641",
+    "context-qsa-run4/control/attempt1/B/http/028-context-65536-greedy-c8-repeat0/request-02/raw-lines.jsonl": "e23ee82ada8cdd23a1dc6853c42f499ef8620bd6fb9324ba995a51cc9146ed4f",
+    "context-qsa-run4/control/attempt1/B/http/028-context-65536-greedy-c8-repeat0/request-03/raw-lines.jsonl": "98d341ce45214e7fd59aa597ba45a4c67d16749e260b61f7e7f232eaf656ba56",
+    "context-qsa-run4/control/attempt1/B/http/028-context-65536-greedy-c8-repeat0/request-04/raw-lines.jsonl": "e7fa5aa00f99c4121db250c7cc95441252e6f0b9fdf11484bf62ab43eef6866f",
+    "context-qsa-run4/control/attempt1/B/http/028-context-65536-greedy-c8-repeat0/request-05/raw-lines.jsonl": "6d151b22fbe347536df9180ac51587662064fd7bb696b6eaf6fbb2e6ef30b307",
+    "context-qsa-run4/control/attempt1/B/http/028-context-65536-greedy-c8-repeat0/request-06/raw-lines.jsonl": "ad74bc6ce89c07860fb088d74592aa63da0c6c296b125b613d71f34a14333c7f",
+    "context-qsa-run4/control/attempt1/B/http/028-context-65536-greedy-c8-repeat0/request-07/raw-lines.jsonl": "338cd7487641272589a957d926c9322471e20f317c0c99d3d2011696633287d4",
+    "context-qsa-run4/control/attempt1/B/http/029-context-65536-greedy-c8-repeat1/GROUP.json": "a5ac1ea03d97eb06eccc02942f8cf28af4a8b6ad1036a7a5f9af4e4786e2dc61",
+    "context-qsa-run4/control/attempt1/B/http/029-context-65536-greedy-c8-repeat1/request-00/raw-lines.jsonl": "f5bd71b34c7447e12d45d1ae17ac17019f2e34a292eb67e1f01ee9d7682233ad",
+    "context-qsa-run4/control/attempt1/B/http/029-context-65536-greedy-c8-repeat1/request-01/raw-lines.jsonl": "228ce0f5210d8b09b6623099e7a74265f2d48f9fa00e4a49ebd01348440d90c2",
+    "context-qsa-run4/control/attempt1/B/http/029-context-65536-greedy-c8-repeat1/request-02/raw-lines.jsonl": "a4f28745c922ea0eb7c16414cb1b28f8b40f52fc681f8d29045b0ecc69322368",
+    "context-qsa-run4/control/attempt1/B/http/029-context-65536-greedy-c8-repeat1/request-03/raw-lines.jsonl": "dd2aabeda7b46f78114b9c9a6d14e60b360118574b161bf5533da32a12b8ca9e",
+    "context-qsa-run4/control/attempt1/B/http/029-context-65536-greedy-c8-repeat1/request-04/raw-lines.jsonl": "85eeb002baf80d3d208f7c45919c5faf5cd5fd5e1f5fc5e626f215353c4acb2c",
+    "context-qsa-run4/control/attempt1/B/http/029-context-65536-greedy-c8-repeat1/request-05/raw-lines.jsonl": "c2c4b1ed537a04e1856b39d3580db2afbc754821f168edc61407b729e4e30971",
+    "context-qsa-run4/control/attempt1/B/http/029-context-65536-greedy-c8-repeat1/request-06/raw-lines.jsonl": "fb0105d3f209f351afbea017e8b2b20154cfe329056b15f1ce7ab5090bd7efce",
+    "context-qsa-run4/control/attempt1/B/http/029-context-65536-greedy-c8-repeat1/request-07/raw-lines.jsonl": "9d09014404cc74c39b2c2a64fc3c8ff03eb3cd8f33aa0b9c982f70389ed9e6a2",
+    "context-qsa-run4/control/attempt1/B/http/030-context-131072-greedy-c1-repeat0/GROUP.json": "abefd7fdaa0661fd853fa03452c01f0e2fbfaafffd2cf23da1385f5bd5aef9bf",
+    "context-qsa-run4/control/attempt1/B/http/030-context-131072-greedy-c1-repeat0/request-00/raw-lines.jsonl": "3ad7bf32070b3990424cf39d3d8c6d19c20c6c9b29851857742f26e3ca55130f",
+    "context-qsa-run4/control/attempt1/B/http/031-context-131072-greedy-c1-repeat1/GROUP.json": "c30a77547ef3012df1da6393e4749353a0040ed56c155a80adf048055e04b41b",
+    "context-qsa-run4/control/attempt1/B/http/031-context-131072-greedy-c1-repeat1/request-00/raw-lines.jsonl": "1bdc0171dad34fbbde1495e963ca67bfdf602dbb9b32d1bc46b25166c90d17e0",
+    "context-qsa-run4/control/attempt1/B/http/032-context-131072-greedy-c4-repeat0/GROUP.json": "409b3aba74dbc9a88a7868f205dee1b56c3e51229a13406ae2aff830a355d639",
+    "context-qsa-run4/control/attempt1/B/http/032-context-131072-greedy-c4-repeat0/request-00/raw-lines.jsonl": "d42657b88342982bf40c0db63e607b1eac5e637e940b37fdb2218df322902872",
+    "context-qsa-run4/control/attempt1/B/http/032-context-131072-greedy-c4-repeat0/request-01/raw-lines.jsonl": "4d8036fbaab5adc236306a83d4c6d9fbf3dc7bfd5ad37c346118dfdfc5144acf",
+    "context-qsa-run4/control/attempt1/B/http/032-context-131072-greedy-c4-repeat0/request-02/raw-lines.jsonl": "c38768259bd347c3c4ba58ce48820e7b0eb43c54ada69cf6e128c57a17281424",
+    "context-qsa-run4/control/attempt1/B/http/032-context-131072-greedy-c4-repeat0/request-03/raw-lines.jsonl": "20f903e930abd809810560b1dc72c06cbc7feb6424ff745d234f300d090adc4a",
+    "context-qsa-run4/control/attempt1/B/http/033-context-131072-greedy-c4-repeat1/GROUP.json": "41aa9342d88043a4bb3f8fee49dc2305e67a3bb1252914598dbd37b64f717d7a",
+    "context-qsa-run4/control/attempt1/B/http/033-context-131072-greedy-c4-repeat1/request-00/raw-lines.jsonl": "cf3ffadf2d87afabf970128b2d18c954038e102dac4dc23582955e3e5236ef3f",
+    "context-qsa-run4/control/attempt1/B/http/033-context-131072-greedy-c4-repeat1/request-01/raw-lines.jsonl": "16de25bd84781280c0692d362f3d2043d70439e3980bfe8a5972e57113750804",
+    "context-qsa-run4/control/attempt1/B/http/033-context-131072-greedy-c4-repeat1/request-02/raw-lines.jsonl": "8fe109cb22f75fcf5dc291085aa4a29181c88d2c23aaca9c9a12c37d025b9db3",
+    "context-qsa-run4/control/attempt1/B/http/033-context-131072-greedy-c4-repeat1/request-03/raw-lines.jsonl": "ed5b70756f8e638d29b3a4bf4e1d80cb1a9859b5fe4e09419c0e30e37e33acef",
+    "context-qsa-run4/control/attempt1/B/http/034-context-261632-greedy-c1-repeat0/GROUP.json": "88d469a54a4c1f9c0f54be2d837973fb4cb095b74acc287d001412bc759427f2",
+    "context-qsa-run4/control/attempt1/B/http/034-context-261632-greedy-c1-repeat0/request-00/raw-lines.jsonl": "2431eb63143eafd55030fc93c54975a7a315c8c38304e0556f5430563e56b029",
+    "context-qsa-run4/control/attempt1/B/http/035-context-261632-greedy-c1-repeat1/GROUP.json": "e3eafdea00b6e30f9b38ff98e504fc1e68a766bb605a3a1fba8ec6403dde8618",
+    "context-qsa-run4/control/attempt1/B/http/035-context-261632-greedy-c1-repeat1/request-00/raw-lines.jsonl": "f3fd32c488b7bb160639b19d97c9128d6ac9effd09daeb35576e0ae2744285c5",
+    "context-qsa-run4/control/attempt1/B/http/036-context-261632-greedy-c2-repeat0/GROUP.json": "203026704d37c28497f8fe3b466b67fae4c6741d96dc5cc0c00abd411928e42d",
+    "context-qsa-run4/control/attempt1/B/http/036-context-261632-greedy-c2-repeat0/request-00/raw-lines.jsonl": "3a37ace2fdca4072603c8632a6970005409444be0855e6f07385fa0271fe026d",
+    "context-qsa-run4/control/attempt1/B/http/036-context-261632-greedy-c2-repeat0/request-01/raw-lines.jsonl": "8ca478da34f71484f5a01c4a27a91759aabfe14630ccb308672ab098d8b64375",
+    "context-qsa-run4/control/attempt1/B/http/037-context-261632-greedy-c2-repeat1/GROUP.json": "3c07286c8e57ba2281fbc3c4c6ee5f5fe5b3c4aa315efbff9a9753330bfc7657",
+    "context-qsa-run4/control/attempt1/B/http/037-context-261632-greedy-c2-repeat1/request-00/raw-lines.jsonl": "9fe955a5a40bc9b2c29db75eeea16d685b59694ec829c9c2f1130bc49e457e0f",
+    "context-qsa-run4/control/attempt1/B/http/037-context-261632-greedy-c2-repeat1/request-01/raw-lines.jsonl": "362a578f160a47fb850b7dc51c2364cf3b01e6f2ab9631ff948705f1d4346ca4",
+    "context-qsa-run4/control/attempt1/A2/http/RESULT.json": "4bddd7008d206f63e6d05384f3acc97b3afbe9d771a12be3dbdc50736c7e32f0",
+    "context-qsa-run4/control/attempt1/A2/http/000-context-512-greedy-c1-repeat0/GROUP.json": "b2a3315ea82a1e39d95802601ddeaa1e5e43ec08b4c9cdc4bde6d7d7e9763d42",
+    "context-qsa-run4/control/attempt1/A2/http/000-context-512-greedy-c1-repeat0/request-00/raw-lines.jsonl": "6489194ee83aa30eee2499bb8a4a04d4ac9a04c2a758c7cf34c555b0eb642489",
+    "context-qsa-run4/control/attempt1/A2/http/001-context-512-greedy-c1-repeat1/GROUP.json": "05c83a061a9bf8a1170b2052d014b4b466ac82e8e631e20aa55315031841838e",
+    "context-qsa-run4/control/attempt1/A2/http/001-context-512-greedy-c1-repeat1/request-00/raw-lines.jsonl": "e612d572c01c8e40981a8087b2e94ef262b1b943fd1b50a7425ec416ba008be9",
+    "context-qsa-run4/control/attempt1/A2/http/002-context-512-greedy-c4-repeat0/GROUP.json": "36fbbbac7b109b99b1f86dcedcc3b678d4805482dbff1d93d528446f210db7a8",
+    "context-qsa-run4/control/attempt1/A2/http/002-context-512-greedy-c4-repeat0/request-00/raw-lines.jsonl": "c4e8ab63ef56346e02fd57b70a0aa9db764e497e9056e63d563c30e3024b5444",
+    "context-qsa-run4/control/attempt1/A2/http/002-context-512-greedy-c4-repeat0/request-01/raw-lines.jsonl": "9ed88241547313910281f3e0875fb20e20fed9ff8d66b6b7dc56d333764095e6",
+    "context-qsa-run4/control/attempt1/A2/http/002-context-512-greedy-c4-repeat0/request-02/raw-lines.jsonl": "052d78cb9af81b9728dd31f6b724a087ed387f4b49884e4678498a6cb765bb84",
+    "context-qsa-run4/control/attempt1/A2/http/002-context-512-greedy-c4-repeat0/request-03/raw-lines.jsonl": "f379dc8cd8502a8623aa5da23f44a0946d927ef1c8f9648c4eb778d734574db4",
+    "context-qsa-run4/control/attempt1/A2/http/003-context-512-greedy-c4-repeat1/GROUP.json": "fcd1dff40d880cbc529160b9c61a726fb7c8bf456e51fba6795390db8ee58b16",
+    "context-qsa-run4/control/attempt1/A2/http/003-context-512-greedy-c4-repeat1/request-00/raw-lines.jsonl": "9bd43371558adda5e424a04df4348cd2666baa09b49c05f6fcc6ffc0b957fc4c",
+    "context-qsa-run4/control/attempt1/A2/http/003-context-512-greedy-c4-repeat1/request-01/raw-lines.jsonl": "9d23375ea5e26abed0106b638f98d52c899c408da86ad338e89c8222bb16c85c",
+    "context-qsa-run4/control/attempt1/A2/http/003-context-512-greedy-c4-repeat1/request-02/raw-lines.jsonl": "999c90a40f001ae842152f8a399a7c4d784200f329c389e02ddc145ad77e34a2",
+    "context-qsa-run4/control/attempt1/A2/http/003-context-512-greedy-c4-repeat1/request-03/raw-lines.jsonl": "ea7c71a2f814dbdede8424eb1cae26d994be5383fd7b4407e7b5036ad1e8e053",
+    "context-qsa-run4/control/attempt1/A2/http/004-context-512-greedy-c8-repeat0/GROUP.json": "2926ea2fa72d5e84e226a2c09dc5f8621e4820b52263aa5d9e0ad241d5cb12dd",
+    "context-qsa-run4/control/attempt1/A2/http/004-context-512-greedy-c8-repeat0/request-00/raw-lines.jsonl": "fb3c9e9d37c49acc49872e229c5cdeac749c8b266196323f3d3848ca580e7944",
+    "context-qsa-run4/control/attempt1/A2/http/004-context-512-greedy-c8-repeat0/request-01/raw-lines.jsonl": "bc3caa0ba2dbe8291b43c9b92a854835cc753f478d988b114dad37cfacc80f25",
+    "context-qsa-run4/control/attempt1/A2/http/004-context-512-greedy-c8-repeat0/request-02/raw-lines.jsonl": "9adced2eacbc25df38a09efd04766fa142828ecc3b26d5e4ec3801c865645293",
+    "context-qsa-run4/control/attempt1/A2/http/004-context-512-greedy-c8-repeat0/request-03/raw-lines.jsonl": "7ed1d4cd3337560f8844d7f011054c5949a61549954e2aaa925169f057fce54e",
+    "context-qsa-run4/control/attempt1/A2/http/004-context-512-greedy-c8-repeat0/request-04/raw-lines.jsonl": "4f6213f1e45374f832bb6fb7613f571e258d4f5af1afccb5f70c7ccfda49bcf6",
+    "context-qsa-run4/control/attempt1/A2/http/004-context-512-greedy-c8-repeat0/request-05/raw-lines.jsonl": "d812794695fd8addd2e669d40a4bf2e3e300473e64e0e8c2cd5155c9b47c6211",
+    "context-qsa-run4/control/attempt1/A2/http/004-context-512-greedy-c8-repeat0/request-06/raw-lines.jsonl": "f50a374330adb676b54bd8ad3ac2c058a6527b7054a15591598d8f53e98b27fb",
+    "context-qsa-run4/control/attempt1/A2/http/004-context-512-greedy-c8-repeat0/request-07/raw-lines.jsonl": "75ffde3c2c13fe6a0786d24c65f54d7dbfb39ba0e9cc8fa4564810308f0664a8",
+    "context-qsa-run4/control/attempt1/A2/http/005-context-512-greedy-c8-repeat1/GROUP.json": "87a646b3d6afa0ed2f107ac79ac0f2d035e268a1b47581022fc3ef14097e376c",
+    "context-qsa-run4/control/attempt1/A2/http/005-context-512-greedy-c8-repeat1/request-00/raw-lines.jsonl": "13262e02b30e9b81c0c64e2911880b4db41250d2bf514058849e866fc46e9b80",
+    "context-qsa-run4/control/attempt1/A2/http/005-context-512-greedy-c8-repeat1/request-01/raw-lines.jsonl": "1dd1decdc86346403092e5c2b6cb0bc5435acc85c34283e46a1952a10a4e24df",
+    "context-qsa-run4/control/attempt1/A2/http/005-context-512-greedy-c8-repeat1/request-02/raw-lines.jsonl": "7dcc366a3596f5c3c9e4d728e15db7bad5dc9285b819b0b4a6f5263cc1897484",
+    "context-qsa-run4/control/attempt1/A2/http/005-context-512-greedy-c8-repeat1/request-03/raw-lines.jsonl": "1722f74899983af93537bb9c194a343d1543fb6e14f10661596e84cea2ec716c",
+    "context-qsa-run4/control/attempt1/A2/http/005-context-512-greedy-c8-repeat1/request-04/raw-lines.jsonl": "9c2e98fb2c9baa5e3d60b4c2b08294c3f0f8e2907b4bb6ebcb369554a523c052",
+    "context-qsa-run4/control/attempt1/A2/http/005-context-512-greedy-c8-repeat1/request-05/raw-lines.jsonl": "d56b3c873056e34c16a7d5579e49a48b1b3d611db9f666c8a542b805abc8eeb2",
+    "context-qsa-run4/control/attempt1/A2/http/005-context-512-greedy-c8-repeat1/request-06/raw-lines.jsonl": "046a3c9816209a7baf2eb53129c9e27d8fd052942cda1903aa7dc51ecfbe6665",
+    "context-qsa-run4/control/attempt1/A2/http/005-context-512-greedy-c8-repeat1/request-07/raw-lines.jsonl": "c8c429f1cbc590fa340abbbab3755ba46f5a78fb2c078a395e24e5b39c1aeaa7",
+    "context-qsa-run4/control/attempt1/A2/http/006-context-2048-greedy-c1-repeat0/GROUP.json": "094c65372e4d768ecc6e7fa145eed70c3ad6b9124e20399e9a8d66de8ede6b84",
+    "context-qsa-run4/control/attempt1/A2/http/006-context-2048-greedy-c1-repeat0/request-00/raw-lines.jsonl": "1d54312ad5137140630146c13b2e252dbff477e8dff080af1cdcbb3a6aaf71f8",
+    "context-qsa-run4/control/attempt1/A2/http/007-context-2048-greedy-c1-repeat1/GROUP.json": "a84f8c23b86a4359c3d2be623a09a32f692fa79848fcd3e486ff08b241ff7d24",
+    "context-qsa-run4/control/attempt1/A2/http/007-context-2048-greedy-c1-repeat1/request-00/raw-lines.jsonl": "a0f6a625a9e0d8cc96475bcffafe2af1042f526b68564d65a202599367c49982",
+    "context-qsa-run4/control/attempt1/A2/http/008-context-2048-greedy-c4-repeat0/GROUP.json": "13e01655a7d49014ca854fe0cf28948f4f443a7b326b66f1aea7922261844708",
+    "context-qsa-run4/control/attempt1/A2/http/008-context-2048-greedy-c4-repeat0/request-00/raw-lines.jsonl": "09e05456d85ff4a0ae48dd0d74015e88423fa20df103749ef7ab9375807b8581",
+    "context-qsa-run4/control/attempt1/A2/http/008-context-2048-greedy-c4-repeat0/request-01/raw-lines.jsonl": "eeb37f041f48e2a0ad69465b56f3a67f38b95c1465d8ea390528a302c72e27b0",
+    "context-qsa-run4/control/attempt1/A2/http/008-context-2048-greedy-c4-repeat0/request-02/raw-lines.jsonl": "550ae1d45eef50d9c192ed62871aabb12fb25b0e561d501664de515a226a371a",
+    "context-qsa-run4/control/attempt1/A2/http/008-context-2048-greedy-c4-repeat0/request-03/raw-lines.jsonl": "2bd2b0fc2ac425d59fa863203a7c2363ea7d17e0ae5f2ba4332d7069e11d7954",
+    "context-qsa-run4/control/attempt1/A2/http/009-context-2048-greedy-c4-repeat1/GROUP.json": "9f2da90010bec0a123f19978efb336160feb7c20b80699ef9628425181f41909",
+    "context-qsa-run4/control/attempt1/A2/http/009-context-2048-greedy-c4-repeat1/request-00/raw-lines.jsonl": "e90e7604c0c91eb0ee5cd2dc06ca425d76cc8f99bf663fcde2ae3a567b3b42bc",
+    "context-qsa-run4/control/attempt1/A2/http/009-context-2048-greedy-c4-repeat1/request-01/raw-lines.jsonl": "d3c4bbdfd800ef6604f401693dadea8e6b045f5fbbc762dbca2f384d262ae969",
+    "context-qsa-run4/control/attempt1/A2/http/009-context-2048-greedy-c4-repeat1/request-02/raw-lines.jsonl": "518f3dd5ebe6029aa69bf519a0521d9ae313d986e8debbb54bbb4349321c75ee",
+    "context-qsa-run4/control/attempt1/A2/http/009-context-2048-greedy-c4-repeat1/request-03/raw-lines.jsonl": "8897ca8c6da4d155c7c966694197156f8d27e779648972a2fffe8778acb522f7",
+    "context-qsa-run4/control/attempt1/A2/http/010-context-2048-greedy-c8-repeat0/GROUP.json": "5f9d7d1f26c9f9ba97f7846688ceb287fc2759f567f382b03f8cd51b0941fa51",
+    "context-qsa-run4/control/attempt1/A2/http/010-context-2048-greedy-c8-repeat0/request-00/raw-lines.jsonl": "b4325d153ade1dfce03e8181130660fc6647c14be1e6a908493bd0ccee951d7a",
+    "context-qsa-run4/control/attempt1/A2/http/010-context-2048-greedy-c8-repeat0/request-01/raw-lines.jsonl": "511b003d925cf2245aa830a0379696ae61efbd31866b8fa9afd5e8093b5ac2db",
+    "context-qsa-run4/control/attempt1/A2/http/010-context-2048-greedy-c8-repeat0/request-02/raw-lines.jsonl": "2d32a69b8a0cccf4e29167f8c3b762c29299ab1829572edadd7e8c4f910515b3",
+    "context-qsa-run4/control/attempt1/A2/http/010-context-2048-greedy-c8-repeat0/request-03/raw-lines.jsonl": "0092dc59d7e4b913d7e9be9d96ae4d71564fc0a02bc61b65be5b3adf74d4c53e",
+    "context-qsa-run4/control/attempt1/A2/http/010-context-2048-greedy-c8-repeat0/request-04/raw-lines.jsonl": "da5dbfeb26eea06afbfa5c6f2d288c8c1f462a4c5f61eb641786561a43e7d3b7",
+    "context-qsa-run4/control/attempt1/A2/http/010-context-2048-greedy-c8-repeat0/request-05/raw-lines.jsonl": "bc79819ee3e502ae74f81dbe306dd089fb7dec061a51b04d710d619919d94eee",
+    "context-qsa-run4/control/attempt1/A2/http/010-context-2048-greedy-c8-repeat0/request-06/raw-lines.jsonl": "2f5511948b0b0351e2be8e7f4a4d75a04096e61c6d5ba45a34545cc6dac70401",
+    "context-qsa-run4/control/attempt1/A2/http/010-context-2048-greedy-c8-repeat0/request-07/raw-lines.jsonl": "aa42aef9b3c2a1a185c59565b28201d4aeba86a23190a714da7f3091f248f0f7",
+    "context-qsa-run4/control/attempt1/A2/http/011-context-2048-greedy-c8-repeat1/GROUP.json": "69c78bd6f8cf303cae8c09fab3208ef92317a953b04174ce38348baa8fde2014",
+    "context-qsa-run4/control/attempt1/A2/http/011-context-2048-greedy-c8-repeat1/request-00/raw-lines.jsonl": "768d631e9b7e2b6a8008e984dc603558d60c6cf10628fe46e8d688052f1c073d",
+    "context-qsa-run4/control/attempt1/A2/http/011-context-2048-greedy-c8-repeat1/request-01/raw-lines.jsonl": "3db9adfd2036023bb3f8def9fd31bf2ec578a81a7123784489681bdc6cda1e7a",
+    "context-qsa-run4/control/attempt1/A2/http/011-context-2048-greedy-c8-repeat1/request-02/raw-lines.jsonl": "d860cb1d27331f03d819af423bc4e2fe10e37e2044e466a70547ce2132078789",
+    "context-qsa-run4/control/attempt1/A2/http/011-context-2048-greedy-c8-repeat1/request-03/raw-lines.jsonl": "9d9d63b1b072895d4708a7bded51cb5db91725f2ee43f74bf239ff4d738aa485",
+    "context-qsa-run4/control/attempt1/A2/http/011-context-2048-greedy-c8-repeat1/request-04/raw-lines.jsonl": "a512eadf590d120df3c06a4dce5904a58ae5bf63a70ce4acd95f9e4b842f37eb",
+    "context-qsa-run4/control/attempt1/A2/http/011-context-2048-greedy-c8-repeat1/request-05/raw-lines.jsonl": "189e61f30b40c813d6fd705b6ac3e16381b91d40b4e1f1afa808d53118b5dc26",
+    "context-qsa-run4/control/attempt1/A2/http/011-context-2048-greedy-c8-repeat1/request-06/raw-lines.jsonl": "7d5c5cc975c71ac1c532cc376e06eec2f0e8316a3948dee2b11c2adf24949a85",
+    "context-qsa-run4/control/attempt1/A2/http/011-context-2048-greedy-c8-repeat1/request-07/raw-lines.jsonl": "89b89758bf876772d745215fa7d2edf735211ebd9bc1bdaf4d4216d6b910898c",
+    "context-qsa-run4/control/attempt1/A2/http/012-context-8192-greedy-c1-repeat0/GROUP.json": "101a9e5452e5d6cae759218d279002e244c9c7a2435f4e9e5a1b867d71302149",
+    "context-qsa-run4/control/attempt1/A2/http/012-context-8192-greedy-c1-repeat0/request-00/raw-lines.jsonl": "d789df16aa693b4f2bf855b1f8b8612e84b929e9725513aedf1269e1e0a3ecc5",
+    "context-qsa-run4/control/attempt1/A2/http/013-context-8192-greedy-c1-repeat1/GROUP.json": "de996cca2ee6811c25215d3df52573b950262b1c744d8d5227d5b9c625483060",
+    "context-qsa-run4/control/attempt1/A2/http/013-context-8192-greedy-c1-repeat1/request-00/raw-lines.jsonl": "c8431202e7e6ff127048f1319d9de08d20ece6907b531ca5e8745b98a769c5bc",
+    "context-qsa-run4/control/attempt1/A2/http/014-context-8192-greedy-c4-repeat0/GROUP.json": "028b8c33bdd54ad1311b41fe5204d34650a0f415a64cc85bf9898550b5156ccb",
+    "context-qsa-run4/control/attempt1/A2/http/014-context-8192-greedy-c4-repeat0/request-00/raw-lines.jsonl": "911f7461000f17860d8779959a955f12341e8ee57ba4b752343ad82141d04726",
+    "context-qsa-run4/control/attempt1/A2/http/014-context-8192-greedy-c4-repeat0/request-01/raw-lines.jsonl": "754ce4736cb40aac301c5a658f0e4e340ccddfdbf9f2ca67a2de445a2dae93af",
+    "context-qsa-run4/control/attempt1/A2/http/014-context-8192-greedy-c4-repeat0/request-02/raw-lines.jsonl": "7e3e8726b56697fcb445903293190a5afcddd0add794fd17162f8612f3571656",
+    "context-qsa-run4/control/attempt1/A2/http/014-context-8192-greedy-c4-repeat0/request-03/raw-lines.jsonl": "2f0ddf70e3273f32633a9ff197a6b3173816b134d9179cf6620f6990c4c0f2e5",
+    "context-qsa-run4/control/attempt1/A2/http/015-context-8192-greedy-c4-repeat1/GROUP.json": "ca289b45241624a5a936e32065fdb8360148aa5f11d38e9a105be401ed1ee459",
+    "context-qsa-run4/control/attempt1/A2/http/015-context-8192-greedy-c4-repeat1/request-00/raw-lines.jsonl": "d60d27235aa5997197fadc766328bfc2ac20d8e3af86fa866738e00c8176a6ed",
+    "context-qsa-run4/control/attempt1/A2/http/015-context-8192-greedy-c4-repeat1/request-01/raw-lines.jsonl": "9bafae5ebb9904939ddff01e013b470fb7ebad733ae483f5d6249273cc1fb2cf",
+    "context-qsa-run4/control/attempt1/A2/http/015-context-8192-greedy-c4-repeat1/request-02/raw-lines.jsonl": "920e1f922e567ccd404a07757003ffd867ef519706c77e2230f716e445a8bbea",
+    "context-qsa-run4/control/attempt1/A2/http/015-context-8192-greedy-c4-repeat1/request-03/raw-lines.jsonl": "d5649b485f5fc027538b3fd678522c3996e2f5a72ed7280feb06d6d4ba863fde",
+    "context-qsa-run4/control/attempt1/A2/http/016-context-8192-greedy-c8-repeat0/GROUP.json": "37b37b03742fc18fbc28251851d645282541fe8c72852965f6bef59adda24130",
+    "context-qsa-run4/control/attempt1/A2/http/016-context-8192-greedy-c8-repeat0/request-00/raw-lines.jsonl": "1af8ac7ff2e133f2870ce83a232f3c80aa3b8825bca5b94b2e4a6faac4852343",
+    "context-qsa-run4/control/attempt1/A2/http/016-context-8192-greedy-c8-repeat0/request-01/raw-lines.jsonl": "8e8bce5dea456ccb33bd4265076d1296a076d19ea252c46e93b9a9e031f1dcd7",
+    "context-qsa-run4/control/attempt1/A2/http/016-context-8192-greedy-c8-repeat0/request-02/raw-lines.jsonl": "7521969a90465d49c422f2f0b87102e63a8dc32f5ca7e3423eca61e3ca760a3a",
+    "context-qsa-run4/control/attempt1/A2/http/016-context-8192-greedy-c8-repeat0/request-03/raw-lines.jsonl": "53ff9ca85e4e73e707a86d967a63ac9db0c6b1c514347f23e14dcd8f41178be5",
+    "context-qsa-run4/control/attempt1/A2/http/016-context-8192-greedy-c8-repeat0/request-04/raw-lines.jsonl": "4a442280c627ee58be7c45172ec45bc2685976d6a9bd6e156b7e542ddf0e7b21",
+    "context-qsa-run4/control/attempt1/A2/http/016-context-8192-greedy-c8-repeat0/request-05/raw-lines.jsonl": "93ef1a152cca56f2fd6bf099bf2999afaaacfe031dff5a92fad090360e81cf74",
+    "context-qsa-run4/control/attempt1/A2/http/016-context-8192-greedy-c8-repeat0/request-06/raw-lines.jsonl": "57cd4688e49c14f29efc618917e4fa2e97a98f6b3b17e0a8f319258c9012f6f2",
+    "context-qsa-run4/control/attempt1/A2/http/016-context-8192-greedy-c8-repeat0/request-07/raw-lines.jsonl": "464a73c631c27901656ecea601f60d0e6bfc5a8e988a31cb7bf97fb0d576b64e",
+    "context-qsa-run4/control/attempt1/A2/http/017-context-8192-greedy-c8-repeat1/GROUP.json": "e3dd8b18ce65cc0b89597438a4deb282b36a5d6a232d3081ea578407a368ccae",
+    "context-qsa-run4/control/attempt1/A2/http/017-context-8192-greedy-c8-repeat1/request-00/raw-lines.jsonl": "ed576789a0835db75a832ec475a7a52f97a2fe30355ed9cb3720e2f334d87c1f",
+    "context-qsa-run4/control/attempt1/A2/http/017-context-8192-greedy-c8-repeat1/request-01/raw-lines.jsonl": "4cd04344068652165713c623c8e57601488e6d17a8c75451761dfb5579258fdc",
+    "context-qsa-run4/control/attempt1/A2/http/017-context-8192-greedy-c8-repeat1/request-02/raw-lines.jsonl": "2fc167eccc1154b944f45f31e9ebb1fb9b3d713b55b4bf9e8b94460c4cfe6d8f",
+    "context-qsa-run4/control/attempt1/A2/http/017-context-8192-greedy-c8-repeat1/request-03/raw-lines.jsonl": "44c2b0df27340cf299cdb0029e9d725309f1152bca363406f5d73c4068622301",
+    "context-qsa-run4/control/attempt1/A2/http/017-context-8192-greedy-c8-repeat1/request-04/raw-lines.jsonl": "9ebf6a0ccb22d9d6be5755aafcdf149657bb0f5022dfc7d25826b01b56e138f9",
+    "context-qsa-run4/control/attempt1/A2/http/017-context-8192-greedy-c8-repeat1/request-05/raw-lines.jsonl": "cbf2abbe2065da4a8df4d14aeae4131c2754ea2e1f132d2ceae9ae5cc2237c79",
+    "context-qsa-run4/control/attempt1/A2/http/017-context-8192-greedy-c8-repeat1/request-06/raw-lines.jsonl": "e11181cb65cba772402a34aa41310e94f924fcc50b9f1c838a3bcc2842e1c761",
+    "context-qsa-run4/control/attempt1/A2/http/017-context-8192-greedy-c8-repeat1/request-07/raw-lines.jsonl": "b32ad43139bc73fa810db851a0c22be701ac34d8a42892e9171a8bc96775e6d4",
+    "context-qsa-run4/control/attempt1/A2/http/018-context-32768-greedy-c1-repeat0/GROUP.json": "0e755f8ae0895e601f9f95c79d640b4a1c4720d2d581a8f34bd9539f9ecd0aac",
+    "context-qsa-run4/control/attempt1/A2/http/018-context-32768-greedy-c1-repeat0/request-00/raw-lines.jsonl": "862e022dfec681a1ac804c220da0fcb05845a1cf6b78d97ffdc73cdecd6ecafd",
+    "context-qsa-run4/control/attempt1/A2/http/019-context-32768-greedy-c1-repeat1/GROUP.json": "4ce94fd93ca3ddddb42ca3e75aaee14ba5766cbe4b0cad5aa02238c948381b06",
+    "context-qsa-run4/control/attempt1/A2/http/019-context-32768-greedy-c1-repeat1/request-00/raw-lines.jsonl": "9b8a348a613b6777309a98d367e7f3105fdd7da0daf5d94a009f618256931f2e",
+    "context-qsa-run4/control/attempt1/A2/http/020-context-32768-greedy-c4-repeat0/GROUP.json": "882bb83a8319e7230c6fb6ed5c3635940d3cd7112277d80179e2d6a99ea215f7",
+    "context-qsa-run4/control/attempt1/A2/http/020-context-32768-greedy-c4-repeat0/request-00/raw-lines.jsonl": "c5bdc5516eb7d4c05f211b30fb6e5fb952ac7d326a65a8031c48d9eec0e6a99f",
+    "context-qsa-run4/control/attempt1/A2/http/020-context-32768-greedy-c4-repeat0/request-01/raw-lines.jsonl": "0a8c079eee74fd63a166f4722a03546d09fba584317b8a8a7ff7536912fb96ad",
+    "context-qsa-run4/control/attempt1/A2/http/020-context-32768-greedy-c4-repeat0/request-02/raw-lines.jsonl": "98d10475a0776f5f941f7828babb9d33f5fb88675b638ef2e4ea0b3cb9adf8bd",
+    "context-qsa-run4/control/attempt1/A2/http/020-context-32768-greedy-c4-repeat0/request-03/raw-lines.jsonl": "0129daf2978bac0e659c739d47f75fddc9b8e6744cd79355c78d4f1fed5907a0",
+    "context-qsa-run4/control/attempt1/A2/http/021-context-32768-greedy-c4-repeat1/GROUP.json": "043ba909b5d003b084932e5d553f8fc665fe5a7d0bf332214a8e45521e602289",
+    "context-qsa-run4/control/attempt1/A2/http/021-context-32768-greedy-c4-repeat1/request-00/raw-lines.jsonl": "aa304a68b3f7b1456c941e7cfbef2dcea388bb46ae45b7780df8d6c7a2952c14",
+    "context-qsa-run4/control/attempt1/A2/http/021-context-32768-greedy-c4-repeat1/request-01/raw-lines.jsonl": "c4ea5afd6d085acf8f8cce1cfe236553bafcda7d4bb865abd507094426e4a27f",
+    "context-qsa-run4/control/attempt1/A2/http/021-context-32768-greedy-c4-repeat1/request-02/raw-lines.jsonl": "cc9dd08a35b4a4b1bba6e8417935a287541335b1e4dd9706c8514eecd59a96ca",
+    "context-qsa-run4/control/attempt1/A2/http/021-context-32768-greedy-c4-repeat1/request-03/raw-lines.jsonl": "41675d4523e08abed72b40b0ce976474d04c48c1e43194a3456588a5083ff9b6",
+    "context-qsa-run4/control/attempt1/A2/http/022-context-32768-greedy-c8-repeat0/GROUP.json": "58348460ee97b254443a102cfa9d5e415ba493c0370cf11d3d6e0b87ec2f59be",
+    "context-qsa-run4/control/attempt1/A2/http/022-context-32768-greedy-c8-repeat0/request-00/raw-lines.jsonl": "c23a602007e393b57814b4689192d6c7fdbf65221d99463ec86dc9154f2e1407",
+    "context-qsa-run4/control/attempt1/A2/http/022-context-32768-greedy-c8-repeat0/request-01/raw-lines.jsonl": "47ffed910c7d056005ed7fac7e975bb24df8c88fa5c886fa5e2b774c4a8fa6e7",
+    "context-qsa-run4/control/attempt1/A2/http/022-context-32768-greedy-c8-repeat0/request-02/raw-lines.jsonl": "70d81f9dbd42a8e378881a183b1b1f3fc30a27e2d822967acd7ccce8bd98daa2",
+    "context-qsa-run4/control/attempt1/A2/http/022-context-32768-greedy-c8-repeat0/request-03/raw-lines.jsonl": "00f5fb2ee7d28a499d1dcb59c1d730a241dc3cc05f365c9f97636e81378e5517",
+    "context-qsa-run4/control/attempt1/A2/http/022-context-32768-greedy-c8-repeat0/request-04/raw-lines.jsonl": "d56065ca0046b13af8b322b2de48d50d5694909dd68fe595943fed4b81ce1854",
+    "context-qsa-run4/control/attempt1/A2/http/022-context-32768-greedy-c8-repeat0/request-05/raw-lines.jsonl": "ba11b00078f4d3aecb1699ff64fbd99ccc6cc8d57b548f06421674c34268edde",
+    "context-qsa-run4/control/attempt1/A2/http/022-context-32768-greedy-c8-repeat0/request-06/raw-lines.jsonl": "b64c6d49d7829926d1d774d6fa9bb21d2f7ebe2cdba7135f8664bbe68e318ac8",
+    "context-qsa-run4/control/attempt1/A2/http/022-context-32768-greedy-c8-repeat0/request-07/raw-lines.jsonl": "75f1c6b1bc918a1cae8ce07e075f5ae2da20471ab8dc971bd0205582475fb0e1",
+    "context-qsa-run4/control/attempt1/A2/http/023-context-32768-greedy-c8-repeat1/GROUP.json": "e410c9659108729233ff8d32546231730794bcbf82b4478bdd8dadaa1ab5eb30",
+    "context-qsa-run4/control/attempt1/A2/http/023-context-32768-greedy-c8-repeat1/request-00/raw-lines.jsonl": "f6864057af6237c04a5a56affc51a175e16d059d9a345be7f23ca3ae10241460",
+    "context-qsa-run4/control/attempt1/A2/http/023-context-32768-greedy-c8-repeat1/request-01/raw-lines.jsonl": "212a55c5f78d86aef8d61f3fd4c2a13488f8fa33736554bc25843c2e4dfb952f",
+    "context-qsa-run4/control/attempt1/A2/http/023-context-32768-greedy-c8-repeat1/request-02/raw-lines.jsonl": "425dfd4de66bb7543230afa3ce75d61138f107cc372209cff5d35356a61fa69b",
+    "context-qsa-run4/control/attempt1/A2/http/023-context-32768-greedy-c8-repeat1/request-03/raw-lines.jsonl": "9041f56540c3e2bef73eedb24b8eb18fcd3d72b7ed72ec94def9cfdd870ff080",
+    "context-qsa-run4/control/attempt1/A2/http/023-context-32768-greedy-c8-repeat1/request-04/raw-lines.jsonl": "bf51338c9f3e72fb952761bec00fe80d1a1bb1eb607a6f69700b3961c87058f9",
+    "context-qsa-run4/control/attempt1/A2/http/023-context-32768-greedy-c8-repeat1/request-05/raw-lines.jsonl": "ccdf457e42591d504ae3e50e11044b7b5cd4ebde76089ad0e1b6ac1c9b1f3ccf",
+    "context-qsa-run4/control/attempt1/A2/http/023-context-32768-greedy-c8-repeat1/request-06/raw-lines.jsonl": "5dcd0eb49f90b3ffbd37bc16ce53a7f70516c1476532aacde9dd86b86972b84f",
+    "context-qsa-run4/control/attempt1/A2/http/023-context-32768-greedy-c8-repeat1/request-07/raw-lines.jsonl": "33b9850504cdf40c9ae68abf13ecf779734f15dae43003d3a49f2d81660a0a58",
+    "context-qsa-run4/control/attempt1/A2/http/024-context-65536-greedy-c1-repeat0/GROUP.json": "2a17b6649ed86ef47d90bbf78c19a2d57de5fa8bcc7ff0196555eb9e1a4e52fd",
+    "context-qsa-run4/control/attempt1/A2/http/024-context-65536-greedy-c1-repeat0/request-00/raw-lines.jsonl": "da0582aeabd7e7e2d24e8beb0fadd56620f5a89369675b2ce88b7724266decb1",
+    "context-qsa-run4/control/attempt1/A2/http/025-context-65536-greedy-c1-repeat1/GROUP.json": "2307e77acefef0699ee4d2960bc12aef4f95319ed844f94981dcfec15a8f1a85",
+    "context-qsa-run4/control/attempt1/A2/http/025-context-65536-greedy-c1-repeat1/request-00/raw-lines.jsonl": "32aff3b4d5252fe095109f1176d72121a8b86fb2deca05a17ee3b72dbb875f10",
+    "context-qsa-run4/control/attempt1/A2/http/026-context-65536-greedy-c4-repeat0/GROUP.json": "7541dec56ddf8b2ba337e4985c99b326eb92832ab7b128d404b457d04996287e",
+    "context-qsa-run4/control/attempt1/A2/http/026-context-65536-greedy-c4-repeat0/request-00/raw-lines.jsonl": "8d170cd856bd784ef10ee80f62b75a6ba1470d6d99af06d627c39d04c260c7a0",
+    "context-qsa-run4/control/attempt1/A2/http/026-context-65536-greedy-c4-repeat0/request-01/raw-lines.jsonl": "e413d2e9047f92385b95fe935712d3be26eb3039df2daac177f6db0b9073c995",
+    "context-qsa-run4/control/attempt1/A2/http/026-context-65536-greedy-c4-repeat0/request-02/raw-lines.jsonl": "5a2faba3addd779d9ef330821d53ccdc0cc89f65b30241bdfb2fa12d3cc2c246",
+    "context-qsa-run4/control/attempt1/A2/http/026-context-65536-greedy-c4-repeat0/request-03/raw-lines.jsonl": "2e70d9c3d3823f1a2ebac03d93f77a73874447aef758c5e111e0df1e0b56c4d0",
+    "context-qsa-run4/control/attempt1/A2/http/027-context-65536-greedy-c4-repeat1/GROUP.json": "48142bb1ecaa9687b5c273c6e6890bcc95866d6d326fa58c0f3a9d6f9f91caa5",
+    "context-qsa-run4/control/attempt1/A2/http/027-context-65536-greedy-c4-repeat1/request-00/raw-lines.jsonl": "bd9c851cd755d04c999e1e40e4015da3375a0ad78515000deeaf42d87e33e543",
+    "context-qsa-run4/control/attempt1/A2/http/027-context-65536-greedy-c4-repeat1/request-01/raw-lines.jsonl": "396efe819c1fd3f653d5550cb819479d7335ec97caf7d34187dd7659d8949469",
+    "context-qsa-run4/control/attempt1/A2/http/027-context-65536-greedy-c4-repeat1/request-02/raw-lines.jsonl": "03dc03f670bbfcbf40d38268fe118838880c21268c91ee78983b24f0a7291527",
+    "context-qsa-run4/control/attempt1/A2/http/027-context-65536-greedy-c4-repeat1/request-03/raw-lines.jsonl": "8f4ef8daead6d82a388b302b46378647db7d355063b57d1c2420c392fde8b0fa",
+    "context-qsa-run4/control/attempt1/A2/http/028-context-65536-greedy-c8-repeat0/GROUP.json": "804c8f0b1b40c4ef5ced048fe1fcfa2442670b22916ad62f64b8e11d40d17f88",
+    "context-qsa-run4/control/attempt1/A2/http/028-context-65536-greedy-c8-repeat0/request-00/raw-lines.jsonl": "7c6cfc29e4ca9f14a86817e91538b09e26c627837669f2faabbf4d0541a5c27f",
+    "context-qsa-run4/control/attempt1/A2/http/028-context-65536-greedy-c8-repeat0/request-01/raw-lines.jsonl": "edefede09d0c888c870c1f93d5beb48bdf1cf33a1924001b2d6a34d1f4c5e261",
+    "context-qsa-run4/control/attempt1/A2/http/028-context-65536-greedy-c8-repeat0/request-02/raw-lines.jsonl": "304f657baeafb3220eea6ce363ef51742be1f047beeb231c66e98c14f3724c0b",
+    "context-qsa-run4/control/attempt1/A2/http/028-context-65536-greedy-c8-repeat0/request-03/raw-lines.jsonl": "7427011bf46734ccc1dcb1698f299bca12a9978370b9657fc83b06098b727e17",
+    "context-qsa-run4/control/attempt1/A2/http/028-context-65536-greedy-c8-repeat0/request-04/raw-lines.jsonl": "f11c09bf95f4f2934a5f36bfe02749a604ccf6883dc1731b56f392361b78d9ee",
+    "context-qsa-run4/control/attempt1/A2/http/028-context-65536-greedy-c8-repeat0/request-05/raw-lines.jsonl": "884fda8d1b4b2eaebf9750be6f43eee592bcc3dfbb49664c281130eb21b27857",
+    "context-qsa-run4/control/attempt1/A2/http/028-context-65536-greedy-c8-repeat0/request-06/raw-lines.jsonl": "b40957296cc46a6690a3d3e48e24f8ba6c8b78bd4251b4b6546fc39289ea747c",
+    "context-qsa-run4/control/attempt1/A2/http/028-context-65536-greedy-c8-repeat0/request-07/raw-lines.jsonl": "d3bbf421229360b70664819ba3900582070896e68678f92adedaaf7ad464fa54",
+    "context-qsa-run4/control/attempt1/A2/http/029-context-65536-greedy-c8-repeat1/GROUP.json": "0dfd7725881472e3ab9a6dcd35a1cd4142fd12511a544cd6778c7bdcb7b5c829",
+    "context-qsa-run4/control/attempt1/A2/http/029-context-65536-greedy-c8-repeat1/request-00/raw-lines.jsonl": "6f012c8e9f1a1798e22e34ba20630a52f393ba4a886978e84012b26b60619116",
+    "context-qsa-run4/control/attempt1/A2/http/029-context-65536-greedy-c8-repeat1/request-01/raw-lines.jsonl": "95fc70f6ffda1e71f512af88d5e75a7240ff7c5637bd25f67f78192a2d861c68",
+    "context-qsa-run4/control/attempt1/A2/http/029-context-65536-greedy-c8-repeat1/request-02/raw-lines.jsonl": "4bdf755fa6f34ed73375297dc048ccde3889e321f2ea33ab736d2734c78163ca",
+    "context-qsa-run4/control/attempt1/A2/http/029-context-65536-greedy-c8-repeat1/request-03/raw-lines.jsonl": "f61497717a78d217fb4984beb785a10bd008dff66c5b73c6ccd313a09f586ff3",
+    "context-qsa-run4/control/attempt1/A2/http/029-context-65536-greedy-c8-repeat1/request-04/raw-lines.jsonl": "47f9974ae7339cc69bacbaa20c82e07a5bade19b3289bf4de5fc54ccfeb5a4aa",
+    "context-qsa-run4/control/attempt1/A2/http/029-context-65536-greedy-c8-repeat1/request-05/raw-lines.jsonl": "269c70491f6446bd2a1f5c269d6be121422c489204dba5a011226f414b1cf878",
+    "context-qsa-run4/control/attempt1/A2/http/029-context-65536-greedy-c8-repeat1/request-06/raw-lines.jsonl": "211eeee9f66028ab576a28361146ed0b1154dcd72c78d0d6d4a6ea38eba7b8e4",
+    "context-qsa-run4/control/attempt1/A2/http/029-context-65536-greedy-c8-repeat1/request-07/raw-lines.jsonl": "468627f40274b606be12133e4c5867c65fb37e23fa56c9084cc65e0090716eef",
+    "context-qsa-run4/control/attempt1/A2/http/030-context-131072-greedy-c1-repeat0/GROUP.json": "3373fc0e33285c5b06719aca8d277f1fb7bf63323613a528fd6ece794e612eb5",
+    "context-qsa-run4/control/attempt1/A2/http/030-context-131072-greedy-c1-repeat0/request-00/raw-lines.jsonl": "356592c10efa5cbcbdd8c7ea681a7662961146f361fd2a3e860eec27d7d0cf65",
+    "context-qsa-run4/control/attempt1/A2/http/031-context-131072-greedy-c1-repeat1/GROUP.json": "2082520ead2767f20928b71ea6c7687a45c4a9e76a3c61616d9dc10446f39219",
+    "context-qsa-run4/control/attempt1/A2/http/031-context-131072-greedy-c1-repeat1/request-00/raw-lines.jsonl": "d794778b3d066311d4164bfc13f7dac5e62bf1e46a8a38afb3909c1359982843",
+    "context-qsa-run4/control/attempt1/A2/http/032-context-131072-greedy-c4-repeat0/GROUP.json": "8d4a75bcd5c82958da053f673be63b63441c0a107e3685c969496257d6c60882",
+    "context-qsa-run4/control/attempt1/A2/http/032-context-131072-greedy-c4-repeat0/request-00/raw-lines.jsonl": "e8ff27718be221729576b240cbead90d6aa54a906337692d3db4e1dabd39f1b0",
+    "context-qsa-run4/control/attempt1/A2/http/032-context-131072-greedy-c4-repeat0/request-01/raw-lines.jsonl": "480e78939207422353674c697c96688be7f1383c58db00bba1ac422e109a9aee",
+    "context-qsa-run4/control/attempt1/A2/http/032-context-131072-greedy-c4-repeat0/request-02/raw-lines.jsonl": "cc3816ff1cc45885d7c3d5100078f484184e8f583e8965fe0ae13c7e10a49229",
+    "context-qsa-run4/control/attempt1/A2/http/032-context-131072-greedy-c4-repeat0/request-03/raw-lines.jsonl": "1b304dd2132d6132c2dd68a6c69eae299dfda92613c225d6bd411760dddf4443",
+    "context-qsa-run4/control/attempt1/A2/http/033-context-131072-greedy-c4-repeat1/GROUP.json": "af958f29e2b01a48ffad533941a52b7dcb7c20b024e06c43a32964591aca73b3",
+    "context-qsa-run4/control/attempt1/A2/http/033-context-131072-greedy-c4-repeat1/request-00/raw-lines.jsonl": "c3945a1c921c9bf7a9d6d5b746a2491c81038a9561fc4b7e41176f9a8b974a00",
+    "context-qsa-run4/control/attempt1/A2/http/033-context-131072-greedy-c4-repeat1/request-01/raw-lines.jsonl": "313d478c0b59d2eb13d32f1736a2ff29693c2244c79019761c744aa7096c1b03",
+    "context-qsa-run4/control/attempt1/A2/http/033-context-131072-greedy-c4-repeat1/request-02/raw-lines.jsonl": "4a3a9c3aaaff41429ad877ce86534107d037ada18bca8dea2cb97f9ed4388ccb",
+    "context-qsa-run4/control/attempt1/A2/http/033-context-131072-greedy-c4-repeat1/request-03/raw-lines.jsonl": "41f51f21dbbe9b58a4712ba0080fc83633e306fa5d76248367d503c8caf2c9f3",
+    "context-qsa-run4/control/attempt1/A2/http/034-context-261632-greedy-c1-repeat0/GROUP.json": "16b2730526a79ca9bd29a5e295a8ba245956e9f1bc2a42686bbbceb6cc2ddf03",
+    "context-qsa-run4/control/attempt1/A2/http/034-context-261632-greedy-c1-repeat0/request-00/raw-lines.jsonl": "1c117c2bd59ee42180b2b3172acfa695d46d21b924a9e1a3e16d7e38aaf1cf73",
+    "context-qsa-run4/control/attempt1/A2/http/035-context-261632-greedy-c1-repeat1/GROUP.json": "ec2b219fac42c133334a1f70c822b81d33e47294e46632c4b85bc0f78834f30b",
+    "context-qsa-run4/control/attempt1/A2/http/035-context-261632-greedy-c1-repeat1/request-00/raw-lines.jsonl": "b7c26dc95fcf747ff6e3a0aebd681ad3f1eaa0ab7bfc2c7b3bd2fdddd1d74d62",
+    "context-qsa-run4/control/attempt1/A2/http/036-context-261632-greedy-c2-repeat0/GROUP.json": "7967abacc9a33e758d8314da24a49874d8e065474ad3f55a37569e21088146c0",
+    "context-qsa-run4/control/attempt1/A2/http/036-context-261632-greedy-c2-repeat0/request-00/raw-lines.jsonl": "212c38a2b7c328b4522d97aea0c7d0705e79b605747116034f4483503dcc093d",
+    "context-qsa-run4/control/attempt1/A2/http/036-context-261632-greedy-c2-repeat0/request-01/raw-lines.jsonl": "fb25a77477723c67dd50aeba675f501363dd82b146e9aa6c94df1d89b97a2841",
+    "context-qsa-run4/control/attempt1/A2/http/037-context-261632-greedy-c2-repeat1/GROUP.json": "5b94861f176098f7b38a4858b4be2e9e24f985dd85cc8ef8b88b1fc0cba7b0c3",
+    "context-qsa-run4/control/attempt1/A2/http/037-context-261632-greedy-c2-repeat1/request-00/raw-lines.jsonl": "97b578522512c1d32b83d7fa62ff6aaf8d5a3b71281a11dc26dbd3a94db1135c",
+    "context-qsa-run4/control/attempt1/A2/http/037-context-261632-greedy-c2-repeat1/request-01/raw-lines.jsonl": "34cd5258ec2497612c01846daedc9858d1df1c69ba1561f7496bcf32782142d8"
+  },
+  "source_sha256": "14cee2afcdeadde69bfde7eb90f6bafa36f5a56aaf368ddf5df977be60c518ff"
+}

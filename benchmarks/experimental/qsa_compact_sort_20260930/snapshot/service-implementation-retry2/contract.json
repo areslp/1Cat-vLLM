@@ -1,0 +1,281 @@
+{
+  "arm_schema": {
+    "epoch": "exact registered epoch",
+    "external_request_ids": "exact main list"
+  },
+  "bank_bytes_formula": "770472 + 4*block_table.numel + 4*sequence_lengths.numel + 32*prepared_nodes (q40x6x256/topk40x416)",
+  "baseline_generator": {
+    "actual": "baseline.py main; control wrapper prevalidates off startup/cgroup/NVML and calls this sole create-only generator",
+    "allowed_changed_fields": [
+      "baseline_off_receipts"
+    ],
+    "binding_fields": [
+      "rank",
+      "path",
+      "sha256",
+      "pid",
+      "config_sha256",
+      "candidate_binary_sha256",
+      "original_binary_sha256",
+      "device_uuid",
+      "kv_num_blocks"
+    ],
+    "receipt_status": "PASS_ONLY_BASELINE_BINDINGS_DERIVED",
+    "uuid": "Torch raw string; NVML GPU- normalization only independent controller check"
+  },
+  "bounds": {
+    "added_allocated_vs_off_bytes_per_rank": 268435456,
+    "added_reserved_vs_off_bytes_per_rank": 536870912,
+    "drain_json_bytes": 8388608,
+    "first_artifact_bytes_per_rank": 67108864,
+    "first_bank_bytes_per_rank": 67108864,
+    "host_events_per_epoch_rank": 4096,
+    "lifecycle_bytes_per_rank": 4194304,
+    "lifecycle_events_per_rank": 4096,
+    "required_kv_tokens": 663816,
+    "shadow_or_off_epoch_seconds": 600,
+    "workspace_bytes_per_rank": 33554432
+  },
+  "candidate_binary": {
+    "path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/build/candidate1/qsa_planner58.so",
+    "sha256": "e5ac0b418ebb9a387e0838b230dd15114185f637804e9d14b336897ab24bb7e3"
+  },
+  "capture_order_source_line": 301,
+  "corrective_retry": {
+    "cause": "other-manager dispatch uniform np.int32 from Eagle array.max/get_uniform/DP1 passthrough",
+    "retry1_manifest_sha256": "8f0b55026f7f2fb0347f3afb6e592a5fe66910293c7ba5eacdbcff5b3e4f80ff",
+    "review": "RETRY2-SOURCE-REVIEW.md",
+    "runtime_delta": "Runtime.event normalizes all four producer schemas",
+    "runtime_loader_source_pins_13_unchanged": true,
+    "status": "5_REAL_NUMPY_CPU_PASS_GPU_SERVICE_NOT_RUN",
+    "strict_integer": "exact Python int/np.integer only; rejectbool/float/array/tensor/custom; None only optional"
+  },
+  "counts": {
+    "off": {
+      "main": 108,
+      "original_repeat": 36,
+      "sentinel": 20,
+      "shared_warmup": 2
+    },
+    "shadow": {
+      "main": 108,
+      "original_repeat": 0,
+      "sentinel": 20,
+      "shared_warmup": 2
+    }
+  },
+  "descriptors": [
+    {
+      "grouped_rows": 16,
+      "target_descriptor": [
+        20,
+        4,
+        5
+      ]
+    },
+    {
+      "grouped_rows": 24,
+      "target_descriptor": [
+        30,
+        6,
+        5
+      ]
+    },
+    {
+      "grouped_rows": 40,
+      "target_descriptor": [
+        40,
+        8,
+        5
+      ]
+    }
+  ],
+  "diagnostic_host_audit": "off only, explicit admission instrumented flag; never W2 performance arm",
+  "draft_excluded": "mtp.layers.48.self_attn.attn",
+  "drain_arm_schema": {
+    "cohort_receipt": "exact file under cfg.cohort_dir",
+    "cohort_sha256": "client receipt hash",
+    "epoch": "same",
+    "id": "same registered epoch"
+  },
+  "drain_count": 20,
+  "drain_protocol": "complete primary HTTP+queueempty->persistclient->armdrain->one predeclared c1 sentinel->four drains->immediate gate->remove old arms before next",
+  "epoch_count": 20,
+  "epoch_gate": {
+    "c1_c3": "original actual short uniform route; no eligible dispatch/replay/hit",
+    "eligible": "required actual c; scheduled5/draft4 + exact approved target cached replay and device counts",
+    "fallback": "all primary target dispatch original/uniformNone; actual1..declared c; no eligible replay/hit",
+    "global_shape_guard": "fallback two groups at least one actual>=4, all scheduled5/draft0/uniformNone",
+    "mixed": "same primary target dispatch actual>=2/uniformNone/prefill scheduled>1 draft0 plus verify scheduled5 draft4",
+    "slotreuse": "finished old completed-primary owner slot_remove -> distinct new slot_add same slot -> physical block_append; actual prior clientreceipt/strictbinding; all intervening occupants retained; no immutable KV claim"
+  },
+  "excluded": "c1-c3/nonuniform/prefill/draft/PIECEWISE/eager/unsupported/unreviewed bucket",
+  "first_divergence": "immutable bank first flag.node_index; separate lowest_bad_counter_row; raw integer snapshots",
+  "formal_capture_line": 378,
+  "http_cap_controller": 320,
+  "http_inventory_scope": "20 exact cohort IDs/arm only; actual bodies/prompts/wall/cap owned and separately frozen by control",
+  "identity_helper": {
+    "path": "request_ids.py",
+    "sha256": "95bc5eda31c6e1fe4d0d48a9725cbaf4cc44c90e8fe9e202061fb5ee9141c445"
+  },
+  "inventory_path": "evidence/cohort-inventory.input.json",
+  "inventory_sha256": "5cbbfda0a2d2588f2258fbe13a854bedd0c623e5627d5d03dc95ca70ab024e11",
+  "modes": {
+    "off": "candidate loaded, original planner; default no runtime observers/GPU buffers",
+    "on": "only candidate planner graph node; original floating forward + tail; no comparison/counter/bank/observers",
+    "shadow": "original model outputs + independent private candidate planner/original forward + exact device checks"
+  },
+  "original_binary": {
+    "path": "/home/l/work/flash-next/prod-w48/flash_attn_v100_cuda.cpython-312-x86_64-linux-gnu.so",
+    "sha256": "a2c3c845572e36a6eb788e53c1861734285e2512ffb12bc5b3c19909871e433b"
+  },
+  "owners": [
+    "language_model.model.layers.3.self_attn.attn",
+    "language_model.model.layers.7.self_attn.attn",
+    "language_model.model.layers.11.self_attn.attn",
+    "language_model.model.layers.15.self_attn.attn",
+    "language_model.model.layers.19.self_attn.attn",
+    "language_model.model.layers.23.self_attn.attn",
+    "language_model.model.layers.27.self_attn.attn",
+    "language_model.model.layers.31.self_attn.attn",
+    "language_model.model.layers.35.self_attn.attn",
+    "language_model.model.layers.39.self_attn.attn",
+    "language_model.model.layers.43.self_attn.attn",
+    "language_model.model.layers.47.self_attn.attn"
+  ],
+  "packet_generator": "freeze_retry2.py; create-only artifacts, canonical assignment",
+  "prior_retry1": {
+    "lifecycle_boundary": "first strictly bound realclient epoch; startup maps+ledger reset once; truthful all-occupant maps thereafter",
+    "native_optional_field": "SchedulerOutput.preempted_req_ids set[str]|None=None; None is empty only",
+    "old_owner_reuse": "actual completed primary clientreceipt+strictbinding required; sentinel/unarmed excluded",
+    "original_manifest_sha256": "48df728dc3ea1fc43d2c02b9310c15ca393e10a66bc1439b54dab4235eadbb21",
+    "review": "RETRY-SOURCE-REVIEW.md",
+    "status": "SOURCE_CPU_REVIEWED_GPU_SERVICE_NOT_RUN"
+  },
+  "real_consumers": [
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "reproducibility": "integer planner input complete incl host scalars; standalone float replay lacks KV values",
+  "scheduler_ids": "strict external-[0-9a-f]{8} bijection; preserve original randomization; n=1/singleprompt/nonstream",
+  "sentinel": "declared separately; excluded hit/fallback/mixed/consumer proof; actual ID mapping required",
+  "source_pins": [
+    {
+      "key": "cg",
+      "runtime_path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/v1/worker/gpu/cudagraph_utils.py",
+      "sha256": "477d892d04d6983bc320e3fa9a2f1b905b3a475b7b3da9fedca24122dc044a24",
+      "snapshot_path": "source/cudagraph_utils.production.py"
+    },
+    {
+      "key": "runner",
+      "runtime_path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/v1/worker/gpu/model_runner.py",
+      "sha256": "a6c0b1ae02cbdb14979b361a129866054ce8eca80b7b8cece170e960b5fc2cfe",
+      "snapshot_path": "source/model_runner.production.py"
+    },
+    {
+      "key": "input_batch",
+      "runtime_path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/v1/worker/gpu/input_batch.py",
+      "sha256": "60d7ce37d1cdd238c5a09c8beb7767267edd88cc8628b25603ccbb22422c6b88",
+      "snapshot_path": "source/input_batch.production.py"
+    },
+    {
+      "key": "states",
+      "runtime_path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/v1/worker/gpu/states.py",
+      "sha256": "ceae07c540c98cbfa0b60d99c6f6f9dcc92afcda1ca3aee5b3853f1442289645",
+      "snapshot_path": "source/states.production.py"
+    },
+    {
+      "key": "block_table",
+      "runtime_path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/v1/worker/gpu/block_table.py",
+      "sha256": "a646d37f4926437aa20878249d8641a412c47f472d9fac5c11ea2859472f2d0f",
+      "snapshot_path": "source/block_table.production.py"
+    },
+    {
+      "key": "owner",
+      "runtime_path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/models/qwen4_exp/nvidia/qsa.py",
+      "sha256": "c6551ea2976f7c39785def7431dc764d5812c11b83eb94ec9c9f19f175b63141",
+      "snapshot_path": "source/qsa_owner.production.py"
+    },
+    {
+      "key": "ops",
+      "runtime_path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/models/qwen4_exp/nvidia/ops/qsa.py",
+      "sha256": "ee03f537412a5063d5f280a017bc6fffaf13a9af8e818fc3df63e364205b2694",
+      "snapshot_path": "source/qsa_ops.production.py"
+    },
+    {
+      "key": "model",
+      "runtime_path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/models/qwen4_exp/nvidia/model.py",
+      "sha256": "95a81726d387c2b4c2adab5cddb60ffb5738ed8a2683a43726aa89f5f536d48f",
+      "snapshot_path": "source/model.production.py"
+    },
+    {
+      "key": "mtp",
+      "runtime_path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/models/qwen4_exp/nvidia/mtp.py",
+      "sha256": "95459f1d875600ad372e6a938415d11751ef1d36b1b4866aaf1162db67910e50",
+      "snapshot_path": "source/mtp.production.py"
+    },
+    {
+      "key": "input_processor",
+      "runtime_path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/v1/engine/input_processor.py",
+      "sha256": "c5673988c0f7cfec268220e3f044e718702c015a4f236c020937cfd40a793f15",
+      "snapshot_path": "source/input_processor.production.py"
+    },
+    {
+      "key": "completion_serving",
+      "runtime_path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/entrypoints/openai/completion/serving.py",
+      "sha256": "096dd9ce6799c382fea265771cd5f48ba107d2d420e358af94b41f13cb5cb1ee",
+      "snapshot_path": "source/completion_serving.production.py"
+    },
+    {
+      "key": "engine_serving",
+      "runtime_path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/entrypoints/openai/engine/serving.py",
+      "sha256": "a7bca64cebc8670f9644e7ca8a729e5841b07a8e9e2cd6a50aaf886e5a9536a3",
+      "snapshot_path": "source/engine_serving.production.py"
+    },
+    {
+      "key": "marker",
+      "runtime_path": "/home/l/work/host-insight-mcp/python/host_insight_stage_markers.py",
+      "sha256": "0c80f553ed9e890ffe21d31b749807de53fb50d7508d0f9d6e6d7396ec6fc649",
+      "snapshot_path": "source/host_insight_stage_markers.production.py"
+    }
+  ],
+  "status": "SOURCE_CPU_RETRY2_EVENT_BOUNDARY_PASS_NOT_SERVICE_ADMISSION",
+  "supplemental_source_evidence": {
+    "dp": {
+      "local": "source/dp_utils.production.py",
+      "path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/v1/worker/gpu/dp_utils.py",
+      "sha256": "1400a8cb2c37bfb0fb49efe9a26e26f56a18329248cdc9c365732a656115967a"
+    },
+    "eagle": {
+      "local": "source/eagle_speculator.production.py",
+      "path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/v1/worker/gpu/spec_decode/eagle/speculator.py",
+      "sha256": "9cae2d54f70ed54ef1f5416014cc19862685e6d33ec7833a3fba629f048b8f61"
+    },
+    "scheduler": {
+      "local": "source/scheduler_output.production.py",
+      "path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/v1/core/sched/output.py",
+      "sha256": "e7210cbafd9308cf6bc21a0cf4aa3e9e516e8998827718211f16fdebc50966d8"
+    },
+    "warmup": {
+      "local": "source/warmup.production.py",
+      "path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/v1/worker/gpu/warmup.py",
+      "sha256": "2ce724c9061a216a0451db395facb33de6ff9b0dd5828e574ed3f0b94395c8d0"
+    },
+    "worker": {
+      "local": "source/gpu_worker.production.py",
+      "path": "/home/l/work/1Cat-vLLM-kv-w12/vllm/v1/worker/gpu_worker.py",
+      "sha256": "82fced39c3092f633bd7733e78bad601ab4e9240582e5a3bad19dc3c04bacee9"
+    }
+  },
+  "total_http_in_inventory": 296,
+  "unverified": [
+    "actualCLI/deferredstartup/currentmodelowners",
+    "real synthetic CUDAgraph smoke",
+    "real service same-state shadow outputs/cached device hits/fallback/lifecycle",
+    "candidate-on model numerics/teacherforcing",
+    "W2 SSE/stability/performance"
+  ]
+}

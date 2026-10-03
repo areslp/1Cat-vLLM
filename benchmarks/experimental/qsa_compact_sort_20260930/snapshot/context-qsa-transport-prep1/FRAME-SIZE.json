@@ -1,0 +1,52 @@
+{
+  "status": "STRUCTURAL_FRAME_SIZE_FROM_REAL64K_TEMPLATE_NOT_FAILED128K_RECONSTRUCTION",
+  "real_template_path": "context-qsa-run3/control/attempt1/A0/http/024-context-65536-greedy-c1-repeat0/prime-00/raw-lines.jsonl",
+  "real_template_sha256": "0a5721c52ad2a232904a9c87d4529ccf9151ff048692ed7a94fc96d720b52859",
+  "real_frame_bytes": 310502,
+  "real_frame_serialization_reproduced_byte_exact": true,
+  "constructed_frames": [
+    {
+      "row": "context-131072-greedy-c1",
+      "phase": "primes",
+      "prompt_tokens": 131072,
+      "frame_bytes": 620725,
+      "line_sha256": "c9bf2b2f15e0350297fee761dcabd1d6206e9cd557416d06b8efd271c7fcdd29",
+      "packet_bytes": 752597
+    },
+    {
+      "row": "context-131072-greedy-c1",
+      "phase": "requests",
+      "prompt_tokens": 131072,
+      "frame_bytes": 620715,
+      "line_sha256": "631c60b1737ad0dddd13c3861692428c12b953a9a727c530cd45c2f95e12f3a0",
+      "packet_bytes": 752568
+    },
+    {
+      "row": "context-261632-greedy-c1",
+      "phase": "primes",
+      "prompt_tokens": 261632,
+      "frame_bytes": 1238745,
+      "line_sha256": "2c685311914e1e299969b7ee2b14937dbe0eab9293cdd40417b952904bd6c869",
+      "packet_bytes": 1501177
+    },
+    {
+      "row": "context-261632-greedy-c1",
+      "phase": "requests",
+      "prompt_tokens": 261632,
+      "frame_bytes": 1238735,
+      "line_sha256": "c9965956f6e4140257809d0a4aa6e722cf817e5e0ccaffbe44d832267be0fc26",
+      "packet_bytes": 1501148
+    }
+  ],
+  "max_packet_bytes": 1501178,
+  "max_packet_source": "groups/A2-context-261632-greedy-c2-repeat1.json",
+  "max_frozen_group_bytes": 4981778,
+  "max_frozen_group_source": "groups/A2-context-65536-greedy-c8-repeat1.json",
+  "proposed_LINE_CAP": 2097152,
+  "original_LINE_CAP": 524288,
+  "REQUEST_RECEIVED_CAP": 16777216,
+  "LINE_COUNT_CAP": 4096,
+  "REQUEST_TREE_CAP": 35651584,
+  "packet_cap": 4194304,
+  "old_failure_line_retained": false
+}

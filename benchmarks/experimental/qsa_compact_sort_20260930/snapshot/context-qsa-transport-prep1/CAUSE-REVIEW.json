@@ -1,0 +1,29 @@
+{
+  "status": "ONLY_LINE_CAP_EXPLAINS_REAL_FIRST_RETURNED_LINE_STOP",
+  "old_shared_io_SHA": "48ab3921d7c9342f34aedd681bf007b944fe90bc2a7ecaeca5b201cfb3fec257",
+  "old_LINE_CAP": 524288,
+  "old_received_cap": 16777216,
+  "old_line_count_cap": 4096,
+  "elapsed_s": 43.34027908393182,
+  "parent_release_to_deadline_s": 600.0,
+  "received_bytes": 620725,
+  "accepted_raw_records": 0,
+  "first_rejected_line_count_inferred_from_empty_flushed_raw": 1,
+  "only_violated_cap": "line_bytes",
+  "failed_original_line_bytes_retained": false,
+  "original_failed_line_SHA": "UNAVAILABLE_NOT_RECONSTRUCTED",
+  "inputs": {
+    "context-qsa-run3/control/attempt1/A0/http/030-context-131072-greedy-c1-repeat0/prime-00/FAILURE.json": "a778a66beee94faa9df116acec7d347bf6eef46634b128a7c0c60dda02169684",
+    "context-qsa-run3/control/attempt1/A0/http/030-context-131072-greedy-c1-repeat0/prime-00/process-exit.json": "9a3cfa6b20bd74e1d1f5f0c2c3fc772d01da1852a867ec119902f506ee4f30d6",
+    "context-qsa-run3/control/attempt1/A0/http/030-context-131072-greedy-c1-repeat0/prime-00/raw-lines.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "context-qsa-run3/control/attempt1/A0/http/client-resource.json": "c5f086043477e957f1065f9a1c7ce9c3fa998c6ea37cd9f11dddb6fc9b3bb3c6"
+  },
+  "independent_client_resource_failure": {
+    "peak_bytes": 537501696,
+    "memory_max_bytes": 536870912,
+    "events_max": 823,
+    "OOM": 0,
+    "Swap": 0,
+    "attribution": "UNDETERMINED_WITHOUT_HISTORICAL_MEMORY_STAT_NOT_INFERRED_FROM_NEW_CPU_TEST"
+  }
+}

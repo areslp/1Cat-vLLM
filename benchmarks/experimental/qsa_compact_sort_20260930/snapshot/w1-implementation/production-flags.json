@@ -1,0 +1,15 @@
+{
+  "flags": {
+    "ONECAT_QSA48": "split",
+    "VLLM_SM70_QSA_GROUPED_PAGE4": "1",
+    "VLLM_SM70_QSA_GROUPED_PAD_FIX": "0"
+  },
+  "provenance": "Parent reviewed frozen production flags; all194 saved meta.pad_fix=false; physical UUID order copied from immutable control/attempt1/gpu0..3/identity.json",
+  "physical_device_uuids": [
+    "GPU-54a5dec0-85a9-837b-c54d-4a3752c1b620",
+    "GPU-94e7fdea-085e-eea4-86a5-83bbd6ad0883",
+    "GPU-7aaea8dd-2241-2730-1234-96a9cd033e11",
+    "GPU-72ca49d9-70ae-f881-70b3-a16295209e47"
+  ],
+  "scope": "Offline integer-contract stress; not a target/draft service-eligibility rule"
+}

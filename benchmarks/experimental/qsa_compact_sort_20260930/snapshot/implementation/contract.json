@@ -1,0 +1,72 @@
+{
+  "study": "STEP58_QSA_COMPACT_SORT",
+  "scope": "ISOLATED_CANDIDATE_NOT_COMPILED_NOT_GPU_ADMITTED",
+  "canonical_root": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930",
+  "production_source_head": "2dd437062a971a83d1f905249d288269c8daf501",
+  "reference_binary": "/home/l/work/flash-next/prod-w48/flash_attn_v100_cuda.cpython-312-x86_64-linux-gnu.so",
+  "reference_binary_sha256": "a2c3c845572e36a6eb788e53c1861734285e2512ffb12bc5b3c19909871e433b",
+  "reference_kernel_sha256": "ec1b977a218f4663a8f92a892c603696164455cb886235e9a603615d8b12dd7a",
+  "reference_kernel_source": "reference54/source/reference/flash_decode_paged.cu",
+  "source_equivalence_against_sha256": "2601f0e009da05eeba4e41726cc489696affd6e234b0192f509f02b6aa94ac92",
+  "occupancy_sha256": "21504bcad9fcc7e6450bd789a4b832b9fe44cba25108ecddfc818ec4e9758fef",
+  "mechanism": {
+    "threads": 512,
+    "hash_capacity": 8192,
+    "shared_bytes": 98304,
+    "extra_static_shared_bytes": 0,
+    "sort_bits": [0, 36],
+    "sort_buckets": [1024, 2048, 4096, 8192],
+    "compaction": "stable blocked hash-slot order; on-device block scan",
+    "fallback": "valid_count>4096 uses original full 8192 sort without compact/reload",
+    "empty_group": "uniform return after seq_len=0; pages/masks untouched",
+    "host_count_synchronization": false,
+    "additional_kernel_launches": 0,
+    "preserved": ["hash union OR", "minimum logical owner", "category then owner order", "page_size%4 guard", "zero-mask padding references first real page", "inactive output suffix", "checked binding", "original prod-w48 forward and float path"]
+  },
+  "cpu_input_evidence": {
+    "captures": 33,
+    "groups": 154,
+    "bucket_groups": {"1024": 140, "2048": 14},
+    "c8_captures": 24,
+    "c8_groups": 120,
+    "c8_valid_entries_min": 260,
+    "c8_valid_entries_max": 395,
+    "c8_valid_entries_mean": 314.7,
+    "all_valid_entries_min": 258,
+    "all_valid_entries_max": 1987,
+    "performance_inference": "none; reduced sort work adds scan/compaction and can increase register pressure"
+  },
+  "correctness": {
+    "pilot_real_captures": 33,
+    "real_forward": "original prod-w48 eager out/lse bitwise; also reproduces saved reference capture",
+    "metadata": "all pages/masks/lengths including padding and sentinel suffix exact",
+    "boundary_eager_forward_counts": [0, 1, 1024, 1025, 2048, 2049, 4096, 4097, 8192],
+    "one_graph_fixed_address_counts": [0, 1, 1024, 1025, 2048, 2049, 4096, 4097, 8192, 0, 1],
+    "one_graph_reset": "fresh complete reference and candidate output sentinels before each replay",
+    "boundary_scope": "legal binding stress; not real QSA producer captures",
+    "graph_scope": "metadata only; complete forward graph/W1 pending later review",
+    "cpu_checks": "bookkeeping/AST/source equivalence only; not CUDA/CUB/float proof"
+  },
+  "cost_gate": {
+    "calls_per_target_step": 12,
+    "weighting": "equal call weight across 24 actual c8 verify captures; four GPUs repeat same data",
+    "minimum_weighted_graph_saving_ms": 0.25,
+    "paired_low_weighted_saving_must_be_positive": true,
+    "maximum_other_shape_graph_regression_fraction": 0.01,
+    "basis": "complete original reference call versus complete candidate call",
+    "gpu0_negative_gate": "stop before broader GPU work",
+    "pass_meaning": "cost discriminator only; no production admission or service savings"
+  },
+  "budgets": {
+    "cpu_build_timeout_seconds": 600,
+    "cpu_build_max_jobs": 2,
+    "cpu_build_affinity": [14, 42],
+    "cpu_build_nice": 15,
+    "cpu_build_reviewed_resident_budget_bytes": 8589934592,
+    "gpu_pilot_timeout_seconds_per_gpu": 420,
+    "gpu_pilot_sequential_only": true,
+    "max_corrective_mechanism_retries": 1
+  },
+  "stop_conditions": ["changed oracle/input hashes", "compiler failure or missing ptxas resource report", "metadata or forward bit mismatch", "graph bucket transition mismatch", "GPU0 negative engineering cost gate", "resource use exceeds reviewed budget"],
+  "not_claimed": ["CUDA compilation", "register/spill values", "GPU correctness", "full W1 admission", "A/B/A", "service performance", "physical hardware ceiling"]
+}

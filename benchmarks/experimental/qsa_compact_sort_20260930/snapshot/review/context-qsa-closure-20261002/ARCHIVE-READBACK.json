@@ -1,0 +1,10 @@
+{
+  "status": "PASS_HOST_FULL_PAYLOAD_AND_PLAN_INPUT_READBACK",
+  "verified_epoch": 1791005853.6075802,
+  "manifest_sha256": "e5e6824e1cecc2c938859df35e204dfb98d9332e2b691170d18dc90cc6e1e24e",
+  "payload_files": 36398,
+  "payload_bytes": 3083389890,
+  "payload_symlinks": 6,
+  "reviewed_plan_inputs": 926,
+  "recomputed_every_file": true
+}

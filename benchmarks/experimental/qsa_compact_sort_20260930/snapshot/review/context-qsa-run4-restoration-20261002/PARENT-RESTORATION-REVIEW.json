@@ -1,0 +1,4496 @@
+{
+  "status": "PASS_PARENT_RECOMPUTED_ORIGINAL_53_RESTORATION",
+  "pid": 188448,
+  "invocation_id": "30e0f4501bfe471c8d9871c8a2090322",
+  "workers": [
+    189047,
+    189048,
+    189049,
+    189050
+  ],
+  "gates": {
+    "controller_restore_exit": true,
+    "readiness_maturity": true,
+    "stable_pid": true,
+    "no_restarts": true,
+    "source_config_kv_swap_cleanup_worker": true,
+    "original_unit": true,
+    "requests": true,
+    "six_fast_rounds": true,
+    "all_24_fast": true,
+    "fixed_exact": true,
+    "finite_concurrency": true,
+    "e7_rank_equal_compressed": true,
+    "no_active_jobs": true,
+    "no_guardian": true,
+    "no_oom": true,
+    "timer_cleared": true,
+    "cgroup_oom_zero": true
+  },
+  "requests": 53,
+  "fast": 24,
+  "slow": 0,
+  "rounds": [
+    {
+      "rep": 0,
+      "mode": "G1",
+      "median_ms": 32.24380547180772,
+      "reference_ms": 32.34173101373017,
+      "delta_pct": -0.30278386113865574,
+      "fast_count": 4,
+      "slow_count": 0,
+      "pass": true
+    },
+    {
+      "rep": 0,
+      "mode": "N1",
+      "median_ms": 33.02536148112267,
+      "reference_ms": 33.0786241684109,
+      "delta_pct": -0.16101844809823795,
+      "fast_count": 4,
+      "slow_count": 0,
+      "pass": true
+    },
+    {
+      "rep": 1,
+      "mode": "N1",
+      "median_ms": 33.004049910232425,
+      "reference_ms": 33.082086592912674,
+      "delta_pct": -0.2358880310075917,
+      "fast_count": 4,
+      "slow_count": 0,
+      "pass": true
+    },
+    {
+      "rep": 1,
+      "mode": "G1",
+      "median_ms": 32.28845226112753,
+      "reference_ms": 32.34173101373017,
+      "delta_pct": -0.16473686142531863,
+      "fast_count": 4,
+      "slow_count": 0,
+      "pass": true
+    },
+    {
+      "rep": 2,
+      "mode": "G1",
+      "median_ms": 32.27431699633598,
+      "reference_ms": 32.34173101373017,
+      "delta_pct": -0.20844282381040635,
+      "fast_count": 4,
+      "slow_count": 0,
+      "pass": true
+    },
+    {
+      "rep": 2,
+      "mode": "N1",
+      "median_ms": 33.01022725645453,
+      "reference_ms": 33.08434080099687,
+      "delta_pct": -0.22401396778052307,
+      "fast_count": 4,
+      "slow_count": 0,
+      "pass": true
+    }
+  ],
+  "readiness": {
+    "status": "READY_AND_MATURE",
+    "pid": 188448,
+    "http_ready_epoch": 1791003259.7202404,
+    "verified_epoch": 1791003619.743778,
+    "ready_maturity_s": 360.0235378742218,
+    "total_wait_s": 680.8803198337555
+  },
+  "raw_SSE_recomputed": true,
+  "exact_tokens_and_acceptance_crosschecked": true,
+  "fixed_JSON_logprobs_crosschecked": true,
+  "raw_FP32_bits_claimed": false,
+  "E7_full_delta": [
+    {
+      "rank": 0,
+      "pid": 189047,
+      "counters": {
+        "baseline_local_reused": 76,
+        "compressed_steps": 60,
+        "eligible_steps": 136,
+        "fallback_features": 0,
+        "fallback_not_pure_mtp4": 2,
+        "fallback_request_count": 197,
+        "fallback_structure": 76,
+        "hook_steps": 335,
+        "request_feature:min_p": 0,
+        "request_greedy_or_temperature": 0,
+        "requests_seen": 24,
+        "requests_supported": 24
+      }
+    },
+    {
+      "rank": 1,
+      "pid": 189048,
+      "counters": {
+        "baseline_local_reused": 76,
+        "compressed_steps": 60,
+        "eligible_steps": 136,
+        "fallback_features": 0,
+        "fallback_not_pure_mtp4": 2,
+        "fallback_request_count": 197,
+        "fallback_structure": 76,
+        "hook_steps": 335,
+        "request_feature:min_p": 0,
+        "request_greedy_or_temperature": 0,
+        "requests_seen": 24,
+        "requests_supported": 24
+      }
+    },
+    {
+      "rank": 2,
+      "pid": 189049,
+      "counters": {
+        "baseline_local_reused": 76,
+        "compressed_steps": 60,
+        "eligible_steps": 136,
+        "fallback_features": 0,
+        "fallback_not_pure_mtp4": 2,
+        "fallback_request_count": 197,
+        "fallback_structure": 76,
+        "hook_steps": 335,
+        "request_feature:min_p": 0,
+        "request_greedy_or_temperature": 0,
+        "requests_seen": 24,
+        "requests_supported": 24
+      }
+    },
+    {
+      "rank": 3,
+      "pid": 189050,
+      "counters": {
+        "baseline_local_reused": 76,
+        "compressed_steps": 60,
+        "eligible_steps": 136,
+        "fallback_features": 0,
+        "fallback_not_pure_mtp4": 2,
+        "fallback_request_count": 197,
+        "fallback_structure": 76,
+        "hook_steps": 335,
+        "request_feature:min_p": 0,
+        "request_greedy_or_temperature": 0,
+        "requests_seen": 24,
+        "requests_supported": 24
+      }
+    }
+  ],
+  "raw_flags_boolean": false,
+  "selected_API_flags": "separately matched by read-only /proc collector",
+  "cleanup": {
+    "owned_pilots_ended": true,
+    "expiry_timer_inactive": true,
+    "all_GPU_original": true,
+    "owned_CPU_outer_ended": true,
+    "no_active_experiment_or_orchestrator": true,
+    "global_artifact_budget": true
+  },
+  "artifact_budget": {
+    "status": "PASS",
+    "measured_bytes": 1073607460,
+    "threshold_bytes": 8589934592,
+    "receipt_allowance_bytes": 65536,
+    "hard_FS_quota": false,
+    "restore_writes_must_continue": true
+  },
+  "native_exits": {
+    "restoration/verify.exit": 0,
+    "restoration/evaluate.exit": 0,
+    "control/post-outer.exit": 0,
+    "control/artifact-final.exit": 0,
+    "control/window.exit": 1,
+    "control/outer-launch.exit": 1,
+    "control/ROOT-LAUNCH-EXIT.txt": null,
+    "control/attempt1/outer-cleanup.exit": 0,
+    "control/attempt1/outer-start.exit": 0
+  },
+  "experiment_exit_status": "NONZERO_EXPERIMENT_OR_OUTER_RETAINED",
+  "experiment_analysis": {
+    "HTTP_requests": 798,
+    "diagnostic_exit": 3,
+    "measurement_scope": "homogeneous client SSE token-normalized intervals; no GPU timing",
+    "n_per_row": 2,
+    "old_run4_NO_GO": "UNCHANGED",
+    "outputs": 112488,
+    "rows": [
+      {
+        "TTFT_client": {
+          "AA_drift_pct_per_pair": [
+            1.6765264929612487,
+            2.399981625074379
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            7.062249352136474,
+            0.42878178348567664
+          ],
+          "median_paired_improvement_pct": 3.7455155678110756,
+          "paired_values": [
+            [
+              0.34617183916270733,
+              0.31904984312132,
+              0.3404164221137762
+            ],
+            [
+              0.27485671592876315,
+              0.27043300913646817,
+              0.26833842415362597
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "block_rounding_tokens": 1632,
+        "candidate_route_expected": "fallback",
+        "common_decode": {
+          "AA_drift_pct_per_pair": [
+            0.11032972916280565,
+            0.09973417066377849
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            -0.15673946208114575,
+            0.011925545388302705
+          ],
+          "median_paired_improvement_pct": -0.07240695834642152,
+          "paired_values": [
+            [
+              8.589938685626668,
+              8.59865907068346,
+              8.58046665477256
+            ],
+            [
+              8.591911152881735,
+              8.586604631158943,
+              8.583346352565522
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "common_statuses": [
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ],
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ]
+        ],
+        "concurrency": 1,
+        "context_state": "cold",
+        "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+        "end_to_end_makespan": {
+          "AA_drift_pct_per_pair": [
+            0.3306763254290056,
+            0.36367688373803564
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.8177674318986972,
+            0.05980416300925828
+          ],
+          "median_paired_improvement_pct": 0.4387857974539777,
+          "paired_values": [
+            [
+              2.5388939471449703,
+              2.513975139008835,
+              2.5305122840218246
+            ],
+            [
+              2.468012028839439,
+              2.4620590850245208,
+              2.4590527310501784
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "input_tokens": 512,
+        "kind": "diagnostic-length-row",
+        "metric": "context-client-observation",
+        "nominal_KV_reserved_tokens": 1632,
+        "output_tokens": 256,
+        "priming_cold_c1_TTFT_s": [
+          [
+            [
+
+            ],
+            [
+
+            ],
+            [
+
+            ]
+          ],
+          [
+            [
+
+            ],
+            [
+
+            ],
+            [
+
+            ]
+          ]
+        ],
+        "raw_group_paths": [
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ],
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ]
+        ],
+        "repeats": 2,
+        "row_id": "context-512-greedy-c1",
+        "speculative_reserve_tokens": 4,
+        "token_equality": [
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          },
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          }
+        ]
+      },
+      {
+        "TTFT_client": {
+          "AA_drift_pct_per_pair": [
+            1.2294461205717013,
+            0.4318402953385869
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            -0.4632108902433041,
+            -1.382962688429612
+          ],
+          "median_paired_improvement_pct": -0.923086789336458,
+          "paired_values": [
+            [
+              0.7437368100509048,
+              0.7426168429665267,
+              0.7346488325856626
+            ],
+            [
+              0.713729843031615,
+              0.7251662404742092,
+              0.7168186855269596
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "block_rounding_tokens": 1632,
+        "candidate_route_expected": {
+          "actual_FULL_consumer_required": 4,
+          "descriptor": [
+            20,
+            4,
+            5
+          ]
+        },
+        "common_decode": {
+          "AA_drift_pct_per_pair": [
+            0.21341073504001523,
+            0.38726498746716037
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.993277462149389,
+            1.3678263405821345
+          ],
+          "median_paired_improvement_pct": 1.1805519013657617,
+          "paired_values": [
+            [
+              13.050895203896149,
+              12.935066012955192,
+              13.078776966617468
+            ],
+            [
+              13.089076363615504,
+              12.885090806726161,
+              13.038484915159643
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "common_statuses": [
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ],
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ]
+        ],
+        "concurrency": 4,
+        "context_state": "cold",
+        "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+        "end_to_end_makespan": {
+          "AA_drift_pct_per_pair": [
+            0.3126623082357452,
+            0.05987430638320277
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.7313797504095776,
+            0.657972666180362
+          ],
+          "median_paired_improvement_pct": 0.6946762082949698,
+          "paired_values": [
+            [
+              4.213678618893027,
+              4.176331719150767,
+              4.2005245978944
+            ],
+            [
+              4.185514908982441,
+              4.156730958027765,
+              4.183009610977024
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "input_tokens": 512,
+        "kind": "diagnostic-length-row",
+        "metric": "context-client-observation",
+        "nominal_KV_reserved_tokens": 6528,
+        "output_tokens": 256,
+        "priming_cold_c1_TTFT_s": [
+          [
+            [
+
+            ],
+            [
+
+            ],
+            [
+
+            ]
+          ],
+          [
+            [
+
+            ],
+            [
+
+            ],
+            [
+
+            ]
+          ]
+        ],
+        "raw_group_paths": [
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ],
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ]
+        ],
+        "repeats": 2,
+        "row_id": "context-512-greedy-c4",
+        "speculative_reserve_tokens": 4,
+        "token_equality": [
+          {
+            "A0_A2_equal": false,
+            "B_A0_equal": false,
+            "B_A2_equal": true,
+            "first_differences": [
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_A2",
+                "request_index": 1
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_B",
+                "request_index": 1
+              },
+              {
+                "first_different_token_index": 155,
+                "pair": "A0_A2",
+                "request_index": 2
+              },
+              {
+                "first_different_token_index": 155,
+                "pair": "A0_B",
+                "request_index": 2
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_A2",
+                "request_index": 3
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_B",
+                "request_index": 3
+              }
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "INCONCLUSIVE_AA_SELF_VARIATION"
+          },
+          {
+            "A0_A2_equal": false,
+            "B_A0_equal": false,
+            "B_A2_equal": true,
+            "first_differences": [
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_A2",
+                "request_index": 1
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_B",
+                "request_index": 1
+              },
+              {
+                "first_different_token_index": 134,
+                "pair": "A0_A2",
+                "request_index": 2
+              },
+              {
+                "first_different_token_index": 134,
+                "pair": "A0_B",
+                "request_index": 2
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_A2",
+                "request_index": 3
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_B",
+                "request_index": 3
+              }
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "INCONCLUSIVE_AA_SELF_VARIATION"
+          }
+        ]
+      },
+      {
+        "TTFT_client": {
+          "AA_drift_pct_per_pair": [
+            0.15647756360250126,
+            0.9374279693366312
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            -0.005772810950022134,
+            0.35926970852798723
+          ],
+          "median_paired_improvement_pct": 0.17674844878898255,
+          "paired_values": [
+            [
+              1.0530410764040425,
+              1.0522785765351728,
+              1.0513945915736258
+            ],
+            [
+              1.0371014268603176,
+              1.028554457006976,
+              1.0274247041670606
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "block_rounding_tokens": 1632,
+        "candidate_route_expected": {
+          "actual_FULL_consumer_required": 8,
+          "descriptor": [
+            40,
+            8,
+            5
+          ]
+        },
+        "common_decode": {
+          "AA_drift_pct_per_pair": [
+            0.23515602603727664,
+            0.04107286862871923
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            1.0026631992679835,
+            0.9998768255491841
+          ],
+          "median_paired_improvement_pct": 1.0012700124085838,
+          "paired_values": [
+            [
+              15.11800248548687,
+              14.984037771982734,
+              15.153595228588076
+            ],
+            [
+              15.139407073908867,
+              14.991110290569114,
+              15.145626539944057
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "common_statuses": [
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ],
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ]
+        ],
+        "concurrency": 8,
+        "context_state": "cold",
+        "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+        "end_to_end_makespan": {
+          "AA_drift_pct_per_pair": [
+            0.04445107277735905,
+            0.17224430920082032
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.7330894002523958,
+            0.8538587815256737
+          ],
+          "median_paired_improvement_pct": 0.7934740908890348,
+          "paired_values": [
+            [
+              5.265222098911181,
+              5.227785217110068,
+              5.267563066910952
+            ],
+            [
+              5.234742679866031,
+              5.185579437064007,
+              5.225733892060816
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "input_tokens": 512,
+        "kind": "diagnostic-length-row",
+        "metric": "context-client-observation",
+        "nominal_KV_reserved_tokens": 13056,
+        "output_tokens": 256,
+        "priming_cold_c1_TTFT_s": [
+          [
+            [
+
+            ],
+            [
+
+            ],
+            [
+
+            ]
+          ],
+          [
+            [
+
+            ],
+            [
+
+            ],
+            [
+
+            ]
+          ]
+        ],
+        "raw_group_paths": [
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ],
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ]
+        ],
+        "repeats": 2,
+        "row_id": "context-512-greedy-c8",
+        "speculative_reserve_tokens": 4,
+        "token_equality": [
+          {
+            "A0_A2_equal": false,
+            "B_A0_equal": false,
+            "B_A2_equal": false,
+            "first_differences": [
+              {
+                "first_different_token_index": 167,
+                "pair": "A0_A2",
+                "request_index": 0
+              },
+              {
+                "first_different_token_index": 167,
+                "pair": "A0_B",
+                "request_index": 0
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_A2",
+                "request_index": 1
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_B",
+                "request_index": 1
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_A2",
+                "request_index": 2
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A2_B",
+                "request_index": 2
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_A2",
+                "request_index": 3
+              },
+              {
+                "first_different_token_index": 237,
+                "pair": "A0_B",
+                "request_index": 3
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A2_B",
+                "request_index": 3
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_B",
+                "request_index": 4
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A2_B",
+                "request_index": 4
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_A2",
+                "request_index": 5
+              },
+              {
+                "first_different_token_index": 237,
+                "pair": "A0_B",
+                "request_index": 5
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A2_B",
+                "request_index": 5
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_A2",
+                "request_index": 6
+              },
+              {
+                "first_different_token_index": 167,
+                "pair": "A0_B",
+                "request_index": 6
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A2_B",
+                "request_index": 6
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_A2",
+                "request_index": 7
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A2_B",
+                "request_index": 7
+              }
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "INCONCLUSIVE_AA_SELF_VARIATION"
+          },
+          {
+            "A0_A2_equal": false,
+            "B_A0_equal": false,
+            "B_A2_equal": false,
+            "first_differences": [
+              {
+                "first_different_token_index": 167,
+                "pair": "A0_B",
+                "request_index": 0
+              },
+              {
+                "first_different_token_index": 167,
+                "pair": "A2_B",
+                "request_index": 0
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_A2",
+                "request_index": 1
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_B",
+                "request_index": 1
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_B",
+                "request_index": 2
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A2_B",
+                "request_index": 2
+              },
+              {
+                "first_different_token_index": 237,
+                "pair": "A0_B",
+                "request_index": 3
+              },
+              {
+                "first_different_token_index": 237,
+                "pair": "A2_B",
+                "request_index": 3
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_A2",
+                "request_index": 4
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_B",
+                "request_index": 4
+              },
+              {
+                "first_different_token_index": 213,
+                "pair": "A2_B",
+                "request_index": 4
+              },
+              {
+                "first_different_token_index": 167,
+                "pair": "A0_A2",
+                "request_index": 5
+              },
+              {
+                "first_different_token_index": 167,
+                "pair": "A2_B",
+                "request_index": 5
+              },
+              {
+                "first_different_token_index": 134,
+                "pair": "A0_A2",
+                "request_index": 6
+              },
+              {
+                "first_different_token_index": 134,
+                "pair": "A2_B",
+                "request_index": 6
+              },
+              {
+                "first_different_token_index": 134,
+                "pair": "A0_A2",
+                "request_index": 7
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_B",
+                "request_index": 7
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A2_B",
+                "request_index": 7
+              }
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "INCONCLUSIVE_AA_SELF_VARIATION"
+          }
+        ]
+      },
+      {
+        "TTFT_client": {
+          "AA_drift_pct_per_pair": [
+            1.7018789050687946,
+            1.23255970412632
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.6147474350963855,
+            0.8864063291303292
+          ],
+          "median_paired_improvement_pct": 0.7505768821133574,
+          "paired_values": [
+            [
+              0.7050372860394418,
+              0.69479083805345,
+              0.6931396469008178
+            ],
+            [
+              0.7041675080545247,
+              0.6936508920043707,
+              0.6955413841642439
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "block_rounding_tokens": 1632,
+        "candidate_route_expected": "fallback",
+        "common_decode": {
+          "AA_drift_pct_per_pair": [
+            0.1715228111784784,
+            0.08835150586301693
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            -0.3224787658900663,
+            -0.17459408346200966
+          ],
+          "median_paired_improvement_pct": -0.24853642467603798,
+          "paired_values": [
+            [
+              9.788758513134193,
+              9.828754458759054,
+              9.805562878575396
+            ],
+            [
+              9.798727340667563,
+              9.820173474430453,
+              9.807388489956365
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "common_statuses": [
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ],
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ]
+        ],
+        "concurrency": 1,
+        "context_state": "native-primed",
+        "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+        "end_to_end_makespan": {
+          "AA_drift_pct_per_pair": [
+            0.23582421913271684,
+            0.21116173025155904
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            -0.10179236413767612,
+            0.0646247097648045
+          ],
+          "median_paired_improvement_pct": -0.01858382718643581,
+          "paired_values": [
+            [
+              3.2041391308885068,
+              3.203623240115121,
+              3.196591893909499
+            ],
+            [
+              3.2058420940302312,
+              3.2003913270309567,
+              3.1990797221660614
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "input_tokens": 2048,
+        "kind": "diagnostic-length-row",
+        "metric": "context-client-observation",
+        "nominal_KV_reserved_tokens": 3264,
+        "output_tokens": 256,
+        "priming_cold_c1_TTFT_s": [
+          [
+            [
+              0.716333279851824
+            ],
+            [
+              0.7102254817727953
+            ],
+            [
+              0.7129378349054605
+            ]
+          ],
+          [
+            [
+              0.6990666030906141
+            ],
+            [
+              0.6962440700735897
+            ],
+            [
+              0.6970411268994212
+            ]
+          ]
+        ],
+        "raw_group_paths": [
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ],
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ]
+        ],
+        "repeats": 2,
+        "row_id": "context-2048-greedy-c1",
+        "speculative_reserve_tokens": 4,
+        "token_equality": [
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          },
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          }
+        ]
+      },
+      {
+        "TTFT_client": {
+          "AA_drift_pct_per_pair": [
+            0.17778403895000103,
+            7.6585755437652185
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.4662178049307686,
+            8.417454120333822
+          ],
+          "median_paired_improvement_pct": 4.441835962632295,
+          "paired_values": [
+            [
+              2.1841486119665205,
+              2.1720349565148354,
+              2.1802689930191264
+            ],
+            [
+              2.0246481305221096,
+              1.9280550804687664,
+              2.185881423880346
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "block_rounding_tokens": 1632,
+        "candidate_route_expected": {
+          "actual_FULL_consumer_required": 4,
+          "descriptor": [
+            20,
+            4,
+            5
+          ]
+        },
+        "common_decode": {
+          "AA_drift_pct_per_pair": [
+            0.3068261512989666,
+            1.8347357535369335
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.8010327815304197,
+            1.63418908574392
+          ],
+          "median_paired_improvement_pct": 1.2176109336371699,
+          "paired_values": [
+            [
+              15.126957658659583,
+              15.02884197767795,
+              15.173442434376408
+            ],
+            [
+              14.91851648646585,
+              14.810587288433963,
+              15.1947660672542
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "common_statuses": [
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ],
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ]
+        ],
+        "concurrency": 4,
+        "context_state": "native-primed",
+        "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+        "end_to_end_makespan": {
+          "AA_drift_pct_per_pair": [
+            0.1294447095414959,
+            5.590599920645043
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.4681610643525458,
+            4.318161307665481
+          ],
+          "median_paired_improvement_pct": 2.393161186009013,
+          "paired_values": [
+            [
+              6.908101400826126,
+              6.871313084149733,
+              6.899165012873709
+            ],
+            [
+              6.529223777120933,
+              6.4269334299024194,
+              6.904743457911536
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "input_tokens": 2048,
+        "kind": "diagnostic-length-row",
+        "metric": "context-client-observation",
+        "nominal_KV_reserved_tokens": 13056,
+        "output_tokens": 256,
+        "priming_cold_c1_TTFT_s": [
+          [
+            [
+              0.6984632480889559,
+              0.6976807019673288,
+              0.7020715877879411,
+              0.7120895581319928
+            ],
+            [
+              0.6944060241803527,
+              0.6889997399412096,
+              0.6937095590401441,
+              0.7069728570058942
+            ],
+            [
+              0.6935435829218477,
+              0.6918348118197173,
+              0.710048226872459,
+              0.700518717058003
+            ]
+          ],
+          [
+            [
+              0.7009606610517949,
+              0.7019110589753836,
+              0.694906575139612,
+              0.6968619611579925
+            ],
+            [
+              0.6946932449936867,
+              0.6949567580595613,
+              0.6947387910913676,
+              0.6924941639881581
+            ],
+            [
+              0.6985932958777994,
+              0.6960019171237946,
+              0.6989361220039427,
+              0.7043647631071508
+            ]
+          ]
+        ],
+        "raw_group_paths": [
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ],
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ]
+        ],
+        "repeats": 2,
+        "row_id": "context-2048-greedy-c4",
+        "speculative_reserve_tokens": 4,
+        "token_equality": [
+          {
+            "A0_A2_equal": false,
+            "B_A0_equal": false,
+            "B_A2_equal": false,
+            "first_differences": [
+              {
+                "first_different_token_index": 161,
+                "pair": "A0_A2",
+                "request_index": 0
+              },
+              {
+                "first_different_token_index": 161,
+                "pair": "A2_B",
+                "request_index": 0
+              },
+              {
+                "first_different_token_index": 79,
+                "pair": "A0_B",
+                "request_index": 1
+              },
+              {
+                "first_different_token_index": 79,
+                "pair": "A2_B",
+                "request_index": 1
+              },
+              {
+                "first_different_token_index": 161,
+                "pair": "A0_A2",
+                "request_index": 2
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A0_B",
+                "request_index": 2
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A2_B",
+                "request_index": 2
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A0_B",
+                "request_index": 3
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A2_B",
+                "request_index": 3
+              }
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "INCONCLUSIVE_AA_SELF_VARIATION"
+          },
+          {
+            "A0_A2_equal": false,
+            "B_A0_equal": false,
+            "B_A2_equal": false,
+            "first_differences": [
+              {
+                "first_different_token_index": 1,
+                "pair": "A0_A2",
+                "request_index": 0
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A0_B",
+                "request_index": 0
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A2_B",
+                "request_index": 0
+              },
+              {
+                "first_different_token_index": 197,
+                "pair": "A0_A2",
+                "request_index": 1
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A0_B",
+                "request_index": 1
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A2_B",
+                "request_index": 1
+              },
+              {
+                "first_different_token_index": 79,
+                "pair": "A0_A2",
+                "request_index": 2
+              },
+              {
+                "first_different_token_index": 58,
+                "pair": "A0_B",
+                "request_index": 2
+              },
+              {
+                "first_different_token_index": 58,
+                "pair": "A2_B",
+                "request_index": 2
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A0_A2",
+                "request_index": 3
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_B",
+                "request_index": 3
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A2_B",
+                "request_index": 3
+              }
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "INCONCLUSIVE_AA_SELF_VARIATION"
+          }
+        ]
+      },
+      {
+        "TTFT_client": {
+          "AA_drift_pct_per_pair": [
+            5.45884003688608,
+            0.07551756525742213
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            -3.2321514912370786,
+            0.24323414843372415
+          ],
+          "median_paired_improvement_pct": -1.4944586714016772,
+          "paired_values": [
+            [
+              4.474424276966602,
+              4.49632096348796,
+              4.2366621404653415
+            ],
+            [
+              4.4879455618793145,
+              4.4753395119914785,
+              4.484557653893717
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "block_rounding_tokens": 1632,
+        "candidate_route_expected": {
+          "actual_FULL_consumer_required": 8,
+          "descriptor": [
+            40,
+            8,
+            5
+          ]
+        },
+        "common_decode": {
+          "AA_drift_pct_per_pair": [
+            0.8550538659392924,
+            0.3129717650629895
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            1.1953583579991656,
+            0.5824325104930361
+          ],
+          "median_paired_improvement_pct": 0.8888954342461008,
+          "paired_values": [
+            [
+              18.23035038181508,
+              18.08977100800528,
+              18.386898984970745
+            ],
+            [
+              18.22274843610832,
+              18.088307577163924,
+              18.16580548636229
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "common_statuses": [
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ],
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ]
+        ],
+        "concurrency": 8,
+        "context_state": "native-primed",
+        "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+        "end_to_end_makespan": {
+          "AA_drift_pct_per_pair": [
+            0.8290725178978402,
+            0.08328519395727854
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            -0.3863925556919723,
+            0.19052419968039747
+          ],
+          "median_paired_improvement_pct": -0.09793417800578741,
+          "paired_values": [
+            [
+              10.28194792685099,
+              10.279066151939332,
+              10.197055034106597
+            ],
+            [
+              10.290223418036476,
+              10.274896786082536,
+              10.298797220923007
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "input_tokens": 2048,
+        "kind": "diagnostic-length-row",
+        "metric": "context-client-observation",
+        "nominal_KV_reserved_tokens": 26112,
+        "output_tokens": 256,
+        "priming_cold_c1_TTFT_s": [
+          [
+            [
+              0.714708438841626,
+              0.6995784610044211,
+              0.7004055560100824,
+              0.7005795158911496,
+              0.6993940318934619,
+              0.6979739160742611,
+              0.6975543771404773,
+              0.6908474578522146
+            ],
+            [
+              0.7012848639860749,
+              0.6921556501183659,
+              0.6915242848917842,
+              0.69269481417723,
+              0.6940021959599108,
+              0.6925872750580311,
+              0.6909576549660414,
+              0.6906125070527196
+            ],
+            [
+              0.6961701910477132,
+              0.6989861659239978,
+              0.6973431711085141,
+              0.6928729831706733,
+              0.6890481289010495,
+              0.6916736378334463,
+              0.7056677429936826,
+              0.7073486340232193
+            ]
+          ],
+          [
+            [
+              0.6991894361563027,
+              0.699844976188615,
+              0.6982057720888406,
+              0.6968772599939257,
+              0.7000988950021565,
+              0.7133878821041435,
+              0.7110845767892897,
+              0.6987765359226614
+            ],
+            [
+              0.6963174790143967,
+              0.6932868149597198,
+              0.6916190211195499,
+              0.6940763341262937,
+              0.6920332368463278,
+              0.690655715065077,
+              0.7062870590016246,
+              0.6947919139638543
+            ],
+            [
+              0.7006546379998326,
+              0.6975637278519571,
+              0.7007063319906592,
+              0.7106553018093109,
+              0.7134858390782028,
+              0.7006947579793632,
+              0.7005323960911483,
+              0.6992758421692997
+            ]
+          ]
+        ],
+        "raw_group_paths": [
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ],
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ]
+        ],
+        "repeats": 2,
+        "row_id": "context-2048-greedy-c8",
+        "speculative_reserve_tokens": 4,
+        "token_equality": [
+          {
+            "A0_A2_equal": false,
+            "B_A0_equal": false,
+            "B_A2_equal": false,
+            "first_differences": [
+              {
+                "first_different_token_index": 58,
+                "pair": "A0_A2",
+                "request_index": 0
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A0_B",
+                "request_index": 0
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A2_B",
+                "request_index": 0
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A0_A2",
+                "request_index": 1
+              },
+              {
+                "first_different_token_index": 58,
+                "pair": "A0_B",
+                "request_index": 1
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A2_B",
+                "request_index": 1
+              },
+              {
+                "first_different_token_index": 37,
+                "pair": "A0_A2",
+                "request_index": 2
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_B",
+                "request_index": 2
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A2_B",
+                "request_index": 2
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A0_A2",
+                "request_index": 3
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A0_B",
+                "request_index": 3
+              },
+              {
+                "first_different_token_index": 8,
+                "pair": "A2_B",
+                "request_index": 3
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_A2",
+                "request_index": 4
+              },
+              {
+                "first_different_token_index": 37,
+                "pair": "A0_B",
+                "request_index": 4
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A2_B",
+                "request_index": 4
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_A2",
+                "request_index": 5
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A0_B",
+                "request_index": 5
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A2_B",
+                "request_index": 5
+              },
+              {
+                "first_different_token_index": 188,
+                "pair": "A0_A2",
+                "request_index": 6
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A0_B",
+                "request_index": 6
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A2_B",
+                "request_index": 6
+              },
+              {
+                "first_different_token_index": 26,
+                "pair": "A0_A2",
+                "request_index": 7
+              },
+              {
+                "first_different_token_index": 51,
+                "pair": "A0_B",
+                "request_index": 7
+              },
+              {
+                "first_different_token_index": 26,
+                "pair": "A2_B",
+                "request_index": 7
+              }
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "INCONCLUSIVE_AA_SELF_VARIATION"
+          },
+          {
+            "A0_A2_equal": false,
+            "B_A0_equal": false,
+            "B_A2_equal": false,
+            "first_differences": [
+              {
+                "first_different_token_index": 1,
+                "pair": "A0_A2",
+                "request_index": 0
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A0_B",
+                "request_index": 0
+              },
+              {
+                "first_different_token_index": 79,
+                "pair": "A0_A2",
+                "request_index": 1
+              },
+              {
+                "first_different_token_index": 79,
+                "pair": "A0_B",
+                "request_index": 1
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A0_A2",
+                "request_index": 2
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A0_B",
+                "request_index": 2
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A0_A2",
+                "request_index": 3
+              },
+              {
+                "first_different_token_index": 160,
+                "pair": "A0_B",
+                "request_index": 3
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A2_B",
+                "request_index": 3
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A0_A2",
+                "request_index": 4
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A0_B",
+                "request_index": 4
+              },
+              {
+                "first_different_token_index": 58,
+                "pair": "A2_B",
+                "request_index": 4
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_A2",
+                "request_index": 5
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A0_B",
+                "request_index": 5
+              },
+              {
+                "first_different_token_index": 1,
+                "pair": "A2_B",
+                "request_index": 5
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_A2",
+                "request_index": 7
+              },
+              {
+                "first_different_token_index": 5,
+                "pair": "A0_B",
+                "request_index": 7
+              }
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "INCONCLUSIVE_AA_SELF_VARIATION"
+          }
+        ]
+      },
+      {
+        "TTFT_client": {
+          "AA_drift_pct_per_pair": [
+            1.5028413339209457,
+            1.5547130030966065
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.7749543259589209,
+            -0.9974597368997307
+          ],
+          "median_paired_improvement_pct": -0.11125270547040489,
+          "paired_values": [
+            [
+              0.6428309199400246,
+              0.6426784929353744,
+              0.6525647910311818
+            ],
+            [
+              0.650813328102231,
+              0.6522347398567945,
+              0.6407730970531702
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "block_rounding_tokens": 1632,
+        "candidate_route_expected": "fallback",
+        "common_decode": {
+          "AA_drift_pct_per_pair": [
+            0.2366461597914499,
+            0.029791258736668536
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            -0.1509478770033379,
+            -0.15735081143330998
+          ],
+          "median_paired_improvement_pct": -0.15414934421832394,
+          "paired_values": [
+            [
+              7.960199376604721,
+              7.962793306283214,
+              7.941384133243678
+            ],
+            [
+              7.9535481885221655,
+              7.967249933155436,
+              7.9559180036406305
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "common_statuses": [
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ],
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ]
+        ],
+        "concurrency": 1,
+        "context_state": "native-primed",
+        "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+        "end_to_end_makespan": {
+          "AA_drift_pct_per_pair": [
+            0.17974086192373342,
+            0.36236719524885064
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.062005719776447865,
+            -0.3599209867858333
+          ],
+          "median_paired_improvement_pct": -0.1489576335046927,
+          "paired_values": [
+            [
+              2.677995508071035,
+              2.6787423950154334,
+              2.68281329004094
+            ],
+            [
+              2.684363440144807,
+              2.6891527238767594,
+              2.6746537799481302
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "input_tokens": 8192,
+        "kind": "diagnostic-length-row",
+        "metric": "context-client-observation",
+        "nominal_KV_reserved_tokens": 9792,
+        "output_tokens": 256,
+        "priming_cold_c1_TTFT_s": [
+          [
+            [
+              2.521677856799215
+            ],
+            [
+              2.515001100022346
+            ],
+            [
+              2.5299944241996855
+            ]
+          ],
+          [
+            [
+              2.506109534064308
+            ],
+            [
+              2.4831813180353492
+            ],
+            [
+              2.48539349809289
+            ]
+          ]
+        ],
+        "raw_group_paths": [
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ],
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ]
+        ],
+        "repeats": 2,
+        "row_id": "context-8192-greedy-c1",
+        "speculative_reserve_tokens": 4,
+        "token_equality": [
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          },
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          }
+        ]
+      },
+      {
+        "TTFT_client": {
+          "AA_drift_pct_per_pair": [
+            1.7646413728250123,
+            0.4585427221301097
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.5264358926343249,
+            0.6063079500600588
+          ],
+          "median_paired_improvement_pct": 0.5663719213471918,
+          "paired_values": [
+            [
+              2.3378782219951972,
+              2.346272438997403,
+              2.379500631475821
+            ],
+            [
+              2.354003721033223,
+              2.345107870060019,
+              2.3648226384539157
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "block_rounding_tokens": 1632,
+        "candidate_route_expected": {
+          "actual_FULL_consumer_required": 4,
+          "descriptor": [
+            20,
+            4,
+            5
+          ]
+        },
+        "common_decode": {
+          "AA_drift_pct_per_pair": [
+            0.0645967392968938,
+            0.09547433554885179
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.5257958758768555,
+            0.5732308934523811
+          ],
+          "median_paired_improvement_pct": 0.5495133846646183,
+          "paired_values": [
+            [
+              15.088298255635529,
+              15.0138138227542,
+              15.098047953317456
+            ],
+            [
+              15.08539153391798,
+              15.006080887256827,
+              15.099801089963876
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "common_statuses": [
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ],
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ]
+        ],
+        "concurrency": 4,
+        "context_state": "native-primed",
+        "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+        "end_to_end_makespan": {
+          "AA_drift_pct_per_pair": [
+            0.744219369505852,
+            0.3084087543235932
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.5922935874501989,
+            0.4537891124878568
+          ],
+          "median_paired_improvement_pct": 0.5230413499690278,
+          "paired_values": [
+            [
+              6.733779883943498,
+              6.718897806946188,
+              6.784081154037267
+            ],
+            [
+              6.739788983017206,
+              6.71956641995348,
+              6.760607184842229
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "input_tokens": 8192,
+        "kind": "diagnostic-length-row",
+        "metric": "context-client-observation",
+        "nominal_KV_reserved_tokens": 39168,
+        "output_tokens": 256,
+        "priming_cold_c1_TTFT_s": [
+          [
+            [
+              2.4861576629336923,
+              2.492074181092903,
+              2.4851100009400398,
+              2.485993433976546
+            ],
+            [
+              2.480075643863529,
+              2.4815870278980583,
+              2.480661010136828,
+              2.4778960938565433
+            ],
+            [
+              2.488757119048387,
+              2.494467434938997,
+              2.490327602950856,
+              2.4908093940466642
+            ]
+          ],
+          [
+            [
+              2.497847415972501,
+              2.4928281069733202,
+              2.484840088058263,
+              2.48413450201042
+            ],
+            [
+              2.4853422788437456,
+              2.4831684520468116,
+              2.4787794470321387,
+              2.475841938983649
+            ],
+            [
+              2.4889764508698136,
+              2.489778876071796,
+              2.4853805489838123,
+              2.4845356249716133
+            ]
+          ]
+        ],
+        "raw_group_paths": [
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ],
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ]
+        ],
+        "repeats": 2,
+        "row_id": "context-8192-greedy-c4",
+        "speculative_reserve_tokens": 4,
+        "token_equality": [
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          },
+          {
+            "A0_A2_equal": false,
+            "B_A0_equal": false,
+            "B_A2_equal": false,
+            "first_differences": [
+              {
+                "first_different_token_index": 91,
+                "pair": "A0_A2",
+                "request_index": 0
+              },
+              {
+                "first_different_token_index": 91,
+                "pair": "A2_B",
+                "request_index": 0
+              },
+              {
+                "first_different_token_index": 91,
+                "pair": "A0_B",
+                "request_index": 1
+              },
+              {
+                "first_different_token_index": 91,
+                "pair": "A2_B",
+                "request_index": 1
+              },
+              {
+                "first_different_token_index": 91,
+                "pair": "A0_A2",
+                "request_index": 3
+              },
+              {
+                "first_different_token_index": 91,
+                "pair": "A0_B",
+                "request_index": 3
+              }
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "INCONCLUSIVE_AA_SELF_VARIATION"
+          }
+        ]
+      },
+      {
+        "TTFT_client": {
+          "AA_drift_pct_per_pair": [
+            0.04109863260224532,
+            0.2414585124225576
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            -0.11265718076440834,
+            0.24132905788509795
+          ],
+          "median_paired_improvement_pct": 0.06433593856034481,
+          "paired_values": [
+            [
+              4.6594026976963505,
+              4.665610600495711,
+              4.661318042082712
+            ],
+            [
+              4.670579768484458,
+              4.653689937083982,
+              4.659315854893066
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "block_rounding_tokens": 1632,
+        "candidate_route_expected": {
+          "actual_FULL_consumer_required": 8,
+          "descriptor": [
+            40,
+            8,
+            5
+          ]
+        },
+        "common_decode": {
+          "AA_drift_pct_per_pair": [
+            0.09225015130900857,
+            0.006119851222275523
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.735851914975516,
+            -1.3620843073161026
+          ],
+          "median_paired_improvement_pct": -0.3131161961702933,
+          "paired_values": [
+            [
+              18.540009050183112,
+              18.395097286010813,
+              18.522913749002218
+            ],
+            [
+              18.583863516462152,
+              18.83641502482536,
+              18.58272624646321
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "common_statuses": [
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ],
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ]
+        ],
+        "concurrency": 8,
+        "context_state": "native-primed",
+        "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+        "end_to_end_makespan": {
+          "AA_drift_pct_per_pair": [
+            0.13818472994557432,
+            0.21916649191218904
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.053244282581876856,
+            0.5288956630352337
+          ],
+          "median_paired_improvement_pct": 0.2910699728085553,
+          "paired_values": [
+            [
+              10.235481907846406,
+              10.237105156993493,
+              10.249635559972376
+            ],
+            [
+              10.261021516053006,
+              10.195578772109002,
+              10.238557412056252
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "input_tokens": 8192,
+        "kind": "diagnostic-length-row",
+        "metric": "context-client-observation",
+        "nominal_KV_reserved_tokens": 78336,
+        "output_tokens": 256,
+        "priming_cold_c1_TTFT_s": [
+          [
+            [
+              2.4942508230451494,
+              2.4925137090031058,
+              2.484951574122533,
+              2.4881934688892215,
+              2.4847227858845145,
+              2.4837666740641,
+              2.496622947975993,
+              2.481988395098597
+            ],
+            [
+              2.4742455661762506,
+              2.486142643960193,
+              2.4952727898489684,
+              2.4852170848753303,
+              2.482676667859778,
+              2.4808036738540977,
+              2.4819776699878275,
+              2.4834766699932516
+            ],
+            [
+              2.496249843155965,
+              2.4864441270474344,
+              2.483683248050511,
+              2.485468887956813,
+              2.4841593189630657,
+              2.49094443093054,
+              2.4845405649393797,
+              2.48956453287974
+            ]
+          ],
+          [
+            [
+              2.4867661038879305,
+              2.4870124170556664,
+              2.4855153639800847,
+              2.49739998113364,
+              2.4874445118475705,
+              2.5006551290862262,
+              2.4855388780124485,
+              2.4873108628671616
+            ],
+            [
+              2.4922361609060317,
+              2.4782325830310583,
+              2.4795315589290112,
+              2.4818429548759013,
+              2.48403757205233,
+              2.489301700843498,
+              2.481489688856527,
+              2.496134817134589
+            ],
+            [
+              2.4875987560953945,
+              2.4796050179284066,
+              2.4970388649962842,
+              2.485194847919047,
+              2.5021958618890494,
+              2.484388913027942,
+              2.486252933042124,
+              2.482057992136106
+            ]
+          ]
+        ],
+        "raw_group_paths": [
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ],
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ]
+        ],
+        "repeats": 2,
+        "row_id": "context-8192-greedy-c8",
+        "speculative_reserve_tokens": 4,
+        "token_equality": [
+          {
+            "A0_A2_equal": false,
+            "B_A0_equal": false,
+            "B_A2_equal": false,
+            "first_differences": [
+              {
+                "first_different_token_index": 146,
+                "pair": "A0_B",
+                "request_index": 1
+              },
+              {
+                "first_different_token_index": 146,
+                "pair": "A2_B",
+                "request_index": 1
+              },
+              {
+                "first_different_token_index": 168,
+                "pair": "A0_A2",
+                "request_index": 3
+              },
+              {
+                "first_different_token_index": 146,
+                "pair": "A0_B",
+                "request_index": 3
+              },
+              {
+                "first_different_token_index": 146,
+                "pair": "A2_B",
+                "request_index": 3
+              },
+              {
+                "first_different_token_index": 186,
+                "pair": "A0_A2",
+                "request_index": 4
+              },
+              {
+                "first_different_token_index": 186,
+                "pair": "A2_B",
+                "request_index": 4
+              },
+              {
+                "first_different_token_index": 168,
+                "pair": "A0_A2",
+                "request_index": 5
+              },
+              {
+                "first_different_token_index": 168,
+                "pair": "A0_B",
+                "request_index": 5
+              },
+              {
+                "first_different_token_index": 186,
+                "pair": "A0_A2",
+                "request_index": 7
+              },
+              {
+                "first_different_token_index": 186,
+                "pair": "A0_B",
+                "request_index": 7
+              }
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "INCONCLUSIVE_AA_SELF_VARIATION"
+          },
+          {
+            "A0_A2_equal": false,
+            "B_A0_equal": false,
+            "B_A2_equal": false,
+            "first_differences": [
+              {
+                "first_different_token_index": 146,
+                "pair": "A0_B",
+                "request_index": 1
+              },
+              {
+                "first_different_token_index": 146,
+                "pair": "A2_B",
+                "request_index": 1
+              },
+              {
+                "first_different_token_index": 146,
+                "pair": "A0_B",
+                "request_index": 3
+              },
+              {
+                "first_different_token_index": 146,
+                "pair": "A2_B",
+                "request_index": 3
+              },
+              {
+                "first_different_token_index": 146,
+                "pair": "A0_A2",
+                "request_index": 4
+              },
+              {
+                "first_different_token_index": 146,
+                "pair": "A0_B",
+                "request_index": 4
+              },
+              {
+                "first_different_token_index": 186,
+                "pair": "A2_B",
+                "request_index": 4
+              },
+              {
+                "first_different_token_index": 146,
+                "pair": "A0_A2",
+                "request_index": 5
+              },
+              {
+                "first_different_token_index": 94,
+                "pair": "A0_B",
+                "request_index": 5
+              },
+              {
+                "first_different_token_index": 94,
+                "pair": "A2_B",
+                "request_index": 5
+              },
+              {
+                "first_different_token_index": 186,
+                "pair": "A0_A2",
+                "request_index": 6
+              },
+              {
+                "first_different_token_index": 186,
+                "pair": "A0_B",
+                "request_index": 6
+              }
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "INCONCLUSIVE_AA_SELF_VARIATION"
+          }
+        ]
+      },
+      {
+        "TTFT_client": {
+          "AA_drift_pct_per_pair": [
+            1.4956484239471908,
+            1.2882396064323596
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            1.0416542687531116,
+            0.1915865160586394
+          ],
+          "median_paired_improvement_pct": 0.6166203924058755,
+          "paired_values": [
+            [
+              0.8807284729555249,
+              0.8650850120466202,
+              0.8676536481361836
+            ],
+            [
+              0.861670880112797,
+              0.8655955069698393,
+              0.8728432289790362
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "block_rounding_tokens": 1632,
+        "candidate_route_expected": "fallback",
+        "common_decode": {
+          "AA_drift_pct_per_pair": [
+            0.05840064244323303,
+            0.09024361854354479
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            -0.27461529794727824,
+            -0.08426595661781278
+          ],
+          "median_paired_improvement_pct": -0.1794406272825455,
+          "paired_values": [
+            [
+              8.143130039759711,
+              8.163108666628307,
+              8.13837578775836
+            ],
+            [
+              8.136397874092355,
+              8.146930129869896,
+              8.143743768553524
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "common_statuses": [
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ],
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ]
+        ],
+        "concurrency": 1,
+        "context_state": "native-primed",
+        "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+        "end_to_end_makespan": {
+          "AA_drift_pct_per_pair": [
+            0.4832253862360878,
+            0.4402228169146215
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.1334480915773928,
+            -0.006673939297696663
+          ],
+          "median_paired_improvement_pct": 0.06338707613984806,
+          "paired_values": [
+            [
+              2.9726998929399997,
+              2.961577334906906,
+              2.9583696760237217
+            ],
+            [
+              2.951755388174206,
+              2.958464303985238,
+              2.9647783539257944
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "input_tokens": 32768,
+        "kind": "diagnostic-length-row",
+        "metric": "context-client-observation",
+        "nominal_KV_reserved_tokens": 34272,
+        "output_tokens": 256,
+        "priming_cold_c1_TTFT_s": [
+          [
+            [
+              10.160681207897142
+            ],
+            [
+              10.137372966157272
+            ],
+            [
+              10.159961006138474
+            ]
+          ],
+          [
+            [
+              10.138575485907495
+            ],
+            [
+              10.156471227994189
+            ],
+            [
+              10.146896861027926
+            ]
+          ]
+        ],
+        "raw_group_paths": [
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ],
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ]
+        ],
+        "repeats": 2,
+        "row_id": "context-32768-greedy-c1",
+        "speculative_reserve_tokens": 4,
+        "token_equality": [
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          },
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          }
+        ]
+      },
+      {
+        "TTFT_client": {
+          "AA_drift_pct_per_pair": [
+            0.7962151380444391,
+            0.5992133042932163
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.23960655948962462,
+            0.21802609057036682
+          ],
+          "median_paired_improvement_pct": 0.22881632502999572,
+          "paired_values": [
+            [
+              3.110900212894194,
+              3.11585072951857,
+              3.1357686745468527
+            ],
+            [
+              3.128347315476276,
+              3.1122023368952796,
+              3.1096578370779753
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "block_rounding_tokens": 1632,
+        "candidate_route_expected": {
+          "actual_FULL_consumer_required": 4,
+          "descriptor": [
+            20,
+            4,
+            5
+          ]
+        },
+        "common_decode": {
+          "AA_drift_pct_per_pair": [
+            0.25601644396780454,
+            0.25398804331484465
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.6020486061705577,
+            0.7760530251219588
+          ],
+          "median_paired_improvement_pct": 0.6890508156462583,
+          "paired_values": [
+            [
+              16.94220842778901,
+              16.861792578969947,
+              16.985638861861904
+            ],
+            [
+              16.94640120400141,
+              16.83626920016281,
+              16.989497766890146
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "common_statuses": [
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ],
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ]
+        ],
+        "concurrency": 4,
+        "context_state": "native-primed",
+        "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+        "end_to_end_makespan": {
+          "AA_drift_pct_per_pair": [
+            0.3525794311454119,
+            0.2487430549345333
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.4135014440198703,
+            0.2905479691123425
+          ],
+          "median_paired_improvement_pct": 0.3520247065661064,
+          "paired_values": [
+            [
+              7.967301063006744,
+              7.948368313955143,
+              7.995441736886278
+            ],
+            [
+              7.9763639268931,
+              7.943309548078105,
+              7.9565479210577905
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "input_tokens": 32768,
+        "kind": "diagnostic-length-row",
+        "metric": "context-client-observation",
+        "nominal_KV_reserved_tokens": 137088,
+        "output_tokens": 256,
+        "priming_cold_c1_TTFT_s": [
+          [
+            [
+              10.152648054994643,
+              10.145729860058054,
+              10.149269945919514,
+              10.141969953197986
+            ],
+            [
+              10.126283006975427,
+              10.154993016039953,
+              10.136997126042843,
+              10.12925566593185
+            ],
+            [
+              10.15845477185212,
+              10.161068537971005,
+              10.152366334106773,
+              10.152916009072214
+            ]
+          ],
+          [
+            [
+              10.15369605505839,
+              10.135154868010432,
+              10.132902826881036,
+              10.151723818853498
+            ],
+            [
+              10.137107567861676,
+              10.119956002105027,
+              10.105840283911675,
+              10.12263545091264
+            ],
+            [
+              10.136935244081542,
+              10.121318202000111,
+              10.138263500994071,
+              10.144025626126677
+            ]
+          ]
+        ],
+        "raw_group_paths": [
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ],
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ]
+        ],
+        "repeats": 2,
+        "row_id": "context-32768-greedy-c4",
+        "speculative_reserve_tokens": 4,
+        "token_equality": [
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          },
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          }
+        ]
+      },
+      {
+        "TTFT_client": {
+          "AA_drift_pct_per_pair": [
+            0.4248859990847384,
+            0.8026388680492963
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            1.201966542257915,
+            0.9403072221201292
+          ],
+          "median_paired_improvement_pct": 1.0711368821890221,
+          "paired_values": [
+            [
+              6.266823153011501,
+              6.2046794425696135,
+              6.293506694491953
+            ],
+            [
+              6.30594953102991,
+              6.221685399534181,
+              6.255537841003388
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "block_rounding_tokens": 1632,
+        "candidate_route_expected": {
+          "actual_FULL_consumer_required": 8,
+          "descriptor": [
+            40,
+            8,
+            5
+          ]
+        },
+        "common_decode": {
+          "AA_drift_pct_per_pair": [
+            0.05049031969664766,
+            0.2585839794938868
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            -0.39669364259147244,
+            0.5625870546061118
+          ],
+          "median_paired_improvement_pct": 0.08294670600731968,
+          "paired_values": [
+            [
+              20.55694762315224,
+              20.63328682124416,
+              20.54657097417906
+            ],
+            [
+              20.62974134333858,
+              20.487192789940828,
+              20.57646501923318
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "common_statuses": [
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ],
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ]
+        ],
+        "concurrency": 8,
+        "context_state": "native-primed",
+        "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+        "end_to_end_makespan": {
+          "AA_drift_pct_per_pair": [
+            0.25290101771701645,
+            0.37032938084155664
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            1.5082457234589897,
+            0.32204332139973424
+          ],
+          "median_paired_improvement_pct": 0.915144522429362,
+          "paired_values": [
+            [
+              12.393020724179223,
+              12.221557741053402,
+              12.424402482109144
+            ],
+            [
+              12.418314021080732,
+              12.35544375097379,
+              12.372410353040323
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "input_tokens": 32768,
+        "kind": "diagnostic-length-row",
+        "metric": "context-client-observation",
+        "nominal_KV_reserved_tokens": 274176,
+        "output_tokens": 256,
+        "priming_cold_c1_TTFT_s": [
+          [
+            [
+              10.128104022005573,
+              10.154709984082729,
+              10.149472465971485,
+              10.134466118179262,
+              10.142236378975213,
+              10.158260100986809,
+              10.156202387996018,
+              10.154078987892717
+            ],
+            [
+              10.128737185848877,
+              10.117438439046964,
+              10.139217584161088,
+              10.125054863048717,
+              10.12720156321302,
+              10.12892296910286,
+              10.136462413938716,
+              10.151118252892047
+            ],
+            [
+              10.125363755971193,
+              10.143552226014435,
+              10.14870244008489,
+              10.122003155061975,
+              10.148302725050598,
+              10.165348631097004,
+              10.155481634894386,
+              10.148442024132237
+            ]
+          ],
+          [
+            [
+              10.153470466146246,
+              10.150902745081112,
+              10.143619389971718,
+              10.15739901480265,
+              10.201455180998892,
+              10.148761881981045,
+              10.15337415295653,
+              10.165465821977705
+            ],
+            [
+              10.130268025910482,
+              10.144714462105185,
+              10.14154135202989,
+              10.134152459912002,
+              10.133335488149896,
+              10.137208075961098,
+              10.14380858791992,
+              10.150306515861303
+            ],
+            [
+              10.11874044709839,
+              10.104235966922715,
+              10.09752274514176,
+              10.095184884034097,
+              10.143048568163067,
+              10.133584626019001,
+              10.108211841899902,
+              10.091182629112154
+            ]
+          ]
+        ],
+        "raw_group_paths": [
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ],
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ]
+        ],
+        "repeats": 2,
+        "row_id": "context-32768-greedy-c8",
+        "speculative_reserve_tokens": 4,
+        "token_equality": [
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          },
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          }
+        ]
+      },
+      {
+        "TTFT_client": {
+          "AA_drift_pct_per_pair": [
+            6.285945440232026,
+            0.5067786597260711
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.8419192700408806,
+            -0.6094855689014134
+          ],
+          "median_paired_improvement_pct": 0.11621685056973363,
+          "paired_values": [
+            [
+              1.014456383883953,
+              0.9752632230520248,
+              0.9526313529349864
+            ],
+            [
+              0.9755926351062953,
+              0.979057903168723,
+              0.970661035971716
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "block_rounding_tokens": 1632,
+        "candidate_route_expected": "fallback",
+        "common_decode": {
+          "AA_drift_pct_per_pair": [
+            1.5118681576830155,
+            0.6066240317822191
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            -0.932675581152731,
+            0.0019356611316356798
+          ],
+          "median_paired_improvement_pct": -0.46536996001054765,
+          "paired_values": [
+            [
+              7.840246961032059,
+              7.973646541473036,
+              7.9596840237796895
+            ],
+            [
+              8.002218454345769,
+              7.977865733133227,
+              7.95382186679133
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "common_statuses": [
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ],
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ]
+        ],
+        "concurrency": 1,
+        "context_state": "native-primed",
+        "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+        "end_to_end_makespan": {
+          "AA_drift_pct_per_pair": [
+            1.0153138904753203,
+            0.5569496966480176
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            -0.3347761757001466,
+            -0.20435070622193408
+          ],
+          "median_paired_improvement_pct": -0.26956344096104035,
+          "paired_values": [
+            [
+              3.042084792861715,
+              3.0368521769996732,
+              3.0113540899474174
+            ],
+            [
+              3.044223342090845,
+              3.041973104001954,
+              3.0273156331386417
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "input_tokens": 65536,
+        "kind": "diagnostic-length-row",
+        "metric": "context-client-observation",
+        "nominal_KV_reserved_tokens": 66912,
+        "output_tokens": 256,
+        "priming_cold_c1_TTFT_s": [
+          [
+            [
+              20.778603750048205
+            ],
+            [
+              20.74575364915654
+            ],
+            [
+              20.723972159903497
+            ]
+          ],
+          [
+            [
+              20.77790514403023
+            ],
+            [
+              20.735684078885242
+            ],
+            [
+              20.718019888037816
+            ]
+          ]
+        ],
+        "raw_group_paths": [
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ],
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ]
+        ],
+        "repeats": 2,
+        "row_id": "context-65536-greedy-c1",
+        "speculative_reserve_tokens": 4,
+        "token_equality": [
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          },
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          }
+        ]
+      },
+      {
+        "TTFT_client": {
+          "AA_drift_pct_per_pair": [
+            0.468884740221865,
+            0.13089437261323114
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            -0.33033155147468296,
+            0.37453244439283884
+          ],
+          "median_paired_improvement_pct": 0.022100446459077938,
+          "paired_values": [
+            [
+              3.889877475099638,
+              3.911898114369251,
+              3.9081593775190413
+            ],
+            [
+              3.8972576895030215,
+              3.880121764494106,
+              3.8921597349690273
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "block_rounding_tokens": 1632,
+        "candidate_route_expected": {
+          "actual_FULL_consumer_required": 4,
+          "descriptor": [
+            20,
+            4,
+            5
+          ]
+        },
+        "common_decode": {
+          "AA_drift_pct_per_pair": [
+            0.26377516983435395,
+            0.2168217090269331
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.6524666664810552,
+            0.578484947938418
+          ],
+          "median_paired_improvement_pct": 0.6154758072097366,
+          "paired_values": [
+            [
+              17.17180168491683,
+              17.08229082370443,
+              17.21715645128084
+            ],
+            [
+              17.229564677262907,
+              17.111343685101872,
+              17.192247696329673
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "common_statuses": [
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ],
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ]
+        ],
+        "concurrency": 4,
+        "context_state": "native-primed",
+        "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+        "end_to_end_makespan": {
+          "AA_drift_pct_per_pair": [
+            0.1740638650470631,
+            0.0914236239365774
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.08578644592757145,
+            0.24982831208953948
+          ],
+          "median_paired_improvement_pct": 0.16780737900855547,
+          "paired_values": [
+            [
+              8.926399693125859,
+              8.926510967081413,
+              8.94195086392574
+            ],
+            [
+              8.903827141039073,
+              8.885644649155438,
+              8.911971065215766
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "input_tokens": 65536,
+        "kind": "diagnostic-length-row",
+        "metric": "context-client-observation",
+        "nominal_KV_reserved_tokens": 267648,
+        "output_tokens": 256,
+        "priming_cold_c1_TTFT_s": [
+          [
+            [
+              20.76425128709525,
+              20.74963900493458,
+              20.755795763107017,
+              20.74088368099183
+            ],
+            [
+              20.747684023110196,
+              20.776317138923332,
+              20.76895341812633,
+              20.77839232305996
+            ],
+            [
+              20.75847385195084,
+              20.770490638911724,
+              20.762280399911106,
+              20.762135398108512
+            ]
+          ],
+          [
+            [
+              20.726747259963304,
+              20.79779165284708,
+              20.775521028786898,
+              20.752008849056438
+            ],
+            [
+              20.74275045399554,
+              20.739565507043153,
+              20.75544452900067,
+              20.77833789214492
+            ],
+            [
+              20.774800688028336,
+              20.781273279106244,
+              20.75666513503529,
+              20.77741889609024
+            ]
+          ]
+        ],
+        "raw_group_paths": [
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ],
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ]
+        ],
+        "repeats": 2,
+        "row_id": "context-65536-greedy-c4",
+        "speculative_reserve_tokens": 4,
+        "token_equality": [
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          },
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          }
+        ]
+      },
+      {
+        "TTFT_client": {
+          "AA_drift_pct_per_pair": [
+            1.06072903614462,
+            6.676805666705244
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            -0.7537744374094046,
+            3.4019514187522137
+          ],
+          "median_paired_improvement_pct": 1.3240884906714045,
+          "paired_values": [
+            [
+              7.396292487392202,
+              7.491777579532936,
+              7.475165423471481
+            ],
+            [
+              6.941445842501707,
+              6.936882302514277,
+              7.42091945244465
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "block_rounding_tokens": 1632,
+        "candidate_route_expected": {
+          "actual_FULL_consumer_required": 8,
+          "descriptor": [
+            40,
+            8,
+            5
+          ]
+        },
+        "common_decode": {
+          "paired_values": [
+            [
+              null,
+              null,
+              null
+            ],
+            [
+              null,
+              null,
+              null
+            ]
+          ],
+          "status": "NO_COMPLETE_COMMON_COMPARISON_NO_FILTERING"
+        },
+        "common_statuses": [
+          [
+            "NO_COMMON_WINDOW",
+            "NO_COMMON_WINDOW",
+            "NO_COMMON_WINDOW"
+          ],
+          [
+            "NO_COMMON_WINDOW",
+            "NO_COMMON_WINDOW",
+            "NO_COMMON_WINDOW"
+          ]
+        ],
+        "concurrency": 8,
+        "context_state": "native-primed",
+        "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+        "end_to_end_makespan": {
+          "AA_drift_pct_per_pair": [
+            60.08241428933209,
+            5.146911443954403
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            -30.032340627681297,
+            -1.7910742017310577
+          ],
+          "median_paired_improvement_pct": -15.911707414706177,
+          "paired_values": [
+            [
+              36.00454670819454,
+              66.9216161489021,
+              66.92617933405563
+            ],
+            [
+              67.10139906406403,
+              70.10741827893071,
+              70.64627445000224
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "input_tokens": 65536,
+        "kind": "diagnostic-length-row",
+        "metric": "context-client-observation",
+        "nominal_KV_reserved_tokens": 535296,
+        "output_tokens": 256,
+        "priming_cold_c1_TTFT_s": [
+          [
+            [
+              20.771178782219067,
+              20.754669630900025,
+              20.796108179027215,
+              20.763661592034623,
+              20.782855551922694,
+              20.770121925044805,
+              20.775517832953483,
+              20.7866175819654
+            ],
+            [
+              20.75416871299967,
+              20.75028049503453,
+              20.776700594928116,
+              20.80103436508216,
+              20.77588686789386,
+              20.76951198396273,
+              20.769773949170485,
+              20.774150526849553
+            ],
+            [
+              20.74171030893922,
+              20.740795050980523,
+              20.80129705602303,
+              20.75283205602318,
+              20.75387818994932,
+              20.75483091804199,
+              20.792495589936152,
+              20.762014535954222
+            ]
+          ],
+          [
+            [
+              20.807067221961915,
+              20.8011053330265,
+              20.78756601898931,
+              20.801637475844473,
+              20.84735458693467,
+              20.78163426113315,
+              20.846632543951273,
+              20.77800040715374
+            ],
+            [
+              20.776371823856607,
+              20.738108101999387,
+              20.763544752961025,
+              20.740407422883436,
+              20.763291982002556,
+              20.746319246012717,
+              20.771267808042467,
+              20.75610644905828
+            ],
+            [
+              20.781924758804962,
+              20.76285156304948,
+              20.752582759829238,
+              20.75534173496999,
+              20.764305357122794,
+              20.781122903805226,
+              20.7734509781003,
+              20.775326892966405
+            ]
+          ]
+        ],
+        "raw_group_paths": [
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ],
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ]
+        ],
+        "repeats": 2,
+        "row_id": "context-65536-greedy-c8",
+        "speculative_reserve_tokens": 4,
+        "token_equality": [
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          },
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          }
+        ]
+      },
+      {
+        "TTFT_client": {
+          "AA_drift_pct_per_pair": [
+            2.167630945757294,
+            3.8004030460497567
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            2.4727475269783583,
+            4.437785427503405
+          ],
+          "median_paired_improvement_pct": 3.4552664772408814,
+          "paired_values": [
+            [
+              1.2002536430954933,
+              1.1834002761170268,
+              1.2265557791106403
+            ],
+            [
+              1.2709904911462218,
+              1.191937446827069,
+              1.2235884638503194
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "block_rounding_tokens": 1632,
+        "candidate_route_expected": "fallback",
+        "common_decode": {
+          "AA_drift_pct_per_pair": [
+            1.5547586680288867,
+            1.6082276640642386
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            -0.548979182960152,
+            -0.7745352171196984
+          ],
+          "median_paired_improvement_pct": -0.6617572000399252,
+          "paired_values": [
+            [
+              8.14744318817176,
+              8.128977960486914,
+              8.021747243280211
+            ],
+            [
+              8.141952968549495,
+              8.139563902445575,
+              8.01205634522964
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "common_statuses": [
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ],
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ]
+        ],
+        "concurrency": 1,
+        "context_state": "native-primed",
+        "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+        "end_to_end_makespan": {
+          "AA_drift_pct_per_pair": [
+            0.1408852384028263,
+            2.377270401137401
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.5406417930557628,
+            1.1777002003616865
+          ],
+          "median_paired_improvement_pct": 0.8591709967087247,
+          "paired_values": [
+            [
+              3.332121739163995,
+              3.3117739961016923,
+              3.3274305760860443
+            ],
+            [
+              3.4015933971386403,
+              3.322045818902552,
+              3.3216782240197062
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "input_tokens": 131072,
+        "kind": "diagnostic-length-row",
+        "metric": "context-client-observation",
+        "nominal_KV_reserved_tokens": 132192,
+        "output_tokens": 256,
+        "priming_cold_c1_TTFT_s": [
+          [
+            [
+              43.32014843495563
+            ],
+            [
+              43.32751408405602
+            ],
+            [
+              43.35645602596924
+            ]
+          ],
+          [
+            [
+              43.30814555287361
+            ],
+            [
+              43.30330752115697
+            ],
+            [
+              43.328253912972286
+            ]
+          ]
+        ],
+        "raw_group_paths": [
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ],
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ]
+        ],
+        "repeats": 2,
+        "row_id": "context-131072-greedy-c1",
+        "speculative_reserve_tokens": 4,
+        "token_equality": [
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          },
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          }
+        ]
+      },
+      {
+        "TTFT_client": {
+          "AA_drift_pct_per_pair": [
+            0.6454567432036207,
+            1.0756199889302431
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.23686733824853645,
+            -0.34612398072582096
+          ],
+          "median_paired_improvement_pct": -0.05462832123864225,
+          "paired_values": [
+            [
+              5.587399227079004,
+              5.59221215848811,
+              5.623580238549039
+            ],
+            [
+              5.542417090502568,
+              5.591673303046264,
+              5.602354787522927
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "block_rounding_tokens": 1632,
+        "candidate_route_expected": {
+          "actual_FULL_consumer_required": 4,
+          "descriptor": [
+            20,
+            4,
+            5
+          ]
+        },
+        "common_decode": {
+          "AA_drift_pct_per_pair": [
+            0.5334606920916072,
+            0.19887518101402551
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.3632504684248472,
+            1.018725715581914
+          ],
+          "median_paired_improvement_pct": 0.6909880920033806,
+          "paired_values": [
+            [
+              18.68141241645918,
+              18.564036180403956,
+              18.58201953546527
+            ],
+            [
+              18.70055085513225,
+              18.491655877566043,
+              18.663397045621444
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "common_statuses": [
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ],
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ]
+        ],
+        "concurrency": 4,
+        "context_state": "native-primed",
+        "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+        "end_to_end_makespan": {
+          "AA_drift_pct_per_pair": [
+            0.026383237827027617,
+            0.212977496613609
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            -0.04525566403246195,
+            -0.37314336183624786
+          ],
+          "median_paired_improvement_pct": -0.2091995129343549,
+          "paired_values": [
+            [
+              11.624359929002821,
+              11.631154947914183,
+              11.627427216153592
+            ],
+            [
+              11.579668286023661,
+              11.635267300065607,
+              11.604356664000079
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "input_tokens": 131072,
+        "kind": "diagnostic-length-row",
+        "metric": "context-client-observation",
+        "nominal_KV_reserved_tokens": 528768,
+        "output_tokens": 256,
+        "priming_cold_c1_TTFT_s": [
+          [
+            [
+              43.283776907017455,
+              43.277722359169275,
+              43.478701289976016,
+              43.28981836885214
+            ],
+            [
+              43.238682818133384,
+              43.25587545800954,
+              43.265304839005694,
+              43.30220329598524
+            ],
+            [
+              43.29568905313499,
+              43.365909941028804,
+              43.33461069688201,
+              43.32840880798176
+            ]
+          ],
+          [
+            [
+              43.374515627045184,
+              43.35220560897142,
+              43.30985170090571,
+              43.35442343400791
+            ],
+            [
+              43.294943084940314,
+              43.31454329099506,
+              43.3085766187869,
+              43.32081886800006
+            ],
+            [
+              43.40193239599466,
+              43.373303001979366,
+              43.325078160036355,
+              43.283419724786654
+            ]
+          ]
+        ],
+        "raw_group_paths": [
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ],
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ]
+        ],
+        "repeats": 2,
+        "row_id": "context-131072-greedy-c4",
+        "speculative_reserve_tokens": 4,
+        "token_equality": [
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          },
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          }
+        ]
+      },
+      {
+        "TTFT_client": {
+          "AA_drift_pct_per_pair": [
+            0.40059396467655484,
+            0.39231434987808855
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.6644809366609716,
+            0.3102087137706322
+          ],
+          "median_paired_improvement_pct": 0.4873448252158019,
+          "paired_values": [
+            [
+              1.650315847946331,
+              1.6426399720367044,
+              1.656940181972459
+            ],
+            [
+              1.6518227981869131,
+              1.6434749059844762,
+              1.6453551470767707
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "block_rounding_tokens": 1632,
+        "candidate_route_expected": "fallback",
+        "common_decode": {
+          "AA_drift_pct_per_pair": [
+            0.22222686917473727,
+            0.07390086094884474
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.12044825448112029,
+            -0.05344311044983563
+          ],
+          "median_paired_improvement_pct": 0.03350257201564233,
+          "paired_values": [
+            [
+              7.824287995440411,
+              7.8061900512479685,
+              7.806919623787205
+            ],
+            [
+              7.812011784271283,
+              7.81329971847727,
+              7.806240772718892
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "common_statuses": [
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ],
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ]
+        ],
+        "concurrency": 1,
+        "context_state": "native-primed",
+        "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+        "end_to_end_makespan": {
+          "AA_drift_pct_per_pair": [
+            0.49361147766397556,
+            0.4779932512887983
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.11461090733511092,
+            0.059114074780575177
+          ],
+          "median_paired_improvement_pct": 0.08686249105784305,
+          "paired_values": [
+            [
+              3.7329456110019237,
+              3.719487339956686,
+              3.7145647280849516
+            ],
+            [
+              3.7351330760866404,
+              3.7240247931331396,
+              3.717321960022673
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "input_tokens": 261632,
+        "kind": "diagnostic-length-row",
+        "metric": "context-client-observation",
+        "nominal_KV_reserved_tokens": 262752,
+        "output_tokens": 256,
+        "priming_cold_c1_TTFT_s": [
+          [
+            [
+              93.18318247795105
+            ],
+            [
+              93.11065168399364
+            ],
+            [
+              93.134762407979
+            ]
+          ],
+          [
+            [
+              93.18392082792707
+            ],
+            [
+              93.05808814312331
+            ],
+            [
+              93.1901366179809
+            ]
+          ]
+        ],
+        "raw_group_paths": [
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ],
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ]
+        ],
+        "repeats": 2,
+        "row_id": "context-261632-greedy-c1",
+        "speculative_reserve_tokens": 4,
+        "token_equality": [
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          },
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          }
+        ]
+      },
+      {
+        "TTFT_client": {
+          "AA_drift_pct_per_pair": [
+            1.8068035650882452,
+            1.9685685706735372
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            1.0562588107143278,
+            1.2668949279535657
+          ],
+          "median_paired_improvement_pct": 1.1615768693339468,
+          "paired_values": [
+            [
+              3.271614468190819,
+              3.2665679855272174,
+              3.3312649989966303
+            ],
+            [
+              3.279357568011619,
+              3.2699976260773838,
+              3.3445557054365054
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "block_rounding_tokens": 1632,
+        "candidate_route_expected": "fallback",
+        "common_decode": {
+          "AA_drift_pct_per_pair": [
+            2.4915068744929485,
+            2.7364395966392934
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            -1.7788920963669241,
+            -0.5257780998395356
+          ],
+          "median_paired_improvement_pct": -1.1523350981032299,
+          "paired_values": [
+            [
+              10.92459286049472,
+              10.982119448932732,
+              10.655754936049526
+            ],
+            [
+              11.004199288311836,
+              10.912746598728225,
+              10.707140439673108
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "common_statuses": [
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ],
+          [
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED",
+            "COMMON_WINDOW_OBSERVED"
+          ]
+        ],
+        "concurrency": 2,
+        "context_state": "native-primed",
+        "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+        "end_to_end_makespan": {
+          "AA_drift_pct_per_pair": [
+            0.09291782202837011,
+            0.09946922276285372
+          ],
+          "CI": null,
+          "improvement_pct_per_pair": [
+            0.6251594363021251,
+            0.7709359635411306
+          ],
+          "median_paired_improvement_pct": 0.6980476999216279,
+          "paired_values": [
+            [
+              7.590291129192337,
+              7.539337014080957,
+              7.583241671090946
+            ],
+            [
+              7.596118757966906,
+              7.541308186948299,
+              7.60367831797339
+            ]
+          ],
+          "performance_admission": "NOT_EVALUATED_NO_THRESHOLD_CHANGE",
+          "status": "DESCRIPTIVE_ONLY_N2"
+        },
+        "input_tokens": 261632,
+        "kind": "diagnostic-length-row",
+        "metric": "context-client-observation",
+        "nominal_KV_reserved_tokens": 525504,
+        "output_tokens": 256,
+        "priming_cold_c1_TTFT_s": [
+          [
+            [
+              93.17539623798802,
+              93.16058732196689
+            ],
+            [
+              93.1111096739769,
+              93.17406808282249
+            ],
+            [
+              93.11049509514123,
+              93.10138764092699
+            ]
+          ],
+          [
+            [
+              93.19112851191312,
+              93.21688468405046
+            ],
+            [
+              93.12122458592057,
+              93.12789024203084
+            ],
+            [
+              93.17232154100202,
+              93.15804288582876
+            ]
+          ]
+        ],
+        "raw_group_paths": [
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ],
+          [
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A0/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/B/http",
+            "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/A2/http"
+          ]
+        ],
+        "repeats": 2,
+        "row_id": "context-261632-greedy-c2",
+        "speculative_reserve_tokens": 4,
+        "token_equality": [
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          },
+          {
+            "A0_A2_equal": true,
+            "B_A0_equal": true,
+            "B_A2_equal": true,
+            "first_differences": [
+
+            ],
+            "scope": "API generated token equality; no expanded logits validation or same GPU execution-plan proof",
+            "status": "PASS_OUTPUT_TOKENS_ONLY"
+          }
+        ]
+      }
+    ],
+    "status": "STOP_OUTPUT_CHANGE_OR_AA_ATTRIBUTION_UNRESOLVED",
+    "strict_logits_scope": "prior finite numeric evidence unchanged; not extended to these contexts"
+  },
+  "experiment_analysis_native_exit": {
+    "argv": [
+      "/home/l/work/1Cat-vLLM/.venv/bin/python",
+      "-I",
+      "-B",
+      "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-prep1/analyze.py",
+      "--window",
+      "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4"
+    ],
+    "exit": 3,
+    "started_epoch": 1791002931.4547963,
+    "ended_epoch": 1791002935.731727,
+    "budget_s": 60,
+    "error": null
+  },
+  "pins": {
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/RESTORATION.json": "607b6f5e479fe86a03f8e83f698b95853282bdffdbc260bde790729346b86f53",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/requests-result.json": "ae19d6b74facd3d0e19eafb3c569676b6fdcf929a5f5e3fdb45fe70c4c8eaefc",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/readiness.json": "35e931143dc88a680cf73362314baa9b3cd2876f913eefae2140b1a52997bbd8",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/before-snapshot.json": "93adf0468713a410aecbbdb5e3d3a1078339ee9f0b6163470e880c17a2b72ee2",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/after-snapshot.json": "d5fb9786141754ae9da1ef01e13df8c75df694bcbd4d820682e91240a50c5d68",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/post-outer-cleanup.json": "074eda6ba8565c408691a560c1646bb3a293e7ee50b62b957e251a5775e803d9",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/artifact-post-outer.json": "cab64a26550cc05ae62cb8eb81018d2d7819d6e82c50d9e5c2817bc0658dd1dd",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-run4-restoration-20261002/FINAL-ORIGINAL-BINDING.json": "8a175104aed2f8ad74e34cf7efa4ef1e3cfe27135f7484c685468d190829e6a9",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-run4-restoration-20261002/FINAL-ORIGINAL-OBSERVED.json": "654036f133de25018bb6b53c9d79ec211ef1a94a062d4206e6e4958a8a83e1f5",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-run4-restoration-20261002/FINAL-ORIGINAL-SYSTEMD.json": "9dbf661c2f1ebb5602d3255a8f49972c0b57c3ddcd974766d2377f07b7713f0c",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-run4-restoration-20261002/FINAL-ORIGINAL-READBACK.json": "ab7ad9609dd59467622b6d931b93457ae3f6b8fb9a8e0cff871aeeaa26f15eac",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-run4-restoration-20261002/collect_final_original.py": "603a33e73090c6662c8d8ab8b35477de13f25638d41cd954d63c1d26ae1f7a98",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/verify.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/evaluate.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/post-outer.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/artifact-final.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/window.exit": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/outer-launch.exit": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/outer-cleanup.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/outer-start.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/mixed-order-diagnostic-control1/collect_binding.py": "9e6544def28b62cd8b8ad8cc2d3fcd524a184fc495852058129ad588ffbfce11",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round0-G1-o0.json": "cf6b84921ffb9dda5ffcf8351bf4e4f4da557198c206b5fa118bac87a0587bfa",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round0-G1-o0.json": "9d2fb56aee9da95b9b44c8ca3083cb950a0c0cedc58bd820e7798b04957c9291",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round0-G1-o0-comparison.json": "b709e11c50203927f007877a8a3ff2b31d1f6aa8270202997dc5da2fd3ace00e",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round0-G1-o0-comparison.json": "6c4641abeea02001fc1e2e8a2dcb238dbf79c9bfc0418d08af41fc3db48b8890",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round0-G1-o1024.json": "1d1cd0ab653f96d3ba809f59e6e5ab9b9b968add1d6ad0d31ebccbe2df5f95f6",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round0-G1-o1024.json": "1eda02940cc6edf529c34c2b8b7c99b0dc61e13b9330fe42310a23cb4f069d40",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round0-G1-o1024-comparison.json": "b71f309e05e7d1e2edf9e3f5dc5a5b6966d100a215f0f12244d84a439803902e",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round0-G1-o1024-comparison.json": "128679e81930ef168e0101fa1db1263195138b2ffa2bd228bc841c5127dc8f26",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round0-G1-o2560.json": "6af295b9c5e876f4dead78f04b40d74ef03d4f3e9ad3df03311cb3c7d11cb80d",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round0-G1-o2560.json": "f4a131aa38307182eea20ab6be4e09be9dcac44de58b47ae4d7d8f97f146f827",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round0-G1-o2560-comparison.json": "eb76143676f924a53585e1a9e1b0da3cc7ae83273a5ab20907245c8cd58ec7ad",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round0-G1-o2560-comparison.json": "720ab1becb6eb60bb5069d6ca6c705dbe3a3c961e2a50c69b7db6c7400b9bee5",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round0-G1-o4096.json": "1fca69f4d6b1fa4656e39a28be74334e2954ab18b13ffd2802aa988f7afb1c49",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round0-G1-o4096.json": "7b629299b45dcb287af31c4402525dfe5b9f465f8ed09ed264a09617030517d7",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round0-G1-o4096-comparison.json": "cf33b3a6937461828957005b9998bee1a598d984031df17efb3d4032c2507c91",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round0-G1-o4096-comparison.json": "cafb9ccb326e815b4ea58f0b3bca915f735861e189c483ababb286b964eb8d13",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round0-N1-o0.json": "862fefc49845135aee5d3a955bcdc9461123d6a799e7ef1cdd702fd4b237fd75",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round0-N1-o0.json": "2888eba1352e192969cde36ff2d943bb40804ab67881d4b76adac8a992b9ef08",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round0-N1-o0-comparison.json": "f14d7411e8f49e615889f24025f3068f63bce437dcb7062b4cd9d607c77d21e2",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round0-N1-o0-comparison.json": "593ea493019a473cc53bf39f5ef42417a146c27e3e15918b7795e77f8a48b144",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round0-N1-o1024.json": "8392d40ca56d1147c40725beb3df69d8a45bf29bf00f8e62f7b4d6f27d3f2420",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round0-N1-o1024.json": "7d03cd68fcb26a5be5b8131ef997dc131aabbca4544d8290a31448b08532721f",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round0-N1-o1024-comparison.json": "a629b7e99a058811c70430dfe19fe1b72a459053243ae5ddae7ea06f30fe4b19",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round0-N1-o1024-comparison.json": "031af0e21257b887f309b64ed4095221369056a658c9486ff0dc2f6db7e2a362",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round0-N1-o2560.json": "3432fcc6ecaee2964186e8b3b8af90f0589c4253c9252b2b788a695649ec74ff",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round0-N1-o2560.json": "17c48ccf36b2ec7ad99998b5d4bebb809b968c840aaec7a815e31fb67b17f1d3",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round0-N1-o2560-comparison.json": "bbac7d0b6f55dd2d44934e2d83d3598580dec7647e4a35c779264356b497a3b6",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round0-N1-o2560-comparison.json": "266b1ad1e15ad5015efc3bb0d4794913b53447af7b85343adfd51e9d4b4827fb",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round0-N1-o4096.json": "8411031bcde8caa61f69c0646a8c5c07db29dc565129703d65bea46761ccacf6",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round0-N1-o4096.json": "94cf4ef43f3a1a0f03f5ad3cafdf69be70753c2334d021bc8af63cee29683593",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round0-N1-o4096-comparison.json": "8fa2c58a4195520e8750cdb1fcb81ae9b83728da82340268fcde664f165f73cd",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round0-N1-o4096-comparison.json": "89aefbc81a55b211e6a1f1742179e858c6b40540980ad365f7e3fe51e8498c10",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round1-N1-o0.json": "ee7f30c6d304f3d438ebe7779a268a9917928ac9bbb582b37dca5a867ab4af4c",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round1-N1-o0.json": "df9caba221e16d56cfa46100b256cd858c97932e45d547edf0d5f95225e6c605",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round1-N1-o0-comparison.json": "bb4b865cb7c4a3784c74c46fda1c05e3cd6bee519186225a6e7fbdac2b52b7b8",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round1-N1-o0-comparison.json": "8c1bd3af01e9881d0a5e6c665cfeb2a867e8db1257ded8bdd58fe39f1b99060e",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round1-N1-o1024.json": "0caf766c06fb36a7177dc1bbb7c44ead9ebf5a194f5f4d85f4bf9b650d8370b9",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round1-N1-o1024.json": "7405ed9bf478d2f4d199729e2a5c87fd211789a5fadf7a62c62b1b5b2a220f0d",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round1-N1-o1024-comparison.json": "1a03ba2c25807f957f7087bca5e0bb611bfe5d996461f5b761132f109a89441e",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round1-N1-o1024-comparison.json": "55a3416d5036f41c1fe3cb0aef8bee86228dd67d7a0dbdefd8295307164d762d",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round1-N1-o2560.json": "4746c5dd0081b022e3ba5c6a85287572cc16b050eaf003b227fd3bb3e2666f9a",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round1-N1-o2560.json": "243fa799e93d609cab890d61b71b38f608d89b1d6fffe4f8e297251b9cd2885e",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round1-N1-o2560-comparison.json": "78b01acd28c7df523b681586d2f1a45833dacb806cc3def9c52f91c7392f51aa",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round1-N1-o2560-comparison.json": "d2f982e96ff88451139855a5efa60c2386ea8086298e1f9f6021fe23700dd270",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round1-N1-o4096.json": "fcc289cfe9693f299e73928575d65cacd94257f9ff3577cbddfa5c726b15f3c4",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round1-N1-o4096.json": "e54689c5253fd59ef02bb4fff9ce4a81ddfb234d1a872ee651cae7fdb2bfa519",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round1-N1-o4096-comparison.json": "e715ed51ed14df26d36ceae8f7648b6a3df3c6f0cec29a2232f151f7beacb1fa",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round1-N1-o4096-comparison.json": "dde75866fe91ac4aeac65214042b6adafa972e3d586c671c6fc665d9fa3d0a53",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round1-G1-o0.json": "7dd81a557a60ffd0eac5d8137da95c9f828b83dee1d72bdeda079e53564e10bf",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round1-G1-o0.json": "da56a1eb235bb30b032bddfc28ad8169856dae0784a4d590ffb270f39a9d39c6",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round1-G1-o0-comparison.json": "d15bc967d474fee33dacf878c84165fa365711dbecda58ec21affca8eddc1151",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round1-G1-o0-comparison.json": "3f6fb64c3b796100946077f90850f2c209bf6bd84c05a407b212f5f697abcfef",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round1-G1-o1024.json": "a449580649357b879467fc1bc4e1a644abd629e9cfb36c38350bddf863d4e3d1",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round1-G1-o1024.json": "3024b4c63c3d73aec9809aea61d49d5f9ed8ca314533e6efc07d6957c155792e",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round1-G1-o1024-comparison.json": "5784d8a8f6b49a5a56f4e24943f80784ae8bbd5bb793952b7182e07f7616c94b",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round1-G1-o1024-comparison.json": "932bcd5f8cdeae8b1ff836a48466d8924b697cdba7d3c23601e011ce44514ae8",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round1-G1-o2560.json": "3a69aa088346ae66bba61919a2e83f4fbc09a5ea99c75a48977a2d9bfbf17bcf",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round1-G1-o2560.json": "74a211dea7db82776a34642c3f788a9ee7050f95c24af0e66582d9ef16d4fa2b",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round1-G1-o2560-comparison.json": "7a3ea93f39177a56a05a298af6df28f4b2bc108b4a1aa0e472a64eff2f8b6317",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round1-G1-o2560-comparison.json": "a7789527943a789eff5ff3210af404d3535c7c8f9797816f17e56c27593da865",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round1-G1-o4096.json": "375ac6ed81448fd4af6b32b86d31570f50f4f9052be3935918a01d0c83718668",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round1-G1-o4096.json": "ed2f64b354b6ef0524a5590ea65fa4d5b87c86486207abe5947bafd760f16549",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round1-G1-o4096-comparison.json": "9726940f5981f37c0df5e9171d8a81132e1044634dd4b38d65f80ca7838ece0e",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round1-G1-o4096-comparison.json": "2379ff6e3cc149852d3565b691a9fb5901aeba696f8c68dc31a9501b9048e18b",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round2-G1-o0.json": "713ffea697526ecc966dc591261dfccd7558b6caa6c641034755282fd1b26b7b",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round2-G1-o0.json": "74b87645134ceb6028e3686c4408fa241829c8bb149c85e5ca01a55967a305e1",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round2-G1-o0-comparison.json": "7aa8f0f374d91ed8cd31ce5b7debe2fce12b0e0f186cb5b2d772b3b1ae59d6e5",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round2-G1-o0-comparison.json": "c1dcb04be3a317dbdf0116fdeead82e959b9b6116827a89871bb3efc0fed4063",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round2-G1-o1024.json": "e117a1ae033a8c4d6d18c9da09bb0a64f2cf8738ae2dad5043ce98622c23e256",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round2-G1-o1024.json": "2e298e7690e888677fb7c4371bccb554aaab65313710191944cb81b9eb2238e1",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round2-G1-o1024-comparison.json": "7659b0e59b4a396a0225e8e7cf8c7d6ae8b9d8b8db79e18d84bd95eb382aa72f",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round2-G1-o1024-comparison.json": "a1df13019c5accc6538c398eeef574a5c9b538d304e41b9e4e4d7d7c442a647a",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round2-G1-o2560.json": "d6be49f09f7c72851091903de91101c3f4ce32530e1d8e107bec3acdd0403951",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round2-G1-o2560.json": "e2bec6f332fda248134fc64babe561476357ef1e41a6d7bc4618560a1efb707e",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round2-G1-o2560-comparison.json": "19312a0284cadd818d7cba7c516bf650c020d4cd0735da2e1a5fb2a71b0039a3",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round2-G1-o2560-comparison.json": "3650ae12476d023c69f9c31208252edce8c39fbdc979aa5e458e5429cc304cc1",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round2-G1-o4096.json": "bad628c7f8c8051039137918aa5cb8ce84f8058487e927f7a7f200907759bdf8",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round2-G1-o4096.json": "9cb6b2a4f062128c2cb8e7265163df749333838910b8d1d7bf9c389ce3fd7faa",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round2-G1-o4096-comparison.json": "327f5797851220f590bfe4a02ec2ca964862a642e43ade7a56c60a108ef38f7a",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round2-G1-o4096-comparison.json": "15f8c02ad03c92be7fb7a8b3263f95c23193d549288b4ae180252553463d9cdb",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round2-N1-o0.json": "521b7909445c08479f61df0989bddda80c647955be5752046256d08d8f085acd",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round2-N1-o0.json": "f4bb37485cb052159678f45fbcf23dc2df102ce58333fd7b6549f031c8259fae",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round2-N1-o0-comparison.json": "4be2fa85795e9e2c0cd160e6ecbd86fea36e95134708aaf469eeb93a9b5daa23",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round2-N1-o0-comparison.json": "cc005da378540942cc1ed0699f2a5bef45ec2fd8c70f436ad4dfa8b5cc35ad05",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round2-N1-o1024.json": "6e94ae87e50a1a68643d4b5df62dedf0f90e853088cdf9d8cd17087b5b4adc2f",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round2-N1-o1024.json": "ba6b76d4d8b0cb3ffc9ac64d9609540171fe10651877e4bb02ea0a9b3ede0499",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round2-N1-o1024-comparison.json": "fc1519c7869703657c2c6ebcd116443f2cb31d56ad1c2e2a86f2b19d89679ab2",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round2-N1-o1024-comparison.json": "863ec0c07cb1de098705c2682b33f673b9257cc98324fd2f2abc4572e8beb3a4",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round2-N1-o2560.json": "d9fc6828bd8bb72c2d8cda5063472e9112f50d3f381fc3fe80255fd09f5d646b",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round2-N1-o2560.json": "0e8b97392212e5ba7c7d8fafc346972d7f26e99c027f43d77122a0f8cee357b0",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round2-N1-o2560-comparison.json": "d36fdcc76f0398058b92708f75f15241281a25bb7585921d993db1edd3de1887",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round2-N1-o2560-comparison.json": "804b6ebde44f52e1640db69d6731522506df18219968f269ffd1a6a6442918a9",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round2-N1-o4096.json": "b01b47a16863783231595c92c1c8e909bda28b2582e33c822711f318fcc017e2",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round2-N1-o4096.json": "d1d3722c4a90dea4f932f367c7a0a43ea34a529ca786839935d3bb17af130f4c",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/round2-N1-o4096-comparison.json": "79f7848c38f50836637af52229eb00043c3ecf77a2cbc54b024931c8d4826abd",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/round2-N1-o4096-comparison.json": "c813ab4ffdb30449cc0a34676b11697bbaf698a3e223bcf3b72746f37a72fa1b",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/fixed-natural.json": "98601414776fab129675b2a385b0fd72401eb3ca79b06c7d172586466df06e28",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/fixed-natural.json": "991f421cb11b541d3273dd4c73e6eb074bbf437af62a5152524bf3c17476e250",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/fixed-full.json": "adb52ad734f53d02c441d157b9550b60dba441cdebf87275c48608898b1b201a",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/fixed-full.json": "2b7a26b791233cb28ae609585a6356f1f9babb2008d6d27ce6437c7af28cdf03",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/fixed-mask.json": "41d4c97b5459adbb80ceaccf06f390e8994d192fdcaa900a4c0395c47ac3b967",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-run1/restoration/original-check/fixed-mask.json": "d96abb124b81a401c4c9e5f1babae16f455cb318595bd8e9f83d991b6d779aad",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/matched-N4-0.json": "a39ab73ddac99dc19fb6aa803520fefde916f59f1f6ec87ebd42a2667b2b656f",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/matched-N4-1.json": "ae33ee1c4e63bc234420884ac4fd69a7a8ee3b9795cf756cf4f6f0216bc8b932",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/matched-N8-0.json": "feb84a931ea856fff2bd06a61be25508ca3dff74187b2cac778083b25b9d0101",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/matched-N8-1.json": "ea6f2d2538d11201006740d66225cbf27d51948b9276bd1b2806b4d868d715fb",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/warmup-G1.json": "fef03d61504c7dad4a25e95e7b0b0ec7b606ea30f085318c192e9240ddec0c0a",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/warmup-N1.json": "6dc3cda5d88d63f154b7007ac8af6686a06e6b5427a1acbb9d2cba80634b95fc",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/before-concurrent-fence.json": "27761159d2bd29549a86deee470d2b7235182efb7ded932b579c435e8fbed142",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/before-concurrent-snapshot.json": "d4bc40dd6a53e487d41ec06e45b6c86c45d7e9bca5275e51d82c539bd83b2ee8",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/after-concurrent-fence.json": "38409b9d75817bd050e67265721058f2c5499054e9abae68cd8d92c723d058d0",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/after-concurrent-snapshot.json": "556751734a80ac5f5f44c70d38da34067d2f48d8b563d15544dd61e981220369",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/service3-e7-runtime.production.py": "6c901559b998c3777fbcde77f94f373d8ad13327d50b4b2f352ea94266bb901d",
+    "/home/l/work/1Cat-vLLM-kv-w12/vllm/v1/worker/gpu/sample/sm70_e7/runtime.py": "6c901559b998c3777fbcde77f94f373d8ad13327d50b4b2f352ea94266bb901d",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/analysis/RESULT.json": "1e6faaaa0edebd923c22d2de034fd9ab52ad6c2aa928870bfc53c0f94c8ba8fc",
+    "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/attempt1/analysis.log.exit.json": "7b4a97e0fe8ff092482b62bdbd4a8c17e36b2871c704cf01e945aed668baf405"
+  },
+  "permanent_deployment": false,
+  "push": false,
+  "merge": false
+}

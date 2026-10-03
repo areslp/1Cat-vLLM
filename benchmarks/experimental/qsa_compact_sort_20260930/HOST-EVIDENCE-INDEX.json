@@ -1,0 +1,81 @@
+{
+  "purpose": "Host-only evidence pointers; original archive is authoritative and has not been repackaged",
+  "host": "oh-my-gpu",
+  "root": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930",
+  "full_archive_regular_files": 36398,
+  "full_archive_bytes": 3083389890,
+  "full_archive_symlinks": 6,
+  "files": [
+    {
+      "path": "review/context-qsa-closure-20261002/ARCHIVE-MANIFEST.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-closure-20261002/ARCHIVE-MANIFEST.json",
+      "bytes": 8894300,
+      "sha256": "e5e6824e1cecc2c938859df35e204dfb98d9332e2b691170d18dc90cc6e1e24e"
+    },
+    {
+      "path": "review/context-qsa-closure-20261002/ARCHIVE-READBACK.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-closure-20261002/ARCHIVE-READBACK.json",
+      "bytes": 340,
+      "sha256": "af9554847a82ec5d97c1d3c714f4d17e6da5cfb2b965041ad19348b82eec7c50"
+    },
+    {
+      "path": "review/context-qsa-closure-20261002/PUBLISH-RESULT.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-closure-20261002/PUBLISH-RESULT.json",
+      "bytes": 1177,
+      "sha256": "c7d85fbab9e131f2b7377b5b49f0569c574a8920b10d69f9050cc96e35ef196e"
+    },
+    {
+      "path": "review/context-qsa-closure-20261002/PREFLIGHT-FAILURES.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-closure-20261002/PREFLIGHT-FAILURES.json",
+      "bytes": 1202,
+      "sha256": "38cda0dd7013714440780e3a944fb08eef953af9c51e93da462da8b76b2371f5"
+    },
+    {
+      "path": "review/context-qsa-closure-20261002/SYMLINK-INVENTORY.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-closure-20261002/SYMLINK-INVENTORY.json",
+      "bytes": 2512,
+      "sha256": "77d17f977779d4080d2c080780d8edb5d9987968eb155df518b7e5ca0a6abcdd"
+    },
+    {
+      "path": "review/context-qsa-run4-postprocess-20261003/RAW-AUDIT.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-run4-postprocess-20261003/RAW-AUDIT.json",
+      "bytes": 2170200,
+      "sha256": "88b67f36027a29840ac76917aa54152bb37c8d0f6de95005f9d97a8a00a2d56b"
+    },
+    {
+      "path": "review/context-qsa-run4-memory-review-20261002/actual-final-closed/MEMORY-REVIEW.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-run4-memory-review-20261002/actual-final-closed/MEMORY-REVIEW.json",
+      "bytes": 15617713,
+      "sha256": "c98491313a690788a2eae2dbc75195f3c3de122cf25f69452afff1bdd5533ca7"
+    },
+    {
+      "path": "review/context-qsa-run4-postprocess-20261003/ARCHIVE-SCOPE-REVIEW.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-run4-postprocess-20261003/ARCHIVE-SCOPE-REVIEW.json",
+      "bytes": 373951,
+      "sha256": "b6e217b50ec66fac19b8afed74080a8caf8afee270018e2de22eb8bf0e64fc44"
+    },
+    {
+      "path": "review/context-qsa-run4-postprocess-20261003/ARCHIVE-SNAPSHOT-ERRATUM.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-run4-postprocess-20261003/ARCHIVE-SNAPSHOT-ERRATUM.json",
+      "bytes": 822,
+      "sha256": "11a892a800e7f2d21d474b1548fb110e08a116ab49858453ab11371e2a836388"
+    },
+    {
+      "path": "review/context-qsa-run4-monitor-20261003/PAUSE-RECEIPT.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-run4-monitor-20261003/PAUSE-RECEIPT.json",
+      "bytes": 442,
+      "sha256": "bffb65272bcfbccecde802fb26605f6708b1481cd150c442da6bc11ec1aa4b0f"
+    },
+    {
+      "path": "review/context-qsa-run4-execution-20261002/ROOT-EXECUTION-REVIEW.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-run4-execution-20261002/ROOT-EXECUTION-REVIEW.json",
+      "bytes": 2552,
+      "sha256": "c87857967168a6fc398e96c285e62139aa0d3ccda399059b834dd21d7312ac33"
+    }
+  ],
+  "limitations": [
+    "Archive hashes prove byte identity, not benchmark acceptance",
+    "Six historical CPU fixture links retain local absolute targets and are dangling on the host",
+    "Raw data and large audit detail remain host-only; some frozen Markdown links resolve only there"
+  ]
+}

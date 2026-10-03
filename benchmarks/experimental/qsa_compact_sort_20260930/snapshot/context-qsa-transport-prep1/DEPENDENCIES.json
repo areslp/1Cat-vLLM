@@ -1,0 +1,70 @@
+{
+  "files": [
+    {
+      "relative_path": "service-w2-control-prep4/frozen.py",
+      "bytes": 1825,
+      "sha256": "a5e6b1efde372716094599642b8e5ec272b74c7bbe4082331cdd7f9f81973467"
+    },
+    {
+      "relative_path": "service-w2-control-prep4/io_tools.py",
+      "bytes": 1163,
+      "sha256": "48ab3921d7c9342f34aedd681bf007b944fe90bc2a7ecaeca5b201cfb3fec257"
+    },
+    {
+      "relative_path": "service-w2-control-prep4/request_groups.py",
+      "bytes": 5595,
+      "sha256": "8effd79d240d62d2beaec22f378f47f7eb36d2c7166e9cee7815be9397158e61"
+    },
+    {
+      "relative_path": "service-w2-control-prep4/transport_deadline.py",
+      "bytes": 9849,
+      "sha256": "dee1252665e900ad48dae70d2bd9b279068ddaddf5883a2a77cfcc41a22274d7"
+    },
+    {
+      "relative_path": "service-w2-control-prep4/original_guard.py",
+      "bytes": 19245,
+      "sha256": "66a5e2220501e9f522304628218bfe99a76bb8f7877a33571131411b679d32c9"
+    },
+    {
+      "relative_path": "service-w2-control-prep4/identity_contract.py",
+      "bytes": 2583,
+      "sha256": "5b8d193aa930363299ce930b87a344a686bf250a1e35734a89c456c5d2cf91c7"
+    },
+    {
+      "relative_path": "service-w2-control-prep4/e7_counters.py",
+      "bytes": 3787,
+      "sha256": "3c6a742d2950d2631b60932692d7384559822af5d8281ef4aca7e09e1985131d"
+    },
+    {
+      "relative_path": "service-w2-control-prep4/artifact_budget.py",
+      "bytes": 2573,
+      "sha256": "4c88f10d9de5e92ea4d88a5a6962744fb733c9d8d9e955fd0e56cb058840c44e"
+    },
+    {
+      "relative_path": "service-w2-prep/sse_parser.py",
+      "bytes": 4470,
+      "sha256": "7f2752c8e8b2099e7ed8486da18e7edb35ea1b865459535d79f9ecc1d82475a4"
+    },
+    {
+      "relative_path": "service-w2-prep/stream_ids.py",
+      "bytes": 1290,
+      "sha256": "b76b0fac9b5c40769ca44992d2299363b161f70697ce572892a558c0b404eb09"
+    },
+    {
+      "relative_path": "service-w2-prep/group_analyzer.py",
+      "bytes": 5069,
+      "sha256": "4d8a897cd78da947b3117d559ba9a0279facc5cddf4632c7915864f278904fe5"
+    },
+    {
+      "relative_path": "mixed-diagnostic-20261002/async_budget.py",
+      "bytes": 8439,
+      "sha256": "af559a836a5cd18482986a60a51dd5c879ec933d064f3dc9efc62ec0f8991238"
+    },
+    {
+      "relative_path": "service-numeric-candidate-B-control-prep1/restoration/original-check/exporter_fence.py",
+      "bytes": 2180,
+      "sha256": "9c0f2c81720a1d49f1c49b932409160c750a99c11cbd38bcb990949dc2ce4166"
+    }
+  ],
+  "scope": "exact existing CPU HTTP/parser/E7/async scanner only; no native/model import"
+}

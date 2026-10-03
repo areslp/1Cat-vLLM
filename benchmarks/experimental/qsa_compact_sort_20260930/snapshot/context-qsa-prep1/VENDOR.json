@@ -1,0 +1,36 @@
+{
+  "input_sources": [
+    {
+      "source": "service-run4/restoration/original-check/input-8192.json",
+      "copy": "sources/input-8192.json",
+      "bytes": 47067,
+      "sha256": "37e8cb0fa41cf30341272b9c0169b41b5205d43481d0ab83f6e3fcdefecd67f7"
+    },
+    {
+      "source": "service-run4/control/source/input-32768.historical.json",
+      "copy": "sources/input-32768.json",
+      "bytes": 187986,
+      "sha256": "49f84812ea46e3ba32171f6f57ed7ca6a5634c4b0324f2dcb41cfe9c5b32125e"
+    }
+  ],
+  "transport_sources": [
+    {
+      "source": "mixed-order-diagnostic-prep1/transport_deadline_order.py",
+      "source_sha256": "8194faaf7e3f849ecfb1693f8f17be00fb2307dfae843354e286079deaa5b0a8",
+      "copy": "transport_deadline_context.py",
+      "copy_sha256": "a60c9910a492b2666a33e32ed705a6085644c9626065c313a6d4474954ea7c14"
+    },
+    {
+      "source": "service-w2-control-prep4/transport_worker.py",
+      "source_sha256": "4c4ffe6178f13feb21cc84d9f45c00698b9d48dc6f8ad770916bcbdb035c6865",
+      "copy": "transport_worker.py",
+      "copy_sha256": "d12867e4842b4f68e076d76a252f3d90e80bd57e80c81778a42b4ab75eeea67d"
+    }
+  ],
+  "changes": [
+    "request deadline120->600 in child+parent",
+    "child packet cap1->4MiB",
+    "explicit pinned dependency activation; deadline ESRCH bounded-wait fix inherited unchanged",
+    "worker request.json save cap1->4MiB; parser/raw/close logic unchanged"
+  ]
+}

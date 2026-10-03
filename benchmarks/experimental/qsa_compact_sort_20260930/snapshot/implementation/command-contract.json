@@ -1,0 +1,46 @@
+{
+  "execution_status": "UNEXECUTED_REQUIRES_PARENT_BUILD_GATE",
+  "cwd": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/implementation",
+  "build_only": {
+    "argv": ["timeout", "--signal=TERM", "--kill-after=20s", "600s", "taskset", "-c", "14,42", "nice", "-n", "15", "/home/l/work/1Cat-vLLM/.venv/bin/python", "-u", "source/build58.py"],
+    "env": {
+      "CUDA_VISIBLE_DEVICES": "",
+      "CUDA_HOME": "/home/l/work/qwen38-bench/cuda-home",
+      "MAX_JOBS": "2",
+      "TORCH_CUDA_ARCH_LIST": "7.0",
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "BUILD_DIR": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/build/candidate1"
+    },
+    "stdout_stderr_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/build/candidate1.log",
+    "exit_record_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/build/candidate1-exit.json",
+    "expected_candidate": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/build/candidate1/qsa_planner58.so",
+    "gpu_smoke": false,
+    "install_dependencies": false,
+    "new_directory_required": true,
+    "resource_review_required_before_gpu": ["ptxas registers", "stack frame bytes", "spill loads/stores", "local memory", "static shared memory", "binary/source hashes"]
+  },
+  "read_only_build_preflight_argv": [
+    ["/home/l/work/1Cat-vLLM/.venv/bin/python", "--version"],
+    ["uv", "--version"],
+    ["/home/l/work/qwen38-bench/cuda-home/bin/nvcc", "--version"],
+    ["c++", "--version"],
+    ["lscpu", "-p=CPU,ONLINE"]
+  ],
+  "gpu_pilot_template_not_authorized": {
+    "argv": ["timeout", "--signal=TERM", "--kill-after=20s", "420s", "/home/l/work/1Cat-vLLM/.venv/bin/python", "-u", "harness/probe58.py", "--candidate", "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/build/candidate1/qsa_planner58.so", "--output", "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/pilot-gpu0", "--gpu", "0", "--mode", "pilot", "--occupancy", "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/captured-entry-occupancy.json"],
+    "service_boundary": "parent/control owns stop/drain/recovery and GPU window; no concurrent GPU workload",
+    "result": "pilot-gpu0/result.json",
+    "full_admission": false
+  },
+  "cpu_cost_gate_template": {
+    "argv": ["/home/l/work/1Cat-vLLM/.venv/bin/python", "harness/cost_gate58.py", "--result", "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/pilot-gpu0/result.json", "--output", "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/cost-gate-gpu0.json"],
+    "timeout_seconds": 30,
+    "pass_exit": 0,
+    "negative_cost_exit": 10,
+    "missing_or_invalid_evidence": "exception/nonzero; fail closed"
+  },
+  "upload_files": ["source/planner58.cu", "source/bindings.cpp", "source/build58.py", "source/ORIGINAL-LICENSE", "harness/probe58.py", "harness/compact_contract.py", "harness/test_compact_contract.py", "harness/cost_gate58.py", "contract.json", "command-contract.json", "evidence/SOURCE-EQUIVALENCE.md", "evidence/planner58-vs54.diff", "evidence/cpu-check.py", "evidence/cpu-check-attempt1.log", "evidence/cpu-check-attempt2.log", "evidence/cpu-check-attempt3.log", "evidence/cpu-check-attempt4.log", "evidence/contract-check.log", "evidence/contract-check-retry1.log", "evidence/cub-block-scan-aggregate.txt", "evidence/candidate-manifest.sha256"],
+  "excluded_uploads": ["__pycache__", "*.pyc", "*.so", "build outputs", "production files"]
+}

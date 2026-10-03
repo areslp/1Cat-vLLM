@@ -1,0 +1,27 @@
+{
+  "Pump_and_dependency_source_bytes_unchanged_from_context_qsa_prep1": true,
+  "arm_deadline_s": 7200,
+  "group_cap_bytes": 8388608,
+  "group_deadline_s": 660,
+  "line_cap_bytes": 2097152,
+  "line_count_cap": 4096,
+  "original_parser_bytes_unchanged": true,
+  "packet_cap_bytes": 4194304,
+  "raw_CPU_evidence": "retained in existing cpu-wire*/cpu-server*; source seal lists only closed result/log receipts",
+  "received_cap_bytes": 16777216,
+  "received_line_before_limit_check_not_retained_in_run3": true,
+  "rejected_prefix_cap_bytes": 65536,
+  "request_deadline_s": 600,
+  "request_tree_cap_bytes": 35651584,
+  "result_cap_bytes": 262144,
+  "runtime_capacity_decision": "external native CPU cgroup receipt and new control contract",
+  "stable_sources": {
+    "DEPENDENCIES.json": "c7509ace6279d3048d55c9815ac0d131c6e25fa6ed1ca597d36004a2b2ec7b04",
+    "check_wire.py": "738297f1529826dd9796d95c2f9d22f0444908d486e3c8443855b28bbbdbeff3",
+    "dependencies.py": "24d0fc96214ab14208543a5e84db21496779dbbaaa04e7002e294aaf8ef46149",
+    "transport_deadline_context.py": "a60c9910a492b2666a33e32ed705a6085644c9626065c313a6d4474954ea7c14",
+    "transport_worker.py": "a309a920992e9be021026b293cf4fd7a40349b1755103acd53dde9ea5aa2b998"
+  },
+  "status": "SOURCE_SEALED_NOT_SERVICE_OR_MEMORY_ADMISSION",
+  "worker_new_failure_receipt_precedes_parse_and_error": true
+}

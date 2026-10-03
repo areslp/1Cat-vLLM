@@ -1,0 +1,492 @@
+{
+  "budgets": {
+    "arm_s": 7200,
+    "artifact_scanner_cpu": 42,
+    "artifact_stale_s": 5,
+    "client_CPU_quota_percent": 200,
+    "client_allowed_cpus": [
+      14,
+      42
+    ],
+    "client_memory_bytes": 536870912,
+    "client_parent_cpu": 14,
+    "client_swap_bytes": 0,
+    "group_cap_bytes": 8388608,
+    "measured_group_s": 660,
+    "packet_cap_bytes": 4194304,
+    "prime_block_s_per_request_including_guards": 630,
+    "request_s": 600,
+    "runtime_artifact_cap_bytes": 8589934592
+  },
+  "client_device_work": 0,
+  "excluded_rows": [
+    {
+      "block_rounding_tokens": 1632,
+      "candidate_route_expected": {
+        "actual_FULL_consumer_required": 8,
+        "descriptor": [
+          40,
+          8,
+          5
+        ]
+      },
+      "concurrency": 8,
+      "context_state": "native-primed",
+      "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+      "input_tokens": 131072,
+      "kind": "diagnostic-length-row",
+      "metric": "context-client-observation",
+      "nominal_KV_reserved_tokens": 1057536,
+      "output_tokens": 256,
+      "reason": "block-rounded nominal KV exceeds663816; no request generated",
+      "repeats": 2,
+      "row_id": "context-131072-greedy-c8",
+      "speculative_reserve_tokens": 4,
+      "status": "EXCLUDED_BEFORE_EXECUTION"
+    },
+    {
+      "block_rounding_tokens": 1632,
+      "candidate_route_expected": {
+        "actual_FULL_consumer_required": 4,
+        "descriptor": [
+          20,
+          4,
+          5
+        ]
+      },
+      "concurrency": 4,
+      "context_state": "native-primed",
+      "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+      "input_tokens": 261632,
+      "kind": "diagnostic-length-row",
+      "metric": "context-client-observation",
+      "nominal_KV_reserved_tokens": 1051008,
+      "output_tokens": 256,
+      "reason": "block-rounded nominal KV exceeds663816; no request generated",
+      "repeats": 2,
+      "row_id": "context-261632-greedy-c4",
+      "speculative_reserve_tokens": 4,
+      "status": "EXCLUDED_BEFORE_EXECUTION"
+    },
+    {
+      "block_rounding_tokens": 1632,
+      "candidate_route_expected": {
+        "actual_FULL_consumer_required": 8,
+        "descriptor": [
+          40,
+          8,
+          5
+        ]
+      },
+      "concurrency": 8,
+      "context_state": "native-primed",
+      "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+      "input_tokens": 261632,
+      "kind": "diagnostic-length-row",
+      "metric": "context-client-observation",
+      "nominal_KV_reserved_tokens": 2102016,
+      "output_tokens": 256,
+      "reason": "block-rounded nominal KV exceeds663816; no request generated",
+      "repeats": 2,
+      "row_id": "context-261632-greedy-c8",
+      "speculative_reserve_tokens": 4,
+      "status": "EXCLUDED_BEFORE_EXECUTION"
+    }
+  ],
+  "inventory": {
+    "HTTP_requests_per_arm": 266,
+    "HTTP_requests_total": 798,
+    "arms": [
+      "A0",
+      "B",
+      "A2"
+    ],
+    "measured_groups_per_arm": 38,
+    "measured_outputs_per_arm": 37376,
+    "measured_requests_per_arm": 146,
+    "outputs_total": 112488,
+    "prime_outputs_per_arm": 120,
+    "prime_requests_per_arm": 120,
+    "replacements": 0,
+    "retries": 0,
+    "warmups": 0
+  },
+  "matrix_sha256": "c4978526d57d2d8b3ab69ef138b8edceaa4c4740835e53510cd623c37c2db6c0",
+  "model_HTTP_execution": "future authorized GPU service work; not executed by CPU preparation",
+  "native_cache": "native-primed attempt; actualhits recorded; allwarm UNVERIFIED",
+  "native_capacity_admission": {
+    "KV_tokens": 663816,
+    "fresh_actual_required": true,
+    "model_max_tokens": 262144,
+    "rounding_tokens": 1632,
+    "spec_reserve_tokens": 4
+  },
+  "old_run4_NO_GO": "UNCHANGED",
+  "performance_admission": "NONE_N2_DESCRIPTIVE_OLD_THRESHOLDS_UNCHANGED",
+  "rows": [
+    {
+      "block_rounding_tokens": 1632,
+      "candidate_route_expected": "fallback",
+      "concurrency": 1,
+      "context_state": "cold",
+      "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+      "input_tokens": 512,
+      "kind": "diagnostic-length-row",
+      "metric": "context-client-observation",
+      "nominal_KV_reserved_tokens": 1632,
+      "output_tokens": 256,
+      "repeats": 2,
+      "row_id": "context-512-greedy-c1",
+      "speculative_reserve_tokens": 4
+    },
+    {
+      "block_rounding_tokens": 1632,
+      "candidate_route_expected": {
+        "actual_FULL_consumer_required": 4,
+        "descriptor": [
+          20,
+          4,
+          5
+        ]
+      },
+      "concurrency": 4,
+      "context_state": "cold",
+      "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+      "input_tokens": 512,
+      "kind": "diagnostic-length-row",
+      "metric": "context-client-observation",
+      "nominal_KV_reserved_tokens": 6528,
+      "output_tokens": 256,
+      "repeats": 2,
+      "row_id": "context-512-greedy-c4",
+      "speculative_reserve_tokens": 4
+    },
+    {
+      "block_rounding_tokens": 1632,
+      "candidate_route_expected": {
+        "actual_FULL_consumer_required": 8,
+        "descriptor": [
+          40,
+          8,
+          5
+        ]
+      },
+      "concurrency": 8,
+      "context_state": "cold",
+      "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+      "input_tokens": 512,
+      "kind": "diagnostic-length-row",
+      "metric": "context-client-observation",
+      "nominal_KV_reserved_tokens": 13056,
+      "output_tokens": 256,
+      "repeats": 2,
+      "row_id": "context-512-greedy-c8",
+      "speculative_reserve_tokens": 4
+    },
+    {
+      "block_rounding_tokens": 1632,
+      "candidate_route_expected": "fallback",
+      "concurrency": 1,
+      "context_state": "native-primed",
+      "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+      "input_tokens": 2048,
+      "kind": "diagnostic-length-row",
+      "metric": "context-client-observation",
+      "nominal_KV_reserved_tokens": 3264,
+      "output_tokens": 256,
+      "repeats": 2,
+      "row_id": "context-2048-greedy-c1",
+      "speculative_reserve_tokens": 4
+    },
+    {
+      "block_rounding_tokens": 1632,
+      "candidate_route_expected": {
+        "actual_FULL_consumer_required": 4,
+        "descriptor": [
+          20,
+          4,
+          5
+        ]
+      },
+      "concurrency": 4,
+      "context_state": "native-primed",
+      "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+      "input_tokens": 2048,
+      "kind": "diagnostic-length-row",
+      "metric": "context-client-observation",
+      "nominal_KV_reserved_tokens": 13056,
+      "output_tokens": 256,
+      "repeats": 2,
+      "row_id": "context-2048-greedy-c4",
+      "speculative_reserve_tokens": 4
+    },
+    {
+      "block_rounding_tokens": 1632,
+      "candidate_route_expected": {
+        "actual_FULL_consumer_required": 8,
+        "descriptor": [
+          40,
+          8,
+          5
+        ]
+      },
+      "concurrency": 8,
+      "context_state": "native-primed",
+      "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+      "input_tokens": 2048,
+      "kind": "diagnostic-length-row",
+      "metric": "context-client-observation",
+      "nominal_KV_reserved_tokens": 26112,
+      "output_tokens": 256,
+      "repeats": 2,
+      "row_id": "context-2048-greedy-c8",
+      "speculative_reserve_tokens": 4
+    },
+    {
+      "block_rounding_tokens": 1632,
+      "candidate_route_expected": "fallback",
+      "concurrency": 1,
+      "context_state": "native-primed",
+      "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+      "input_tokens": 8192,
+      "kind": "diagnostic-length-row",
+      "metric": "context-client-observation",
+      "nominal_KV_reserved_tokens": 9792,
+      "output_tokens": 256,
+      "repeats": 2,
+      "row_id": "context-8192-greedy-c1",
+      "speculative_reserve_tokens": 4
+    },
+    {
+      "block_rounding_tokens": 1632,
+      "candidate_route_expected": {
+        "actual_FULL_consumer_required": 4,
+        "descriptor": [
+          20,
+          4,
+          5
+        ]
+      },
+      "concurrency": 4,
+      "context_state": "native-primed",
+      "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+      "input_tokens": 8192,
+      "kind": "diagnostic-length-row",
+      "metric": "context-client-observation",
+      "nominal_KV_reserved_tokens": 39168,
+      "output_tokens": 256,
+      "repeats": 2,
+      "row_id": "context-8192-greedy-c4",
+      "speculative_reserve_tokens": 4
+    },
+    {
+      "block_rounding_tokens": 1632,
+      "candidate_route_expected": {
+        "actual_FULL_consumer_required": 8,
+        "descriptor": [
+          40,
+          8,
+          5
+        ]
+      },
+      "concurrency": 8,
+      "context_state": "native-primed",
+      "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+      "input_tokens": 8192,
+      "kind": "diagnostic-length-row",
+      "metric": "context-client-observation",
+      "nominal_KV_reserved_tokens": 78336,
+      "output_tokens": 256,
+      "repeats": 2,
+      "row_id": "context-8192-greedy-c8",
+      "speculative_reserve_tokens": 4
+    },
+    {
+      "block_rounding_tokens": 1632,
+      "candidate_route_expected": "fallback",
+      "concurrency": 1,
+      "context_state": "native-primed",
+      "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+      "input_tokens": 32768,
+      "kind": "diagnostic-length-row",
+      "metric": "context-client-observation",
+      "nominal_KV_reserved_tokens": 34272,
+      "output_tokens": 256,
+      "repeats": 2,
+      "row_id": "context-32768-greedy-c1",
+      "speculative_reserve_tokens": 4
+    },
+    {
+      "block_rounding_tokens": 1632,
+      "candidate_route_expected": {
+        "actual_FULL_consumer_required": 4,
+        "descriptor": [
+          20,
+          4,
+          5
+        ]
+      },
+      "concurrency": 4,
+      "context_state": "native-primed",
+      "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+      "input_tokens": 32768,
+      "kind": "diagnostic-length-row",
+      "metric": "context-client-observation",
+      "nominal_KV_reserved_tokens": 137088,
+      "output_tokens": 256,
+      "repeats": 2,
+      "row_id": "context-32768-greedy-c4",
+      "speculative_reserve_tokens": 4
+    },
+    {
+      "block_rounding_tokens": 1632,
+      "candidate_route_expected": {
+        "actual_FULL_consumer_required": 8,
+        "descriptor": [
+          40,
+          8,
+          5
+        ]
+      },
+      "concurrency": 8,
+      "context_state": "native-primed",
+      "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+      "input_tokens": 32768,
+      "kind": "diagnostic-length-row",
+      "metric": "context-client-observation",
+      "nominal_KV_reserved_tokens": 274176,
+      "output_tokens": 256,
+      "repeats": 2,
+      "row_id": "context-32768-greedy-c8",
+      "speculative_reserve_tokens": 4
+    },
+    {
+      "block_rounding_tokens": 1632,
+      "candidate_route_expected": "fallback",
+      "concurrency": 1,
+      "context_state": "native-primed",
+      "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+      "input_tokens": 65536,
+      "kind": "diagnostic-length-row",
+      "metric": "context-client-observation",
+      "nominal_KV_reserved_tokens": 66912,
+      "output_tokens": 256,
+      "repeats": 2,
+      "row_id": "context-65536-greedy-c1",
+      "speculative_reserve_tokens": 4
+    },
+    {
+      "block_rounding_tokens": 1632,
+      "candidate_route_expected": {
+        "actual_FULL_consumer_required": 4,
+        "descriptor": [
+          20,
+          4,
+          5
+        ]
+      },
+      "concurrency": 4,
+      "context_state": "native-primed",
+      "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+      "input_tokens": 65536,
+      "kind": "diagnostic-length-row",
+      "metric": "context-client-observation",
+      "nominal_KV_reserved_tokens": 267648,
+      "output_tokens": 256,
+      "repeats": 2,
+      "row_id": "context-65536-greedy-c4",
+      "speculative_reserve_tokens": 4
+    },
+    {
+      "block_rounding_tokens": 1632,
+      "candidate_route_expected": {
+        "actual_FULL_consumer_required": 8,
+        "descriptor": [
+          40,
+          8,
+          5
+        ]
+      },
+      "concurrency": 8,
+      "context_state": "native-primed",
+      "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+      "input_tokens": 65536,
+      "kind": "diagnostic-length-row",
+      "metric": "context-client-observation",
+      "nominal_KV_reserved_tokens": 535296,
+      "output_tokens": 256,
+      "repeats": 2,
+      "row_id": "context-65536-greedy-c8",
+      "speculative_reserve_tokens": 4
+    },
+    {
+      "block_rounding_tokens": 1632,
+      "candidate_route_expected": "fallback",
+      "concurrency": 1,
+      "context_state": "native-primed",
+      "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+      "input_tokens": 131072,
+      "kind": "diagnostic-length-row",
+      "metric": "context-client-observation",
+      "nominal_KV_reserved_tokens": 132192,
+      "output_tokens": 256,
+      "repeats": 2,
+      "row_id": "context-131072-greedy-c1",
+      "speculative_reserve_tokens": 4
+    },
+    {
+      "block_rounding_tokens": 1632,
+      "candidate_route_expected": {
+        "actual_FULL_consumer_required": 4,
+        "descriptor": [
+          20,
+          4,
+          5
+        ]
+      },
+      "concurrency": 4,
+      "context_state": "native-primed",
+      "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+      "input_tokens": 131072,
+      "kind": "diagnostic-length-row",
+      "metric": "context-client-observation",
+      "nominal_KV_reserved_tokens": 528768,
+      "output_tokens": 256,
+      "repeats": 2,
+      "row_id": "context-131072-greedy-c4",
+      "speculative_reserve_tokens": 4
+    },
+    {
+      "block_rounding_tokens": 1632,
+      "candidate_route_expected": "fallback",
+      "concurrency": 1,
+      "context_state": "native-primed",
+      "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+      "input_tokens": 261632,
+      "kind": "diagnostic-length-row",
+      "metric": "context-client-observation",
+      "nominal_KV_reserved_tokens": 262752,
+      "output_tokens": 256,
+      "repeats": 2,
+      "row_id": "context-261632-greedy-c1",
+      "speculative_reserve_tokens": 4
+    },
+    {
+      "block_rounding_tokens": 1632,
+      "candidate_route_expected": "fallback",
+      "concurrency": 2,
+      "context_state": "native-primed",
+      "dynamic_candidate_activation": "UNVERIFIED_NO_ADDED_DEVICE_COUNTER",
+      "input_tokens": 261632,
+      "kind": "diagnostic-length-row",
+      "metric": "context-client-observation",
+      "nominal_KV_reserved_tokens": 525504,
+      "output_tokens": 256,
+      "repeats": 2,
+      "row_id": "context-261632-greedy-c2",
+      "speculative_reserve_tokens": 4
+    }
+  ],
+  "schema": "CONTEXT_QSA_REQUEST_CONTRACT_V1",
+  "service_candidate_controller_approval": "PENDING_SEPARATE_EXACT_PLAN"
+}

@@ -1,0 +1,7 @@
+{
+  "source": "Original local foreground exec session 23308",
+  "actual_exit_code": 1,
+  "stdout": "OUTER_EXIT=1 POST_OUTER_CLEANUP_EXIT=0\n",
+  "scope": "Original launcher result retrieved after closure; not a rerun.",
+  "original_raw_files_changed": false
+}

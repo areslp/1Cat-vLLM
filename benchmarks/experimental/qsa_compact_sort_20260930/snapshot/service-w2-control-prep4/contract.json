@@ -1,0 +1,214 @@
+{
+  "analysis_status_exit": {
+    "INCONCLUSIVE": 3,
+    "NO_GO": 2,
+    "PASS_INITIAL_REQUIRES_SEPARATE_APPROVED_CONFIRMATION": 0
+  },
+  "arms": [
+    "A0",
+    "B",
+    "A2"
+  ],
+  "artifact": {
+    "continuous_no_newline_limits": "absolute120s parent/reap plus2GiB HTTP cgroup",
+    "continuous_no_newline_wire_bytes_hard_cap": false,
+    "external_source_packages": "separately pinned; outside measured window",
+    "filesystem_quota": false,
+    "inflight_8_request_trees_allowance_bytes": 285212672,
+    "line_bytes": 524288,
+    "line_count": 4096,
+    "max_files": 50000,
+    "measured_cap_bytes": 8589934592,
+    "per_request_tree_bytes": 35651584,
+    "restoration_writes_continue_after_cap_failure": true,
+    "returned_line_sum_bytes": 16777216,
+    "scan_period_s": 1,
+    "window_scope": "configs/startup/capture/service logs/request raw+JSON/process logs/analysis/restoration/control"
+  },
+  "budgets_seconds": {
+    "B_stability": 900,
+    "boot_including_maturity_per_arm": 960,
+    "expiry": 15420,
+    "inner": 15300,
+    "kill_grace": 20,
+    "matrix_per_arm": 3600,
+    "maturity": 360,
+    "outer": 18300,
+    "restore": 2100
+  },
+  "cancellation": {
+    "engine_cancel_ack": "UNVERIFIED",
+    "engine_cancelled_count": null,
+    "no_cancel_in_stability_successes": true,
+    "ordinary_completed": 6,
+    "original_length_count_source_bound_range": [
+      6,
+      8
+    ],
+    "predeclared_positive_cut_closed_reaped": 2
+  },
+  "execution_budget_amendment": {
+    "path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/execution-budget-revision.json",
+    "sha256": "70c9ce7e7d743b219657ee11fa6428af4e8a925e3c16d567e2b94244de212c28"
+  },
+  "exit_priority": "EXIT traps explicitly preserve body nonzero; otherwise cleanup/stop aggregate then actual original-start code. Surviving outer attempts restore before aggregate.",
+  "inventory": {
+    "B_stability_fixed_pool": 2048,
+    "B_stability_warmups": 8,
+    "confirmation_requests_authorized": 0,
+    "initial_maximum_HTTP_requests": 4066,
+    "matrix_groups": 426,
+    "matrix_requests": 2010,
+    "measured": 348,
+    "per_arm_groups": 142,
+    "per_arm_requests": 670,
+    "warmups": 78
+  },
+  "not_proven": [
+    "actual W2 startup/resource/source/capture binding",
+    "live original guard/prefix-cache/counter gates",
+    "A0/B/A2 timing/stability/CI/performance/service admission",
+    "backend cancellation ACK/count",
+    "separate confirmation"
+  ],
+  "original_budgets_seconds_unchanged": {
+    "B_stability": 900,
+    "boot_including_maturity_per_arm": 960,
+    "expiry": 10020,
+    "inner": 9900,
+    "kill_grace": 20,
+    "matrix_per_arm": 1800,
+    "maturity": 360,
+    "outer": 12900,
+    "restore": 2100
+  },
+  "package": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4",
+  "prior_actual_wire2": {
+    "RESULT": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-wire-prep2/attempt1/cases/RESULT.json",
+    "model_HTTP_requests": 0,
+    "sha256": "78f0d7e35ff8cc173bdfa0990126c35d7e0f58b32bcc26014e082d2d39acaec8",
+    "synthetic_HTTP_requests": 3
+  },
+  "raw_exits": [
+    "actual foreground SSH (255 only transport)",
+    "outer-launch",
+    "post-outer",
+    "window",
+    "controller",
+    "exit-final-cleanup",
+    "original-start",
+    "outer-before-restore",
+    "outer-start",
+    "verify",
+    "evaluate",
+    "artifact-final",
+    "expiry-body/stop aggregate/original-start when expiry executes"
+  ],
+  "resources": {
+    "HTTP_CPUQuota": "100%",
+    "HTTP_CPUs": "14,42",
+    "HTTP_Nice": 15,
+    "HTTP_cgroup_bytes": 2147483648,
+    "PID_NVML_MiB": 32000,
+    "aggregate_cap_is_filesystem_quota": false,
+    "device_NVML_MiB": 32384,
+    "free_disk_retention_reserve_bytes": 17179869184,
+    "inflight_request_tree_allowance_bytes": 285212672,
+    "memory_swap_bytes": 0,
+    "model_cgroup_bytes": 128849018880,
+    "outer_cgroup_bytes": 8589934592,
+    "per_request_deadline_s": 120,
+    "per_request_returned_line_bytes": 16777216,
+    "returned_line_cap_is_wire_cap": false,
+    "term_to_kill_s": 1,
+    "whole_window_measured_bytes": 8589934592
+  },
+  "revision": {
+    "CPU_corrective_check": "only the affected one model-start test; runtime unchanged",
+    "CPU_first_failure": "actual config SHA read in synthetic ops.start fixture lacked its config file; original attempt retained",
+    "change": "Four unique execution time replacements plus exact derived model/HTTP lifetimes; original semantic W2 contract and full matrix unchanged",
+    "empirical_estimate_limitations": {
+      "conservative_observed131_full_cycle_sum_s": 2084,
+      "empirical_full_arm_estimate_s": 2567,
+      "limitations": "Not a worst-case completion guarantee; file intervals have rsync timestamp precision limits; mixed/cancel proxies were not observed in run3",
+      "new_matrix_margin_over_estimate_s": 1033,
+      "remaining_shared3_s": 63,
+      "unobserved_cancel4_proxy_s": 60,
+      "unobserved_mixed4_proxy_s": 360
+    },
+    "historical_controller3_manifest": "59cc6850c6f35e66db4a7fc48aa5752b8dda262e8efc4e7bbd6702b4153a523b",
+    "parent_failure_restore_closure_review_sha256": "19c75b611bcde8bfd72e64ec4d3ed3f29598c0a310b7412a30a61285edab78e4",
+    "partial_arm_reused": false,
+    "source_finding": "evidence/budget-native-chain-prefreeze1/FINDING.json"
+  },
+  "schema": "step58-pure-w2-controller-source-v1",
+  "source_authentication": "literal reviews/manifests/all actual source/library/request-runtime files before derive and preflight; COMPLETE actual staged mapping in plan",
+  "stability": {
+    "idle_padding_extra_samples_retry": false,
+    "imports_replacement_READY_count_in_real_elapsed": true,
+    "preparation_warmup_bound_s": 180,
+    "real_elapsed_minimum_s": 600,
+    "successful_minimum": 320,
+    "sustained_deadline_s": 900,
+    "unit_parent_total_bound_s": 1110
+  },
+  "status": "FROZEN_SOURCE_CPU_ONLY_NO_MODEL_STAGE_OR_LAUNCH",
+  "time_audit": {
+    "HTTP_matrix_RuntimeMaxSec_s": 3610,
+    "HTTP_matrix_command_budget_s": 3630,
+    "derived_model_RuntimeMaxSec": {
+      "A0": 4800,
+      "A2": 4800,
+      "B": 5800
+    },
+    "derived_model_formulas": {
+      "A0": "960+3600+240=4800 (old 960+1800+240=3000)",
+      "A2": "960+3600+240=4800 (old 960+1800+240=3000)",
+      "B": "960+3600+1110+130=5800 (old 960+1800+1110+130=4000)"
+    },
+    "expiry_TimeoutStartSec_s": 470,
+    "expiry_TimeoutStopSec_s": 30,
+    "expiry_offset_after_inner_s": 120,
+    "expiry_restore_body_and_trap_upper_s": 452,
+    "expiry_timer_minutes": 257,
+    "inner_phase_chain_s": 14970,
+    "inner_phase_terms_s": [
+      13770,
+      1140,
+      60
+    ],
+    "inner_remaining_nonphase_s": 330,
+    "outer_chain_s": 18120,
+    "outer_margin_s": 180,
+    "outer_terms_s": [
+      15300,
+      20,
+      555,
+      25,
+      2120,
+      65,
+      35
+    ]
+  },
+  "timed_model_instrumentation": {
+    "HTTP_process_budget_monitor": "CPU measured-file scan; max1Hz; scan duration retained",
+    "health_prefix_cache_metrics_original_counters": "GROUP_OUTSIDE_ONLY",
+    "numeric_admission_management_host_audit_shadow_new_counters_profiler": false,
+    "original_production_instrumentation_preserved": true
+  },
+  "unchanged": [
+    "SSE/parser/IDs/payload/metrics",
+    "matched GROUP10000draw seed/CI",
+    "E7 eligibility/MTP4/grouped XQA tail/attention float",
+    "53-request17-gate24-fast/fresh full-vector E7 restoration"
+  ],
+  "unique_drains": [
+    "pre-original-stop",
+    "arm-a0-stop",
+    "arm-b-stop",
+    "arm-a2-stop",
+    "exit-final",
+    "outer-before-restore (no GPU drain)"
+  ],
+  "window": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-run4"
+}

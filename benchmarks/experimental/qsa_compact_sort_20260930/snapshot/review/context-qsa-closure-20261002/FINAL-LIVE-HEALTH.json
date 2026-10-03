@@ -1,0 +1,13 @@
+{
+  "method": "Direct local ssh oh-my-gpu; systemctl show and read-only GET /health after independent restoration review",
+  "service": "flash-next-vllm.service",
+  "MainPID": 188448,
+  "InvocationID": "30e0f4501bfe471c8d9871c8a2090322",
+  "NRestarts": 0,
+  "ActiveState": "active",
+  "SubState": "running",
+  "health_http": 200,
+  "ssh_exit": 0,
+  "same_identity_as_53_request_restoration": true,
+  "no_new_model_request": true
+}

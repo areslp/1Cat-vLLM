@@ -1,0 +1,180 @@
+{
+  "commands": [
+    {
+      "exit": 0,
+      "label": "closed-arm-A0"
+    },
+    {
+      "exit": 0,
+      "label": "memory-actual-closed-A0"
+    },
+    {
+      "exit": 0,
+      "label": "closed-arm-B"
+    },
+    {
+      "exit": 0,
+      "label": "memory-actual-closed-B"
+    },
+    {
+      "exit": 0,
+      "label": "closed-arm-A2"
+    },
+    {
+      "exit": 0,
+      "label": "memory-actual-closed-A2"
+    },
+    {
+      "exit": 0,
+      "label": "wait"
+    },
+    {
+      "exit": 0,
+      "label": "final-window-mirror"
+    },
+    {
+      "exit": 0,
+      "label": "collector-ssh"
+    },
+    {
+      "exit": 0,
+      "label": "collector-mirror"
+    },
+    {
+      "exit": 0,
+      "label": "restoration-ruby"
+    },
+    {
+      "exit": 0,
+      "label": "raw-audit"
+    },
+    {
+      "exit": 0,
+      "label": "memory-actual-final-closed"
+    }
+  ],
+  "events": [
+    {
+      "epoch": 1790993054.3437681,
+      "event": "NATIVE_WAITER_STARTED",
+      "local_ssh_pid": 60269
+    },
+    {
+      "arm": "A0",
+      "epoch": 1790995530.352105,
+      "event": "HOST_CLOSED_ARM_NOTIFICATION"
+    },
+    {
+      "arm": "A0",
+      "epoch": 1790995579.880472,
+      "event": "CLOSED_ARM_MIRROR",
+      "exit": 0
+    },
+    {
+      "arms": [
+        "A0"
+      ],
+      "epoch": 1790995582.485161,
+      "event": "MEMORY_POSTPROCESS_CLOSED",
+      "exit": 0,
+      "output": "/private/tmp/flash-next-step58-20260930/review/context-qsa-run4-memory-review-20261002/actual-closed-A0"
+    },
+    {
+      "arm": "B",
+      "epoch": 1790999250.4941592,
+      "event": "HOST_CLOSED_ARM_NOTIFICATION"
+    },
+    {
+      "arm": "B",
+      "epoch": 1790999300.3257349,
+      "event": "CLOSED_ARM_MIRROR",
+      "exit": 0
+    },
+    {
+      "arms": [
+        "B"
+      ],
+      "epoch": 1790999302.9327009,
+      "event": "MEMORY_POSTPROCESS_CLOSED",
+      "exit": 0,
+      "output": "/private/tmp/flash-next-step58-20260930/review/context-qsa-run4-memory-review-20261002/actual-closed-B"
+    },
+    {
+      "arm": "A2",
+      "epoch": 1791002970.723294,
+      "event": "HOST_CLOSED_ARM_NOTIFICATION"
+    },
+    {
+      "arm": "A2",
+      "epoch": 1791003020.516188,
+      "event": "CLOSED_ARM_MIRROR",
+      "exit": 0
+    },
+    {
+      "arms": [
+        "A2"
+      ],
+      "epoch": 1791003023.188401,
+      "event": "MEMORY_POSTPROCESS_CLOSED",
+      "exit": 0,
+      "output": "/private/tmp/flash-next-step58-20260930/review/context-qsa-run4-memory-review-20261002/actual-closed-A2"
+    },
+    {
+      "epoch": 1791003750.765686,
+      "event": "POST_OUTER_FILE_PRESENT"
+    },
+    {
+      "epoch": 1791003750.769987,
+      "event": "NATIVE_WAITER_EXIT",
+      "exit": 0
+    },
+    {
+      "epoch": 1791003753.7672582,
+      "event": "FINAL_WINDOW_MIRROR_EXIT",
+      "exit": 0
+    },
+    {
+      "epoch": 1791003755.044642,
+      "event": "FINAL_ORIGINAL_COLLECTOR_EXIT",
+      "exit": 0
+    },
+    {
+      "epoch": 1791003756.371899,
+      "event": "FINAL_ORIGINAL_COLLECTOR_MIRROR",
+      "exit": 0
+    },
+    {
+      "epoch": 1791003756.5625432,
+      "event": "RESTORATION_RECOMPUTE_EXIT",
+      "exit": 0
+    },
+    {
+      "arms": [
+        "A0",
+        "B",
+        "A2"
+      ],
+      "epoch": 1791003766.391407,
+      "event": "RAW_AUDIT_EXIT",
+      "exit": 0,
+      "scope": "full"
+    },
+    {
+      "arms": [
+        "A0",
+        "B",
+        "A2"
+      ],
+      "epoch": 1791003773.966016,
+      "event": "MEMORY_POSTPROCESS_CLOSED",
+      "exit": 0,
+      "output": "/private/tmp/flash-next-step58-20260930/review/context-qsa-run4-memory-review-20261002/actual-final-closed"
+    }
+  ],
+  "executable": "/Users/l/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/bin/python3.12",
+  "no_model_requests_or_service_mutations": true,
+  "not_experimental_PASS": true,
+  "orchestrator_exit": 0,
+  "plan_sha256": "355ef8caeee318fc79abad12cf4dcf70b05dd3a822177eb17b03ec2675b64ba4",
+  "runtime": "3.12.13 (main, May 10 2026, 19:20:41) [Clang 22.1.3 ]"
+}

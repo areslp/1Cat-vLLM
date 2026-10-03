@@ -1,0 +1,211 @@
+{
+  "files": [
+    {
+      "bytes": 1548,
+      "path": "CAUSE-REVIEW.json",
+      "sha256": "e67c7bc15c5425da8eb0e70a105765ecf4bfbc3674d5f8f749ad54511dd5ad02"
+    },
+    {
+      "bytes": 1362,
+      "path": "CONTRACT.json",
+      "sha256": "f969b83531fa36aeacfeaaae1a52ba285c05953c1dac7d1ef276ef2d94820124"
+    },
+    {
+      "bytes": 2,
+      "path": "CPU-FINAL-SERVER.exit",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "bytes": 0,
+      "path": "CPU-FINAL-SERVER.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "CPU-FINAL-SERVER.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 2,
+      "path": "CPU-FINAL.exit",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "bytes": 0,
+      "path": "CPU-FINAL.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1200,
+      "path": "CPU-FINAL.stdout",
+      "sha256": "c74c480f8f66e9d4f66abb1515f65d824c57829d39a43377d653ac39b7af5cf2"
+    },
+    {
+      "bytes": 2,
+      "path": "CPU-SEALED-SERVER.exit",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "bytes": 0,
+      "path": "CPU-SEALED-SERVER.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "CPU-SEALED-SERVER.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 2,
+      "path": "CPU-SEALED.exit",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "bytes": 0,
+      "path": "CPU-SEALED.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1200,
+      "path": "CPU-SEALED.stdout",
+      "sha256": "c5eff15a5e811197ea4dfa409556e77452ad9dd48b51a88fffd81371466d3a06"
+    },
+    {
+      "bytes": 2,
+      "path": "CPU-SERVER.exit",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "bytes": 0,
+      "path": "CPU-SERVER.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "CPU-SERVER.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 2,
+      "path": "CPU-WIRE.exit",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "bytes": 0,
+      "path": "CPU-WIRE.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1200,
+      "path": "CPU-WIRE.stdout",
+      "sha256": "d3769d76a100610d458f90d40019123af3301119013dd2c6ebae547a125d9dac"
+    },
+    {
+      "bytes": 2529,
+      "path": "DEPENDENCIES.json",
+      "sha256": "c7509ace6279d3048d55c9815ac0d131c6e25fa6ed1ca597d36004a2b2ec7b04"
+    },
+    {
+      "bytes": 1911,
+      "path": "FRAME-SIZE.json",
+      "sha256": "c03e3e49aa87456e0b21ca489f22053a399b091509e82c28fe82a8eed5e469ee"
+    },
+    {
+      "bytes": 1835,
+      "path": "LOCAL-CPU-EVIDENCE.json",
+      "sha256": "a57db57b92cf33e395a8afb4d2f35e0363431d0351e661a8e5b638cf34961a63"
+    },
+    {
+      "bytes": 4296,
+      "path": "NATIVE-COMMANDS.md",
+      "sha256": "5611dfcada7527c295d656bfc844ce1401f325fa87d6f4cb00b1d9702d8a6c6f"
+    },
+    {
+      "bytes": 1351,
+      "path": "REPORT.md",
+      "sha256": "cb14bfed0dd1b30edd55508d1e675fb5c2bee077460fcaf1ef66ef3ab2179b1e"
+    },
+    {
+      "bytes": 16467,
+      "path": "check_wire.py",
+      "sha256": "738297f1529826dd9796d95c2f9d22f0444908d486e3c8443855b28bbbdbeff3"
+    },
+    {
+      "bytes": 65,
+      "path": "cpu-server1/CLOSED.json",
+      "sha256": "4ac72c5485d4e588316024e39be775cafd8941647a6e756814d043d873754d6c"
+    },
+    {
+      "bytes": 134,
+      "path": "cpu-server1/SERVER.json",
+      "sha256": "92cf0cce8199078137c85995eeadd73372d887de18cc5ca52f859dff996cb667"
+    },
+    {
+      "bytes": 65,
+      "path": "cpu-server2/CLOSED.json",
+      "sha256": "869949073c36dfd40f18f2b0bcb802b4c922480aac7277e53528e9cb4b4d1a90"
+    },
+    {
+      "bytes": 134,
+      "path": "cpu-server2/SERVER.json",
+      "sha256": "e60c1bfcd5286196b7d6eabb2bd22176cd98e68f2fa013791cef2891465db604"
+    },
+    {
+      "bytes": 65,
+      "path": "cpu-server3/CLOSED.json",
+      "sha256": "869949073c36dfd40f18f2b0bcb802b4c922480aac7277e53528e9cb4b4d1a90"
+    },
+    {
+      "bytes": 134,
+      "path": "cpu-server3/SERVER.json",
+      "sha256": "e3bc9a93d3478f3c0ac13dac33effe19154cab7544ef4816f35de63b8e27e5d7"
+    },
+    {
+      "bytes": 274534,
+      "path": "cpu-wire1/RESULT.json",
+      "sha256": "2caac91b80772624b0c0c5e5820ee93c29c8a93c83c9003f2f62574dbc4e9344"
+    },
+    {
+      "bytes": 274915,
+      "path": "cpu-wire2/RESULT.json",
+      "sha256": "63e4557e0acdde43ecf96c68bef284feb3c1343c148e684d8bf8e98f2f5168b7"
+    },
+    {
+      "bytes": 274916,
+      "path": "cpu-wire3/RESULT.json",
+      "sha256": "c493eed2e0c8dde43e589568a853a4c1c3a20a5f2a3b48085d9422f9fdba537a"
+    },
+    {
+      "bytes": 954,
+      "path": "dependencies.py",
+      "sha256": "24d0fc96214ab14208543a5e84db21496779dbbaaa04e7002e294aaf8ef46149"
+    },
+    {
+      "bytes": 10456,
+      "path": "transport_deadline_context.py",
+      "sha256": "a60c9910a492b2666a33e32ed705a6085644c9626065c313a6d4474954ea7c14"
+    },
+    {
+      "bytes": 11813,
+      "path": "transport_worker.py",
+      "sha256": "a309a920992e9be021026b293cf4fd7a40349b1755103acd53dde9ea5aa2b998"
+    }
+  ],
+  "raw_evidence_trees_retained_not_covered_by_this_source_payload_seal": [
+    "cpu-wire1",
+    "cpu-wire2",
+    "cpu-wire3",
+    "cpu-server1",
+    "cpu-server2",
+    "cpu-server3"
+  ],
+  "source_manifest_excludes_itself": true,
+  "stable_sources": {
+    "DEPENDENCIES.json": "c7509ace6279d3048d55c9815ac0d131c6e25fa6ed1ca597d36004a2b2ec7b04",
+    "check_wire.py": "738297f1529826dd9796d95c2f9d22f0444908d486e3c8443855b28bbbdbeff3",
+    "dependencies.py": "24d0fc96214ab14208543a5e84db21496779dbbaaa04e7002e294aaf8ef46149",
+    "transport_deadline_context.py": "a60c9910a492b2666a33e32ed705a6085644c9626065c313a6d4474954ea7c14",
+    "transport_worker.py": "a309a920992e9be021026b293cf4fd7a40349b1755103acd53dde9ea5aa2b998"
+  },
+  "status": "SOURCE_CPU_ONLY_NOT_TARGET_SERVICE_ADMISSION"
+}

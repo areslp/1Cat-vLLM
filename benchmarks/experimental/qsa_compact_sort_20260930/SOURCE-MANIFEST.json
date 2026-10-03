@@ -1,0 +1,1610 @@
+{
+  "purpose": "Source and bounded result snapshot for independent review; not runtime integration or a standalone replay distribution",
+  "host": "oh-my-gpu",
+  "host_evidence_root": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930",
+  "tested_vllm_head": "2dd437062a971a83d1f905249d288269c8daf501",
+  "git_snapshot_base": "fe67339ddf862df0441a4e844fc664d9cafdffd0",
+  "plan_sha256": "355ef8caeee318fc79abad12cf4dcf70b05dd3a822177eb17b03ec2675b64ba4",
+  "host_archive_manifest_sha256": "e5e6824e1cecc2c938859df35e204dfb98d9332e2b691170d18dc90cc6e1e24e",
+  "copied_bytes_unchanged": true,
+  "files": [
+    {
+      "path": "snapshot/REVIEW-HANDOFF-20261003.md",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/REVIEW-HANDOFF-20261003.md",
+      "bytes": 7366,
+      "sha256": "eca2ce9cb4e2a6d86f5fa3171be361750a2d9cd2a4e1b8806d4c9038d4b3c10e"
+    },
+    {
+      "path": "snapshot/REVIEW-PROMPT-20261003.md",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/REVIEW-PROMPT-20261003.md",
+      "bytes": 2834,
+      "sha256": "07015cbbe43bd0a602e72a3b8485364ee48eb99cde12801f68b4e2d463954711"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep2/MANIFEST.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep2/MANIFEST.json",
+      "bytes": 10929,
+      "sha256": "22c303f0cc87664e80a60e0d819fd3134650b28679c4992160a76415b6805951"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep3/MANIFEST.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep3/MANIFEST.json",
+      "bytes": 10511,
+      "sha256": "e8c9432b2d45394f94d2a74d748da1ddfcec45e41596ffc0e793a2f203a926a0"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/CONTRACT.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/CONTRACT.json",
+      "bytes": 11043,
+      "sha256": "3861cba54c07c889665bbf2934f552f715060fddc584e6c8207e1252ef18f135"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/DEPENDENCIES.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/DEPENDENCIES.json",
+      "bytes": 85118,
+      "sha256": "e0cc8478252fce56bcfde6a6f5c998d4c61a9d0f1df046f95dd18a06920a25e1"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/MANIFEST.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/MANIFEST.json",
+      "bytes": 18068,
+      "sha256": "31efd893097bf3768f9d6b958143f82b59e59cf1e8efa251189875d6fb15a079"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/REPORT.md",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/REPORT.md",
+      "bytes": 3321,
+      "sha256": "9a0f4e29da8ce58f673fbfa0ef60a17704d571108ce15e8c4d1dc14ae0b61c92"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/assemble.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/assemble.py",
+      "bytes": 4243,
+      "sha256": "8ee917c188a0d769102eb744c7c5461e5ede9b13176e805931f59bcbc7a1deee"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/check_budget_cpu.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/check_budget_cpu.py",
+      "bytes": 4442,
+      "sha256": "40d2904c93668fba34b769e950c9826d6c21c3db847f5f8a6bca1db215db2daf"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/check_transport_binding_cpu.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/check_transport_binding_cpu.py",
+      "bytes": 7092,
+      "sha256": "a6b263e8c56d83aebee2c638072914d8b84fc46cbfa194e2fb7820ef029a907d"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/collect_startup.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/collect_startup.py",
+      "bytes": 749,
+      "sha256": "7288b50faa4319d5431724e36b5ebe848854b62b373be573693933b18fc97efa"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/common.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/common.py",
+      "bytes": 930,
+      "sha256": "b4328f211e7b36e5185a2e7faa9b08124bc8e33fa605321335c34b51d85b014e"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/control/expiry_restore.sh",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/control/expiry_restore.sh",
+      "bytes": 926,
+      "sha256": "95af987c517732a792da62faf1f6376d976620eaeaf97c126ef35af74b077695"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/control/launch_outer.sh",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/control/launch_outer.sh",
+      "bytes": 1785,
+      "sha256": "7dfe47d3c30c146251cdc3cd6f5750700e0fc9a33b9a28cfce5ac36d3eb0c288"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/control/offline_window.sh",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/control/offline_window.sh",
+      "bytes": 2998,
+      "sha256": "078388960463b68c2415638eae021fe2f6fed527de306532c91f73a9f3d2966a"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/control/orchestrator_evidence.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/control/orchestrator_evidence.py",
+      "bytes": 4230,
+      "sha256": "001af3a5f27007ffdeea605c6215035add5a47cd68b10840776582de083b8fb2"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/control/run_and_restore.sh",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/control/run_and_restore.sh",
+      "bytes": 2205,
+      "sha256": "a6fca5b050f0c9a7e92d2debb1eba87fd492a17677c0bd7308ed452513daa4ae"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/control/step58_control.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/control/step58_control.py",
+      "bytes": 20244,
+      "sha256": "b0cf6fe380af24b870cf5bca91d100385d63c77f2b98e20841d3106a153f53d6"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/document_delta.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/document_delta.py",
+      "bytes": 3634,
+      "sha256": "ac730ac7ff5f85e35ee7e6b356da6618ea1e537816a883fc65f85a7bbd4950c7"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/execution_budget.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/execution_budget.py",
+      "bytes": 1836,
+      "sha256": "1a95eb2f6e27ac3937df103b2ad7f205b6b59ecf804452d601fd681a7d5f9577"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/final_guard.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/final_guard.py",
+      "bytes": 2075,
+      "sha256": "b957629f98d424ed87dbb0c6b13f40538cec37e65020ca49c51ffdeec1d1db3a"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/finalize_contract.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/finalize_contract.py",
+      "bytes": 2588,
+      "sha256": "cc59ae0d618ff1adfb9d42e97ea9a116254efa4eed6c2da78dfd2fee05404664"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/freeze.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/freeze.py",
+      "bytes": 4019,
+      "sha256": "013db8ecd1dcae91131837b33ced0a09124cfbe0ec99d03506e2c7b1cf58053c"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/guard_activation.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/guard_activation.py",
+      "bytes": 4039,
+      "sha256": "c275dbf986109dbe9e460ca574f4394b99cb571d48e9feabec47773a75a787c1"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/http_runner.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/http_runner.py",
+      "bytes": 8840,
+      "sha256": "19ebe828359f4548254376b19b2f65e4e98536110819a939fb816a8620e45a07"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/identity_contract.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/identity_contract.py",
+      "bytes": 2583,
+      "sha256": "7a96e11602306ef2a6df3aadbb14626b8ef2fb835f8ae310fab6ef83f5b7c5ea"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/nvml_capture.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/nvml_capture.py",
+      "bytes": 4704,
+      "sha256": "617c33b378e918f4742638083b41cf51a5d302a1a6069518f2993d2aa516f643"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/prepare_plan.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/prepare_plan.py",
+      "bytes": 3826,
+      "sha256": "f10d046d550c553172b9e642d32f09f18d0490c79549dbbf812bf7d3cf86aa43"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/restoration/evaluate.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/restoration/evaluate.py",
+      "bytes": 3315,
+      "sha256": "c669cbdc48af3173081c25fed424604184c8aebb7f7adfa8cb2a78f23c9a1346"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/restoration/original-check/bench.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/restoration/original-check/bench.py",
+      "bytes": 5695,
+      "sha256": "31ffd0f25984027ec247de754b3f8043138fc8429de9e563c3acc43d95a7e228"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/restoration/original-check/bench10.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/restoration/original-check/bench10.py",
+      "bytes": 5871,
+      "sha256": "6c23bcc2a921481ac27b05eac2fba5870d0e22f85022a1b94aea6cbf9ee99081"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/restoration/original-check/client.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/restoration/original-check/client.py",
+      "bytes": 6486,
+      "sha256": "ab379812dad55574456989367c1a21f40904d4bfb068fbf8c04424bcf14bcd9c"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/restoration/original-check/closure_requests.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/restoration/original-check/closure_requests.py",
+      "bytes": 8556,
+      "sha256": "6ca8596c93926a8e155f44cce3515d7515033a246987a95032b80f9b1c913844"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/restoration/original-check/exporter_fence.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/restoration/original-check/exporter_fence.py",
+      "bytes": 2180,
+      "sha256": "9c0f2c81720a1d49f1c49b932409160c750a99c11cbd38bcb990949dc2ce4166"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/restoration/original-check/perf38.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/restoration/original-check/perf38.py",
+      "bytes": 7133,
+      "sha256": "b34e7da0bcd38c7341096a49ae6905a1a85a45b1a0ee6bc1db108691b033ab23"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/restoration/original-check/snapshot.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/restoration/original-check/snapshot.py",
+      "bytes": 8258,
+      "sha256": "e0da9f35041abce071882725673ce1efbca38d4f6dabd685c1693d08350582dc"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/restoration/original-check/supplement.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/restoration/original-check/supplement.py",
+      "bytes": 1718,
+      "sha256": "d822033bc03b7876ad12eb5e2d600f21aaa37abfee9429c0f28dd0dc399aac52"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/restoration/original-check/test_exporter_fence.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/restoration/original-check/test_exporter_fence.py",
+      "bytes": 2482,
+      "sha256": "896d2993fe3ad76c80d86dc9f9cbcf808672f3a84f94be78ae8d26c488918e85"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/restoration/verify_original.sh",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/restoration/verify_original.sh",
+      "bytes": 1164,
+      "sha256": "e45abd073477072bc12e685312f0cf911d061affb0ff02ea12d96236883c4c09"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/restoration/wait_original.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/restoration/wait_original.py",
+      "bytes": 1643,
+      "sha256": "78af7c2724f3a57c9746a1a2b80a67cd0fcff4d2a5a69ee2c9e4e3f1d59f4550"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/seal_transport.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/seal_transport.py",
+      "bytes": 5278,
+      "sha256": "998dcbe935fe429805253eabb5fb688f629bee85189d2515dc6af0e3b6ab7419"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/service_binding.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/service_binding.py",
+      "bytes": 10364,
+      "sha256": "1621a1f2ec77457668d208dbaa9b72b0f15b8db73e8e51e17fccb91f2614b6a8"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/source/ASSEMBLY.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/source/ASSEMBLY.json",
+      "bytes": 850,
+      "sha256": "f4fcac679d2a23973f2c7784b3ee369e89b0a70aec6ac18488a57605dfd2b5ad"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/source/INTEGRATION-REVIEW.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/source/INTEGRATION-REVIEW.json",
+      "bytes": 11272,
+      "sha256": "4bbc07e9fd59259c8bc1f6722a1290283903a487584588861bbe36e26d570f65"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/source/native_ops.production.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/source/native_ops.production.py",
+      "bytes": 40990,
+      "sha256": "089f362e32253c2d2e3bcd136e51235f8dd95a4c69dac548493fe18854ee520e"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/source/restoration-external-reference-pins.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/source/restoration-external-reference-pins.json",
+      "bytes": 3536,
+      "sha256": "b78fc830cd82bb465d1876d3c127d52ffbd023114d7cb33870eeee0d9322ba5b"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/stage_window.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/stage_window.py",
+      "bytes": 1398,
+      "sha256": "e52c9d85d858fe79bfd17826e7fd105f5ac456b35a1e8992cfe631e7fe41d408"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/startup.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/startup.py",
+      "bytes": 11970,
+      "sha256": "dd2c79fa7da6b5b8bb697f7d5279bd66e6d3d8c9d3300f66c8eab793fdd1fec1"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/transport_activation.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/transport_activation.py",
+      "bytes": 5256,
+      "sha256": "dd4cb5f09e7f346c540f250d03a9022962de97dbc4d1c3e92d019d914b2268a1"
+    },
+    {
+      "path": "snapshot/context-qsa-control-prep4/verify_source.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-control-prep4/verify_source.py",
+      "bytes": 3070,
+      "sha256": "2f0fa2c483b1122c6c150e1134141e25e85edd96ad026c32fee8bc5cd59530dc"
+    },
+    {
+      "path": "snapshot/context-qsa-prep1/CONTRACT.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-prep1/CONTRACT.json",
+      "bytes": 15124,
+      "sha256": "f124ccd6c2afd7b31f876ea3d55b61b98dd903399ad8baa585286e7473fb72bb"
+    },
+    {
+      "path": "snapshot/context-qsa-prep1/CONTRACT.md",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-prep1/CONTRACT.md",
+      "bytes": 4592,
+      "sha256": "fe6f819d8938256f0cd05845b0e062355977eaab077824e0387264f3cab6b338"
+    },
+    {
+      "path": "snapshot/context-qsa-prep1/DEPENDENCIES.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-prep1/DEPENDENCIES.json",
+      "bytes": 2529,
+      "sha256": "c7509ace6279d3048d55c9815ac0d131c6e25fa6ed1ca597d36004a2b2ec7b04"
+    },
+    {
+      "path": "snapshot/context-qsa-prep1/MANIFEST.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-prep1/MANIFEST.json",
+      "bytes": 30464,
+      "sha256": "728a58ebe0269cb48e9d3dd57dd60fe640a6598c5659066185450a2b20435b59"
+    },
+    {
+      "path": "snapshot/context-qsa-prep1/VENDOR.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-prep1/VENDOR.json",
+      "bytes": 1408,
+      "sha256": "026e65c080102d800bb139d60086e4518ad56ccb73459d14224b9a647f2890b4"
+    },
+    {
+      "path": "snapshot/context-qsa-prep1/analyze.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-prep1/analyze.py",
+      "bytes": 7472,
+      "sha256": "7146b85cdc8500214e511e5137729e084d6dcf884459d2b005401778e7dabe39"
+    },
+    {
+      "path": "snapshot/context-qsa-prep1/check_cpu.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-prep1/check_cpu.py",
+      "bytes": 11513,
+      "sha256": "0f7afb7325e37ce5d8095fe4c916b8ed80f013643995b985cd80beb579ea5832"
+    },
+    {
+      "path": "snapshot/context-qsa-prep1/check_memory.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-prep1/check_memory.py",
+      "bytes": 4599,
+      "sha256": "133280ce00192d5f5428ce01c413b6799f8da1bd12e63326e818ef9bb7299e41"
+    },
+    {
+      "path": "snapshot/context-qsa-prep1/context_metrics.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-prep1/context_metrics.py",
+      "bytes": 5517,
+      "sha256": "d3fabd4010ce6a45f6921574500e1c0cb20fe5dad80b9efd36924e28bb53706a"
+    },
+    {
+      "path": "snapshot/context-qsa-prep1/dependencies.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-prep1/dependencies.py",
+      "bytes": 954,
+      "sha256": "24d0fc96214ab14208543a5e84db21496779dbbaaa04e7002e294aaf8ef46149"
+    },
+    {
+      "path": "snapshot/context-qsa-prep1/freeze_matrix.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-prep1/freeze_matrix.py",
+      "bytes": 8520,
+      "sha256": "40d61cffe4b086b121a836861ce8a4eaf096eeb31a7618061bf4f558c17bfb32"
+    },
+    {
+      "path": "snapshot/context-qsa-prep1/matrix.frozen.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-prep1/matrix.frozen.json",
+      "bytes": 36970,
+      "sha256": "c4978526d57d2d8b3ab69ef138b8edceaa4c4740835e53510cd623c37c2db6c0"
+    },
+    {
+      "path": "snapshot/context-qsa-prep1/prime_guard.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-prep1/prime_guard.py",
+      "bytes": 3018,
+      "sha256": "0c6d3e68d939bc0f5175ba09bf251e12396aff482c011b746c3bd870b25fe2f1"
+    },
+    {
+      "path": "snapshot/context-qsa-prep1/run_cpu.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-prep1/run_cpu.py",
+      "bytes": 2427,
+      "sha256": "9e1d14451a7dd78e2667d490baf9ea0e2d6f2c8f59661f2789b556a4c6cca28e"
+    },
+    {
+      "path": "snapshot/context-qsa-prep1/runner.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-prep1/runner.py",
+      "bytes": 10665,
+      "sha256": "578bb48ae5b8b9d33f08454f86f27181892f6e4aef6197f479177e2a1d0483ba"
+    },
+    {
+      "path": "snapshot/context-qsa-prep1/seal.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-prep1/seal.py",
+      "bytes": 2388,
+      "sha256": "431e0fc901ca3e113df2f4346317ff8a4808edab3797917fb25ea6950bcf0d33"
+    },
+    {
+      "path": "snapshot/context-qsa-prep1/sources/input-32768.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-prep1/sources/input-32768.json",
+      "bytes": 187986,
+      "sha256": "49f84812ea46e3ba32171f6f57ed7ca6a5634c4b0324f2dcb41cfe9c5b32125e"
+    },
+    {
+      "path": "snapshot/context-qsa-prep1/sources/input-8192.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-prep1/sources/input-8192.json",
+      "bytes": 47067,
+      "sha256": "37e8cb0fa41cf30341272b9c0169b41b5205d43481d0ab83f6e3fcdefecd67f7"
+    },
+    {
+      "path": "snapshot/context-qsa-prep1/transport_deadline_context.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-prep1/transport_deadline_context.py",
+      "bytes": 10456,
+      "sha256": "a60c9910a492b2666a33e32ed705a6085644c9626065c313a6d4474954ea7c14"
+    },
+    {
+      "path": "snapshot/context-qsa-prep1/transport_worker.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-prep1/transport_worker.py",
+      "bytes": 9485,
+      "sha256": "d12867e4842b4f68e076d76a252f3d90e80bd57e80c81778a42b4ab75eeea67d"
+    },
+    {
+      "path": "snapshot/context-qsa-resource-control-prep1/CONTRACT.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-resource-control-prep1/CONTRACT.json",
+      "bytes": 1586,
+      "sha256": "5165743bcc362d451c7bfe70a9deb2c77ae537d98e6eada5a38ad6d9dd2af9e3"
+    },
+    {
+      "path": "snapshot/context-qsa-resource-control-prep1/nvml_capture.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-resource-control-prep1/nvml_capture.py",
+      "bytes": 4704,
+      "sha256": "617c33b378e918f4742638083b41cf51a5d302a1a6069518f2993d2aa516f643"
+    },
+    {
+      "path": "snapshot/context-qsa-run4/analysis/RESULT.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/analysis/RESULT.json",
+      "bytes": 80228,
+      "sha256": "1e6faaaa0edebd923c22d2de034fd9ab52ad6c2aa928870bfc53c0f94c8ba8fc"
+    },
+    {
+      "path": "snapshot/context-qsa-run4/control/expiry_restore.sh",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/expiry_restore.sh",
+      "bytes": 926,
+      "sha256": "95af987c517732a792da62faf1f6376d976620eaeaf97c126ef35af74b077695"
+    },
+    {
+      "path": "snapshot/context-qsa-run4/control/launch_outer.sh",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/launch_outer.sh",
+      "bytes": 1785,
+      "sha256": "7dfe47d3c30c146251cdc3cd6f5750700e0fc9a33b9a28cfce5ac36d3eb0c288"
+    },
+    {
+      "path": "snapshot/context-qsa-run4/control/offline_window.sh",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/offline_window.sh",
+      "bytes": 2998,
+      "sha256": "078388960463b68c2415638eae021fe2f6fed527de306532c91f73a9f3d2966a"
+    },
+    {
+      "path": "snapshot/context-qsa-run4/control/orchestrator_evidence.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/orchestrator_evidence.py",
+      "bytes": 4230,
+      "sha256": "001af3a5f27007ffdeea605c6215035add5a47cd68b10840776582de083b8fb2"
+    },
+    {
+      "path": "snapshot/context-qsa-run4/control/plan.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/plan.json",
+      "bytes": 127573,
+      "sha256": "355ef8caeee318fc79abad12cf4dcf70b05dd3a822177eb17b03ec2675b64ba4"
+    },
+    {
+      "path": "snapshot/context-qsa-run4/control/run_and_restore.sh",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/run_and_restore.sh",
+      "bytes": 2205,
+      "sha256": "a6fca5b050f0c9a7e92d2debb1eba87fd492a17677c0bd7308ed452513daa4ae"
+    },
+    {
+      "path": "snapshot/context-qsa-run4/control/step58_control.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/control/step58_control.py",
+      "bytes": 20244,
+      "sha256": "b0cf6fe380af24b870cf5bca91d100385d63c77f2b98e20841d3106a153f53d6"
+    },
+    {
+      "path": "snapshot/context-qsa-run4/restoration/evaluate.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/evaluate.py",
+      "bytes": 3315,
+      "sha256": "c669cbdc48af3173081c25fed424604184c8aebb7f7adfa8cb2a78f23c9a1346"
+    },
+    {
+      "path": "snapshot/context-qsa-run4/restoration/original-check/bench.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/bench.py",
+      "bytes": 5695,
+      "sha256": "31ffd0f25984027ec247de754b3f8043138fc8429de9e563c3acc43d95a7e228"
+    },
+    {
+      "path": "snapshot/context-qsa-run4/restoration/original-check/bench10.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/bench10.py",
+      "bytes": 5871,
+      "sha256": "6c23bcc2a921481ac27b05eac2fba5870d0e22f85022a1b94aea6cbf9ee99081"
+    },
+    {
+      "path": "snapshot/context-qsa-run4/restoration/original-check/client.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/client.py",
+      "bytes": 6486,
+      "sha256": "ab379812dad55574456989367c1a21f40904d4bfb068fbf8c04424bcf14bcd9c"
+    },
+    {
+      "path": "snapshot/context-qsa-run4/restoration/original-check/closure_requests.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/closure_requests.py",
+      "bytes": 8556,
+      "sha256": "6ca8596c93926a8e155f44cce3515d7515033a246987a95032b80f9b1c913844"
+    },
+    {
+      "path": "snapshot/context-qsa-run4/restoration/original-check/exporter_fence.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/exporter_fence.py",
+      "bytes": 2180,
+      "sha256": "9c0f2c81720a1d49f1c49b932409160c750a99c11cbd38bcb990949dc2ce4166"
+    },
+    {
+      "path": "snapshot/context-qsa-run4/restoration/original-check/perf38.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/perf38.py",
+      "bytes": 7133,
+      "sha256": "b34e7da0bcd38c7341096a49ae6905a1a85a45b1a0ee6bc1db108691b033ab23"
+    },
+    {
+      "path": "snapshot/context-qsa-run4/restoration/original-check/snapshot.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/snapshot.py",
+      "bytes": 8258,
+      "sha256": "e0da9f35041abce071882725673ce1efbca38d4f6dabd685c1693d08350582dc"
+    },
+    {
+      "path": "snapshot/context-qsa-run4/restoration/original-check/supplement.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/supplement.py",
+      "bytes": 1718,
+      "sha256": "d822033bc03b7876ad12eb5e2d600f21aaa37abfee9429c0f28dd0dc399aac52"
+    },
+    {
+      "path": "snapshot/context-qsa-run4/restoration/original-check/test_exporter_fence.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/original-check/test_exporter_fence.py",
+      "bytes": 2482,
+      "sha256": "896d2993fe3ad76c80d86dc9f9cbcf808672f3a84f94be78ae8d26c488918e85"
+    },
+    {
+      "path": "snapshot/context-qsa-run4/restoration/verify_original.sh",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/verify_original.sh",
+      "bytes": 1164,
+      "sha256": "e45abd073477072bc12e685312f0cf911d061affb0ff02ea12d96236883c4c09"
+    },
+    {
+      "path": "snapshot/context-qsa-run4/restoration/wait_original.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-run4/restoration/wait_original.py",
+      "bytes": 1643,
+      "sha256": "78af7c2724f3a57c9746a1a2b80a67cd0fcff4d2a5a69ee2c9e4e3f1d59f4550"
+    },
+    {
+      "path": "snapshot/context-qsa-transport-prep1/CAUSE-REVIEW.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-transport-prep1/CAUSE-REVIEW.json",
+      "bytes": 1548,
+      "sha256": "e67c7bc15c5425da8eb0e70a105765ecf4bfbc3674d5f8f749ad54511dd5ad02"
+    },
+    {
+      "path": "snapshot/context-qsa-transport-prep1/CONTRACT.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-transport-prep1/CONTRACT.json",
+      "bytes": 1362,
+      "sha256": "f969b83531fa36aeacfeaaae1a52ba285c05953c1dac7d1ef276ef2d94820124"
+    },
+    {
+      "path": "snapshot/context-qsa-transport-prep1/DEPENDENCIES.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-transport-prep1/DEPENDENCIES.json",
+      "bytes": 2529,
+      "sha256": "c7509ace6279d3048d55c9815ac0d131c6e25fa6ed1ca597d36004a2b2ec7b04"
+    },
+    {
+      "path": "snapshot/context-qsa-transport-prep1/FRAME-SIZE.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-transport-prep1/FRAME-SIZE.json",
+      "bytes": 1911,
+      "sha256": "c03e3e49aa87456e0b21ca489f22053a399b091509e82c28fe82a8eed5e469ee"
+    },
+    {
+      "path": "snapshot/context-qsa-transport-prep1/LOCAL-CPU-EVIDENCE.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-transport-prep1/LOCAL-CPU-EVIDENCE.json",
+      "bytes": 1835,
+      "sha256": "a57db57b92cf33e395a8afb4d2f35e0363431d0351e661a8e5b638cf34961a63"
+    },
+    {
+      "path": "snapshot/context-qsa-transport-prep1/MANIFEST.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-transport-prep1/MANIFEST.json",
+      "bytes": 6606,
+      "sha256": "6bda93a24d43514e44a5697fa4d5bc92f58b59bc1ae413e7164ba9466c56af66"
+    },
+    {
+      "path": "snapshot/context-qsa-transport-prep1/NATIVE-COMMANDS.md",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-transport-prep1/NATIVE-COMMANDS.md",
+      "bytes": 4296,
+      "sha256": "5611dfcada7527c295d656bfc844ce1401f325fa87d6f4cb00b1d9702d8a6c6f"
+    },
+    {
+      "path": "snapshot/context-qsa-transport-prep1/REPORT.md",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-transport-prep1/REPORT.md",
+      "bytes": 1351,
+      "sha256": "cb14bfed0dd1b30edd55508d1e675fb5c2bee077460fcaf1ef66ef3ab2179b1e"
+    },
+    {
+      "path": "snapshot/context-qsa-transport-prep1/check_wire.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-transport-prep1/check_wire.py",
+      "bytes": 16467,
+      "sha256": "738297f1529826dd9796d95c2f9d22f0444908d486e3c8443855b28bbbdbeff3"
+    },
+    {
+      "path": "snapshot/context-qsa-transport-prep1/dependencies.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-transport-prep1/dependencies.py",
+      "bytes": 954,
+      "sha256": "24d0fc96214ab14208543a5e84db21496779dbbaaa04e7002e294aaf8ef46149"
+    },
+    {
+      "path": "snapshot/context-qsa-transport-prep1/transport_deadline_context.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-transport-prep1/transport_deadline_context.py",
+      "bytes": 10456,
+      "sha256": "a60c9910a492b2666a33e32ed705a6085644c9626065c313a6d4474954ea7c14"
+    },
+    {
+      "path": "snapshot/context-qsa-transport-prep1/transport_worker.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/context-qsa-transport-prep1/transport_worker.py",
+      "bytes": 11813,
+      "sha256": "a309a920992e9be021026b293cf4fd7a40349b1755103acd53dde9ea5aa2b998"
+    },
+    {
+      "path": "snapshot/implementation/buildops/in-cgroup.sh",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/implementation/buildops/in-cgroup.sh",
+      "bytes": 2090,
+      "sha256": "dc352ce1fa9af17121cd05917805d5565a56e7768f88b22491f5418b211490e9"
+    },
+    {
+      "path": "snapshot/implementation/buildops/read-original-resource.sh",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/implementation/buildops/read-original-resource.sh",
+      "bytes": 314,
+      "sha256": "cbf5a493fd5cb350392df41fc84919f9c63d5c97d11cdc50456cb6d4d1b2e372"
+    },
+    {
+      "path": "snapshot/implementation/buildops/run-build.sh",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/implementation/buildops/run-build.sh",
+      "bytes": 3645,
+      "sha256": "b501eda19fa19cf6c6419c742e30d20465f053eac17d7dc190f413d4c52e859b"
+    },
+    {
+      "path": "snapshot/implementation/command-contract.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/implementation/command-contract.json",
+      "bytes": 3676,
+      "sha256": "842ca9836354714542ab7513479ddb86c6b97262eb517b75bbe9788fb097fec2"
+    },
+    {
+      "path": "snapshot/implementation/contract.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/implementation/contract.json",
+      "bytes": 4156,
+      "sha256": "e2a4abcff807ae2923c723f057a3f472433b8a5ce99da4434a956e25d5fbfdc1"
+    },
+    {
+      "path": "snapshot/implementation/harness/compact_contract.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/implementation/harness/compact_contract.py",
+      "bytes": 2343,
+      "sha256": "6a3ebba6e7726555ce3b2bc693e47be3184d317203336cd5fbca7b48a2e70d52"
+    },
+    {
+      "path": "snapshot/implementation/harness/cost_gate58.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/implementation/harness/cost_gate58.py",
+      "bytes": 2723,
+      "sha256": "3ba3bea0beb8479eb1aca7bb49607daf95aaca998f8a55e22c2b3f8199068fdb"
+    },
+    {
+      "path": "snapshot/implementation/harness/probe58.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/implementation/harness/probe58.py",
+      "bytes": 16865,
+      "sha256": "017aa5f5ed8abe265549835870d761a4c26d75e5650fed161c9633dab9633717"
+    },
+    {
+      "path": "snapshot/implementation/harness/test_compact_contract.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/implementation/harness/test_compact_contract.py",
+      "bytes": 4981,
+      "sha256": "3b66d94789e98362f7b9e1b2c1d558e3ccb10234c21bebe02fb0458a001db678"
+    },
+    {
+      "path": "snapshot/implementation/reference54/CONTRACT.md",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/implementation/reference54/CONTRACT.md",
+      "bytes": 2995,
+      "sha256": "3e3bfcbc69b9e2cd74c93dc6e2edb0f5128563280d6a0d39878d4b2d2b46a8c8"
+    },
+    {
+      "path": "snapshot/implementation/reference54/source/IMPLEMENTATION.md",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/implementation/reference54/source/IMPLEMENTATION.md",
+      "bytes": 3303,
+      "sha256": "df94a0c6ffe5c4de3781af57a93594c4a925d3fd03b94504ffb650c1d439ad5b"
+    },
+    {
+      "path": "snapshot/implementation/reference54/source/ORIGINAL-LICENSE",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/implementation/reference54/source/ORIGINAL-LICENSE",
+      "bytes": 1493,
+      "sha256": "f5bb48b59e45ad3f1481627d8906448b456ebed0d31a874cdf2a12f1e3a8854f"
+    },
+    {
+      "path": "snapshot/implementation/reference54/source/bindings.cpp",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/implementation/reference54/source/bindings.cpp",
+      "bytes": 1104,
+      "sha256": "f4ccb78e474e41827ce794039356cfcc75d9ffc783e4c78f74c046b287ab17a8"
+    },
+    {
+      "path": "snapshot/implementation/reference54/source/build54.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/implementation/reference54/source/build54.py",
+      "bytes": 1145,
+      "sha256": "8e198d0f9bf45630722e6ce7dd58a3172384c3d49371aaf1a9a1eb9933261387"
+    },
+    {
+      "path": "snapshot/implementation/reference54/source/planner-kernel-candidate.inc",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/implementation/reference54/source/planner-kernel-candidate.inc",
+      "bytes": 10749,
+      "sha256": "ca0ae36dfb0ef29a5f3b801bd8e37db76e35c4df4742988642a0bef42f8439f6"
+    },
+    {
+      "path": "snapshot/implementation/reference54/source/planner54.cu",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/implementation/reference54/source/planner54.cu",
+      "bytes": 20440,
+      "sha256": "2601f0e009da05eeba4e41726cc489696affd6e234b0192f509f02b6aa94ac92"
+    },
+    {
+      "path": "snapshot/implementation/reference54/source/reference/flash_decode_paged.cu",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/implementation/reference54/source/reference/flash_decode_paged.cu",
+      "bytes": 321617,
+      "sha256": "ec1b977a218f4663a8f92a892c603696164455cb886235e9a603615d8b12dd7a"
+    },
+    {
+      "path": "snapshot/implementation/reference54/source/reference/planner-kernel-reference.inc",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/implementation/reference54/source/reference/planner-kernel-reference.inc",
+      "bytes": 11490,
+      "sha256": "ccc018449e23273bd89da169b3e8078a3cd83ca2a9132aedaf616f4703b7ad19"
+    },
+    {
+      "path": "snapshot/implementation/reference54/source/reference/release-manifest.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/implementation/reference54/source/reference/release-manifest.json",
+      "bytes": 8785,
+      "sha256": "8881a26f8044e60c0e983b9007ce48ae8c8543adf9997a709c237021138daba5"
+    },
+    {
+      "path": "snapshot/implementation/source/bindings.cpp",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/implementation/source/bindings.cpp",
+      "bytes": 1104,
+      "sha256": "f4ccb78e474e41827ce794039356cfcc75d9ffc783e4c78f74c046b287ab17a8"
+    },
+    {
+      "path": "snapshot/implementation/source/build58.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/implementation/source/build58.py",
+      "bytes": 2014,
+      "sha256": "3c89a0a11abe876b9debfd212bc2be109b326f74f47aaa1902491b24020c0713"
+    },
+    {
+      "path": "snapshot/implementation/source/planner58.cu",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/implementation/source/planner58.cu",
+      "bytes": 24013,
+      "sha256": "dcf2d7004b23640534ea1f6d6009f48ac92c99184bb7bcfd688d3f63094a6974"
+    },
+    {
+      "path": "snapshot/mixed-diagnostic-20261002/async_budget.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/mixed-diagnostic-20261002/async_budget.py",
+      "bytes": 8439,
+      "sha256": "af559a836a5cd18482986a60a51dd5c879ec933d064f3dc9efc62ec0f8991238"
+    },
+    {
+      "path": "snapshot/review/context-qsa-closure-20261002/ARCHIVE-READBACK.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-closure-20261002/ARCHIVE-READBACK.json",
+      "bytes": 340,
+      "sha256": "af9554847a82ec5d97c1d3c714f4d17e6da5cfb2b965041ad19348b82eec7c50"
+    },
+    {
+      "path": "snapshot/review/context-qsa-closure-20261002/CONTEXT-RESULTS.md",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-closure-20261002/CONTEXT-RESULTS.md",
+      "bytes": 4518,
+      "sha256": "08ee1f061ce0cdec73df96385a133258a82ee725551343b0ac1184d46e29cb00"
+    },
+    {
+      "path": "snapshot/review/context-qsa-closure-20261002/FINAL-LIVE-HEALTH.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-closure-20261002/FINAL-LIVE-HEALTH.json",
+      "bytes": 431,
+      "sha256": "2a38a3aee7681c07aa35787a8035b30e4d76650efc137d237e36f280026c1d9e"
+    },
+    {
+      "path": "snapshot/review/context-qsa-closure-20261002/PRE-CLOSURE-REVIEW-PACK.md",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-closure-20261002/PRE-CLOSURE-REVIEW-PACK.md",
+      "bytes": 17261,
+      "sha256": "3f5713325e1c6ae88802696155acf82fd8eeec33ca0d60b82ebbdf45a7ce1e6b"
+    },
+    {
+      "path": "snapshot/review/context-qsa-closure-20261002/REVIEW-PACK.md",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-closure-20261002/REVIEW-PACK.md",
+      "bytes": 11795,
+      "sha256": "5023515f5cdcd7a24df722587089dd5de07fca3a5d238db19e246236975aff73"
+    },
+    {
+      "path": "snapshot/review/context-qsa-closure-20261002/ROOT-FINAL-REVIEW.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-closure-20261002/ROOT-FINAL-REVIEW.json",
+      "bytes": 166437,
+      "sha256": "f8132f97386cd1d85c1e0f3483daf5c3998b84f23281728b49fc25d87253332d"
+    },
+    {
+      "path": "snapshot/review/context-qsa-closure-20261002/ROOT-LAUNCH-RECEIPT.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-closure-20261002/ROOT-LAUNCH-RECEIPT.json",
+      "bytes": 260,
+      "sha256": "99913eeb3bea8097c7792cd83d1ff6d3b3e7ac8ecc29e7a248dae85ebaf5b11e"
+    },
+    {
+      "path": "snapshot/review/context-qsa-closure-20261002/render_results.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-closure-20261002/render_results.py",
+      "bytes": 4024,
+      "sha256": "ae3ca5459fc4c90bf1221d765efea478460483b3df50e2e779e8d5539e78d4bf"
+    },
+    {
+      "path": "snapshot/review/context-qsa-closure-20261002/root_review.rb",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-closure-20261002/root_review.rb",
+      "bytes": 7670,
+      "sha256": "14cee2afcdeadde69bfde7eb90f6bafa36f5a56aaf368ddf5df977be60c518ff"
+    },
+    {
+      "path": "snapshot/review/context-qsa-independent-20261002/ALGORITHM-REVIEW-GUIDE.md",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-independent-20261002/ALGORITHM-REVIEW-GUIDE.md",
+      "bytes": 3914,
+      "sha256": "292af2df3716b74ee22f03afa8d48d3c0935965e5cbadb97c67cecdb29e0a011"
+    },
+    {
+      "path": "snapshot/review/context-qsa-independent-20261002/independent_review.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-independent-20261002/independent_review.py",
+      "bytes": 21217,
+      "sha256": "80ffc5e2d03e907aa1629368ce2d5a66ad5b9a5cb7c3db05e60f754f4ddfffcf"
+    },
+    {
+      "path": "snapshot/review/context-qsa-independent-20261002/partial_raw_review.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-independent-20261002/partial_raw_review.py",
+      "bytes": 7404,
+      "sha256": "6f234a91f55942c3f16ba8bee31c69159bd3740700e481b12dd277622e716b0f"
+    },
+    {
+      "path": "snapshot/review/context-qsa-run4-independent-20261002/audit_run4.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-run4-independent-20261002/audit_run4.py",
+      "bytes": 25991,
+      "sha256": "0cb2980d49673dea7744ca474868a2bdf49b4a1c61b61d9d848e3104296ecf38"
+    },
+    {
+      "path": "snapshot/review/context-qsa-run4-memory-review-20261002/memory_review.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-run4-memory-review-20261002/memory_review.py",
+      "bytes": 32304,
+      "sha256": "33deda3a31fe08c7c70446652db29f85dca9f5deb3e0ef1c675ef4a8f2dd05e3"
+    },
+    {
+      "path": "snapshot/review/context-qsa-run4-postprocess-20261003/CROSS-REVIEW.md",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-run4-postprocess-20261003/CROSS-REVIEW.md",
+      "bytes": 3564,
+      "sha256": "a87427c9297e869a9b84afd1d297640c38b134a2b9363a9c497df2bb9cde0aab"
+    },
+    {
+      "path": "snapshot/review/context-qsa-run4-postprocess-20261003/PER-REQUEST-CROSS-REVIEW.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-run4-postprocess-20261003/PER-REQUEST-CROSS-REVIEW.json",
+      "bytes": 30581,
+      "sha256": "c0b160fbf4bd8ec72a41ba97ff05791dcd2f2eba50656f0dce27df8b1ba802c2"
+    },
+    {
+      "path": "snapshot/review/context-qsa-run4-postprocess-20261003/POSTPROCESS-RESULT.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-run4-postprocess-20261003/POSTPROCESS-RESULT.json",
+      "bytes": 3959,
+      "sha256": "477f4abaa9c02a2e16176f116234d8e79be9b64d058ef5a4419332078bf450de"
+    },
+    {
+      "path": "snapshot/review/context-qsa-run4-postprocess-20261003/per_request_cross_review.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-run4-postprocess-20261003/per_request_cross_review.py",
+      "bytes": 7172,
+      "sha256": "b07163196ab1da47b3a6130ba70aec1b66fda9cdd414956ee3c2fd62ab966d74"
+    },
+    {
+      "path": "snapshot/review/context-qsa-run4-restoration-20261002/PARENT-RESTORATION-REVIEW.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-run4-restoration-20261002/PARENT-RESTORATION-REVIEW.json",
+      "bytes": 166155,
+      "sha256": "b483d2c9235e2c5ad181201a78f1def376f355686bc389bd3695d4121c1de182"
+    },
+    {
+      "path": "snapshot/review/context-qsa-run4-restoration-20261002/collect_final_original.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-run4-restoration-20261002/collect_final_original.py",
+      "bytes": 7137,
+      "sha256": "603a33e73090c6662c8d8ab8b35477de13f25638d41cd954d63c1d26ae1f7a98"
+    },
+    {
+      "path": "snapshot/review/context-qsa-run4-restoration-20261002/recompute_restoration.rb",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/review/context-qsa-run4-restoration-20261002/recompute_restoration.rb",
+      "bytes": 13750,
+      "sha256": "0172619e58964d4279baf27c66d4bfce63f9615dd8826d57197d88a5a1e9167e"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/RETRY-SOURCE-REVIEW.md",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/RETRY-SOURCE-REVIEW.md",
+      "bytes": 3007,
+      "sha256": "885419ba4dd64f1f062ea95da471f0f4185bf8bbf416ed7a73b3cb91de534718"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/RETRY2-SOURCE-REVIEW.md",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/RETRY2-SOURCE-REVIEW.md",
+      "bytes": 4537,
+      "sha256": "732d1edc6bb69f6cd2dbde1991695554f36457d459226f816d5f0f9a6dc75756"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/SOURCE-REVIEW.md",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/SOURCE-REVIEW.md",
+      "bytes": 6183,
+      "sha256": "f8a43a7201e0395d8aa681f2aa7f5e19b2d05df8a29fcdf414135db46db6462e"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/admission.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/admission.py",
+      "bytes": 14824,
+      "sha256": "0b5acf225c801a76c59b6ffc73783d0a73019596814ce8cb4b1d76703d00f80a"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/baseline.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/baseline.py",
+      "bytes": 2905,
+      "sha256": "69ff47e8e9bab0b00da964f9044f40547d1bb8dcf3dbb9bd1adc6504e67d6b9d"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/capture_site.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/capture_site.py",
+      "bytes": 1200,
+      "sha256": "115ff261674920bfb0305151be871f1ef974b4ff7ed97b4d9e91216659ee45e8"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/cohort.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/cohort.py",
+      "bytes": 968,
+      "sha256": "e7fb258b12e382de9589b883ad7d672a0805e750f865dbe509807d31e98b2682"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/command-contract.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/command-contract.json",
+      "bytes": 10268,
+      "sha256": "f7a9464ee9530ad4f6725ad426379df010d9e1867d800394a9cabf8752144fa4"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/config-off.template.example.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/config-off.template.example.json",
+      "bytes": 17803,
+      "sha256": "1c6c17e2dbf879d5363ed27b19a57f1e16ed17b35578931d3d6b277af08c0c3a"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/config-shadow.template.example.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/config-shadow.template.example.json",
+      "bytes": 18203,
+      "sha256": "da4080cb8da274f6ef4e7dc26e3338339028ba54bb8781a392ce9bce6a6b8574"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/contract.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/contract.json",
+      "bytes": 12271,
+      "sha256": "507c49675b8f2ab812213943fb94b1838dac5e43a953006cd42dae480052209d"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/cpu_serialization.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/cpu_serialization.py",
+      "bytes": 2028,
+      "sha256": "7cfe7d0990bc3403986b935b8b97cabc9735185a1b3bca54c9fd4746e11bc74d"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/cpu_torch_bank.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/cpu_torch_bank.py",
+      "bytes": 3711,
+      "sha256": "d9ebc7550aeb7c2bf0fca2a5058115eccb5d4307ce40d02941a910ae29cabdfa"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/cpuops/run-bank-cpu1.sh",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/cpuops/run-bank-cpu1.sh",
+      "bytes": 1574,
+      "sha256": "3b32539fede8a2e5df92d5cc2144a23609aceec8d021bbed30149d1228cdfed3"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/domains.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/domains.py",
+      "bytes": 199,
+      "sha256": "6b9322a9b2985d89df54695f3247ba8a6987824106827b54c6f28b2bc479befa"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/event_contract.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/event_contract.py",
+      "bytes": 4179,
+      "sha256": "599c099444d7eb57dcb3972ff8f377f1bb58f8bc229a384d2bcdecc5ee977d31"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/first_failure.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/first_failure.py",
+      "bytes": 4144,
+      "sha256": "2199fe867b68ad984e19b321db761cee9a936c6fb343da2f566f959f1dba4b2e"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/freeze_packet.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/freeze_packet.py",
+      "bytes": 12158,
+      "sha256": "aa0f158dde918ee20d40232bce693ac879c826ae22f2b0461dab759ddaa5d995"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/freeze_retry2.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/freeze_retry2.py",
+      "bytes": 8340,
+      "sha256": "a65930fbbdbad46375f46e43675c5801a9938f23bf2a522f4d0bec04c077b470"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/identity.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/identity.py",
+      "bytes": 738,
+      "sha256": "4b0b4e5da04d3790ed649b504ee8a55bce20986c3c12ae03f9fcbdfd4e121a6c"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/io_contract.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/io_contract.py",
+      "bytes": 2465,
+      "sha256": "e90e7db03761bd69c9ba729de6444f685b72067552c21f7a190fa2dbd9bd8cfc"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/make_config.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/make_config.py",
+      "bytes": 5555,
+      "sha256": "71f749e536de5d97df608712e028c81156c34ecf64f286e5897d25a68f276bdc"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/manifest.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/manifest.json",
+      "bytes": 25265,
+      "sha256": "d17f0dbd40c966e5277b1208af2577a3b118e83ef0840d2911b94912fb1120aa"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/policy.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/policy.py",
+      "bytes": 3025,
+      "sha256": "c9cc8a14a32342f2d5c478e7134b6294fc0fa8090defbc567ba6811e7c5010a2"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/request_ids.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/request_ids.py",
+      "bytes": 2742,
+      "sha256": "95bc5eda31c6e1fe4d0d48a9725cbaf4cc44c90e8fe9e202061fb5ee9141c445"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/service_hook.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/service_hook.py",
+      "bytes": 38839,
+      "sha256": "f458ee6f65905648f326cbb9248e732d06bc386ff01f101a5f15d6a9ee84b8e6"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/shadow.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/shadow.py",
+      "bytes": 4036,
+      "sha256": "bd4a9f2a4924c6b3e6027c4a974ca28564ddaa3f7a33e60d67a77936e084b1d5"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/sitecustomize.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/sitecustomize.py",
+      "bytes": 2005,
+      "sha256": "c6bc7ca6048b2f5dd01a5b69665cffa5d85d5ed24390d4eb5354ab64313deab6"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/smoke_graph.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/smoke_graph.py",
+      "bytes": 4751,
+      "sha256": "2c2b826572169c35026934d4fdf884bce6b1d390dbb9942c9735abe26c2ba27d"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/source/block_table.production.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/source/block_table.production.py",
+      "bytes": 12478,
+      "sha256": "a646d37f4926437aa20878249d8641a412c47f472d9fac5c11ea2859472f2d0f"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/source/completion_serving.production.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/source/completion_serving.production.py",
+      "bytes": 27786,
+      "sha256": "096dd9ce6799c382fea265771cd5f48ba107d2d420e358af94b41f13cb5cb1ee"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/source/cudagraph_utils.production.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/source/cudagraph_utils.production.py",
+      "bytes": 27376,
+      "sha256": "477d892d04d6983bc320e3fa9a2f1b905b3a475b7b3da9fedca24122dc044a24"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/source/dp_utils.production.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/source/dp_utils.production.py",
+      "bytes": 3909,
+      "sha256": "1400a8cb2c37bfb0fb49efe9a26e26f56a18329248cdc9c365732a656115967a"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/source/eagle_speculator.production.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/source/eagle_speculator.production.py",
+      "bytes": 46409,
+      "sha256": "9cae2d54f70ed54ef1f5416014cc19862685e6d33ec7833a3fba629f048b8f61"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/source/engine_serving.production.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/source/engine_serving.production.py",
+      "bytes": 22194,
+      "sha256": "a7bca64cebc8670f9644e7ca8a729e5841b07a8e9e2cd6a50aaf886e5a9536a3"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/source/forward.production.cu",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/source/forward.production.cu",
+      "bytes": 321617,
+      "sha256": "ec1b977a218f4663a8f92a892c603696164455cb886235e9a603615d8b12dd7a"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/source/gpu_worker.production.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/source/gpu_worker.production.py",
+      "bytes": 61021,
+      "sha256": "82fced39c3092f633bd7733e78bad601ab4e9240582e5a3bad19dc3c04bacee9"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/source/host_insight_stage_markers.production.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/source/host_insight_stage_markers.production.py",
+      "bytes": 10355,
+      "sha256": "0c80f553ed9e890ffe21d31b749807de53fb50d7508d0f9d6e6d7396ec6fc649"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/source/input_batch.production.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/source/input_batch.production.py",
+      "bytes": 20117,
+      "sha256": "60d7ce37d1cdd238c5a09c8beb7767267edd88cc8628b25603ccbb22422c6b88"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/source/input_processor.production.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/source/input_processor.production.py",
+      "bytes": 20815,
+      "sha256": "c5673988c0f7cfec268220e3f044e718702c015a4f236c020937cfd40a793f15"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/source/model.production.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/source/model.production.py",
+      "bytes": 49895,
+      "sha256": "95a81726d387c2b4c2adab5cddb60ffb5738ed8a2683a43726aa89f5f536d48f"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/source/model_runner.production.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/source/model_runner.production.py",
+      "bytes": 95891,
+      "sha256": "a6c0b1ae02cbdb14979b361a129866054ce8eca80b7b8cece170e960b5fc2cfe"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/source/mtp.production.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/source/mtp.production.py",
+      "bytes": 22930,
+      "sha256": "95459f1d875600ad372e6a938415d11751ef1d36b1b4866aaf1162db67910e50"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/source/planner.production.inc",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/source/planner.production.inc",
+      "bytes": 11490,
+      "sha256": "ccc018449e23273bd89da169b3e8078a3cd83ca2a9132aedaf616f4703b7ad19"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/source/prod-w48-release.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/source/prod-w48-release.json",
+      "bytes": 8785,
+      "sha256": "8881a26f8044e60c0e983b9007ce48ae8c8543adf9997a709c237021138daba5"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/source/qsa_ops.production.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/source/qsa_ops.production.py",
+      "bytes": 88989,
+      "sha256": "ee03f537412a5063d5f280a017bc6fffaf13a9af8e818fc3df63e364205b2694"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/source/qsa_owner.production.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/source/qsa_owner.production.py",
+      "bytes": 28355,
+      "sha256": "c6551ea2976f7c39785def7431dc764d5812c11b83eb94ec9c9f19f175b63141"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/source/scheduler_output.production.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/source/scheduler_output.production.py",
+      "bytes": 10725,
+      "sha256": "e7210cbafd9308cf6bc21a0cf4aa3e9e516e8998827718211f16fdebc50966d8"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/source/states.production.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/source/states.production.py",
+      "bytes": 6034,
+      "sha256": "ceae07c540c98cbfa0b60d99c6f6f9dcc92afcda1ca3aee5b3853f1442289645"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/source/warmup.production.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/source/warmup.production.py",
+      "bytes": 14621,
+      "sha256": "2ce724c9061a216a0451db395facb33de6ff9b0dd5828e574ed3f0b94395c8d0"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/test_first_bank.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/test_first_bank.py",
+      "bytes": 4604,
+      "sha256": "2f87f67713713af6d4b4225744e7b1c42ef61c5898140f6c17b482ebaca3d74e"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/test_protocol.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/test_protocol.py",
+      "bytes": 13969,
+      "sha256": "9e1d984e5ccf25d497985eaed6c81261881541c3db6f2d77b661a6bd2f902cce"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/test_retry_serialization.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/test_retry_serialization.py",
+      "bytes": 14591,
+      "sha256": "1b7bde948a200b98f04861d246da316f77fc010e941ebd1b1e160b16b493c01a"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/test_retry_warmup.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/test_retry_warmup.py",
+      "bytes": 11700,
+      "sha256": "9e58e761403d40a087502ddea57ecf6e7e6e07a994c299c2b5960828869b1838"
+    },
+    {
+      "path": "snapshot/service-implementation-retry2/test_service.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-implementation-retry2/test_service.py",
+      "bytes": 12595,
+      "sha256": "bd3b1cc5e470cf3a0db73804ae179129d3381aff6efeb4b2edc318388d43cee5"
+    },
+    {
+      "path": "snapshot/service-numeric-candidate-B-control-prep1/restoration/original-check/exporter_fence.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-numeric-candidate-B-control-prep1/restoration/original-check/exporter_fence.py",
+      "bytes": 2180,
+      "sha256": "9c0f2c81720a1d49f1c49b932409160c750a99c11cbd38bcb990949dc2ce4166"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/analysis.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/analysis.py",
+      "bytes": 4032,
+      "sha256": "b0cda078b380e033b59abaf71105f3cc19bf119865e7c1a76f75497ed54d5206"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/artifact_budget.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/artifact_budget.py",
+      "bytes": 2573,
+      "sha256": "4c88f10d9de5e92ea4d88a5a6962744fb733c9d8d9e955fd0e56cb058840c44e"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/artifact_check.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/artifact_check.py",
+      "bytes": 330,
+      "sha256": "bca893a20e902187f0c9129871ec51a4e6165ed4ab954d2a2ef8b6f548aece4d"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/command-contract.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/command-contract.json",
+      "bytes": 50625,
+      "sha256": "e328a921dc6162a6c96752b8800dd63099540958a6af67262f015d530eb87244"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/common.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/common.py",
+      "bytes": 1506,
+      "sha256": "b64fa8f848614d615b01d43815382494a3a17b76d9568eb1c596c36102b953c9"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/contract.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/contract.json",
+      "bytes": 7773,
+      "sha256": "43a1cccd01747d4cd7dab9a9aa7da86cb77be62cb87010055fe177a786cbd675"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/e7_counters.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/e7_counters.py",
+      "bytes": 3787,
+      "sha256": "3c6a742d2950d2631b60932692d7384559822af5d8281ef4aca7e09e1985131d"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/execution_budget.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/execution_budget.py",
+      "bytes": 4784,
+      "sha256": "3f7fceb4e7e7cf57c76fa4cdd5ea899bc712a0eddb34c82ac87a2d3e21d78a97"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/flow.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/flow.py",
+      "bytes": 1179,
+      "sha256": "31898d59e7f9418fe6acd60f29ae318a61073dc9371c06130525ce39cf1b36c2"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/freeze_guard_packet.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/freeze_guard_packet.py",
+      "bytes": 4924,
+      "sha256": "8156717f2627146c79b1d19be0d1b57ad19fcfddd1274327d6a5360f17f97db1"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/freeze_revision4.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/freeze_revision4.py",
+      "bytes": 13192,
+      "sha256": "2f313e4a6ebf5d07c3da1a92eea47f799b5b7cc9faccb2a2b53c57085b5b007e"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/freeze_transport2_packet.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/freeze_transport2_packet.py",
+      "bytes": 6282,
+      "sha256": "e9bd020add734c5480cb7fb3c9c9c775a77c89d111e22b2a1dcf0d2ba63c5570"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/freeze_transport_packet.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/freeze_transport_packet.py",
+      "bytes": 4460,
+      "sha256": "d16ef74fcced25500994d7c16f0fdbad4e36489fe77358092f4ba8724fbe538f"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/freeze_wire2_packet.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/freeze_wire2_packet.py",
+      "bytes": 3023,
+      "sha256": "370936bc324e8c9d95cffc24c6c838f76113f5d0a5aac8b06c1340598ef6721f"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/freeze_wire_packet.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/freeze_wire_packet.py",
+      "bytes": 4816,
+      "sha256": "ba85183a76084a9fd2defa79c33299d6449ba4ef4fc8bc33917204ac418b1806"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/fresh_identity.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/fresh_identity.py",
+      "bytes": 3976,
+      "sha256": "689939b8b8f13cc8b04837a972d4614211c4167147cf139a66b008d38fce89e1"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/frozen.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/frozen.py",
+      "bytes": 1825,
+      "sha256": "a5e6b1efde372716094599642b8e5ec272b74c7bbe4082331cdd7f9f81973467"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/identity_contract.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/identity_contract.py",
+      "bytes": 2583,
+      "sha256": "5b8d193aa930363299ce930b87a344a686bf250a1e35734a89c456c5d2cf91c7"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/io_tools.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/io_tools.py",
+      "bytes": 1163,
+      "sha256": "48ab3921d7c9342f34aedd681bf007b944fe90bc2a7ecaeca5b201cfb3fec257"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/manifest.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/manifest.json",
+      "bytes": 131664,
+      "sha256": "865a2dfa228f3e06e25527c807998dadd0e19be5d384990fd0358344454f8ab4"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/matrix.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/matrix.py",
+      "bytes": 3874,
+      "sha256": "b8e655ba06b6043c2b4c41c04ad18dd8066f31b136f68ea86f490e95fcfcd85e"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/ops.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/ops.py",
+      "bytes": 15843,
+      "sha256": "84bfe41ddf48c026ddffdb3aad1ae30cd86c8287ca25b39a18193b26c7c0b0d3"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/original_guard.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/original_guard.py",
+      "bytes": 19245,
+      "sha256": "66a5e2220501e9f522304628218bfe99a76bb8f7877a33571131411b679d32c9"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/plan.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/plan.py",
+      "bytes": 3511,
+      "sha256": "574e51b5597cc224fe58d778093a2a7caebb75594e7843cc68c62a5da662447f"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/prepare_plan.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/prepare_plan.py",
+      "bytes": 1756,
+      "sha256": "0a453ac6eec70cf70bf7f34b911110485729f3b76a728cd32ce0d52488a6f878"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/prepare_revision4.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/prepare_revision4.py",
+      "bytes": 7134,
+      "sha256": "dd0f12874621a246e8b87461f4b898b0de80f495f2a256267a64ec5e503b624e"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/reproduce_run2.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/reproduce_run2.py",
+      "bytes": 2486,
+      "sha256": "09ba0ba14026d2ac759fbeb681fb651981ff0aec1ed1c117d34b4c21a1186940"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/request_groups.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/request_groups.py",
+      "bytes": 5595,
+      "sha256": "8effd79d240d62d2beaec22f378f47f7eb36d2c7166e9cee7815be9397158e61"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/restoration_dependencies.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/restoration_dependencies.py",
+      "bytes": 2126,
+      "sha256": "2cb114cccafc1ea4ad187b2940f57261beefa8a443550931a29595ba13d2d42b"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/run_revision3_cpu.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/run_revision3_cpu.py",
+      "bytes": 3305,
+      "sha256": "a339302e6a1760f270a74f73655f77383cb648177480b30970ff2ce91a434372"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/run_revision4_cpu.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/run_revision4_cpu.py",
+      "bytes": 3316,
+      "sha256": "7f31993a643a2da8d505c1fc33560ec4514844c282e20dc0442c09a1addf80bd"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/run_w2.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/run_w2.py",
+      "bytes": 5582,
+      "sha256": "9322a71d7d74975e3a08455c83f77c06491b2ebbbd949c97fb59ec2fca15e6fa"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/service_binding.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/service_binding.py",
+      "bytes": 10134,
+      "sha256": "d3979812322d3442ab0e96a63e68b4df51b5081136b70ffa9f969c43f34b2193"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/source/restoration-external-reference-pins.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/source/restoration-external-reference-pins.json",
+      "bytes": 3536,
+      "sha256": "b78fc830cd82bb465d1876d3c127d52ffbd023114d7cb33870eeee0d9322ba5b"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/source_auth.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/source_auth.py",
+      "bytes": 10480,
+      "sha256": "462756ee6b21e0b4adcfc68def5ac9d78eeff6e68028a118b9c904038f721805"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/stability.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/stability.py",
+      "bytes": 8628,
+      "sha256": "90501002355dc4a307532f34d6c9f8af9e94f3960ded2bd37a1373b116546f22"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/stage_bindings.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/stage_bindings.py",
+      "bytes": 1997,
+      "sha256": "4522581c856800021cc3d75cec322ad4207dffb0cb734aeb69211e7c8fc281f9"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/stage_window.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/stage_window.py",
+      "bytes": 1549,
+      "sha256": "3e5d091254ca54769068a704e2f745d5a833f55467980cdaebca66f16a1b0a09"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/startup.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/startup.py",
+      "bytes": 10672,
+      "sha256": "bc2a7dec42f2042580e6c98e09fc97180b32126c26e4b8e47f460f609c407fca"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/transport_deadline.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/transport_deadline.py",
+      "bytes": 9849,
+      "sha256": "dee1252665e900ad48dae70d2bd9b279068ddaddf5883a2a77cfcc41a22274d7"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/transport_worker.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/transport_worker.py",
+      "bytes": 9423,
+      "sha256": "4c4ffe6178f13feb21cc84d9f45c00698b9d48dc6f8ad770916bcbdb035c6865"
+    },
+    {
+      "path": "snapshot/service-w2-control-prep4/wire_preflight.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-control-prep4/wire_preflight.py",
+      "bytes": 13356,
+      "sha256": "a028ff0212a8f8f3f0b7e9e96e22171abb1f357a00b6356d06bc9b2e1ce0f8e0"
+    },
+    {
+      "path": "snapshot/service-w2-prep/contract.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-prep/contract.json",
+      "bytes": 4377,
+      "sha256": "ba1373f35f7f7c8b2a041520c5546470ebdbddff27b137d818d916ad26ebaf53"
+    },
+    {
+      "path": "snapshot/service-w2-prep/group_analyzer.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-prep/group_analyzer.py",
+      "bytes": 5069,
+      "sha256": "4d8a897cd78da947b3117d559ba9a0279facc5cddf4632c7915864f278904fe5"
+    },
+    {
+      "path": "snapshot/service-w2-prep/manifest.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-prep/manifest.json",
+      "bytes": 7040,
+      "sha256": "f8e2b6ecdfedbeb1dc337fbe87e8fbeb8b17793cd998de4b4b997280ed91faca"
+    },
+    {
+      "path": "snapshot/service-w2-prep/sse_parser.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-prep/sse_parser.py",
+      "bytes": 4470,
+      "sha256": "7f2752c8e8b2099e7ed8486da18e7edb35ea1b865459535d79f9ecc1d82475a4"
+    },
+    {
+      "path": "snapshot/service-w2-prep/stream_ids.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/service-w2-prep/stream_ids.py",
+      "bytes": 1290,
+      "sha256": "b76b0fac9b5c40769ca44992d2299363b161f70697ce572892a558c0b404eb09"
+    },
+    {
+      "path": "snapshot/w1-implementation/README.md",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-implementation/README.md",
+      "bytes": 2066,
+      "sha256": "0a913032a09bced65b31a5ef29c39aa2c637b17d4f8a057fddfad8ed1429ab8b"
+    },
+    {
+      "path": "snapshot/w1-implementation/command-contract.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-implementation/command-contract.json",
+      "bytes": 11200,
+      "sha256": "db3f2caa70e65a052927ce8a5198dbbb1d7ad290a9a3554d2faae4af51dc0039"
+    },
+    {
+      "path": "snapshot/w1-implementation/contract.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-implementation/contract.json",
+      "bytes": 3854,
+      "sha256": "cdb733e0860f1ac78d8d7b78bcb175389673084e9872afe7866ca8506c4f69f9"
+    },
+    {
+      "path": "snapshot/w1-implementation/fixtures.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-implementation/fixtures.py",
+      "bytes": 7163,
+      "sha256": "b16a74729a983d4ae05fa206f919139e026e6a4a0ed1829ae740852b355538af"
+    },
+    {
+      "path": "snapshot/w1-implementation/gate.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-implementation/gate.py",
+      "bytes": 3384,
+      "sha256": "1cef2985be779cd32ee9551693878b4835323ab9beede773d6038ecb727a35ab"
+    },
+    {
+      "path": "snapshot/w1-implementation/headers.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-implementation/headers.py",
+      "bytes": 4774,
+      "sha256": "35674b3cf75d2cef54e162b4ca05796f2c08446ea901349986133d34fc9e722a"
+    },
+    {
+      "path": "snapshot/w1-implementation/preflight.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-implementation/preflight.py",
+      "bytes": 4074,
+      "sha256": "c1bbf7c5485a64b0ae0422571af0302269e332708cec45f415d27c1d65a93229"
+    },
+    {
+      "path": "snapshot/w1-implementation/production-flags.json",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-implementation/production-flags.json",
+      "bytes": 621,
+      "sha256": "8057347fcd192402f3760fc3abf3af9f818765211cf79046ab9ad59116fa900c"
+    },
+    {
+      "path": "snapshot/w1-implementation/production.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-implementation/production.py",
+      "bytes": 1879,
+      "sha256": "3850cc3ea89155f15be57d2d05eef082ed895b7545b6dce570619122582fd8ef"
+    },
+    {
+      "path": "snapshot/w1-implementation/run_w1.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-implementation/run_w1.py",
+      "bytes": 15447,
+      "sha256": "e86e54f3c72dd66d23d701e16cc09c0d603a10b901134288f8a415caa3e423a7"
+    },
+    {
+      "path": "snapshot/w1-implementation/runtime.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-implementation/runtime.py",
+      "bytes": 12515,
+      "sha256": "d8793a899469d2a8903d2760807661cc346becc524837384d81aa18afc74420e"
+    },
+    {
+      "path": "snapshot/w1-implementation/source/qsa.production.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-implementation/source/qsa.production.py",
+      "bytes": 88989,
+      "sha256": "ee03f537412a5063d5f280a017bc6fffaf13a9af8e818fc3df63e364205b2694"
+    },
+    {
+      "path": "snapshot/w1-implementation/test_cpu.py",
+      "host_path": "/home/l/work/flash-next/perf-20260923-resume/step58-qsa-compact-sort-20260930/w1-implementation/test_cpu.py",
+      "bytes": 9858,
+      "sha256": "02132d11703642d4f4cee4127112a98420b6c909f3a8b1a4aa6c6cf79c297dff"
+    }
+  ],
+  "omitted": [
+    "compiled SO and build products",
+    "raw SSE/jsonl, logs, generated prompt groups and tensor fixtures (two seed JSON files included)",
+    "model weights and Python environments",
+    "provider credentials and isolated CLI state",
+    "bulk historical runtime evidence"
+  ],
+  "replay_limit": "Original contracts and absolute paths remain unchanged. Their full dependency manifests include omitted host artifacts; execution requires the original host archive and runtime. Do not bypass these guards."
+}
