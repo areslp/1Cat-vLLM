@@ -10,7 +10,7 @@ import pytest
 import torch
 
 from vllm.v1.sample.ops.topk_topp_sampler import apply_top_k_top_p_pytorch
-from vllm.v1.worker.gpu.sample.sm70_e7 import packet_topk
+from vllm.v1.worker.gpu.sample.sm70_e7 import e7_fast, packet_ops, packet_topk
 
 pytestmark = pytest.mark.skipif(not torch.cuda.is_available(), reason="CUDA required")
 
@@ -157,3 +157,45 @@ def test_signed_zero_cutoff_ties_match_reference():
         actual = _resolve(logits, k, top_p)
         expected = apply_top_k_top_p_pytorch(logits.clone(), k, top_p)
         assert _bits_equal(actual, expected)
+
+
+def test_finish_packet_resolver_compiles_for_40_rows(monkeypatch):
+    batch_size = 40
+    vocab_size = V
+    if e7_fast.num_compute_units(torch.accelerator.current_device_index()) < batch_size:
+        pytest.skip("E7 packet finish requires one SM per row")
+
+    logits = torch.full((batch_size, vocab_size), -20.0, device="cuda")
+    logits[:, :18] = 2.0
+    logits[:, 18:42] = 1.0
+    pivots = torch.full((batch_size,), 0.5, device="cuda")
+    k = torch.full((batch_size,), 20, dtype=torch.int32, device="cuda")
+    p = torch.full((batch_size,), 0.95, device="cuda")
+
+    packets = [
+        packet_ops.pack(logits[:, lo : lo + vocab_size // 4], pivots, lo)
+        for lo in range(0, vocab_size, vocab_size // 4)
+    ]
+    values = torch.stack([packet[0] for packet in packets])
+    ids = torch.stack([packet[1] for packet in packets])
+    meta = torch.stack([packet[2] for packet in packets])
+
+    resolver = packet_topk._resolve_reference_rows_nosync
+    seen_reference_rows = []
+
+    def observe_reference_rows(*args):
+        seen_reference_rows.append(args[1].clone())
+        return resolver(*args)
+
+    monkeypatch.setattr(
+        packet_topk, "_resolve_reference_rows_nosync", observe_reference_rows
+    )
+    actual, _, _ = e7_fast.finish(values, ids, meta, pivots, k, p, vocab_size, "nosync")
+    expected = apply_top_k_top_p_pytorch(logits.clone(), k, p)
+
+    assert len(seen_reference_rows) == 1
+    assert torch.equal(
+        seen_reference_rows[0],
+        torch.ones(batch_size, dtype=torch.bool, device="cuda"),
+    )
+    assert _bits_equal(actual, expected)

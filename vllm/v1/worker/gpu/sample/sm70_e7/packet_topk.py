@@ -9,7 +9,7 @@ using Pivot-based Truncation and Selection" By Park et al.
 
 """
 
-from typing import Any
+from typing import Any  # noqa: F401 -- used by mypy-only type comments
 
 import torch
 
@@ -256,26 +256,26 @@ def _topk_topp_kernel(
         LOGITS_ROW = LOGITS + row_id * LOGITS_STRIDE_0
         BUFFER_ROW = BUFFER + pid * VOCAB_SIZE
 
-        k_pivot: Any = 0.0
-        outlier_pivot: Any = 0.0
+        k_pivot = 0.0  # type: Any
+        outlier_pivot = 0.0  # type: Any
         num_outliers = tl.zeros((), tl.uint32)
-        sum_exp_logits: Any = 0.0
-        p_pivot: Any = 0.0
-        min_larger_prob: Any = 0.0
-        p_pivots_sum: Any = 0.0
+        sum_exp_logits = 0.0  # type: Any
+        p_pivot = 0.0  # type: Any
+        min_larger_prob = 0.0  # type: Any
+        p_pivots_sum = 0.0  # type: Any
         num_finite_total = tl.zeros((), tl.uint32)
         num_iters = tl.zeros((), tl.int32)
         search_range = tl.zeros((), tl.int32)
         debug_standalone = tl.full((), False, tl.int1)
-        final_pivot: Any = -float("inf")
-        duplicate_logit: Any = float("inf")
+        final_pivot = -float("inf")  # type: Any
+        duplicate_logit = float("inf")  # type: Any
         num_duplicate_logit = tl.zeros((), dtype=tl.uint32)
         num_keep = tl.zeros((), dtype=tl.uint32)
         num_kept = tl.zeros((), dtype=tl.uint32)
         needs_reference = tl.full((), False, tl.int1)
 
-        max_logit: Any = -float("inf")
-        min_logit: Any = float("inf")
+        max_logit = -float("inf")  # type: Any
+        min_logit = float("inf")  # type: Any
 
         if TOPK_ENABLED:
             k = tl.load(K + row_id)
