@@ -41,6 +41,7 @@ from vllm.distributed.parallel_state import (
 from vllm.forward_context import BatchDescriptor, set_forward_context
 from vllm.logger import init_logger
 from vllm.lora.layers import LoRAMapping
+from vllm.model_executor.layers import sm70_fuse47 as _fuse47
 from vllm.model_executor.layers.mamba.ops.ssu_dispatch import (
     initialize_mamba_ssu_backend,
 )
@@ -85,6 +86,7 @@ from vllm.v1.worker.gpu.cudagraph_utils import (
     ModelCudaGraphManager,
     get_explicit_cudagraph_memory_reserve,
     get_uniform_decode_token_count,
+    is_speculative_uniform_batch,
 )
 from vllm.v1.worker.gpu.dp_utils import dispatch_cg_and_sync_dp
 from vllm.v1.worker.gpu.eplb_utils import EPLBController, step_eplb_after
@@ -109,6 +111,7 @@ from vllm.v1.worker.gpu.mm.encoder_cache import EncoderCache
 from vllm.v1.worker.gpu.model_states import init_model_state
 from vllm.v1.worker.gpu.pool.pooling_runner import PoolingRunner
 from vllm.v1.worker.gpu.pp_utils import PPHandler, scatter_draft_tokens
+from vllm.v1.worker.gpu.sample import sm70_e7
 from vllm.v1.worker.gpu.sample.output import SamplerOutput
 from vllm.v1.worker.gpu.sample.prompt_logprob import PromptLogprobsWorker
 from vllm.v1.worker.gpu.sample.sampler import Sampler
@@ -734,10 +737,116 @@ class GPUModelRunner(LoRAModelRunnerMixin):
         if speculator_warmup is not None:
             warmed.extend(speculator_warmup(self._dummy_run))
 
+        if self._warmup_sm70_dflash2_smallq_metadata_kernel():
+            warmed.append("dflash2_smallq_metadata")
+
         if warmed:
             logger.info_once(
                 "SM70 V2 auxiliary kernel warmup finished: %s", tuple(warmed)
             )
+
+    def _warmup_sm70_dflash2_smallq_metadata_kernel(self) -> bool:
+        """Pre-compile the grouped small-query verifier metadata Triton kernel.
+
+        ``_sm70_prepare_grouped_smallq_decode_metadata_kernel`` is launched once
+        per verify step by ``prepare_dflash2_smallq_group_metadata``. Its
+        ``BLOCK_COLS`` constexpr is fixed by the full-attention block-table
+        width and its ``REQ_BLOCK`` constexpr follows ``num_reqs``. The kernel is
+        skipped during CUDA-graph capture (capture builds no grouped small-query
+        metadata), so the first real verify of each ``num_reqs`` otherwise pays a
+        multi-hundred-ms Triton JIT spike (jit_monitor warns
+        ``_sm70_prepare_grouped_smallq_decode_metadata_kernel``). Compile every
+        ``num_reqs`` in 1..max_num_seqs (q = decode_query_len) ahead of time.
+        """
+        if not (
+            envs.VLLM_SM70_DFLASH2_FUSED_SMALLQ_METADATA
+            and envs.VLLM_SM70_DFLASH2_GROUPED_SMALLQ_METADATA
+        ):
+            return False
+        attn_groups = getattr(self, "attn_groups", None)
+        block_tables = getattr(self, "block_tables", None)
+        if not attn_groups or block_tables is None:
+            return False
+        try:
+            from vllm.v1.attention.backends.flash_attn_v100 import (
+                FlashAttnV100MetadataBuilder,
+                _sm70_prepare_grouped_smallq_decode_metadata,
+            )
+
+            # Full-attention block-table widths that drive the BLOCK_COLS
+            # constexpr, taken from the same per-group block tables the runtime
+            # launch reads.
+            group_block_tables = block_tables.block_tables
+            block_cols_set: set[int] = set()
+            for kv_cache_group_id, groups in enumerate(attn_groups):
+                if kv_cache_group_id >= len(group_block_tables):
+                    continue
+                for group in groups:
+                    builder = group.get_metadata_builder(0)
+                    if not isinstance(builder, FlashAttnV100MetadataBuilder):
+                        continue
+                    width = int(group_block_tables[kv_cache_group_id].gpu.shape[1])
+                    if width > 0:
+                        block_cols_set.add(width)
+            if not block_cols_set:
+                return False
+
+            q = int(self.decode_query_len)
+            device = self.device
+            for block_cols in sorted(block_cols_set):
+                for num_reqs in range(1, self.max_num_reqs + 1):
+                    num_query_tokens = num_reqs * q
+                    # Cover the steady-state (all rows live) shape the service
+                    # uses, plus, for multi-request steps, the partially-live
+                    # shape a just-finished request leaves behind (a distinct
+                    # real-token Triton specialization).
+                    real_variants = {num_query_tokens}
+                    if num_reqs >= 2:
+                        real_variants.add(q)
+                    for real_num_query_tokens in sorted(real_variants):
+                        out_bt = torch.zeros(
+                            (num_query_tokens, block_cols),
+                            dtype=torch.int32,
+                            device=device,
+                        )
+                        out_sl = torch.zeros(
+                            (num_query_tokens,), dtype=torch.int32, device=device
+                        )
+                        out_qsl = torch.zeros(
+                            (num_reqs + 1,), dtype=torch.int32, device=device
+                        )
+                        in_bt = torch.zeros(
+                            (num_reqs, block_cols), dtype=torch.int32, device=device
+                        )
+                        seq_lens = torch.full(
+                            (num_reqs,), max(q, 1), dtype=torch.int32, device=device
+                        )
+                        query_start_loc = torch.arange(
+                            0,
+                            (num_reqs + 1) * q,
+                            q,
+                            dtype=torch.int32,
+                            device=device,
+                        )
+                        _sm70_prepare_grouped_smallq_decode_metadata(
+                            [out_bt],
+                            [out_sl],
+                            [out_qsl],
+                            [in_bt],
+                            seq_lens,
+                            query_start_loc,
+                            num_reqs=num_reqs,
+                            num_query_tokens=num_query_tokens,
+                            real_num_query_tokens=real_num_query_tokens,
+                        )
+            torch.cuda.synchronize()
+            return True
+        except Exception as exc:  # pragma: no cover - warmup must never block boot
+            logger.warning_once(
+                "SM70 DFlash2 grouped small-query metadata warmup skipped: %s",
+                exc,
+            )
+            return False
 
     @torch.inference_mode()
     @step_eplb_after(is_dummy=True)
@@ -1061,6 +1170,20 @@ class GPUModelRunner(LoRAModelRunnerMixin):
                 self.sampler.add_request(
                     req_index, prompt_len, new_req_data.sampling_params
                 )
+                if sm70_e7.ENABLED:
+                    excluded = (
+                        "multimodal_unvalidated"
+                        if new_req_data.mm_features
+                        else "lora_unvalidated"
+                        if new_req_data.lora_request
+                        else None
+                    )
+                    sm70_e7.record_request(
+                        self.sampler,
+                        req_index,
+                        new_req_data.sampling_params,
+                        unsupported=excluded,
+                    )
                 assert self.prompt_logprobs_worker is not None
                 self.prompt_logprobs_worker.add_request(
                     req_id, req_index, new_req_data.sampling_params
@@ -1347,6 +1470,29 @@ class GPUModelRunner(LoRAModelRunnerMixin):
                 num_sampled=input_batch.seq_lens.new_ones(input_batch.num_reqs),
             )
             logger.info_once("SM70 MRv2 greedy TP-local pair path enabled.")
+        if sampler_output is None and _fuse47.unit_enabled("s1"):
+            s1_reason = _fuse47.s1_block_reason(self, input_batch, grammar_output)
+            if s1_reason is None:
+                _fuse47.note_route("s1", "fused")
+                top = _fuse47.tp_local_top1(self.model, sample_hidden_states)
+                sampled, num_sampled = _fuse47.greedy_verify_from_top1(
+                    top,
+                    input_batch.input_ids[input_batch.logits_indices],
+                    input_batch.cu_num_logits,
+                    self.rejection_sampler.num_speculative_steps,
+                )
+                sampler_output = SamplerOutput(
+                    sampled_token_ids=sampled,
+                    logprobs_tensors=None,
+                    num_nans=None,
+                    num_sampled=num_sampled,
+                )
+            else:
+                _fuse47.note_route("s1", "fallback:" + s1_reason)
+        if sampler_output is None and sm70_e7.ENABLED:
+            sampler_output = sm70_e7.try_sample(
+                self, sample_hidden_states, input_batch, grammar_output
+            )
         if sampler_output is None:
             logits = (
                 cached_logits.logits
@@ -1515,9 +1661,24 @@ class GPUModelRunner(LoRAModelRunnerMixin):
         # Get batch descriptor and sync across DP ranks.
         num_reqs = len(scheduler_output.num_scheduled_tokens)
         num_toks = scheduler_output.total_num_scheduled_tokens
+        max_query_len = max(scheduler_output.num_scheduled_tokens.values())
         uniform_tok_count = self._get_uniform_decode_token_count(
             scheduler_output, dummy_run
         )
+        if uniform_tok_count is not None and not is_speculative_uniform_batch(
+            uniform_tok_count,
+            scheduler_output.num_scheduled_tokens,
+            scheduler_output.scheduled_spec_decode_tokens,
+        ):
+            # Uniform by shape only (e.g. a prefill chunk of exactly
+            # 1 + num_draft tokens): the captured verify graph would consume
+            # stale spec-state metadata. Run it as a regular batch.
+            logger.info_once(
+                "Uniform %d-token batch without matching draft tokens is not "
+                "dispatched to the speculative-decode cudagraph.",
+                uniform_tok_count,
+            )
+            uniform_tok_count = None
 
         skip_compiled = False
         if self.is_encoder_decoder and scheduler_output.scheduled_encoder_inputs:
@@ -1535,6 +1696,25 @@ class GPUModelRunner(LoRAModelRunnerMixin):
             self.dp_rank,
             need_eager=is_profile or skip_compiled,
         )
+
+        if os.environ.get("VLLM_SM70_CG_DISPATCH_DEBUG") == "1" and max_query_len > 1:
+            # Diagnostic (default off): record whether a speculative verify
+            # step dispatched to a FULL cudagraph. Two resident decoders at
+            # very different context lengths frequently produce non-uniform
+            # verify batches (uniform_tok_count=None) that fall back to the
+            # PIECEWISE/eager forward -- the dominant host cost at reqs>1.
+            n = getattr(self, "_cg_dispatch_debug_count", 0) + 1
+            self._cg_dispatch_debug_count = n
+            if n <= 2000 or batch_desc.cg_mode != CUDAGraphMode.FULL:
+                logger.info(
+                    "SM70 CG dispatch: num_reqs=%d num_tokens=%d "
+                    "max_query_len=%d uniform_tok_count=%s cg_mode=%s",
+                    num_reqs,
+                    num_toks,
+                    max_query_len,
+                    uniform_tok_count,
+                    batch_desc.cg_mode.name,
+                )
 
         if batch_desc.num_tokens == 0:
             # All DP ranks have zero tokens to run.
