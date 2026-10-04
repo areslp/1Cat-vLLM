@@ -1,12 +1,11 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-FileCopyrightText: Copyright contributors to the vLLM project
-"""Per-KV-head E4M3 FP32 grouped verify for TP ranks holding several KV heads.
+"""Multi-KV E4M3 and request-major SM70 verifier coverage.
 
-The native entry serves one KV head and its six query heads. A TP2 rank of a
-24/4-head model holds two KV heads, so the opt-in route slices the query and
-the paged KV per head and runs the entry twice. Each head's result must equal
-the entry called on a contiguous single-head copy, and the FP64 oracle bound
-of the single-head tests must hold.
+The current E4M3 native entry handles all KV heads in one call. Its backend
+admission helper accepts GQA layouts where each KV head owns six query heads;
+the native implementation then preserves each head's result. Legacy E5M2
+verification is covered through the current DFlash2 admission and call path.
 """
 
 from types import SimpleNamespace
@@ -15,6 +14,8 @@ import pytest
 import torch
 
 from vllm.v1.attention.ops import sm70_e4m3_grouped as ops
+
+GQA_GROUP_SIZE = 6
 
 
 def _native():
@@ -41,7 +42,7 @@ def _case(rows, page, length, num_kv_heads, seed):
     pages = (length + page - 1) // page
     capacity = pages * page
     q = torch.randn(
-        (rows, ops.GROUP_SIZE * num_kv_heads, 256), device="cuda", dtype=torch.float16
+        (rows, GQA_GROUP_SIZE * num_kv_heads, 256), device="cuda", dtype=torch.float16
     )
     raw = torch.randn(
         (2, capacity, num_kv_heads, 256), device="cuda", dtype=torch.float16
@@ -67,7 +68,7 @@ def _case(rows, page, length, num_kv_heads, seed):
 
 
 def _reference_single_head(op, q, k, v, table, lengths, head, ks, vs):
-    heads = slice(head * ops.GROUP_SIZE, (head + 1) * ops.GROUP_SIZE)
+    heads = slice(head * GQA_GROUP_SIZE, (head + 1) * GQA_GROUP_SIZE)
     q_h = q[:, heads, :].contiguous()
     k_h = k[:, :, head : head + 1, :].contiguous()
     v_h = v[:, :, head : head + 1, :].contiguous()
@@ -96,20 +97,20 @@ def _reference_single_head(op, q, k, v, table, lengths, head, ks, vs):
         (2, 848, 1700),
     ],
 )
-def test_per_kv_head_matches_contiguous_single_head_and_oracle(
+def test_multi_kv_head_matches_contiguous_single_head_and_oracle(
     monkeypatch, rows, page, length
 ):
+    monkeypatch.delenv("VLLM_FLASH_V100_DECODE_PARTITION_SIZE", raising=False)
     op = _native()
-    monkeypatch.setenv(ops.MULTI_KV_HEAD_ENV, "1")
     num_kv_heads = 2
     q, k, v, encoded, table, lengths, metadata = _case(
         rows, page, length, num_kv_heads, 20260914
     )
     ks, vs = 0.5, 1.25
     out = torch.empty_like(q)
-    ran = ops.run_grouped_e4m3_fp32_per_kv_head(
-        op,
-        _Instance(op),
+    instance = _Instance(op)
+    assert ops.grouped_e4m3_fp32_allowed(
+        instance,
         q,
         k,
         v,
@@ -117,15 +118,24 @@ def test_per_kv_head_matches_contiguous_single_head_and_oracle(
         lengths,
         metadata,
         out=out,
+        partition_size_hint=None,
+    )
+    # This is the exact upstream backend dispatch: the gate consumes the
+    # expanded per-query table, while the operator receives request metadata.
+    op(
+        q,
+        k,
+        v,
+        metadata.block_table,
+        lengths,
+        out=out,
         softmax_scale=0.0625,
         k_scale=ks,
         v_scale=vs,
-        partition_size_hint=None,
     )
-    assert ran
     for head in range(num_kv_heads):
         expected = _reference_single_head(op, q, k, v, table, lengths, head, ks, vs)
-        heads = slice(head * ops.GROUP_SIZE, (head + 1) * ops.GROUP_SIZE)
+        heads = slice(head * GQA_GROUP_SIZE, (head + 1) * GQA_GROUP_SIZE)
         assert torch.equal(out[:, heads, :], expected)
         # FP64 oracle on the same quantized KV, as in the single-head tests.
         rk = encoded[0, :length, head].view(torch.float8_e4m3fn).double() * ks
@@ -138,17 +148,17 @@ def test_per_kv_head_matches_contiguous_single_head_and_oracle(
         assert float(relative_l2) < 0.001
 
 
-def test_per_kv_head_is_graph_replayable(monkeypatch):
+def test_multi_kv_head_is_graph_replayable(monkeypatch):
+    monkeypatch.delenv("VLLM_FLASH_V100_DECODE_PARTITION_SIZE", raising=False)
     op = _native()
-    monkeypatch.setenv(ops.MULTI_KV_HEAD_ENV, "1")
     rows, page, length = 5, 1616, 4000
     q, k, v, _, table, lengths, metadata = _case(rows, page, length, 2, 20260915)
     out = torch.empty_like(q)
+    instance = _Instance(op)
 
     def call():
-        assert ops.run_grouped_e4m3_fp32_per_kv_head(
-            op,
-            _Instance(op),
+        assert ops.grouped_e4m3_fp32_allowed(
+            instance,
             q,
             k,
             v,
@@ -156,10 +166,18 @@ def test_per_kv_head_is_graph_replayable(monkeypatch):
             lengths,
             metadata,
             out=out,
+            partition_size_hint=None,
+        )
+        op(
+            q,
+            k,
+            v,
+            metadata.block_table,
+            lengths,
+            out=out,
             softmax_scale=0.0625,
             k_scale=1.0,
             v_scale=1.0,
-            partition_size_hint=None,
         )
 
     call()
@@ -179,40 +197,51 @@ def test_per_kv_head_is_graph_replayable(monkeypatch):
         assert torch.equal(out, expected)
 
 
-def test_route_is_opt_in_and_shape_gated(monkeypatch):
+def test_upstream_route_admits_multi_kv_and_rejects_bad_shapes(monkeypatch):
+    monkeypatch.delenv("VLLM_FLASH_V100_DECODE_PARTITION_SIZE", raising=False)
     op = _native()
     rows, page, length = 5, 1616, 4000
     q, k, v, _, table, lengths, metadata = _case(rows, page, length, 2, 20260916)
-    out = torch.full_like(q, 7.0)
-    kwargs = dict(
+    instance = _Instance(op)
+    out = torch.empty_like(q)
+    assert ops.grouped_e4m3_fp32_allowed(
+        instance,
+        q,
+        k,
+        v,
+        table,
+        lengths,
+        metadata,
         out=out,
-        softmax_scale=0.0625,
-        k_scale=1.0,
-        v_scale=1.0,
         partition_size_hint=None,
     )
-    monkeypatch.delenv(ops.MULTI_KV_HEAD_ENV, raising=False)
-    assert not ops.run_grouped_e4m3_fp32_per_kv_head(
-        op, _Instance(op), q, k, v, table, lengths, metadata, **kwargs
+    # The upstream route has no multi-KV opt-in switch. Its public gate still
+    # rejects unsupported operator settings and malformed GQA layouts.
+    instance.use_smallq_decode_xqa = False
+    assert not ops.grouped_e4m3_fp32_allowed(
+        instance,
+        q,
+        k,
+        v,
+        table,
+        lengths,
+        metadata,
+        out=out,
+        partition_size_hint=None,
     )
-    monkeypatch.setenv(ops.MULTI_KV_HEAD_ENV, "1")
-    # Single KV head is the native entry's own shape, not this route.
-    assert (
-        ops.grouped_e4m3_fp32_kv_head_views(
-            q[:, :6, :], k[:, :, :1, :], v[:, :, :1, :], out[:, :6, :]
-        )
-        is None
+    instance.use_smallq_decode_xqa = True
+    wrong_heads = q[:, :-1]
+    assert not ops.grouped_e4m3_fp32_allowed(
+        instance,
+        wrong_heads,
+        k,
+        v,
+        table,
+        lengths,
+        metadata,
+        out=out[:, :-1],
+        partition_size_hint=None,
     )
-    # Two requests in the batch are rejected by the single-request gate.
-    two = SimpleNamespace(
-        block_table=torch.cat([metadata.block_table] * 2),
-        seq_lens=torch.cat([metadata.seq_lens] * 2),
-        causal=True,
-    )
-    assert not ops.run_grouped_e4m3_fp32_per_kv_head(
-        op, _Instance(op), q, k, v, table, lengths, two, **kwargs
-    )
-    assert bool((out == 7.0).all())
 
 
 # ---------------------------------------------------------------------------
@@ -235,7 +264,7 @@ def test_e5m2_one_pass_verifier_per_kv_head_matches_contiguous(page, length):
     pages = (length + page - 1) // page
     capacity = pages * page
     q = torch.randn(
-        (rows, ops.GROUP_SIZE * num_kv_heads, 256), device="cuda", dtype=torch.float16
+        (rows, GQA_GROUP_SIZE * num_kv_heads, 256), device="cuda", dtype=torch.float16
     )
     raw = torch.randn(
         (2, capacity, num_kv_heads, 256), device="cuda", dtype=torch.float16
@@ -250,10 +279,17 @@ def test_e5m2_one_pass_verifier_per_kv_head_matches_contiguous(page, length):
     v[order] = encoded[1].reshape_as(v)
     table = order.int()[None].contiguous()
     seq_lens = torch.tensor([length], device="cuda", dtype=torch.int32)
-    views = ops.grouped_e4m3_fp32_kv_head_views(q, k, v, torch.empty_like(q))
-    assert views is not None and len(views) == num_kv_heads
-    for head, (q_h, k_h, v_h, out_h) in enumerate(views):
-        op(
+    for head in range(num_kv_heads):
+        heads = slice(head * GQA_GROUP_SIZE, (head + 1) * GQA_GROUP_SIZE)
+        q_h = q[:, heads, :].contiguous()
+        # Deliberately retain the per-head page-stride view here: E5M2 still
+        # uses the legacy verifier and does not use the E4M3 grouping helper.
+        k_h = k[:, :, head : head + 1, :]
+        v_h = v[:, :, head : head + 1, :]
+        # The Python wrapper makes a non-contiguous ``out`` contiguous and
+        # returns that tensor; a strided output view would not be updated.
+        out_h = torch.empty_like(q_h)
+        out_h = op(
             q_h,
             k_h,
             v_h,
@@ -267,7 +303,7 @@ def test_e5m2_one_pass_verifier_per_kv_head_matches_contiguous(page, length):
             one_pass=True,
         )
         expected = torch.empty_like(q_h)
-        op(
+        expected = op(
             q_h,
             k_h.contiguous(),
             v_h.contiguous(),
@@ -295,10 +331,9 @@ def test_e5m2_one_pass_verifier_per_kv_head_matches_contiguous(page, length):
 
 # ---------------------------------------------------------------------------
 # Multi-request verify batch on a rank holding a single KV head (TP4 layout).
-# _smallq_grouped_per_request verifies each request's contiguous q slice
-# (q, 6, 256) with one native call per request -- no per-KV-head views. Each
-# request's output must be bitwise equal to the native entry called standalone
-# on that request's slice (its own block-table row and lengths).
+# The current backend admits one request with q8/q16, or request-major q8
+# batches when the native ABI supports them. These tests use its per-request
+# route, comparing each result to an independent native invocation.
 # ---------------------------------------------------------------------------
 
 
@@ -333,7 +368,7 @@ def _single_head_multi_request_case(q_per_req, lengths_req, page, fp8_dtype, see
     capacity = ppr * page
     total_pages = ppr * num_reqs
     query = torch.randn(
-        (q_per_req * num_reqs, ops.GROUP_SIZE, 256), device="cuda", dtype=torch.float16
+        (q_per_req * num_reqs, GQA_GROUP_SIZE, 256), device="cuda", dtype=torch.float16
     )
     backing = torch.empty(
         (total_pages, 2, page, 1, 256), device="cuda", dtype=torch.uint8
@@ -363,6 +398,8 @@ def _single_head_multi_request_case(q_per_req, lengths_req, page, fp8_dtype, see
     metadata = SimpleNamespace(
         block_table=parent_table,
         seq_lens=parent_seq,
+        num_reqs=num_reqs,
+        max_query_len=q_per_req,
         is_dflash_selector_target=True,
         max_model_len=262144,
         causal=True,
@@ -383,9 +420,8 @@ def _single_head_multi_request_case(q_per_req, lengths_req, page, fp8_dtype, see
 
 
 @pytest.mark.parametrize("q_per_req", [8, 16])
-def test_smallq_grouped_per_request_single_kv_head_e5m2(monkeypatch, q_per_req):
+def test_dflash2_grouped_verify_per_request_e5m2(q_per_req):
     op = _native_e5m2()
-    monkeypatch.setenv(ops.MULTI_KV_HEAD_ENV, "1")
     ks, vs = 0.5, 1.25
     c = _single_head_multi_request_case(
         q_per_req, [8197, 5003], 1648, torch.float8_e5m2, 20260918
@@ -393,22 +429,59 @@ def test_smallq_grouped_per_request_single_kv_head_e5m2(monkeypatch, q_per_req):
     impl = _build_impl("fp8_e5m2", e5m2_op=op)
     layer = SimpleNamespace(_k_scale_float=ks, _v_scale_float=vs)
     out = torch.empty_like(c.query)
-    ran = impl._smallq_grouped_per_request(
-        layer,
-        c.query,
-        c.k,
-        c.v,
-        c.block_table,
-        c.seq_lens,
-        c.metadata,
-        out=out,
-        partition_size_hint=None,
-    )
-    assert ran
+    batched = False
+    if q_per_req == 8:
+        # Upstream's request-major E5M2 path is Q8 per request. Use it when
+        # the installed native ABI advertises the batch contract; older
+        # extensions remain covered by the supported single-request route.
+        module = pytest.importorskip("flash_attn_v100")
+        get_abi = getattr(
+            module, "flash_attn_grouped_verify_request_major_abi_version", None
+        )
+        abi_version = 0 if get_abi is None else int(get_abi())
+        if abi_version >= 1:
+            impl.use_dflash2_batched_grouped_verify = True
+            impl.dflash2_grouped_verify_request_major_abi_version = abi_version
+            assert impl._dflash2_grouped_verify_allowed(
+                c.query,
+                c.k,
+                c.v,
+                c.metadata,
+                num_query_tokens=c.query.shape[0],
+            )
+            impl._call_dflash2_grouped_verify(
+                layer, c.query, c.k, c.v, c.metadata, out=out
+            )
+            batched = True
     for i in range(c.num_reqs):
         rows = slice(i * c.q_per_req, (i + 1) * c.q_per_req)
-        # Standalone single-request native call (this request's row + length).
         q_i = c.query[rows].contiguous()
+        metadata_i = SimpleNamespace(
+            block_table=c.parent_table[i : i + 1],
+            seq_lens=c.parent_seq[i : i + 1],
+            is_dflash_selector_target=True,
+            max_model_len=262144,
+            max_query_len=c.q_per_req,
+            num_reqs=1,
+            causal=True,
+        )
+        if not batched:
+            # Exercise the current single-request Q8/Q16 DFlash2 path.
+            assert impl._dflash2_grouped_verify_allowed(
+                q_i,
+                c.k,
+                c.v,
+                metadata_i,
+                num_query_tokens=c.q_per_req,
+            )
+            impl._call_dflash2_grouped_verify(
+                layer,
+                q_i,
+                c.k,
+                c.v,
+                metadata_i,
+                out=out[rows],
+            )
         expected = torch.empty_like(q_i)
         op(
             q_i,
@@ -435,52 +508,51 @@ def test_smallq_grouped_per_request_single_kv_head_e5m2(monkeypatch, q_per_req):
         oracle = (score.softmax(-1) @ rv).transpose(0, 1)
         relative_l2 = (out[rows].double() - oracle).norm() / oracle.norm()
         assert float(relative_l2) < 0.01
-    # Opt-in: without the flag the route is not taken and out is untouched.
-    monkeypatch.delenv(ops.MULTI_KV_HEAD_ENV, raising=False)
-    out.fill_(7.0)
-    assert not impl._smallq_grouped_per_request(
-        layer,
-        c.query,
-        c.k,
-        c.v,
-        c.block_table,
-        c.seq_lens,
-        c.metadata,
-        out=out,
-        partition_size_hint=None,
-    )
-    assert bool((out == 7.0).all())
 
 
-def test_smallq_grouped_per_request_single_kv_head_e4m3(monkeypatch):
-    op = _native()
-    monkeypatch.setenv(ops.MULTI_KV_HEAD_ENV, "1")
+def test_e4m3_grouped_fp32_per_request_upstream_route(monkeypatch):
     monkeypatch.delenv("VLLM_FLASH_V100_DECODE_PARTITION_SIZE", raising=False)
+    op = _native()
     ks, vs = 0.5, 1.25
     c = _single_head_multi_request_case(
         4, [8197, 5003], 1648, torch.float8_e4m3fn, 20260919
     )
     impl = _build_impl("fp8_e4m3", e4m3_op=op)
-    layer = SimpleNamespace(_k_scale_float=ks, _v_scale_float=vs)
     out = torch.empty_like(c.query)
-    ran = impl._smallq_grouped_per_request(
-        layer,
-        c.query,
-        c.k,
-        c.v,
-        c.block_table,
-        c.seq_lens,
-        c.metadata,
-        out=out,
-        partition_size_hint=None,
-    )
-    assert ran
     for i in range(c.num_reqs):
         rows = slice(i * c.q_per_req, (i + 1) * c.q_per_req)
         q_i = c.query[rows].contiguous()
         length_rows = c.seq_lens[rows]
-        expected = torch.empty_like(q_i)
+        metadata_i = SimpleNamespace(
+            block_table=c.parent_table[i : i + 1],
+            seq_lens=c.parent_seq[i : i + 1],
+            causal=True,
+        )
+        out_i = out[rows]
+        assert ops.grouped_e4m3_fp32_allowed(
+            impl,
+            q_i,
+            c.k,
+            c.v,
+            c.block_table[rows],
+            length_rows,
+            metadata_i,
+            out=out_i,
+            partition_size_hint=None,
+        )
         # E4M3 uses the request's block-table row and its per-token lengths.
+        op(
+            q_i,
+            c.k,
+            c.v,
+            c.parent_table[i : i + 1],
+            length_rows,
+            out=out_i,
+            softmax_scale=0.0625,
+            k_scale=ks,
+            v_scale=vs,
+        )
+        expected = torch.empty_like(q_i)
         op(
             q_i,
             c.k,
@@ -492,7 +564,7 @@ def test_smallq_grouped_per_request_single_kv_head_e4m3(monkeypatch):
             k_scale=ks,
             v_scale=vs,
         )
-        assert torch.equal(out[rows], expected)
+        assert torch.equal(out_i, expected)
         length = int(c.parent_seq[i])
         rk = c.encoded[i][0, :length, 0].view(torch.float8_e4m3fn).double() * ks
         rv = c.encoded[i][1, :length, 0].view(torch.float8_e4m3fn).double() * vs
@@ -500,5 +572,5 @@ def test_smallq_grouped_per_request_single_kv_head_e4m3(monkeypatch):
         mask = torch.arange(length, device="cuda")[None] >= length_rows[:, None]
         score.masked_fill_(mask[None], -torch.inf)
         oracle = (score.softmax(-1) @ rv).transpose(0, 1)
-        relative_l2 = (out[rows].double() - oracle).norm() / oracle.norm()
+        relative_l2 = (out_i.double() - oracle).norm() / oracle.norm()
         assert float(relative_l2) < 0.001
