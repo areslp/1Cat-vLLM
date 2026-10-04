@@ -76,6 +76,8 @@ _SM70_QSA_XQA_PAGE4_PAGES = 513
 _SM70_QSA_XQA_PAGE4_MARKER = 1 << 30
 _SM70_QSA_GROUPED_PAGE4 = os.getenv("VLLM_SM70_QSA_GROUPED_PAGE4", "1") == "1"
 _SM70_QSA_GROUPED_PAD_FIX = os.getenv("VLLM_SM70_QSA_GROUPED_PAD_FIX", "1") == "1"
+_ONECAT_QSA48 = os.getenv("ONECAT_QSA48", "")
+_QSA48_SPLIT_MAX_ROWS = 64
 _SM70_QSA_GROUPED_PAGE4_QUERIES = 8
 _SM70_QSA_GROUPED_PAGE4_OUTPUT_PAGES = (
     _SM70_QSA_XQA_PAGE4_PAGES * _SM70_QSA_GROUPED_PAGE4_QUERIES + 56
@@ -1957,6 +1959,7 @@ def _qsa_grouped_page4_forward(
     kv_cache_dtype: str,
     k_scale: float,
     v_scale: float,
+    token_to_req: torch.Tensor | None = None,
 ) -> None:
     forward_args = (
         q,
@@ -1971,6 +1974,19 @@ def _qsa_grouped_page4_forward(
     )
     abi_version = _qsa_grouped_page4_abi_version(flash_attn_v100_cuda)
     if abi_version >= 2:
+        if (
+            _ONECAT_QSA48 == "split"
+            and token_to_req is not None
+            and q.shape[0] <= _QSA48_SPLIT_MAX_ROWS
+        ):
+            split = getattr(
+                flash_attn_v100_cuda, "grouped_sparse_page4_split_fwd", None
+            )
+            if split is not None:
+                logger.info_once("ONECAT_FUSE47 q48 route: split")
+                split(*forward_args, kv_cache_dtype, k_scale, v_scale, token_to_req)
+                return
+            logger.info_once("ONECAT_FUSE47 q48 route: fallback:no_split_entry")
         flash_attn_v100_cuda.grouped_sparse_page4_fwd(
             *forward_args,
             kv_cache_dtype,
@@ -2044,6 +2060,7 @@ def _qsa_sparse_paged_attention_sm70_grouped_page4(
         kv_cache_dtype,
         k_scale,
         v_scale,
+        token_to_req=token_to_req,
     )
     logger.info_once(
         "Using SM70 grouped QSA Flash-V100 page4 prefill route (rows=%d, groups=%d).",
