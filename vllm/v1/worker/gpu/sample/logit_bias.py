@@ -190,7 +190,8 @@ def _bias_kernel(
             logits_ptr + token_idx * logits_stride + allowed_token_ids, mask=mask
         )
 
-        tl.debug_barrier()  # save must read original logits before the -inf overwrite
+        # Finish allowed-logit reads before overwriting the row.
+        tl.debug_barrier()
 
         # Set logits to -inf for all tokens.
         for i in range(0, vocab_size, LOGITS_BLOCK_SIZE):
@@ -201,7 +202,8 @@ def _bias_kernel(
                 mask=offset < vocab_size,
             )
 
-        tl.debug_barrier()  # -inf overwrite must finish before restoring saved logits
+        # Finish row clearing before restoring the allowed entries.
+        tl.debug_barrier()
 
         # Restore logits for allowed token IDs.
         tl.store(
