@@ -9,6 +9,8 @@ using Pivot-based Truncation and Selection" By Park et al.
 
 """
 
+from typing import Any
+
 import torch
 
 from vllm import envs
@@ -31,7 +33,7 @@ _NOSYNC_UNRESOLVED: dict[torch.device, torch.Tensor] = {}
 def nosync_unresolved_rows(device: torch.device | str = "cuda") -> int:
     dev = torch.device(device)
     if dev.type == "cuda" and dev.index is None:
-        dev = torch.device("cuda", torch.cuda.current_device())
+        dev = torch.device("cuda", torch.accelerator.current_device_index())
     t = _NOSYNC_UNRESOLVED.get(dev)
     return 0 if t is None else int(t.item())
 
@@ -254,26 +256,26 @@ def _topk_topp_kernel(
         LOGITS_ROW = LOGITS + row_id * LOGITS_STRIDE_0
         BUFFER_ROW = BUFFER + pid * VOCAB_SIZE
 
-        k_pivot = 0.0
-        outlier_pivot = 0.0
+        k_pivot: Any = 0.0
+        outlier_pivot: Any = 0.0
         num_outliers = tl.zeros((), tl.uint32)
-        sum_exp_logits = 0.0
-        p_pivot = 0.0
-        min_larger_prob = 0.0
-        p_pivots_sum = 0.0
+        sum_exp_logits: Any = 0.0
+        p_pivot: Any = 0.0
+        min_larger_prob: Any = 0.0
+        p_pivots_sum: Any = 0.0
         num_finite_total = tl.zeros((), tl.uint32)
         num_iters = tl.zeros((), tl.int32)
         search_range = tl.zeros((), tl.int32)
         debug_standalone = tl.full((), False, tl.int1)
-        final_pivot = -float("inf")
-        duplicate_logit = float("inf")
+        final_pivot: Any = -float("inf")
+        duplicate_logit: Any = float("inf")
         num_duplicate_logit = tl.zeros((), dtype=tl.uint32)
         num_keep = tl.zeros((), dtype=tl.uint32)
         num_kept = tl.zeros((), dtype=tl.uint32)
         needs_reference = tl.full((), False, tl.int1)
 
-        max_logit = -float("inf")
-        min_logit = float("inf")
+        max_logit: Any = -float("inf")
+        min_logit: Any = float("inf")
 
         if TOPK_ENABLED:
             k = tl.load(K + row_id)

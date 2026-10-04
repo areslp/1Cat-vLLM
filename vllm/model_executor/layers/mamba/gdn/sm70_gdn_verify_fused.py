@@ -28,6 +28,7 @@ Unset or empty keeps the production path.
 
 import collections
 import os
+from typing import cast
 
 import torch
 
@@ -678,7 +679,8 @@ def fused_recurrent_gdn_verify(
     evaluated in-kernel; o is written to ``out`` ([T, HV, V], contiguous).
     q, k: [1, T, H, K]; v: [1, T, HV, V]; a, b: [T, HV] with unit inner stride.
     """
-    B, T, H, K, V = *k.shape, v.shape[-1]
+    B, T, H, K = cast(tuple[int, int, int, int], k.shape)
+    V = v.size(-1)
     HV = v.shape[2]
     assert B == 1 and q.is_contiguous() and k.is_contiguous() and v.is_contiguous()
     assert a.stride(1) == 1 and b.stride(1) == 1
@@ -737,7 +739,7 @@ def fused_recurrent_gdn_verify(
         stride_indices_tok=stride_indices_tok,
         softplus_beta=1.0,
         softplus_threshold=20.0,
-        zero_rows=int(zero_fill_rows) if zero_fill else 0,
+        zero_rows=zero_fill_rows if zero_fill_rows is not None else 0,
         ZERO_FILL=zero_fill,
         num_warps=num_warps,
         num_stages=num_stages,

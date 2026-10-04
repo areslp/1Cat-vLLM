@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
 """CPU-only regression for the conservative E7 serving envelope."""
 
 from types import SimpleNamespace

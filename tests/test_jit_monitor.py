@@ -2,12 +2,12 @@
 # SPDX-FileCopyrightText: Copyright contributors to the vLLM project
 import json
 import os
-import re
 import sys
 from types import SimpleNamespace
 from unittest import mock
 
 import pytest
+import regex as re
 
 from vllm.triton_utils import jit_monitor
 

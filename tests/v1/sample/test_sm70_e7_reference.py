@@ -111,7 +111,7 @@ def test_resolver_does_not_host_synchronize():
     k = torch.full((5,), 20, dtype=torch.int32, device="cuda")
     p = torch.full((5,), 0.95, device="cuda")
     packet_topk._sorted_candidates(logits, KC)
-    torch.cuda.synchronize()
+    torch.accelerator.synchronize()
     torch.cuda.set_sync_debug_mode("error")
     try:
         _resolve(logits, k, p)

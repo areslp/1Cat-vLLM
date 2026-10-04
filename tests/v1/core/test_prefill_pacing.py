@@ -58,9 +58,7 @@ def _complete_scheduled_step(scheduler, step, decode_req_id: str | None = None):
             req_ids=req_ids,
             req_id_to_index={req_id: i for i, req_id in enumerate(req_ids)},
             sampled_token_ids=[
-                [1000 + scheduler.current_step]
-                if req_id == decode_req_id
-                else []
+                [1000 + scheduler.current_step] if req_id == decode_req_id else []
                 for req_id in req_ids
             ],
         ),
@@ -81,9 +79,7 @@ def _make_running_decode(scheduler):
     return decode
 
 
-def test_unfinished_prefill_runs_once_per_four_steps_with_decode(
-    monkeypatch, tmp_path
-):
+def test_unfinished_prefill_runs_once_per_four_steps_with_decode(monkeypatch, tmp_path):
     scheduler = _create_pacing_scheduler(monkeypatch, pace_steps=4, tmp_path=tmp_path)
     decode = _make_running_decode(scheduler)
     (prefill,) = create_requests(

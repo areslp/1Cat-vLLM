@@ -6,7 +6,7 @@ import functools
 import os
 import time
 from types import SimpleNamespace
-from typing import Literal
+from typing import Literal, cast
 
 import torch
 from einops import rearrange
@@ -1043,7 +1043,12 @@ def _qwen_gdn_run_verify_fused_core(
         layer_name,
         core_attn_out.device,
     )
-    attn_metadata = get_forward_context().attn_metadata[_resolve_layer_name(layer_name)]
+    # The fuse-plan guard routes list-valued DBO metadata away from this helper;
+    # this path receives the standard per-layer metadata map with GDN entries.
+    attn_metadata_by_layer = cast(
+        dict[str, GDNAttentionMetadata], get_forward_context().attn_metadata
+    )
+    attn_metadata = attn_metadata_by_layer[_resolve_layer_name(layer_name)]
     if conv_state_cache.numel() == 0 and ssm_state_cache.numel() == 0:
         kv_cache = getattr(self, "kv_cache", None)
         if kv_cache is not None and kv_cache[0].numel() > 0:

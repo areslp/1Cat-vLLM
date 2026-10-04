@@ -297,7 +297,7 @@ def _ple_short_conv_spec_kernel(
     qsl_ptr,  # int [num_reqs + 1]
     nacc_ptr,  # int [num_reqs]
     out_ptr,  # fp16 [>= num_x_rows, C]
-    stride_ot,
+    stride_output_token,
     num_reqs,
     num_x_rows,
     C,
@@ -315,7 +315,7 @@ def _ple_short_conv_spec_kernel(
         start = tl.load(qsl_ptr + num_reqs).to(tl.int64)
         zero = tl.zeros([BLOCK_C], dtype=tl.float16)
         for p in range(start, num_x_rows):
-            tl.store(out_ptr + p * stride_ot + c, zero, mask=cmask)
+            tl.store(out_ptr + p * stride_output_token + c, zero, mask=cmask)
         return
 
     idx = tl.load(state_idx_ptr + r).to(tl.int64)
@@ -370,7 +370,9 @@ def _ple_short_conv_spec_kernel(
         y = libdevice.div_rn(conv, one + libdevice.exp(-conv)).to(tl.float16)
         # output * valid_tokens (1.0 for real tokens), FP16 multiply.
         y = (y.to(tl.float32) * one).to(tl.float16)
-        tl.store(out_ptr + (q0 + j) * stride_ot + c, y, mask=cmask & (j < qlen))
+        tl.store(
+            out_ptr + (q0 + j) * stride_output_token + c, y, mask=cmask & (j < qlen)
+        )
 
     # Extended state: position p <- history[p + 1] for p < STATE_LEN + qlen - 1.
     # Every read is at a position above every position already written.

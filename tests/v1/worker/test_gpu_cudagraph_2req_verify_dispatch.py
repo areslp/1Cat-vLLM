@@ -35,7 +35,7 @@ def _manager_with_captured_verify_graphs():
     pw8 = BatchExecutionDescriptor(CUDAGraphMode.PIECEWISE, 8, None, None)
     full16 = BatchExecutionDescriptor(CUDAGraphMode.FULL, 16, 2, Q)
     pw16 = BatchExecutionDescriptor(CUDAGraphMode.PIECEWISE, 16, None, None)
-    cands = [[] for _ in range(17)]
+    cands: list[list[BatchExecutionDescriptor]] = [[] for _ in range(17)]
     cands[8] = [full8, pw8]
     cands[16] = [full16, pw16]
     m._candidates = cands

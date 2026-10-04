@@ -32,6 +32,7 @@ from vllm import envs
 from vllm.compilation.counter import compilation_counter
 from vllm.config import VllmConfig
 from vllm.config.compilation import CUDAGraphMode
+from vllm.config.sm70_dflash2 import capture_sm70_dflash2_config, sm70_dflash2_enabled
 from vllm.distributed.parallel_state import (
     get_dcp_group,
     get_pp_group,
@@ -758,9 +759,10 @@ class GPUModelRunner(LoRAModelRunnerMixin):
         ``_sm70_prepare_grouped_smallq_decode_metadata_kernel``). Compile every
         ``num_reqs`` in 1..max_num_seqs (q = decode_query_len) ahead of time.
         """
+        policy = capture_sm70_dflash2_config(self.vllm_config)
         if not (
-            envs.VLLM_SM70_DFLASH2_FUSED_SMALLQ_METADATA
-            and envs.VLLM_SM70_DFLASH2_GROUPED_SMALLQ_METADATA
+            sm70_dflash2_enabled("fused_smallq_metadata", policy)
+            and sm70_dflash2_enabled("grouped_smallq_metadata", policy)
         ):
             return False
         attn_groups = getattr(self, "attn_groups", None)
@@ -839,7 +841,7 @@ class GPUModelRunner(LoRAModelRunnerMixin):
                             num_query_tokens=num_query_tokens,
                             real_num_query_tokens=real_num_query_tokens,
                         )
-            torch.cuda.synchronize()
+            torch.accelerator.synchronize()
             return True
         except Exception as exc:  # pragma: no cover - warmup must never block boot
             logger.warning_once(
@@ -1473,6 +1475,7 @@ class GPUModelRunner(LoRAModelRunnerMixin):
         if sampler_output is None and _fuse47.unit_enabled("s1"):
             s1_reason = _fuse47.s1_block_reason(self, input_batch, grammar_output)
             if s1_reason is None:
+                assert self.rejection_sampler is not None
                 _fuse47.note_route("s1", "fused")
                 top = _fuse47.tp_local_top1(self.model, sample_hidden_states)
                 sampled, num_sampled = _fuse47.greedy_verify_from_top1(

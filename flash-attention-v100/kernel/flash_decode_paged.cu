@@ -4364,21 +4364,26 @@ __launch_bounds__(kGroupedSparsePlannerThreads, 1) void grouped_sparse_page4_pla
   }
 }
 
-
-// STEP-48 W1 (split entry, opt-in; the kernels above are unchanged): the SPARSE_PAGE4 grouped verifier split across
-// CTAs by (m-tile, request segment, group). A request segment is a maximal run of equal token_to_req entries among a
-// group's eight queries. The CTA for (m, s, g) owns the rows of segment s that lie in the 16-row m-tile m of group g,
-// processes, in the planner's order, only the 32-token tiles in which one of its tokens sees a key, and applies to
-// every owned row exactly the per-tile operations of
-// flash_attention_grouped_verify_e5m2_partial_kernel<8, false, 4, false, false, false, KV_DTYPE, true>: the same
-// panel loads and W12 zeroing, grouped_verify_qk on the same 16-row fragment (active mask 0x1 on a 16-row base),
-// the same warp softmax per row, the same row_scale step and the same P x V fragment sequence. The tiles it skips
-// are exact identities for its rows in the packed kernel (the row sees no key there: P = 0, row_scale = 1.0), so
-// every owned output element and LSE is bit-identical. Rows of other segments in the same m-tile are computed and
-// discarded.
+// STEP-48 W1 (split entry, opt-in; the kernels above are unchanged): the
+// SPARSE_PAGE4 grouped verifier split across CTAs by (m-tile, request segment,
+// group). A request segment is a maximal run of equal token_to_req entries
+// among a group's eight queries. The CTA for (m, s, g) owns the rows of segment
+// s that lie in the 16-row m-tile m of group g, processes, in the planner's
+// order, only the 32-token tiles in which one of its tokens sees a key, and
+// applies to every owned row exactly the per-tile operations of
+// flash_attention_grouped_verify_e5m2_partial_kernel<8, false, 4, false, false,
+// false, KV_DTYPE, true>: the same panel loads and W12 zeroing,
+// grouped_verify_qk on the same 16-row fragment (active mask 0x1 on a 16-row
+// base), the same warp softmax per row, the same row_scale step and the same P
+// x V fragment sequence. The tiles it skips are exact identities for its rows
+// in the packed kernel (the row sees no key there: P = 0, row_scale = 1.0), so
+// every owned output element and LSE is bit-identical. Rows of other segments
+// in the same m-tile are computed and discarded.
 constexpr int kGroupedSplitRows = 16;
-constexpr int kGroupedSplitMaxPages = kGroupedVerifyQ8MaxQ * 513 + 56;  // the planner's output width (4160)
-constexpr int kGroupedSplitMaxTiles = kGroupedSplitMaxPages / (kGroupedVerifyBlockN / 4);
+constexpr int kGroupedSplitMaxPages =
+    kGroupedVerifyQ8MaxQ * 513 + 56;  // the planner's output width (4160)
+constexpr int kGroupedSplitMaxTiles =
+    kGroupedSplitMaxPages / (kGroupedVerifyBlockN / 4);
 
 struct alignas(256) GroupedSplitSmem {
   union {
@@ -4398,34 +4403,44 @@ struct alignas(256) GroupedSplitSmem {
   int warp_counts[kGroupedVerifyWarps];
 };
 
-static_assert(sizeof(GroupedSplitSmem) <= 48 * 1024, "split grouped verifier must fit 48 KiB");
-static_assert(kGroupedSplitMaxPages % (kGroupedVerifyBlockN / 4) == 0, "planner width must be whole tiles");
+static_assert(sizeof(GroupedSplitSmem) <= 48 * 1024,
+              "split grouped verifier must fit 48 KiB");
+static_assert(kGroupedSplitMaxPages % (kGroupedVerifyBlockN / 4) == 0,
+              "planner width must be whole tiles");
 
 template <int KV_DTYPE>
-__global__ __launch_bounds__(kGroupedVerifyThreads, 1) void grouped_sparse_page4_split_kernel(
-    const __half* __restrict__ q, const void* __restrict__ k_cache, const void* __restrict__ v_cache,
-    const int* __restrict__ block_table, const int* __restrict__ seq_lens, __half* __restrict__ out,
-    float* __restrict__ lse, const int max_num_blocks, const int64_t k_block_stride,
-    const int64_t k_token_stride, const int64_t k_head_stride, const int64_t v_block_stride,
-    const int64_t v_token_stride, const int64_t v_head_stride, const float qk_scale, const float v_scale,
-    const uint32_t* __restrict__ sparse_token_masks, const int* __restrict__ token_to_req, const int num_groups) {
+__global__
+__launch_bounds__(kGroupedVerifyThreads, 1) void grouped_sparse_page4_split_kernel(
+    const __half* __restrict__ q, const void* __restrict__ k_cache,
+    const void* __restrict__ v_cache, const int* __restrict__ block_table,
+    const int* __restrict__ seq_lens, __half* __restrict__ out,
+    float* __restrict__ lse, const int max_num_blocks,
+    const int64_t k_block_stride, const int64_t k_token_stride,
+    const int64_t k_head_stride, const int64_t v_block_stride,
+    const int64_t v_token_stride, const int64_t v_head_stride,
+    const float qk_scale, const float v_scale,
+    const uint32_t* __restrict__ sparse_token_masks,
+    const int* __restrict__ token_to_req, const int num_groups) {
   constexpr int kQ = kGroupedVerifyQ8MaxQ;
   constexpr int kHeads = kGroupedVerifyHeads;
   constexpr int kD = kGroupedVerifyHeadDim;
   const int m_tile = blockIdx.x;
   const int segment = blockIdx.y;
   const int group_idx = blockIdx.z;
-  if (m_tile >= kGroupedVerifyRows / kGroupedSplitRows || segment >= kQ || group_idx >= num_groups) {
+  if (m_tile >= kGroupedVerifyRows / kGroupedSplitRows || segment >= kQ ||
+      group_idx >= num_groups) {
     return;
   }
-  // The segment's queries [lo, hi) (uniform across the CTA; eight cached loads per thread).
+  // The segment's queries [lo, hi) (uniform across the CTA; eight cached loads
+  // per thread).
   int lo = -1;
   int hi = -1;
   {
     int s = -1;
     int prev = 0;
     for (int t = 0; t < kQ; ++t) {
-      const int r = __ldg(token_to_req + static_cast<int64_t>(group_idx) * kQ + t);
+      const int r =
+          __ldg(token_to_req + static_cast<int64_t>(group_idx) * kQ + t);
       if (t == 0 || r != prev) {
         ++s;
         if (s == segment) {
@@ -4460,36 +4475,45 @@ __global__ __launch_bounds__(kGroupedVerifyThreads, 1) void grouped_sparse_page4
   const int total_kv = seq_lens[group_idx];
   if (total_kv <= 0) {
     // The packed kernel's early exit, for the owned rows: zeros and kXQANegInf.
-    for (int idx = tid; idx < kGroupedSplitRows * kD; idx += kGroupedVerifyThreads) {
+    for (int idx = tid; idx < kGroupedSplitRows * kD;
+         idx += kGroupedVerifyThreads) {
       const int g = row_lo + idx / kD;
       const int token = g / kHeads;
       if (token >= t_lo && token < t_hi) {
-        out[((static_cast<int64_t>(group_idx) * kQ + token) * kHeads + g % kHeads) * kD + idx % kD] =
-            __float2half_rn(0.0f);
+        out[((static_cast<int64_t>(group_idx) * kQ + token) * kHeads +
+             g % kHeads) *
+                kD +
+            idx % kD] = __float2half_rn(0.0f);
       }
     }
     if (tid < kGroupedSplitRows) {
       const int g = row_lo + tid;
       const int token = g / kHeads;
       if (token >= t_lo && token < t_hi) {
-        lse[(static_cast<int64_t>(group_idx) * kQ + token) * kHeads + g % kHeads] = kXQANegInf;
+        lse[(static_cast<int64_t>(group_idx) * kQ + token) * kHeads +
+            g % kHeads] = kXQANegInf;
       }
     }
     return;
   }
 
   extern __shared__ char grouped_split_smem_raw[];
-  GroupedSplitSmem& smem = *reinterpret_cast<GroupedSplitSmem*>(grouped_split_smem_raw);
+  GroupedSplitSmem& smem =
+      *reinterpret_cast<GroupedSplitSmem*>(grouped_split_smem_raw);
   __half* shared_q = smem.storage.compute.q;
   __half* shared_kv = smem.storage.compute.kv;
   float* shared_scores = smem.storage.compute.scores;
   __half* shared_probs = smem.storage.compute.probs;
-  const int* page_ids = block_table + static_cast<int64_t>(group_idx) * max_num_blocks;
-  const uint32_t* group_masks = sparse_token_masks + static_cast<int64_t>(group_idx) * max_num_blocks;
+  const int* page_ids =
+      block_table + static_cast<int64_t>(group_idx) * max_num_blocks;
+  const uint32_t* group_masks =
+      sparse_token_masks + static_cast<int64_t>(group_idx) * max_num_blocks;
 
-  // Relevant tiles in the planner's order: a tile is relevant when one of its valid pages has a bit of an owned
-  // token (8 pages of 4 tokens per 32-token tile; seq_len is a whole number of tiles).
-  const int total_tiles = (total_kv + kGroupedVerifyBlockN - 1) / kGroupedVerifyBlockN;
+  // Relevant tiles in the planner's order: a tile is relevant when one of its
+  // valid pages has a bit of an owned token (8 pages of 4 tokens per 32-token
+  // tile; seq_len is a whole number of tiles).
+  const int total_tiles =
+      (total_kv + kGroupedVerifyBlockN - 1) / kGroupedVerifyBlockN;
   const int total_pages = (total_kv + 3) / 4;
   int num_tiles = 0;
   for (int base = 0; base < total_tiles; base += kGroupedVerifyThreads) {
@@ -4497,7 +4521,8 @@ __global__ __launch_bounds__(kGroupedVerifyThreads, 1) void grouped_sparse_page4
     bool relevant = false;
     if (tile < total_tiles) {
       const int p0 = tile * (kGroupedVerifyBlockN / 4);
-      for (int p = 0; p < kGroupedVerifyBlockN / 4 && p0 + p < total_pages; ++p) {
+      for (int p = 0; p < kGroupedVerifyBlockN / 4 && p0 + p < total_pages;
+           ++p) {
         relevant |= (__ldg(group_masks + p0 + p) & token_bits) != 0;
       }
     }
@@ -4514,7 +4539,8 @@ __global__ __launch_bounds__(kGroupedVerifyThreads, 1) void grouped_sparse_page4
       count += c;
     }
     if (relevant) {
-      smem.tiles[num_tiles + prefix + __popc(ballot & ((1u << lane_id) - 1u))] = static_cast<uint16_t>(tile);
+      smem.tiles[num_tiles + prefix + __popc(ballot & ((1u << lane_id) - 1u))] =
+          static_cast<uint16_t>(tile);
     }
     num_tiles += count;
     __syncthreads();
@@ -4524,13 +4550,14 @@ __global__ __launch_bounds__(kGroupedVerifyThreads, 1) void grouped_sparse_page4
   constexpr int kSharedQVecsPerRow = kGroupedVerifyQStride / 8;
   const uint4* q_vec = reinterpret_cast<const uint4*>(q);
   uint4* shared_q_vec = reinterpret_cast<uint4*>(shared_q);
-  for (int idx = tid; idx < kGroupedSplitRows * kVecsPerRow; idx += kGroupedVerifyThreads) {
+  for (int idx = tid; idx < kGroupedSplitRows * kVecsPerRow;
+       idx += kGroupedVerifyThreads) {
     const int lr = idx / kVecsPerRow;
     const int vec_col = idx % kVecsPerRow;
     const int g = row_lo + lr;
     const int64_t query_row = static_cast<int64_t>(group_idx) * kQ + g / kHeads;
-    shared_q_vec[lr * kSharedQVecsPerRow + vec_col] =
-        __ldg(q_vec + (query_row * kHeads + g % kHeads) * kVecsPerRow + vec_col);
+    shared_q_vec[lr * kSharedQVecsPerRow + vec_col] = __ldg(
+        q_vec + (query_row * kHeads + g % kHeads) * kVecsPerRow + vec_col);
   }
   if (tid < kGroupedSplitRows) {
     smem.row_max[tid] = kXQANegInf;
@@ -4547,21 +4574,28 @@ __global__ __launch_bounds__(kGroupedVerifyThreads, 1) void grouped_sparse_page4
   volta::fill_fragment(output_fragment, 0.0f);
 
   for (int it = 0; it < num_tiles; ++it) {
-    const int tile_start = static_cast<int>(smem.tiles[it]) * kGroupedVerifyBlockN;
+    const int tile_start =
+        static_cast<int>(smem.tiles[it]) * kGroupedVerifyBlockN;
     const int valid_k_rows = min(kGroupedVerifyBlockN, total_kv - tile_start);
     const int valid_sparse_pages = (valid_k_rows + 3) / 4;
     if (tid < kGroupedVerifyBlockN / 4) {
-      smem.sparse_token_masks[tid] = tid < valid_sparse_pages ? __ldg(group_masks + (tile_start >> 2) + tid) : 0;
+      smem.sparse_token_masks[tid] =
+          tid < valid_sparse_pages
+              ? __ldg(group_masks + (tile_start >> 2) + tid)
+              : 0;
     }
     load_xqa_tc_kv_panel<4, false, kGroupedVerifyThreads, KV_DTYPE, kPairLoad>(
-        shared_kv, k_cache, page_ids, valid_k_rows, kPanelStrideVec, kSharedStrideVec, tile_start, 0, 4, 0,
-        k_block_stride, k_token_stride, k_head_stride, 0);
-    for (int idx = tid + valid_k_rows * kSharedStrideVec; idx < kGroupedVerifyBlockN * kSharedStrideVec;
+        shared_kv, k_cache, page_ids, valid_k_rows, kPanelStrideVec,
+        kSharedStrideVec, tile_start, 0, 4, 0, k_block_stride, k_token_stride,
+        k_head_stride, 0);
+    for (int idx = tid + valid_k_rows * kSharedStrideVec;
+         idx < kGroupedVerifyBlockN * kSharedStrideVec;
          idx += kGroupedVerifyThreads) {
       reinterpret_cast<uint4*>(shared_kv)[idx] = make_uint4(0, 0, 0, 0);
     }
     __syncthreads();
-    for (int idx = tid; idx < valid_k_rows * kSharedStrideVec; idx += kGroupedVerifyThreads) {
+    for (int idx = tid; idx < valid_k_rows * kSharedStrideVec;
+         idx += kGroupedVerifyThreads) {
       const int row = idx / kSharedStrideVec;
       const uint32_t token_mask = smem.sparse_token_masks[row >> 2];
       if ((token_mask & (0x11111111u << (row & 3))) == 0) {
@@ -4578,17 +4612,23 @@ __global__ __launch_bounds__(kGroupedVerifyThreads, 1) void grouped_sparse_page4
       const int head_idx = g % kHeads;
       const int kv_idx = tile_start + lane_id;
       const bool visible = grouped_verify_key_visible<true, false>(
-          smem.sparse_token_masks, token_idx, kQ, head_idx, kv_idx, valid_k_rows, lane_id, prefix_kv_len, nullptr);
-      const float score = visible ? shared_scores[lr * kGroupedVerifyScoreStride + lane_id] : kXQANegInf;
+          smem.sparse_token_masks, token_idx, kQ, head_idx, kv_idx,
+          valid_k_rows, lane_id, prefix_kv_len, nullptr);
+      const float score =
+          visible ? shared_scores[lr * kGroupedVerifyScoreStride + lane_id]
+                  : kXQANegInf;
       const float tile_max_lane = warp_reduce_max(score);
       const float tile_max = __shfl_sync(0xffffffffu, tile_max_lane, 0);
       const float old_max = smem.row_max[lr];
       const float new_max = fmaxf(old_max, tile_max);
-      const float probability = visible ? __expf(fmaxf(score - new_max, -80.0f)) : 0.0f;
+      const float probability =
+          visible ? __expf(fmaxf(score - new_max, -80.0f)) : 0.0f;
       const float tile_sum_lane = warp_reduce_sum(probability);
       const float tile_sum = __shfl_sync(0xffffffffu, tile_sum_lane, 0);
-      const float exp_diff = tile_sum > 0.0f ? __expf(fmaxf(old_max - new_max, -80.0f)) : 1.0f;
-      shared_probs[lr * kGroupedVerifyProbStride + lane_id] = __float2half_rn(probability);
+      const float exp_diff =
+          tile_sum > 0.0f ? __expf(fmaxf(old_max - new_max, -80.0f)) : 1.0f;
+      shared_probs[lr * kGroupedVerifyProbStride + lane_id] =
+          __float2half_rn(probability);
       __syncwarp();
       if (lane_id == 0) {
         if (tile_sum > 0.0f) {
@@ -4601,14 +4641,17 @@ __global__ __launch_bounds__(kGroupedVerifyThreads, 1) void grouped_sparse_page4
     __syncthreads();
     grouped_verify_scale_output_fragment(output_fragment, smem.row_scale, 0);
     load_xqa_tc_kv_panel<4, false, kGroupedVerifyThreads, KV_DTYPE, kPairLoad>(
-        shared_kv, v_cache, page_ids, valid_k_rows, kPanelStrideVec, kSharedStrideVec, tile_start, 0, 4, 0,
-        v_block_stride, v_token_stride, v_head_stride, 0);
-    for (int idx = tid + valid_k_rows * kSharedStrideVec; idx < kGroupedVerifyBlockN * kSharedStrideVec;
+        shared_kv, v_cache, page_ids, valid_k_rows, kPanelStrideVec,
+        kSharedStrideVec, tile_start, 0, 4, 0, v_block_stride, v_token_stride,
+        v_head_stride, 0);
+    for (int idx = tid + valid_k_rows * kSharedStrideVec;
+         idx < kGroupedVerifyBlockN * kSharedStrideVec;
          idx += kGroupedVerifyThreads) {
       reinterpret_cast<uint4*>(shared_kv)[idx] = make_uint4(0, 0, 0, 0);
     }
     __syncthreads();
-    for (int idx = tid; idx < valid_k_rows * kSharedStrideVec; idx += kGroupedVerifyThreads) {
+    for (int idx = tid; idx < valid_k_rows * kSharedStrideVec;
+         idx += kGroupedVerifyThreads) {
       const int row = idx / kSharedStrideVec;
       const uint32_t token_mask = smem.sparse_token_masks[row >> 2];
       if ((token_mask & (0x11111111u << (row & 3))) == 0) {
@@ -4618,14 +4661,20 @@ __global__ __launch_bounds__(kGroupedVerifyThreads, 1) void grouped_sparse_page4
     __syncthreads();
     {
       const int d_tile = warp_id;
-      volta::fragment<volta::matrix_a, 16, 16, 16, half, volta::row_major> probability_fragment;
-      volta::fragment<volta::matrix_b, 16, 16, 16, half, volta::row_major> value_fragment;
+      volta::fragment<volta::matrix_a, 16, 16, 16, half, volta::row_major>
+          probability_fragment;
+      volta::fragment<volta::matrix_b, 16, 16, 16, half, volta::row_major>
+          value_fragment;
 #pragma unroll
       for (int k_offset = 0; k_offset < kGroupedVerifyBlockN; k_offset += 16) {
-        volta::load_matrix_sync(probability_fragment, shared_probs + k_offset, kGroupedVerifyProbStride);
-        volta::load_matrix_sync(value_fragment, shared_kv + k_offset * kGroupedVerifyKVStride + d_tile * 16,
-                                kGroupedVerifyKVStride);
-        volta::mma_sync(output_fragment, probability_fragment, value_fragment, output_fragment);
+        volta::load_matrix_sync(probability_fragment, shared_probs + k_offset,
+                                kGroupedVerifyProbStride);
+        volta::load_matrix_sync(
+            value_fragment,
+            shared_kv + k_offset * kGroupedVerifyKVStride + d_tile * 16,
+            kGroupedVerifyKVStride);
+        volta::mma_sync(output_fragment, probability_fragment, value_fragment,
+                        output_fragment);
       }
     }
     __syncthreads();
@@ -4633,9 +4682,11 @@ __global__ __launch_bounds__(kGroupedVerifyThreads, 1) void grouped_sparse_page4
 
   __syncthreads();
   float* shared_output = smem.storage.output;
-  volta::store_matrix_sync(shared_output + warp_id * 16, output_fragment, kD, volta::mem_row_major);
+  volta::store_matrix_sync(shared_output + warp_id * 16, output_fragment, kD,
+                           volta::mem_row_major);
   __syncthreads();
-  for (int idx = tid; idx < kGroupedSplitRows * kD; idx += kGroupedVerifyThreads) {
+  for (int idx = tid; idx < kGroupedSplitRows * kD;
+       idx += kGroupedVerifyThreads) {
     const int lr = idx / kD;
     const int d = idx % kD;
     const int g = row_lo + lr;
@@ -4643,8 +4694,10 @@ __global__ __launch_bounds__(kGroupedVerifyThreads, 1) void grouped_sparse_page4
     if (token >= t_lo && token < t_hi) {
       const float sum = smem.row_sum[lr];
       const float scale = sum > 0.0f ? v_scale / sum : 0.0f;
-      out[((static_cast<int64_t>(group_idx) * kQ + token) * kHeads + g % kHeads) * kD + d] =
-          __float2half_rn(shared_output[idx] * scale);
+      out[((static_cast<int64_t>(group_idx) * kQ + token) * kHeads +
+           g % kHeads) *
+              kD +
+          d] = __float2half_rn(shared_output[idx] * scale);
     }
   }
   if (tid < kGroupedSplitRows) {
@@ -4652,8 +4705,8 @@ __global__ __launch_bounds__(kGroupedVerifyThreads, 1) void grouped_sparse_page4
     const int token = g / kHeads;
     if (token >= t_lo && token < t_hi) {
       const float sum = smem.row_sum[tid];
-      lse[(static_cast<int64_t>(group_idx) * kQ + token) * kHeads + g % kHeads] =
-          sum > 0.0f ? smem.row_max[tid] + logf(sum) : kXQANegInf;
+      lse[(static_cast<int64_t>(group_idx) * kQ + token) * kHeads +
+          g % kHeads] = sum > 0.0f ? smem.row_max[tid] + logf(sum) : kXQANegInf;
     }
   }
 }
@@ -5241,12 +5294,15 @@ at::Tensor flash_attention_grouped_sparse_page4(
   return out;
 }
 
-// STEP-48 W1: capability of the opt-in split entry below (flash_attention_grouped_sparse_page4 is unchanged).
+// STEP-48 W1: capability of the opt-in split entry below
+// (flash_attention_grouped_sparse_page4 is unchanged).
 int64_t flash_attention_grouped_sparse_page4_split_abi_version() { return 1; }
 
-// flash_attention_grouped_sparse_page4 with the work split by (m-tile, request segment, group); token_to_req holds
-// the request index of each of the 8 * groups query rows (the planner's input). Same arguments and checks otherwise;
-// out and lse are bit-identical to the packed entry (grouped_sparse_page4_split_kernel).
+// flash_attention_grouped_sparse_page4 with the work split by (m-tile, request
+// segment, group); token_to_req holds the request index of each of the 8 *
+// groups query rows (the planner's input). Same arguments and checks otherwise;
+// out and lse are bit-identical to the packed entry
+// (grouped_sparse_page4_split_kernel).
 at::Tensor flash_attention_grouped_sparse_page4_split(
     const at::Tensor& q, const at::Tensor& k_cache, const at::Tensor& v_cache,
     std::optional<at::Tensor>& out_, const at::Tensor& block_table,
@@ -5262,17 +5318,19 @@ at::Tensor flash_attention_grouped_sparse_page4_split(
   const bool e4m3_kv = kv_cache_dtype == "fp8" || kv_cache_dtype == "fp8_e4m3";
   TORCH_CHECK(q.dtype() == torch::kFloat16,
               "grouped sparse page4 split requires fp16 queries");
-  TORCH_CHECK(e4m3_kv ? (k_cache.dtype() == torch::kUInt8 &&
-                         v_cache.dtype() == torch::kUInt8)
-                      : (k_cache.dtype() == torch::kFloat16 &&
-                         v_cache.dtype() == torch::kFloat16),
-              "grouped sparse page4 split KV storage does not match kv_cache_dtype");
+  TORCH_CHECK(
+      e4m3_kv ? (k_cache.dtype() == torch::kUInt8 &&
+                 v_cache.dtype() == torch::kUInt8)
+              : (k_cache.dtype() == torch::kFloat16 &&
+                 v_cache.dtype() == torch::kFloat16),
+      "grouped sparse page4 split KV storage does not match kv_cache_dtype");
   TORCH_CHECK(
       e4m3_kv || kv_cache_dtype == "auto" || kv_cache_dtype == "float16",
       "grouped sparse page4 split supports fp16 and fp8_e4m3 KV only");
-  TORCH_CHECK(!e4m3_kv || (std::isfinite(k_scale) && std::isfinite(v_scale) &&
-                           k_scale > 0.0f && v_scale > 0.0f),
-              "grouped sparse page4 split E4M3 scales must be finite and positive");
+  TORCH_CHECK(
+      !e4m3_kv || (std::isfinite(k_scale) && std::isfinite(v_scale) &&
+                   k_scale > 0.0f && v_scale > 0.0f),
+      "grouped sparse page4 split E4M3 scales must be finite and positive");
   TORCH_CHECK(block_table.dtype() == torch::kInt32 &&
                   seq_lens.dtype() == torch::kInt32 &&
                   token_to_req.dtype() == torch::kInt32 &&
@@ -5283,16 +5341,17 @@ at::Tensor flash_attention_grouped_sparse_page4_split(
                   q.size(1) == kGroupedVerifyHeads &&
                   q.size(2) == kGroupedVerifyHeadDim,
               "grouped sparse page4 split q must have shape [8*N, 6, 256]");
-  TORCH_CHECK(k_cache.dim() == 4 && v_cache.dim() == 4 &&
-                  k_cache.sizes() == v_cache.sizes() && k_cache.size(1) == 4 &&
-                  k_cache.size(2) == 1 &&
-                  k_cache.size(3) == kGroupedVerifyHeadDim,
-              "grouped sparse page4 split KV must have shape [blocks, 4, 1, 256]");
+  TORCH_CHECK(
+      k_cache.dim() == 4 && v_cache.dim() == 4 &&
+          k_cache.sizes() == v_cache.sizes() && k_cache.size(1) == 4 &&
+          k_cache.size(2) == 1 && k_cache.size(3) == kGroupedVerifyHeadDim,
+      "grouped sparse page4 split KV must have shape [blocks, 4, 1, 256]");
   const int64_t num_groups = q.size(0) / kQueriesPerGroup;
   TORCH_CHECK(block_table.dim() == 2 && block_table.size(0) == num_groups &&
                   token_masks.sizes() == block_table.sizes() &&
                   block_table.size(1) <= kGroupedSplitMaxPages,
-              "grouped sparse page4 split block IDs/masks must be [groups, <=4160 pages]");
+              "grouped sparse page4 split block IDs/masks must be [groups, "
+              "<=4160 pages]");
   TORCH_CHECK(seq_lens.sizes() == at::IntArrayRef({num_groups}),
               "grouped sparse page4 split seq_lens must have shape [groups]");
   TORCH_CHECK(token_to_req.dim() == 1 && token_to_req.size(0) == q.size(0),
@@ -5301,26 +5360,28 @@ at::Tensor flash_attention_grouped_sparse_page4_split(
                   token_masks.is_contiguous() && seq_lens.is_contiguous() &&
                   token_to_req.is_contiguous(),
               "grouped sparse page4 split q/metadata must be contiguous");
-  TORCH_CHECK(k_cache.stride(-1) == 1 && v_cache.stride(-1) == 1,
-              "grouped sparse page4 split KV head dimension must be contiguous");
+  TORCH_CHECK(
+      k_cache.stride(-1) == 1 && v_cache.stride(-1) == 1,
+      "grouped sparse page4 split KV head dimension must be contiguous");
   TORCH_CHECK(
       lse.sizes() == at::IntArrayRef({q.size(0), kGroupedVerifyHeads}) &&
           lse.dtype() == torch::kFloat32 && lse.is_contiguous(),
       "grouped sparse page4 split lse must be contiguous [rows, 6] fp32");
 
   at::Tensor out = out_.has_value() ? out_.value() : torch::empty_like(q);
-  TORCH_CHECK(out.is_cuda() && out.device() == q.device() &&
-                  out.dtype() == torch::kFloat16 && out.sizes() == q.sizes() &&
-                  out.is_contiguous(),
-              "grouped sparse page4 split out must be contiguous fp16 and q-shaped");
-  TORCH_CHECK(q.device() == k_cache.device() &&
-                  q.device() == v_cache.device() &&
-                  q.device() == block_table.device() &&
-                  q.device() == token_masks.device() &&
-                  q.device() == seq_lens.device() &&
-                  q.device() == token_to_req.device() &&
-                  q.device() == lse.device() && q.device() == out.device(),
-              "all grouped sparse page4 split tensors must be on the same device");
+  TORCH_CHECK(
+      out.is_cuda() && out.device() == q.device() &&
+          out.dtype() == torch::kFloat16 && out.sizes() == q.sizes() &&
+          out.is_contiguous(),
+      "grouped sparse page4 split out must be contiguous fp16 and q-shaped");
+  TORCH_CHECK(
+      q.device() == k_cache.device() && q.device() == v_cache.device() &&
+          q.device() == block_table.device() &&
+          q.device() == token_masks.device() &&
+          q.device() == seq_lens.device() &&
+          q.device() == token_to_req.device() && q.device() == lse.device() &&
+          q.device() == out.device(),
+      "all grouped sparse page4 split tensors must be on the same device");
 
   c10::cuda::CUDAGuard device_guard(q.device());
   const auto* properties = at::cuda::getCurrentDeviceProperties();

@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
 """Opt-in E7 for exactly eight pure MTP4 verify requests.
 
 All numerical kernels are the STEP50 V4 admission snapshot. This adapter owns

@@ -36,9 +36,7 @@ def random_case(
     else:
         pk = e4m3_bytes(gen, (nblk, 4, 1, 256)).view(nblk, 4, 1, 256)
         pv = e4m3_bytes(gen, (nblk, 4, 1, 256)).view(nblk, 4, 1, 256)
-        pk[0] = (
-            0x7F  # NaN in masked null-block padding.
-        )
+        pk[0] = 0x7F  # NaN in masked null-block padding.
         pv[0] = 0xFF
     pages = torch.zeros(groups, 4160, dtype=torch.int32)
     masks = torch.zeros(groups, 4160, dtype=torch.int64)
@@ -47,12 +45,12 @@ def random_case(
         if "empty_group" in special and g == groups - 1:
             continue
         toks = t2r[g * 8 : (g + 1) * 8].tolist()
-        segs = []
+        segs: list[tuple[int, list[int]]] = []
         for t, r in enumerate(toks):
             if r < 0:
                 continue
             if not segs or segs[-1][0] != r:
-                segs.append([r, []])
+                segs.append((r, []))
             segs[-1][1].append(t)
         w = width_pages
         ents = []
@@ -197,6 +195,6 @@ def test_segmented_page4_matches_packed(groups, width, segments, fp16):
     split.fill_(float("nan"))
     split_lse.fill_(float("nan"))
     graph.replay()
-    torch.cuda.synchronize()
+    torch.accelerator.synchronize()
     assert torch.equal(expected.view(torch.int16), split.view(torch.int16))
     assert torch.equal(expected_lse.view(torch.int32), split_lse.view(torch.int32))

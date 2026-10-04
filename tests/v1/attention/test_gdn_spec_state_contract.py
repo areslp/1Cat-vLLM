@@ -158,7 +158,7 @@ def test_contract_does_not_synchronize_on_cuda(branch: str, with_selectors: bool
     expected = _boolean_mask_contract(**kwargs)
     # The first call may initialize lazy CUDA state.
     build_gdn_spec_decode_state_contract(**kwargs)
-    torch.cuda.synchronize()
+    torch.accelerator.synchronize()
     torch.cuda.set_sync_debug_mode("error")
     try:
         contract = build_gdn_spec_decode_state_contract(**kwargs)
@@ -172,7 +172,7 @@ def test_sync_debug_mode_catches_boolean_mask_indexing():
     # Guards the test above: the previous formulation trips sync debug mode.
     values = torch.arange(8, device="cuda")
     mask = torch.tensor([True, False] * 4, device="cuda")
-    torch.cuda.synchronize()
+    torch.accelerator.synchronize()
     torch.cuda.set_sync_debug_mode("error")
     try:
         with pytest.raises(RuntimeError):
