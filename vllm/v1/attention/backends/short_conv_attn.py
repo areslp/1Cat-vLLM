@@ -460,8 +460,10 @@ class PleShortConvAttentionMetadataBuilder(ShortConvAttentionMetadataBuilder):
         assert num_accepted_tokens is not None
         # Accepted-token counts must follow the same request order as the
         # speculative state indices.
+        # The same request indices already order state rows. Reuse their
+        # device copy instead of synchronizing the current stream again.
         num_accepted_tokens = num_accepted_tokens[
-            spec_req_idx_cpu.to(num_accepted_tokens.device, non_blocking=True)
+            spec_req_idx.to(num_accepted_tokens.device, non_blocking=True)
         ]
 
         # Compute the conv-state slots for the non-spec decode/prefill split,
@@ -480,7 +482,9 @@ class PleShortConvAttentionMetadataBuilder(ShortConvAttentionMetadataBuilder):
         if num_decodes > 0 or num_prefills > 0:
             num_computed_tokens = m.compute_num_computed_tokens()
             if non_spec_req_idx_cpu is not None:
-                non_spec_req_idx = non_spec_req_idx_cpu.to(num_computed_tokens.device)
+                non_spec_req_idx = non_spec_req_idx.to(
+                    num_computed_tokens.device, non_blocking=True
+                )
                 num_computed_tokens = num_computed_tokens[non_spec_req_idx]
 
             state_indices_tensor_d = state_indices_tensor[:num_decodes]
