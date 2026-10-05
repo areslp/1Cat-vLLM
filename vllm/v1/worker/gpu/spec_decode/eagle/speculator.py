@@ -78,6 +78,23 @@ def _is_context_only_prefill(input_batch: InputBatch) -> bool:
     )
 
 
+def _has_single_mtp_decoder_block(model: nn.Module) -> bool:
+    """Whether the draft exposes the verified one-block MTP topology.
+
+    Selective MoE prefill is safe only when there is no later draft block whose
+    attention/KV depends on the omitted rows' MoE output. Unknown model layouts
+    therefore use the original full prefill path.
+    """
+    predictor = getattr(model, "model", None)
+    layers = getattr(predictor, "layers", None)
+    if getattr(predictor, "num_mtp_layers", None) != 1 or layers is None:
+        return False
+    try:
+        return len(layers) == 1
+    except TypeError:
+        return False
+
+
 class EagleSpeculator:
     def __init__(self, vllm_config: VllmConfig, device: torch.device):
         self.vllm_config = vllm_config
@@ -230,17 +247,41 @@ class EagleSpeculator:
             logger.info("Reusing target-aligned step-0 QSA indices for MTP steps 1+.")
 
         if self.prefill_kv_only and self.method == "mtp":
-            selector = DraftMoERowSelector.from_model(
-                self.model, exclude=target_model.modules()
+            predictor = getattr(self.model, "model", None)
+            declared_layers = getattr(predictor, "num_mtp_layers", None)
+            mtp_layers = getattr(predictor, "layers", None)
+            try:
+                layer_count = len(mtp_layers) if mtp_layers is not None else None
+            except TypeError:
+                layer_count = None
+            single_block = _has_single_mtp_decoder_block(self.model)
+            selector = (
+                DraftMoERowSelector.from_model(
+                    self.model, exclude=target_model.modules()
+                )
+                if single_block
+                else None
             )
             if selector is not None:
                 self._enable_prefill_rows(selector)
-                logger.info(
-                    "Eager MTP draft prefill runs the draft MoE only for sampled "
-                    "rows (%d layer(s)) and skips draft steps for mid-prefill "
-                    "batches.",
-                    len(selector.layers),
+                route = "selected_rows"
+            else:
+                route = (
+                    "full_prefill_no_draft_moe"
+                    if single_block
+                    else "full_prefill_unverified_topology"
                 )
+            logger.info(
+                "Eager MTP prefill row-selection gate: model=%s predictor=%s "
+                "declared_num_mtp_layers=%s actual_layers=%s route=%s "
+                "selected_moe_layers=%d",
+                type(self.model).__name__,
+                type(predictor).__name__ if predictor is not None else "unknown",
+                declared_layers,
+                layer_count,
+                route,
+                len(selector.layers) if selector is not None else 0,
+            )
 
         all_attn_layers = get_layers_from_vllm_config(
             self.vllm_config,

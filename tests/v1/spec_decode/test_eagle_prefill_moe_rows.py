@@ -21,10 +21,31 @@ from vllm.v1.worker.gpu.spec_decode.eagle.prefill_moe_rows import (
 )
 from vllm.v1.worker.gpu.spec_decode.eagle.speculator import (
     EagleSpeculator,
+    _has_single_mtp_decoder_block,
     _is_context_only_prefill,
 )
 
 HIDDEN = 8
+
+
+@pytest.mark.parametrize(
+    ("num_mtp_layers", "layer_count", "expected"),
+    [
+        (1, 1, True),
+        (2, 2, False),
+        (None, 1, False),
+        (1, 2, False),
+    ],
+)
+def test_prefill_row_selection_requires_verified_single_mtp_block(
+    num_mtp_layers, layer_count, expected
+):
+    predictor = SimpleNamespace(
+        num_mtp_layers=num_mtp_layers,
+        layers=[object() for _ in range(layer_count)],
+    )
+    model = SimpleNamespace(model=predictor)
+    assert _has_single_mtp_decoder_block(model) is expected
 
 
 class _Runner:

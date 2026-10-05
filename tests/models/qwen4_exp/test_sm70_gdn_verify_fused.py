@@ -131,7 +131,9 @@ def test_u2_packed_conv_bitwise(n_seqs):
 
 @requires_sm70
 @pytest.mark.parametrize("n_seqs", [1, 3, 8])
-def test_u3_gated_recurrent_bitwise(n_seqs):
+@pytest.mark.parametrize("bv_cap", ["", "8"])
+def test_u3_gated_recurrent_bitwise(n_seqs, bv_cap, monkeypatch):
+    monkeypatch.setattr(fused, "_GDN_BV48", bv_cap)
     from vllm.model_executor.layers.fla.ops import fused_recurrent_gated_delta_rule
     from vllm.model_executor.layers.mamba.gdn.qwen_gdn_linear_attn import (
         fused_gdn_gating,
