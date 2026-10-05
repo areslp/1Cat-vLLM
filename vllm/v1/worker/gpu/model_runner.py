@@ -112,7 +112,6 @@ from vllm.v1.worker.gpu.mm.encoder_cache import EncoderCache
 from vllm.v1.worker.gpu.model_states import init_model_state
 from vllm.v1.worker.gpu.pool.pooling_runner import PoolingRunner
 from vllm.v1.worker.gpu.pp_utils import PPHandler, scatter_draft_tokens
-from vllm.v1.worker.gpu.sample import sm70_e7
 from vllm.v1.worker.gpu.sample.output import SamplerOutput
 from vllm.v1.worker.gpu.sample.prompt_logprob import PromptLogprobsWorker
 from vllm.v1.worker.gpu.sample.sampler import Sampler
@@ -1172,20 +1171,6 @@ class GPUModelRunner(LoRAModelRunnerMixin):
                 self.sampler.add_request(
                     req_index, prompt_len, new_req_data.sampling_params
                 )
-                if sm70_e7.ENABLED:
-                    excluded = (
-                        "multimodal_unvalidated"
-                        if new_req_data.mm_features
-                        else "lora_unvalidated"
-                        if new_req_data.lora_request
-                        else None
-                    )
-                    sm70_e7.record_request(
-                        self.sampler,
-                        req_index,
-                        new_req_data.sampling_params,
-                        unsupported=excluded,
-                    )
                 assert self.prompt_logprobs_worker is not None
                 self.prompt_logprobs_worker.add_request(
                     req_id, req_index, new_req_data.sampling_params
@@ -1513,10 +1498,6 @@ class GPUModelRunner(LoRAModelRunnerMixin):
                 )
             else:
                 _fuse47.note_route("s1", "fallback:" + s1_reason)
-        if sampler_output is None and sm70_e7.ENABLED:
-            sampler_output = sm70_e7.try_sample(
-                self, sample_hidden_states, input_batch, grammar_output
-            )
         if sampler_output is None:
             logits = (
                 cached_logits.logits
