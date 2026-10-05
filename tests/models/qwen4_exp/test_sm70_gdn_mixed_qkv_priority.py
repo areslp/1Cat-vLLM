@@ -40,7 +40,11 @@ def _planner_case(monkeypatch, *, tokens, state_dtype, enabled=True, contiguous=
     )
 
     sequences = max(1, tokens // 5)
-    metadata = SimpleNamespace(
+    metadata = qwen_gdn.GDNAttentionMetadata(
+        num_prefill_tokens=0,
+        num_decode_tokens=0,
+        num_spec_decode_tokens=tokens,
+        num_actual_tokens=tokens,
         spec_sequence_masks=torch.ones(sequences, dtype=torch.bool),
         num_spec_decodes=sequences,
         num_prefills=0,
@@ -101,6 +105,10 @@ def test_upstream_mixed_qkv_eligible_verify_preempts_local_fusion(monkeypatch, t
 
     units = qwen_gdn._sm70_gdn_verify_fuse_plan(model, "layer", mixed_qkv)
 
+    assert (
+        qwen_gdn._sm70_gdn_verify_fuse_block_reason(model, "layer", mixed_qkv)
+        == "upstream_mixed_qkv"
+    )
     assert units == frozenset()
 
 
@@ -126,6 +134,9 @@ def test_unqualified_mixed_qkv_keeps_local_fusion(
 
     units = qwen_gdn._sm70_gdn_verify_fuse_plan(model, "layer", mixed_qkv)
 
+    assert (
+        qwen_gdn._sm70_gdn_verify_fuse_block_reason(model, "layer", mixed_qkv) is None
+    )
     assert units == frozenset({"u2"})
 
 
@@ -139,4 +150,8 @@ def test_upstream_mixed_qkv_contiguous_verifier_preempts_local_fusion(monkeypatc
 
     units = qwen_gdn._sm70_gdn_verify_fuse_plan(model, "layer", mixed_qkv)
 
+    assert (
+        qwen_gdn._sm70_gdn_verify_fuse_block_reason(model, "layer", mixed_qkv)
+        == "upstream_mixed_qkv"
+    )
     assert units == frozenset()
