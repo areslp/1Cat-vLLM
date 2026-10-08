@@ -35,6 +35,7 @@ from vllm.model_executor.kernels.ple.ngram import (
     SM70_PLE_NGRAM,
     sm70_ple_ngram_ids,
 )
+from vllm.model_executor.layers import sm70_fuse47 as _fuse47
 from vllm.model_executor.layers.linear import ReplicatedLinear
 from vllm.model_executor.layers.mamba.abstract import MambaBase
 from vllm.model_executor.layers.mamba.mamba_utils import (
@@ -117,6 +118,58 @@ _MADV_RANDOM = 1
 _MADV_DONTNEED = 4
 
 logger = init_logger(__name__)
+
+
+def _upstream_sm70_ple_spec_supported(
+    layer: nn.Module,
+    x_spec: torch.Tensor,
+    conv_state: torch.Tensor,
+    conv_weights: torch.Tensor,
+    spec_state_indices_tensor: torch.Tensor,
+    spec_query_start_loc: torch.Tensor,
+    num_accepted_tokens: torch.Tensor,
+    spec_query_len: int,
+) -> bool:
+    """Mirror the upstream native PLE MTP guard for route selection."""
+    return bool(
+        envs.VLLM_SM70_MTP_PLE_CONV
+        and hasattr(torch.ops._C, "qwen38_ple_spec_sm70_out")
+        and spec_state_indices_tensor.numel() == 1
+        and spec_query_len == 5
+        and int(layer.conv_state_len) == 9
+        and int(layer.conv_kernel_size) == 4
+        and int(layer.short_conv_dilation) == 3
+        and x_spec.shape in ((5, 10240), (10, 10240))
+        and x_spec.is_cuda
+        and x_spec.dtype == torch.float16
+        and x_spec.is_contiguous()
+        and conv_weights.shape == (10240, 4)
+        and conv_weights.dtype == torch.float16
+        and conv_weights.is_contiguous()
+        and conv_state.ndim == 3
+        and conv_state.shape[1:] == (10240, 13)
+        and conv_state.dtype in (torch.float16, torch.float32)
+        and (
+            (conv_state.stride(2) == 1 and conv_state.stride(1) >= 13)
+            or (conv_state.stride(1) == 1 and conv_state.stride(2) >= 10240)
+        )
+        and conv_state.stride(0)
+        >= 10239 * conv_state.stride(1) + 12 * conv_state.stride(2) + 1
+        and all(
+            tensor.dtype == torch.int32
+            and tensor.is_cuda
+            and tensor.is_contiguous()
+            and tensor.device == x_spec.device
+            for tensor in (
+                spec_state_indices_tensor,
+                spec_query_start_loc,
+                num_accepted_tokens,
+            )
+        )
+        and spec_query_start_loc.numel() >= 2
+        and num_accepted_tokens.numel() >= 1
+        and current_platform.is_device_capability((7, 0))
+    )
 
 
 def _advise_random_file_access(tensor: torch.Tensor) -> str:
@@ -1431,6 +1484,7 @@ class Qwen4ExpNGramEmbedding(PleOffloadLayer):
         input_ids: torch.Tensor,
         query_start_loc: torch.Tensor,
         ngram_context: torch.Tensor,
+        out: torch.Tensor | None = None,
     ) -> torch.Tensor:
         """Compute PLE indices for the current, unpadded request layout."""
         input_ids = input_ids.reshape(-1)
@@ -1538,6 +1592,18 @@ class Qwen4ExpNGramEmbedding(PleOffloadLayer):
         ):
             return self._compute_ngram_ids_cpu_small(
                 input_ids, query_start_loc, ngram_context
+            )
+
+        if (
+            not is_offload_process()
+            and _fuse47.unit_enabled("p1")
+            and _fuse47.p1_supported(
+                self, input_ids, query_start_loc, ngram_context, out
+            )
+        ):
+            _fuse47.note_route("p1", "fused")
+            return _fuse47.ple_ngram_ids(
+                self, input_ids, query_start_loc, ngram_context, out
             )
 
         input_ids = input_ids.long()
@@ -2455,30 +2521,15 @@ class Qwen4ExpPLELayer(nn.Module, MambaBase):
         """
         num_reqs = spec_state_indices_tensor.numel()
         hidden_size = x_spec.size(-1)
-        if (
-            envs.VLLM_SM70_MTP_PLE_CONV
-            and num_reqs == 1
-            and spec_query_len == 5
-            and self.conv_state_len == 9
-            and self.short_conv_dilation == 3
-            and x_spec.shape in ((5, 10240), (10, 10240))
-            and x_spec.is_cuda
-            and x_spec.dtype == torch.float16
-            and x_spec.is_contiguous()
-            and conv_weights.shape == (10240, 4)
-            and conv_weights.dtype == torch.float16
-            and conv_weights.is_contiguous()
-            and conv_state.shape[1:] == (10240, 13)
-            and conv_state.dtype in (torch.float16, torch.float32)
-            and all(
-                t.dtype == torch.int32 and t.is_cuda and t.is_contiguous()
-                for t in (
-                    spec_state_indices_tensor,
-                    spec_query_start_loc,
-                    num_accepted_tokens,
-                )
-            )
-            and current_platform.is_device_capability((7, 0))
+        if _upstream_sm70_ple_spec_supported(
+            self,
+            x_spec,
+            conv_state,
+            conv_weights,
+            spec_state_indices_tensor,
+            spec_query_start_loc,
+            num_accepted_tokens,
+            spec_query_len,
         ):
             output = torch.empty_like(x_spec)
             torch.ops._C.qwen38_ple_spec_sm70_out(
@@ -2609,6 +2660,7 @@ class Qwen4ExpPLELayer(nn.Module, MambaBase):
         metadata: PleShortConvAttentionMetadata,
         conv_state: torch.Tensor,
         conv_weights: torch.Tensor,
+        out: torch.Tensor | None = None,
     ) -> torch.Tensor:
         num_prefills = metadata.num_prefills
         num_decodes = metadata.num_decodes
@@ -2634,6 +2686,45 @@ class Qwen4ExpPLELayer(nn.Module, MambaBase):
             x_non_spec = x
 
         spec_output = None
+        if (
+            has_spec
+            and not has_prefill
+            and not has_decode
+            and out is not None
+            and _fuse47.unit_enabled("p2")
+            and out.dtype == x.dtype
+            and out.stride(-1) == 1
+            and out.size(0) >= x.size(0)
+            and metadata.spec_state_indices_tensor is not None
+            and metadata.spec_query_start_loc is not None
+            and metadata.num_accepted_tokens is not None
+            and not _upstream_sm70_ple_spec_supported(
+                self,
+                x,
+                conv_state,
+                conv_weights,
+                metadata.spec_state_indices_tensor[: metadata.num_spec_decodes],
+                metadata.spec_query_start_loc,
+                metadata.num_accepted_tokens,
+                metadata.spec_query_len,
+            )
+            and _fuse47.p2_supported(
+                self, x, conv_state, conv_weights, metadata.spec_query_len
+            )
+        ):
+            _fuse47.note_route("p2", "fused")
+            num_reqs = metadata.num_spec_decodes
+            return _fuse47.ple_short_conv_spec(
+                x,
+                conv_state,
+                conv_weights,
+                metadata.spec_state_indices_tensor[:num_reqs],
+                metadata.spec_query_start_loc,
+                metadata.num_accepted_tokens,
+                metadata.spec_query_len,
+                out,
+                NULL_BLOCK_ID,
+            )
         # 1. Run the multi-query speculative-decode part.
         if has_spec:
             assert metadata.spec_state_indices_tensor is not None
@@ -2721,7 +2812,9 @@ class Qwen4ExpPLELayer(nn.Module, MambaBase):
             return x
         return conv_out_non_spec
 
-    def _short_conv(self, inputs: torch.Tensor) -> torch.Tensor:
+    def _short_conv(
+        self, inputs: torch.Tensor, out: torch.Tensor | None = None
+    ) -> torch.Tensor:
         forward_context = get_forward_context()
         attn_metadata = forward_context.attn_metadata
         if attn_metadata is None:
@@ -2765,6 +2858,7 @@ class Qwen4ExpPLELayer(nn.Module, MambaBase):
             layer_attn_metadata,
             conv_state,
             conv_weights.to(dtype=inputs.dtype),
+            out=out,
         )
 
     def forward(
@@ -2814,8 +2908,11 @@ def qwen4_exp_ple_short_conv(
     layer_name: str,
 ) -> None:
     layer = get_forward_context().no_compile_layers[layer_name]
-    result = layer._short_conv(inputs)
-    output[: result.shape[0]].copy_(result)
+    result = layer._short_conv(
+        inputs, out=output if _fuse47.unit_enabled("p2") else None
+    )
+    if result.data_ptr() != output.data_ptr():
+        output[: result.shape[0]].copy_(result)
 
 
 def qwen4_exp_ple_short_conv_fake(
@@ -2835,12 +2932,16 @@ def qwen4_exp_compute_ple_ngram_ids(
 ) -> None:
     """Compute request-dependent PLE IDs outside PIECEWISE CUDA graphs."""
     layer = get_forward_context().no_compile_layers[layer_name]
-    ngram_ids = layer.ple_embedding.compute_ngram_ids(
-        input_ids,
-        query_start_loc,
-        ngram_context,
-    )
-    output.copy_(ngram_ids)
+    if _fuse47.unit_enabled("p1"):
+        ngram_ids = layer.ple_embedding.compute_ngram_ids(
+            input_ids, query_start_loc, ngram_context, out=output
+        )
+    else:
+        ngram_ids = layer.ple_embedding.compute_ngram_ids(
+            input_ids, query_start_loc, ngram_context
+        )
+    if ngram_ids.data_ptr() != output.data_ptr():
+        output.copy_(ngram_ids)
 
 
 def qwen4_exp_compute_ple_ngram_ids_fake(
