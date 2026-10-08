@@ -1,0 +1,118 @@
+{
+  "namespaces": {
+    "old": "1877e36d62",
+    "fixed": "118347e9e4"
+  },
+  "rows": [
+    {
+      "rank": 0,
+      "model": "backbone",
+      "code_hash_equal": false,
+      "config_hash_equal": false,
+      "compiler_hash_equal": true,
+      "env_changed_keys": [],
+      "fx_ast_sha256": [
+        "aa9d8bc5d99c668606a1d979527a192f5b8da9339993f7abd230aee6a4b4f867",
+        "aa9d8bc5d99c668606a1d979527a192f5b8da9339993f7abd230aee6a4b4f867"
+      ],
+      "fx_ast_equal": true
+    },
+    {
+      "rank": 0,
+      "model": "eagle_head",
+      "code_hash_equal": false,
+      "config_hash_equal": false,
+      "compiler_hash_equal": true,
+      "env_changed_keys": [],
+      "fx_ast_sha256": [
+        "1fa7e58bb807f3589e3e666c8c857fbc344e647efad34df4c41e658f07afe298",
+        "1fa7e58bb807f3589e3e666c8c857fbc344e647efad34df4c41e658f07afe298"
+      ],
+      "fx_ast_equal": true
+    },
+    {
+      "rank": 1,
+      "model": "backbone",
+      "code_hash_equal": false,
+      "config_hash_equal": false,
+      "compiler_hash_equal": true,
+      "env_changed_keys": [],
+      "fx_ast_sha256": [
+        "17a760a6b9bef78ab977f9abac41633bce41ad96604d8c9abfc69717b7da990f",
+        "17a760a6b9bef78ab977f9abac41633bce41ad96604d8c9abfc69717b7da990f"
+      ],
+      "fx_ast_equal": true
+    },
+    {
+      "rank": 1,
+      "model": "eagle_head",
+      "code_hash_equal": false,
+      "config_hash_equal": false,
+      "compiler_hash_equal": true,
+      "env_changed_keys": [],
+      "fx_ast_sha256": [
+        "0394d93eb9a4bd4f37f6f0c576ab494110d0b0b7f41d5737eb8a97a29effc25a",
+        "0394d93eb9a4bd4f37f6f0c576ab494110d0b0b7f41d5737eb8a97a29effc25a"
+      ],
+      "fx_ast_equal": true
+    },
+    {
+      "rank": 2,
+      "model": "backbone",
+      "code_hash_equal": false,
+      "config_hash_equal": false,
+      "compiler_hash_equal": true,
+      "env_changed_keys": [],
+      "fx_ast_sha256": [
+        "719feb6668459ed3bb9cbee48c57162cf79948755599bcf7fc8e20ab9288bd86",
+        "719feb6668459ed3bb9cbee48c57162cf79948755599bcf7fc8e20ab9288bd86"
+      ],
+      "fx_ast_equal": true
+    },
+    {
+      "rank": 2,
+      "model": "eagle_head",
+      "code_hash_equal": false,
+      "config_hash_equal": false,
+      "compiler_hash_equal": true,
+      "env_changed_keys": [],
+      "fx_ast_sha256": [
+        "dc710086c702e780cd9668fa26e191d036c0234a9505d32dceaee292ee63d697",
+        "dc710086c702e780cd9668fa26e191d036c0234a9505d32dceaee292ee63d697"
+      ],
+      "fx_ast_equal": true
+    },
+    {
+      "rank": 3,
+      "model": "backbone",
+      "code_hash_equal": false,
+      "config_hash_equal": false,
+      "compiler_hash_equal": true,
+      "env_changed_keys": [],
+      "fx_ast_sha256": [
+        "3adec48b3777f118f510c5620bbbd24303721227cb9906626fa65f7b5b149b3d",
+        "3adec48b3777f118f510c5620bbbd24303721227cb9906626fa65f7b5b149b3d"
+      ],
+      "fx_ast_equal": true
+    },
+    {
+      "rank": 3,
+      "model": "eagle_head",
+      "code_hash_equal": false,
+      "config_hash_equal": false,
+      "compiler_hash_equal": true,
+      "env_changed_keys": [],
+      "fx_ast_sha256": [
+        "512c74d9ed687ac9d9a18be748813da039441b3d008a131f26a4972420d69d3b",
+        "512c74d9ed687ac9d9a18be748813da039441b3d008a131f26a4972420d69d3b"
+      ],
+      "fx_ast_equal": true
+    }
+  ],
+  "scope": "cache factors and FX AST metadata, not actual GPU launch replay",
+  "cache_copy_does_not_prove_actual_launch_alignment": true,
+  "version_in_config_hash": true,
+  "paths_and_contents_in_code_hash": true,
+  "runtime_choice_alignment_verified": false,
+  "actual_runtime_launches_audited": false
+}

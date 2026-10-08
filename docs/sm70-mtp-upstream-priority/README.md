@@ -61,22 +61,94 @@ project's import dependencies but no GPU. They replace only device metadata
 and the final kernel invocation, so the production selector and dispatcher
 remain the code under test.
 
-## Qualification limits
+## GPU retest
 
-The integration defect is confirmed and its CPU routing fix is tested.
-GPU numerical and end-to-end performance qualification of the correction
-is pending. Restoring the native path has not yet been shown to eliminate
-the whole 4.7% throughput loss or to restore MTP acceptance. The original
-three requests were greedy, had identical inputs/output budgets, and all
-used six more draft rounds in the integrated arm, but their generated text
-also differed. Source inspection and wall time divided by draft count do
-not isolate the effect of this one patch.
+The old head and correction were tested sequentially in one finite window.
+Each completed all 39 groups and 69 requests, with 37 fixed-budget performance
+pairs, 67 requests and 9,472 output tokens per arm. Request hashes, tokenized
+input hashes/counts, budgets, output counts and throughput recomputation have
+zero validation errors. The two prequalified short gold probes passed on both
+heads. This is a narrow regression retest, not comprehensive model admission.
 
-Other possible contributors still include different valid compiled launch
-choices in independent caches and the drafter's selective prefill row
-count. A controlled old/corrected comparison with identical weights and
-isolated copies of the same cache, plus alternating projection checks on
-identical weight slices/inputs, is prepared. Production remains on the
-previously qualified C while that qualification is pending. No upstream PR
-has been merged or marked ready. AI assistance was used for this audit,
-the correction and the tests; submitting human review remains required.
+| Cohort | Pairs | Median corrected/old throughput ratio | Range |
+| --- | --- | --- | --- |
+| Original three 1K/c1 regression prompts, 128 output | 3 | 1.11142 | 1.05011–1.14366 |
+| All 30 unique 1K/c1 prompts, 128 output | 30 | 0.98753 | 0.84964–1.30588 |
+| 1K/c4, 128 output/request | 3 | 1.00733 | 0.99518–1.01768 |
+| 1K/c8, 128 output/request | 3 | 1.01668 | 1.00994–1.01947 |
+| 1K/c1, 1024 output | 1 | 1.10513 | Single sample |
+
+The original three prompts use 174/155 draft rounds and accept 210/228
+speculative tokens (old/corrected). Their median prefill is 0.32154/0.32222s;
+median decode is 1.84942/1.65121s. The expanded c1 cohort has **13 gains and
+17 losses**, total wall 61.12166/61.24466s, and 1597/1603 draft rounds.
+Its total time is essentially unchanged; the correction does **not** show a
+uniform c1 performance gain. Most generated texts differ. Pure upstream main
+was not rerun, so the retest cannot establish general main/correction parity.
+The additional 27 c1 prompts repeat earlier concurrency requests and can use
+prefix caching; their wire bodies remain identical between arms.
+
+Six input scales, invalid expert routes, four real checkpoint TP weight slices,
+M1/M5 and both expert projections were checked: **16 cases, 96 scale checks**.
+Native versus upstream-tile Triton is bitwise equal throughout; the old
+64-column Triton tile also matches on these inputs. The corrected real
+dispatcher invokes the native operator in all 16 cases. All four weight slices
+were run sequentially on one V100, not four simultaneous device trials.
+Projection timings alternate three implementations, separately from HTTP
+requests; M1 old/native median time ratios across TP slices are 1.0350 for
+up-projection and 1.8747 for down-projection. These are individual projection
+observations, not complete draft-round speedups. The M5 64-column control is
+diagnostic only: the old production head already uses native M5.
+
+## Reproduce the saved paired analysis
+
+Use the project environment and standard-library analysis; no model or GPU is
+needed for these checks.
+
+```sh
+.venv/bin/python -m unittest discover -s docs/sm70-mtp-upstream-priority -p test_analysis.py -v
+.venv/bin/python docs/sm70-mtp-upstream-priority/analyze_retest.py --root docs/sm70-mtp-upstream-priority/paired-observations --out /tmp/mtp-retest-analysis.json
+```
+
+Six admission tests reject early EOS, incomplete streams, unequal wire/input,
+wrong prompt/output counts and inconsistent throughput. The saved compact
+observations reproduce `RETEST_ANALYSIS.json` exactly. Raw SSE chunks and
+private service/native-map/control logs are preserved outside this branch.
+`synthetic-fixtures.jsonl` contains only public synthetic requests.
+
+For live kernel checks, build the source's normal SM70 extension and use a
+compatible checkpoint with the same MTP expert layout. The exact frozen
+operational checkpoint artifacts are private; timings are not a self-contained
+public model benchmark.
+
+```sh
+.venv/bin/python docs/sm70-mtp-upstream-priority/benchmark_routes.py --model /path/to/compatible-checkpoint --out /tmp/mtp-projections.json
+```
+
+## Attribution and qualification limits
+
+The native admission defect and corrected routing are confirmed. It is
+incorrect to attribute all end-to-end changes to the one tile change.
+Although the arms started from isolated copies of the same cache, their
+actual vLLM compilation namespaces differ and both performed compilation.
+Upstream `_compute_backend_code_hash` includes traced file paths as well as
+contents, so an isolated source directory changes this cache factor even
+for unchanged forward source. `VllmConfig.compute_hash` also includes the
+generated commit-bearing vLLM version; the exact version stamps differ. Cache copying therefore does not prove aligned
+runtime choices. Cached and actual launch selections require separate audit;
+normal independent autotuning is not pinned into production by this fix.
+`CACHE_NAMESPACE_AUDIT.json` records equal environment/compiler factors and
+equal comment-free FX ASTs for all eight rank/model pairs, with unequal
+code/config hashes. Equal FX graphs do not prove identical runtime arithmetic.
+
+The native/old-tile bitwise observations also do not explain the changed
+accepted-token chains by themselves. Selected-row MoE execution and valid
+compiled reduction choices remain possible contributors. Historical
+controlled diagnostics showed different-M drafter post-MoE values, but used
+other commits; they do not isolate the current cohort's cause.
+
+Keep the performance observations and these limits together. No broad quality,
+long-context requalification, exhaustive operator parity or universal speedup
+is claimed. Production was restored to the previously qualified C after this test;
+no correction is permanently deployed. No upstream PR is merged or marked
+ready. AI assistance was used; submitting human review remains required.

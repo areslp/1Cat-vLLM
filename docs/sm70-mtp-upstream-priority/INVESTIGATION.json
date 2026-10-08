@@ -421,5 +421,17 @@
   "full_regression_solved": false,
   "pending": "controlled GPU qualification of this correction",
   "fix_commit": "96cedecef355cf1a4865996080ad75021da9d9b7",
-  "confirmed_integration_defect": "M1 residual tile overrides upstream native admission; exact GPU/end-to-end causal attribution pending"
+  "confirmed_integration_defect": "M1 residual tile overrides upstream native admission; exact GPU/end-to-end causal attribution pending",
+  "followup": {
+    "fixed_head": "96cedecef355cf1a4865996080ad75021da9d9b7",
+    "complete_gpu_pairs": 39,
+    "requests_per_arm": 69,
+    "component_cases": 16,
+    "component_scale_checks": 96,
+    "native_and_old_tile_bit_mismatches": 0,
+    "public_paired_analysis": "RETEST_ANALYSIS.json",
+    "actual_launch_alignment_verified": false,
+    "uniform_c1_gain_qualified": false,
+    "production_corrected_head_admitted": false
+  }
 }

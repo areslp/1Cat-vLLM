@@ -1,0 +1,1197 @@
+{
+  "passed": true,
+  "complete": true,
+  "rows": [
+    {
+      "rank": 0,
+      "m": 1,
+      "down": false,
+      "fixed_actual_dispatch_native_calls": 1,
+      "comparisons": [
+        {
+          "input_scale": 0.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.001,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.03,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.1,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 1.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 3.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        }
+      ],
+      "samples_us": [
+        [
+          74.03519749641418,
+          74.04159903526306,
+          74.04159903526306,
+          74.04800057411194,
+          74.07360076904297,
+          74.04159903526306,
+          73.99680018424988
+        ],
+        [
+          116.96640253067017,
+          116.93439483642578,
+          116.95359945297241,
+          116.97280406951904,
+          116.92160367965698,
+          116.95359945297241,
+          116.96000099182129
+        ],
+        [
+          70.5344021320343,
+          70.55360078811646,
+          70.61120271682739,
+          70.5407977104187,
+          70.54719924926758,
+          70.56000232696533,
+          70.57279944419861
+        ]
+      ],
+      "median_us": [
+        74.04159903526306,
+        116.95359945297241,
+        70.55360078811646
+      ],
+      "timing_order": "alternating 0,1,2 / 2,1,0",
+      "old_tile_is_production_regression_only_for_m1": true
+    },
+    {
+      "rank": 0,
+      "m": 5,
+      "down": false,
+      "fixed_actual_dispatch_native_calls": 1,
+      "comparisons": [
+        {
+          "input_scale": 0.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.001,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.03,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.1,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 1.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 3.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        }
+      ],
+      "samples_us": [
+        [
+          190.18880128860474,
+          189.99680280685425,
+          189.99680280685425,
+          190.03520011901855,
+          190.0607943534851,
+          190.01599550247192,
+          189.97119665145874
+        ],
+        [
+          193.74079704284668,
+          193.8438057899475,
+          193.67040395736694,
+          193.7343955039978,
+          193.6959981918335,
+          193.6959981918335,
+          193.81120204925537
+        ],
+        [
+          113.28699588775635,
+          113.42719793319702,
+          113.27999830245972,
+          113.35040330886841,
+          113.40800523757935,
+          113.33119869232178,
+          113.38239908218384
+        ]
+      ],
+      "median_us": [
+        190.01599550247192,
+        193.7343955039978,
+        113.35040330886841
+      ],
+      "timing_order": "alternating 0,1,2 / 2,1,0",
+      "old_tile_is_production_regression_only_for_m1": false
+    },
+    {
+      "rank": 0,
+      "m": 1,
+      "down": true,
+      "fixed_actual_dispatch_native_calls": 1,
+      "comparisons": [
+        {
+          "input_scale": 0.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.001,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.03,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.1,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 1.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 3.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        }
+      ],
+      "samples_us": [
+        [
+          26.099199056625366,
+          25.996801257133484,
+          25.939199328422546,
+          25.996801257133484,
+          26.0996013879776,
+          26.047998666763306,
+          25.913599133491516
+        ],
+        [
+          27.1807998418808,
+          27.411198616027832,
+          27.539199590682983,
+          27.142399549484253,
+          27.149400115013123,
+          27.14880108833313,
+          27.724799513816833
+        ],
+        [
+          14.131000638008118,
+          14.112600684165955,
+          14.099200069904327,
+          14.16960060596466,
+          14.1184002161026,
+          14.105600118637085,
+          14.112000167369843
+        ]
+      ],
+      "median_us": [
+        25.996801257133484,
+        27.1807998418808,
+        14.112600684165955
+      ],
+      "timing_order": "alternating 0,1,2 / 2,1,0",
+      "old_tile_is_production_regression_only_for_m1": true
+    },
+    {
+      "rank": 0,
+      "m": 5,
+      "down": true,
+      "fixed_actual_dispatch_native_calls": 1,
+      "comparisons": [
+        {
+          "input_scale": 0.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.001,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.03,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.1,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 1.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 3.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        }
+      ],
+      "samples_us": [
+        [
+          97.83679842948914,
+          97.79840111732483,
+          97.70240187644958,
+          97.76639938354492,
+          97.69600033760071,
+          97.58080244064331,
+          97.65759706497192
+        ],
+        [
+          105.1584005355835,
+          104.97920513153076,
+          104.95359897613525,
+          105.17760515213013,
+          105.08160591125488,
+          104.9981951713562,
+          105.17159700393677
+        ],
+        [
+          56.498801708221436,
+          56.4736008644104,
+          56.51199817657471,
+          56.48639798164368,
+          56.42240047454834,
+          56.44159913063049,
+          56.44159913063049
+        ]
+      ],
+      "median_us": [
+        97.70240187644958,
+        105.08160591125488,
+        56.4736008644104
+      ],
+      "timing_order": "alternating 0,1,2 / 2,1,0",
+      "old_tile_is_production_regression_only_for_m1": false
+    },
+    {
+      "rank": 1,
+      "m": 1,
+      "down": false,
+      "fixed_actual_dispatch_native_calls": 1,
+      "comparisons": [
+        {
+          "input_scale": 0.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.001,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.03,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.1,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 1.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 3.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        }
+      ],
+      "samples_us": [
+        [
+          74.02240037918091,
+          74.00320172309875,
+          73.990398645401,
+          74.00320172309875,
+          74.01599884033203,
+          74.01599884033203,
+          74.04159903526306
+        ],
+        [
+          116.87040328979492,
+          116.81280136108398,
+          116.85119867324829,
+          116.83199405670166,
+          116.87040328979492,
+          116.85760021209717,
+          116.87040328979492
+        ],
+        [
+          73.990398645401,
+          73.95840287208557,
+          73.990398645401,
+          73.94559979438782,
+          74.00959730148315,
+          74.00959730148315,
+          74.03479814529419
+        ]
+      ],
+      "median_us": [
+        74.01599884033203,
+        116.85760021209717,
+        73.990398645401
+      ],
+      "timing_order": "alternating 0,1,2 / 2,1,0",
+      "old_tile_is_production_regression_only_for_m1": true
+    },
+    {
+      "rank": 1,
+      "m": 5,
+      "down": false,
+      "fixed_actual_dispatch_native_calls": 1,
+      "comparisons": [
+        {
+          "input_scale": 0.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.001,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.03,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.1,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 1.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 3.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        }
+      ],
+      "samples_us": [
+        [
+          189.61280584335327,
+          189.56799507141113,
+          189.5359992980957,
+          189.4592046737671,
+          189.63199853897095,
+          189.6198034286499,
+          189.70880508422852
+        ],
+        [
+          193.33120584487915,
+          193.26080083847046,
+          193.38879585266113,
+          193.36320161819458,
+          193.36960315704346,
+          193.38879585266113,
+          193.40800046920776
+        ],
+        [
+          111.06560230255127,
+          111.02720499038696,
+          111.01440191268921,
+          111.05920076370239,
+          111.149001121521,
+          111.06560230255127,
+          111.19359731674194
+        ]
+      ],
+      "median_us": [
+        189.61280584335327,
+        193.36960315704346,
+        111.06560230255127
+      ],
+      "timing_order": "alternating 0,1,2 / 2,1,0",
+      "old_tile_is_production_regression_only_for_m1": false
+    },
+    {
+      "rank": 1,
+      "m": 1,
+      "down": true,
+      "fixed_actual_dispatch_native_calls": 1,
+      "comparisons": [
+        {
+          "input_scale": 0.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.001,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.03,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.1,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 1.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 3.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        }
+      ],
+      "samples_us": [
+        [
+          25.804799795150757,
+          26.022401452064514,
+          25.95199942588806,
+          25.843200087547302,
+          25.734400749206543,
+          25.874799489974976,
+          25.887998938560486
+        ],
+        [
+          27.09760069847107,
+          27.276799082756042,
+          27.17440128326416,
+          27.142399549484253,
+          27.187201380729675,
+          27.161601185798645,
+          27.1807998418808
+        ],
+        [
+          13.945600390434265,
+          13.926400244235992,
+          13.93280029296875,
+          13.945600390434265,
+          13.907399773597717,
+          13.93280029296875,
+          13.926400244235992
+        ]
+      ],
+      "median_us": [
+        25.874799489974976,
+        27.17440128326416,
+        13.93280029296875
+      ],
+      "timing_order": "alternating 0,1,2 / 2,1,0",
+      "old_tile_is_production_regression_only_for_m1": true
+    },
+    {
+      "rank": 1,
+      "m": 5,
+      "down": true,
+      "fixed_actual_dispatch_native_calls": 1,
+      "comparisons": [
+        {
+          "input_scale": 0.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.001,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.03,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.1,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 1.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 3.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        }
+      ],
+      "samples_us": [
+        [
+          97.74720072746277,
+          97.68319725990295,
+          97.8048026561737,
+          97.8052020072937,
+          97.74079918861389,
+          97.68319725990295,
+          97.65120148658752
+        ],
+        [
+          105.27360439300537,
+          105.10740280151367,
+          105.2672028541565,
+          105.10720014572144,
+          105.13919591903687,
+          105.08160591125488,
+          105.15199899673462
+        ],
+        [
+          56.19199872016907,
+          56.14079833030701,
+          56.198400259017944,
+          56.20480179786682,
+          56.16000294685364,
+          56.23679757118225,
+          56.198400259017944
+        ]
+      ],
+      "median_us": [
+        97.74079918861389,
+        105.13919591903687,
+        56.198400259017944
+      ],
+      "timing_order": "alternating 0,1,2 / 2,1,0",
+      "old_tile_is_production_regression_only_for_m1": false
+    },
+    {
+      "rank": 2,
+      "m": 1,
+      "down": false,
+      "fixed_actual_dispatch_native_calls": 1,
+      "comparisons": [
+        {
+          "input_scale": 0.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.001,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.03,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.1,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 1.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 3.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        }
+      ],
+      "samples_us": [
+        [
+          74.1375982761383,
+          74.14399981498718,
+          74.099200963974,
+          74.10560250282288,
+          74.18280243873596,
+          74.19520020484924,
+          74.1375982761383
+        ],
+        [
+          116.96640253067017,
+          116.97920560836792,
+          116.97920560836792,
+          116.95359945297241,
+          116.99199676513672,
+          116.93439483642578,
+          116.96640253067017
+        ],
+        [
+          71.85279726982117,
+          71.8396008014679,
+          71.8783974647522,
+          71.82739973068237,
+          71.86560034751892,
+          71.88479900360107,
+          73.59359860420227
+        ]
+      ],
+      "median_us": [
+        74.1375982761383,
+        116.96640253067017,
+        71.86560034751892
+      ],
+      "timing_order": "alternating 0,1,2 / 2,1,0",
+      "old_tile_is_production_regression_only_for_m1": true
+    },
+    {
+      "rank": 2,
+      "m": 5,
+      "down": false,
+      "fixed_actual_dispatch_native_calls": 1,
+      "comparisons": [
+        {
+          "input_scale": 0.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.001,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.03,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.1,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 1.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 3.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        }
+      ],
+      "samples_us": [
+        [
+          189.81120586395264,
+          189.70880508422852,
+          189.66399431228638,
+          189.62559700012207,
+          189.61280584335327,
+          189.58719968795776,
+          189.70880508422852
+        ],
+        [
+          193.59359741210938,
+          193.49119663238525,
+          193.4272050857544,
+          193.45920085906982,
+          193.299400806427,
+          193.22240352630615,
+          193.42080354690552
+        ],
+        [
+          113.48479986190796,
+          113.55520486831665,
+          113.49760293960571,
+          113.46559524536133,
+          113.40800523757935,
+          113.44000101089478,
+          113.44640254974365
+        ]
+      ],
+      "median_us": [
+        189.66399431228638,
+        193.4272050857544,
+        113.46559524536133
+      ],
+      "timing_order": "alternating 0,1,2 / 2,1,0",
+      "old_tile_is_production_regression_only_for_m1": false
+    },
+    {
+      "rank": 2,
+      "m": 1,
+      "down": true,
+      "fixed_actual_dispatch_native_calls": 1,
+      "comparisons": [
+        {
+          "input_scale": 0.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.001,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.03,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.1,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 1.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 3.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        }
+      ],
+      "samples_us": [
+        [
+          26.24639868736267,
+          26.150399446487427,
+          26.080000400543213,
+          26.30400061607361,
+          26.412799954414368,
+          26.848000288009644,
+          26.45759880542755
+        ],
+        [
+          27.065598964691162,
+          27.07200050354004,
+          27.1232008934021,
+          27.167999744415283,
+          27.09760069847107,
+          27.647998929023743,
+          27.244800329208374
+        ],
+        [
+          13.894599676132202,
+          13.945800065994263,
+          13.888399302959442,
+          13.900800049304962,
+          13.926400244235992,
+          13.920000195503235,
+          13.894400000572205
+        ]
+      ],
+      "median_us": [
+        26.30400061607361,
+        27.1232008934021,
+        13.900800049304962
+      ],
+      "timing_order": "alternating 0,1,2 / 2,1,0",
+      "old_tile_is_production_regression_only_for_m1": true
+    },
+    {
+      "rank": 2,
+      "m": 5,
+      "down": true,
+      "fixed_actual_dispatch_native_calls": 1,
+      "comparisons": [
+        {
+          "input_scale": 0.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.001,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.03,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.1,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 1.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 3.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        }
+      ],
+      "samples_us": [
+        [
+          97.72800207138062,
+          97.67040014266968,
+          97.70240187644958,
+          97.78559803962708,
+          97.70879745483398,
+          97.72800207138062,
+          97.60640263557434
+        ],
+        [
+          105.32480478286743,
+          105.19039630889893,
+          105.4144024848938,
+          105.16480207443237,
+          105.4527997970581,
+          105.24799823760986,
+          105.15199899673462
+        ],
+        [
+          58.23360085487366,
+          58.271998167037964,
+          58.26619863510132,
+          58.22719931602478,
+          58.271998167037964,
+          58.316999673843384,
+          58.30399990081787
+        ]
+      ],
+      "median_us": [
+        97.70879745483398,
+        105.24799823760986,
+        58.271998167037964
+      ],
+      "timing_order": "alternating 0,1,2 / 2,1,0",
+      "old_tile_is_production_regression_only_for_m1": false
+    },
+    {
+      "rank": 3,
+      "m": 1,
+      "down": false,
+      "fixed_actual_dispatch_native_calls": 1,
+      "comparisons": [
+        {
+          "input_scale": 0.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.001,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.03,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.1,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 1.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 3.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        }
+      ],
+      "samples_us": [
+        [
+          74.2464005947113,
+          74.2143988609314,
+          74.2143988609314,
+          74.23999905586243,
+          74.26559925079346,
+          74.2464005947113,
+          74.2464005947113
+        ],
+        [
+          116.88319444656372,
+          116.85760021209717,
+          116.89599752426147,
+          116.85119867324829,
+          116.88319444656372,
+          116.87040328979492,
+          116.83839559555054
+        ],
+        [
+          71.5008020401001,
+          71.46880030632019,
+          71.46239876747131,
+          71.52640223503113,
+          71.5008020401001,
+          71.5008020401001,
+          71.45599722862244
+        ]
+      ],
+      "median_us": [
+        74.2464005947113,
+        116.87040328979492,
+        71.5008020401001
+      ],
+      "timing_order": "alternating 0,1,2 / 2,1,0",
+      "old_tile_is_production_regression_only_for_m1": true
+    },
+    {
+      "rank": 3,
+      "m": 5,
+      "down": false,
+      "fixed_actual_dispatch_native_calls": 1,
+      "comparisons": [
+        {
+          "input_scale": 0.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.001,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.03,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.1,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 1.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 3.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        }
+      ],
+      "samples_us": [
+        [
+          189.74720239639282,
+          189.792001247406,
+          189.79840278625488,
+          189.7536039352417,
+          189.74080085754395,
+          189.85600471496582,
+          189.69600200653076
+        ],
+        [
+          193.81120204925537,
+          193.4399962425232,
+          193.59359741210938,
+          193.60640048980713,
+          193.5871958732605,
+          193.49119663238525,
+          193.45920085906982
+        ],
+        [
+          113.01759481430054,
+          113.08159828186035,
+          113.05660009384155,
+          113.06240558624268,
+          113.01120519638062,
+          113.01120519638062,
+          112.96639442443848
+        ]
+      ],
+      "median_us": [
+        189.7536039352417,
+        193.5871958732605,
+        113.01759481430054
+      ],
+      "timing_order": "alternating 0,1,2 / 2,1,0",
+      "old_tile_is_production_regression_only_for_m1": false
+    },
+    {
+      "rank": 3,
+      "m": 1,
+      "down": true,
+      "fixed_actual_dispatch_native_calls": 1,
+      "comparisons": [
+        {
+          "input_scale": 0.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.001,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.03,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.1,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 1.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 3.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        }
+      ],
+      "samples_us": [
+        [
+          26.7520010471344,
+          27.225598692893982,
+          27.07200050354004,
+          26.815998554229736,
+          26.783400774002075,
+          27.084800601005554,
+          27.084800601005554
+        ],
+        [
+          27.251198887825012,
+          27.251198887825012,
+          27.718400955200195,
+          28.415998816490173,
+          27.30880081653595,
+          27.238398790359497,
+          27.251198887825012
+        ],
+        [
+          14.112000167369843,
+          14.1184002161026,
+          14.14400041103363,
+          14.124800264835358,
+          14.156800508499146,
+          14.137600362300873,
+          14.150400459766388
+        ]
+      ],
+      "median_us": [
+        27.07200050354004,
+        27.251198887825012,
+        14.137600362300873
+      ],
+      "timing_order": "alternating 0,1,2 / 2,1,0",
+      "old_tile_is_production_regression_only_for_m1": true
+    },
+    {
+      "rank": 3,
+      "m": 5,
+      "down": true,
+      "fixed_actual_dispatch_native_calls": 1,
+      "comparisons": [
+        {
+          "input_scale": 0.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.001,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.03,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 0.1,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 1.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        },
+        {
+          "input_scale": 3.0,
+          "native_vs_upstream_bit_mismatches": 0,
+          "old_vs_upstream_bit_mismatches": 0
+        }
+      ],
+      "samples_us": [
+        [
+          97.84960150718689,
+          97.89440035820007,
+          97.93279767036438,
+          97.91359901428223,
+          97.88780212402344,
+          97.73439764976501,
+          97.74079918861389
+        ],
+        [
+          105.66400289535522,
+          105.50400018692017,
+          105.5232048034668,
+          105.39519786834717,
+          105.55520057678223,
+          105.6704044342041,
+          105.49119710922241
+        ],
+        [
+          56.94739818572998,
+          56.940799951553345,
+          56.93439841270447,
+          56.97919726371765,
+          57.02400207519531,
+          56.992000341415405,
+          56.992000341415405
+        ]
+      ],
+      "median_us": [
+        97.88780212402344,
+        105.5232048034668,
+        56.97919726371765
+      ],
+      "timing_order": "alternating 0,1,2 / 2,1,0",
+      "old_tile_is_production_regression_only_for_m1": false
+    }
+  ],
+  "weights_unmodified": true,
+  "activations_and_routes": "synthetic",
+  "scope": "real checkpoint MTP expert projection slices, all four TP ranks",
+  "native_sha256": "c0cae6693330ac2a74c428747e0d61069264829d875e921fc0affd10303f6170",
+  "device_scope": "one V100 device; all four checkpoint TP weight slices tested sequentially",
+  "old_and_upstream_tiled_controls": "diagnostic M1 and M5; original production bypass defect applies only to M1",
+  "source_commit": "96cedecef355cf1a4865996080ad75021da9d9b7"
+}
