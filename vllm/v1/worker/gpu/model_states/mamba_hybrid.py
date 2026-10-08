@@ -22,6 +22,7 @@ from vllm.model_executor.layers.mamba.mamba_utils import (
 from vllm.platforms import current_platform
 from vllm.triton_utils import tl, triton
 from vllm.utils.platform_utils import is_pin_memory_available
+from vllm.v1.attention.backends import sm70_mtp_shortconv_meta as _sc_meta
 from vllm.v1.attention.backends.flash_attn_v100 import (
     DFlash2SmallQGroupDescriptor,
     DFlash2SmallQPreparedMetadata,
@@ -32,6 +33,7 @@ from vllm.v1.attention.backends.gdn_attn import (
     DFlash2GDNGroupDescriptor,
     GDNAttentionMetadata,
     GDNAttentionMetadataBuilder,
+    onecat_mtp_gdn_group_meta_enabled,
     prepare_dflash2_gdn_group_metadata,
 )
 from vllm.v1.attention.backends.mamba2_attn import Mamba2AttentionMetadataBuilder
@@ -76,6 +78,7 @@ class MambaHybridAttnMetadata(ModelSpecificAttnMetadata):
     prepared_dflash2_smallq_metadata: (
         dict[int, DFlash2SmallQPreparedMetadata] | None
     ) = None
+    prepared_ple_shortconv_metadata: dict[int, Any] | None = None
 
     def get_extra_common_attn_kwargs(
         self,
@@ -122,6 +125,14 @@ class MambaHybridAttnMetadata(ModelSpecificAttnMetadata):
                 kwargs["prepared_dflash2_metadata"] = (
                     self.prepared_dflash2_gdn_metadata.get(id(attn_metadata_builder))
                 )
+        elif self.prepared_ple_shortconv_metadata is not None and isinstance(
+            attn_metadata_builder, PleShortConvAttentionMetadataBuilder
+        ):
+            prepared = self.prepared_ple_shortconv_metadata.get(
+                id(attn_metadata_builder)
+            )
+            if prepared is not None:
+                kwargs["prepared_shortconv"] = prepared
         return kwargs
 
 
@@ -149,11 +160,21 @@ class MambaHybridModelState(DefaultModelState):
         if self._use_dflash2_common_gdn_metadata:
             logger.info_once("DFlash2 shared GDN batch metadata fast path enabled.")
         speculative_config = vllm_config.speculative_config
+        self._onecat_mtp_gdn_group_metadata = (
+            onecat_mtp_gdn_group_meta_enabled()
+            and speculative_config is not None
+            and speculative_config.method == "mtp"
+            and device.type == "cuda"
+            and current_platform.is_device_capability(70)
+        )
         # The shared request metadata and the fused state rows depend on the
         # draft depth only through num_spec_state_tokens, so every native MTP
         # depth qualifies. The MTP4 prefix on these names is historical.
         self._use_mtp4_common_gdn_metadata = bool(
-            envs.VLLM_SM70_MTP4_SHARED_GDN_METADATA
+            (
+                envs.VLLM_SM70_MTP4_SHARED_GDN_METADATA
+                or self._onecat_mtp_gdn_group_metadata
+            )
             and speculative_config is not None
             and speculative_config.method == "mtp"
             and device.type == "cuda"
@@ -175,9 +196,32 @@ class MambaHybridModelState(DefaultModelState):
         )
         self._use_mtp4_fused_gdn_metadata = bool(
             self._use_mtp4_common_gdn_metadata
-            and envs.VLLM_SM70_MTP4_FUSED_GDN_METADATA
+            and (
+                envs.VLLM_SM70_MTP4_FUSED_GDN_METADATA
+                or self._onecat_mtp_gdn_group_metadata
+            )
             and self.cache_config.mamba_cache_mode in ("none", "align")
         )
+        # ONECAT_MTP_SHORTCONV_GROUP_META: the PLE short-conv groups' metadata for
+        # MTP pure verify batches in one launch (sm70_mtp_shortconv_meta.py).
+        self._onecat_mtp_shortconv_meta = bool(
+            _sc_meta.enabled()
+            and speculative_config is not None
+            and speculative_config.method == "mtp"
+            and not uses_dflash_selector_engine(vllm_config)
+            and self.cache_config.mamba_cache_mode in ("none", "align")
+            and device.type == "cuda"
+            and current_platform.is_device_capability(70)
+        )
+        if self._onecat_mtp_shortconv_meta:
+            logger.info_once(
+                "ONECAT_MTP_SHORTCONV_GROUP_META: PLE short-conv group metadata in "
+                "one launch for pure MTP verify batches."
+            )
+        self._ple_shortconv_builders: (
+            list[tuple[int, PleShortConvAttentionMetadataBuilder]] | None
+        ) = None
+        self._ple_shortconv_descriptor: _sc_meta.ShortConvGroupDescriptor | None = None
         self._dflash2_gdn_builders: (
             list[tuple[int, GDNAttentionMetadataBuilder]] | None
         ) = None
@@ -335,6 +379,71 @@ class MambaHybridModelState(DefaultModelState):
             self._dflash2_gdn_builders = builders
         return self._dflash2_gdn_builders
 
+    def _get_ple_shortconv_builders(
+        self,
+        attn_groups: list[list[AttentionGroup]],
+    ) -> list[tuple[int, PleShortConvAttentionMetadataBuilder]]:
+        if self._ple_shortconv_builders is None:
+            builders: list[tuple[int, PleShortConvAttentionMetadataBuilder]] = []
+            for kv_cache_group_id, groups in enumerate(attn_groups):
+                for group in groups:
+                    builder = group.get_metadata_builder(0)
+                    if isinstance(builder, PleShortConvAttentionMetadataBuilder):
+                        builders.append((kv_cache_group_id, builder))
+            self._ple_shortconv_builders = builders
+        return self._ple_shortconv_builders
+
+    def _prepare_mtp_shortconv_group_metadata(
+        self,
+        input_batch: InputBatch,
+        block_tables: tuple[torch.Tensor, ...],
+        attn_groups: list[list[AttentionGroup]],
+        query_start_loc_cpu: torch.Tensor,
+        num_decode_draft_tokens_cpu: torch.Tensor,
+        num_accepted_tokens: torch.Tensor,
+        num_reqs: int,
+        num_tokens: int,
+    ) -> dict[int, Any] | None:
+        """ONECAT_MTP_SHORTCONV_GROUP_META for one FULL-graph batch: every PLE
+        short-conv group's graph metadata in one launch, or None with a counted
+        reason, which keeps the per-group path."""
+        reason = _sc_meta.pure_spec_block_reason(
+            num_decode_draft_tokens_cpu, query_start_loc_cpu, num_tokens
+        )
+        prepared_result = None
+        if reason is None:
+            num_spec_decodes = int((num_decode_draft_tokens_cpu >= 0).sum().item())
+            builders = self._get_ple_shortconv_builders(attn_groups)
+            if not builders:
+                reason = "no_groups"
+            else:
+                prepared_result = _sc_meta.prepare_ple_shortconv_group_metadata(
+                    builders_by_group=builders,
+                    block_tables=block_tables,
+                    num_accepted_tokens=num_accepted_tokens,
+                    query_start_loc=input_batch.query_start_loc,
+                    num_spec_decodes=num_spec_decodes,
+                    num_spec_decode_tokens=int(
+                        query_start_loc_cpu[num_spec_decodes].item()
+                    ),
+                    num_reqs=num_reqs,
+                    descriptor=self._ple_shortconv_descriptor,
+                    state_start_indices=(
+                        self._mamba_state_idx_gpu if self._align_mode else None
+                    ),
+                    req_index_mapping=(
+                        input_batch.idx_mapping if self._align_mode else None
+                    ),
+                )
+                if prepared_result is None:
+                    reason = "prepare"
+        if reason is not None or prepared_result is None:
+            _sc_meta.note_route(f"fallback:{reason}")
+            return None
+        prepared, self._ple_shortconv_descriptor = prepared_result
+        _sc_meta.note_route("fused")
+        return prepared
+
     def _get_dflash2_smallq_builders(
         self,
         attn_groups: list[list[AttentionGroup]],
@@ -380,6 +489,7 @@ class MambaHybridModelState(DefaultModelState):
         common_gdn_metadata = None
         prepared_dflash2_gdn_metadata = None
         prepared_dflash2_smallq_metadata = None
+        prepared_ple_shortconv_metadata = None
         if not for_capture:
             num_accepted_tokens = self.num_accepted_tokens_gpu.new_ones(num_reqs)
             num_accepted_tokens[: input_batch.num_reqs] = self.num_accepted_tokens_gpu[
@@ -460,6 +570,20 @@ class MambaHybridModelState(DefaultModelState):
                         )
                         self._dflash2_fused_gdn_metadata_logged = True
 
+            if self._onecat_mtp_shortconv_meta and cudagraph_mode == CUDAGraphMode.FULL:
+                prepared_ple_shortconv_metadata = (
+                    self._prepare_mtp_shortconv_group_metadata(
+                        input_batch,
+                        block_tables,
+                        attn_groups,
+                        query_start_loc_cpu,
+                        num_decode_draft_tokens_cpu,
+                        num_accepted_tokens,
+                        num_reqs,
+                        num_tokens,
+                    )
+                )
+
             if (
                 self._use_dflash2_grouped_smallq_metadata
                 and cudagraph_mode == CUDAGraphMode.FULL
@@ -499,6 +623,7 @@ class MambaHybridModelState(DefaultModelState):
             common_gdn_metadata=common_gdn_metadata,
             prepared_dflash2_gdn_metadata=prepared_dflash2_gdn_metadata,
             prepared_dflash2_smallq_metadata=prepared_dflash2_smallq_metadata,
+            prepared_ple_shortconv_metadata=prepared_ple_shortconv_metadata,
         )
         attn_metadata = build_attn_metadata(
             attn_groups=attn_groups,
