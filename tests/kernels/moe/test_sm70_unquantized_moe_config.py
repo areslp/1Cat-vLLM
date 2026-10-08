@@ -35,14 +35,48 @@ def test_mtp_sm70_decode_config_uses_exact_local_tile(m):
     assert config["BLOCK_SIZE_K"] == 32
 
 
-@pytest.mark.parametrize("m", [1, 5])
+_QWEN38_TILES = fused_moe_module._SM70_QWEN38_MTP_MOE_TILES
+
+
+@pytest.mark.parametrize("m", sorted(_QWEN38_TILES))
 def test_qwen38_mtp_sm70_decode_config_uses_exact_local_tile(m):
     config = _get_sm70_mtp_moe_decode_config(m, 512, 160, 2560, 10)
+    tile = _QWEN38_TILES[m]
 
-    assert config is not None
-    assert config["BLOCK_SIZE_M"] == 2
-    assert config["BLOCK_SIZE_N"] == 128
-    assert config["BLOCK_SIZE_K"] == 64
+    if tile is None:
+        assert config is None
+        return
+    assert (
+        config["BLOCK_SIZE_M"],
+        config["BLOCK_SIZE_N"],
+        config["BLOCK_SIZE_K"],
+        config["num_warps"],
+        config["num_stages"],
+    ) == tile
+    assert config["GROUP_SIZE_M"] == 1
+    assert config["SPLIT_K"] == 1
+
+
+@pytest.mark.parametrize("m", range(1, 41))
+def test_qwen38_mtp_sm70_decode_config_uses_nearest_key(m):
+    key = min(_QWEN38_TILES, key=lambda x: abs(x - m))
+    expected = _get_sm70_mtp_moe_decode_config(key, 512, 160, 2560, 10)
+
+    assert _get_sm70_mtp_moe_decode_config(m, 512, 160, 2560, 10) == expected
+
+
+@pytest.mark.parametrize("m", [41, 64, 512, 513, 8192])
+def test_qwen38_mtp_sm70_decode_config_keeps_defaults_above_m40(m):
+    assert _get_sm70_mtp_moe_decode_config(m, 512, 160, 2560, 10) is None
+
+
+def test_qwen38_mtp_sm70_decode_config_keeps_the_m1_m5_tiles():
+    for m in (1, 5):
+        config = _get_sm70_mtp_moe_decode_config(m, 512, 160, 2560, 10)
+        if _QWEN38_TILES[m] == (2, 128, 64, 4, 3):
+            assert config["BLOCK_SIZE_M"] == 2
+            assert config["BLOCK_SIZE_N"] == 128
+            assert config["BLOCK_SIZE_K"] == 64
 
 
 @pytest.mark.parametrize(
@@ -53,8 +87,8 @@ def test_qwen38_mtp_sm70_decode_config_uses_exact_local_tile(m):
         (2, 256, 512, 2048, 8),
         (2, 256, 128, 4096, 8),
         (2, 256, 128, 2048, 4),
-        (2, 512, 160, 2560, 10),
         (5, 256, 160, 2560, 10),
+        (41, 512, 160, 2560, 10),
         (5, 512, 128, 2560, 10),
         (5, 512, 160, 2048, 10),
         (5, 512, 160, 2560, 8),
