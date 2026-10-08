@@ -1294,11 +1294,13 @@ def should_moe_wna16_use_cuda(
 # exact-shape CUDA-graph sweep on V100 (1Cat perf STEP-38). M is the drafter row
 # count: 5 per request in the first proposer pass over the verifier window and 1
 # per request in the three continuation passes, padded to a CUDA-graph size.
+# M1 and M5 retain the upstream tile required by sm70_mtp_moe_fp16_out's
+# admission guard; the residual tuning extends the other batch sizes only.
 # Values: (BLOCK_SIZE_M, BLOCK_SIZE_N, BLOCK_SIZE_K, num_warps, num_stages); None
 # keeps the SM70 0.0.3 default tile. The nearest key wins, as for a per-device
 # config file; M > 40 keeps the defaults.
 _SM70_QWEN38_MTP_MOE_TILES: dict[int, tuple[int, int, int, int, int] | None] = {
-    1: (2, 64, 64, 2, 4),
+    1: (2, 128, 64, 4, 3),
     2: (2, 128, 64, 4, 3),
     3: (2, 64, 64, 2, 4),
     4: (2, 64, 64, 2, 3),

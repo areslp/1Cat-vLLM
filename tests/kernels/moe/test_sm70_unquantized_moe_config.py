@@ -73,10 +73,15 @@ def test_qwen38_mtp_sm70_decode_config_keeps_defaults_above_m40(m):
 def test_qwen38_mtp_sm70_decode_config_keeps_the_m1_m5_tiles():
     for m in (1, 5):
         config = _get_sm70_mtp_moe_decode_config(m, 512, 160, 2560, 10)
-        if _QWEN38_TILES[m] == (2, 128, 64, 4, 3):
-            assert config["BLOCK_SIZE_M"] == 2
-            assert config["BLOCK_SIZE_N"] == 128
-            assert config["BLOCK_SIZE_K"] == 64
+        assert config == {
+            "BLOCK_SIZE_M": 2,
+            "BLOCK_SIZE_N": 128,
+            "BLOCK_SIZE_K": 64,
+            "GROUP_SIZE_M": 1,
+            "SPLIT_K": 1,
+            "num_warps": 4,
+            "num_stages": 3,
+        }
 
 
 @pytest.mark.parametrize(
