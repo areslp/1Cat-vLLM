@@ -30,6 +30,7 @@ import torch.nn as nn
 from vllm.compilation.counter import compilation_counter
 from vllm.config import VllmConfig
 from vllm.config.compilation import CUDAGraphMode
+from vllm.config.sm70_dflash2 import capture_sm70_dflash2_config, sm70_dflash2_enabled
 from vllm.distributed.parallel_state import (
     get_dcp_group,
     get_pp_group,
@@ -38,6 +39,7 @@ from vllm.distributed.parallel_state import (
 from vllm.forward_context import BatchDescriptor, set_forward_context
 from vllm.logger import init_logger
 from vllm.lora.layers import LoRAMapping
+from vllm.model_executor.layers import sm70_fuse47 as _fuse47
 from vllm.model_executor.layers.mamba.ops.ssu_dispatch import (
     initialize_mamba_ssu_backend,
 )
@@ -88,6 +90,7 @@ from vllm.v1.worker.gpu.cudagraph_utils import (
     ModelCudaGraphManager,
     get_explicit_cudagraph_memory_reserve,
     get_uniform_decode_token_count,
+    is_speculative_uniform_batch,
 )
 from vllm.v1.worker.gpu.dp_utils import dispatch_cg_and_sync_dp
 from vllm.v1.worker.gpu.eplb_utils import EPLBController, step_eplb_after
@@ -631,6 +634,7 @@ class GPUModelRunner(LoRAModelRunnerMixin):
         warmed = run_warmup_tasks(tasks)
         if warmed:
             logger.info_once("SM70 V2 auxiliary kernel warmup finished: %s", warmed)
+
 
     @torch.inference_mode()
     @step_eplb_after(is_dummy=True)
@@ -1249,6 +1253,30 @@ class GPUModelRunner(LoRAModelRunnerMixin):
             sampler_output,
             cached_logits,
         )
+        if (
+            sampler_output is None
+            and cached_logits is None
+            and _fuse47.unit_enabled("s1")
+        ):
+            s1_reason = _fuse47.s1_block_reason(self, input_batch, grammar_output)
+            if s1_reason is None:
+                assert self.rejection_sampler is not None
+                _fuse47.note_route("s1", "fused")
+                top = _fuse47.tp_local_top1(self.model, sample_hidden_states)
+                sampled, num_sampled = _fuse47.greedy_verify_from_top1(
+                    top,
+                    input_batch.input_ids[input_batch.logits_indices],
+                    input_batch.cu_num_logits,
+                    self.rejection_sampler.num_speculative_steps,
+                )
+                sampler_output = SamplerOutput(
+                    sampled_token_ids=sampled,
+                    logprobs_tensors=None,
+                    num_nans=None,
+                    num_sampled=num_sampled,
+                )
+            else:
+                _fuse47.note_route("s1", "fallback:" + s1_reason)
         if sampler_output is None:
             logits = (
                 cached_logits.logits
@@ -1398,9 +1426,24 @@ class GPUModelRunner(LoRAModelRunnerMixin):
         # Get batch descriptor and sync across DP ranks.
         num_reqs = len(scheduler_output.num_scheduled_tokens)
         num_toks = scheduler_output.total_num_scheduled_tokens
+        max_query_len = max(scheduler_output.num_scheduled_tokens.values())
         uniform_tok_count = self._get_uniform_decode_token_count(
             scheduler_output, dummy_run
         )
+        if uniform_tok_count is not None and not is_speculative_uniform_batch(
+            uniform_tok_count,
+            scheduler_output.num_scheduled_tokens,
+            scheduler_output.scheduled_spec_decode_tokens,
+        ):
+            # Uniform by shape only (e.g. a prefill chunk of exactly
+            # 1 + num_draft tokens): the captured verify graph would consume
+            # stale spec-state metadata. Run it as a regular batch.
+            logger.info_once(
+                "Uniform %d-token batch without matching draft tokens is not "
+                "dispatched to the speculative-decode cudagraph.",
+                uniform_tok_count,
+            )
+            uniform_tok_count = None
 
         skip_compiled = False
         if self.is_encoder_decoder and scheduler_output.scheduled_encoder_inputs:
@@ -1418,6 +1461,25 @@ class GPUModelRunner(LoRAModelRunnerMixin):
             self.dp_rank,
             need_eager=is_profile or skip_compiled,
         )
+
+        if os.environ.get("VLLM_SM70_CG_DISPATCH_DEBUG") == "1" and max_query_len > 1:
+            # Diagnostic (default off): record whether a speculative verify
+            # step dispatched to a FULL cudagraph. Two resident decoders at
+            # very different context lengths frequently produce non-uniform
+            # verify batches (uniform_tok_count=None) that fall back to the
+            # PIECEWISE/eager forward -- the dominant host cost at reqs>1.
+            n = getattr(self, "_cg_dispatch_debug_count", 0) + 1
+            self._cg_dispatch_debug_count = n
+            if n <= 2000 or batch_desc.cg_mode != CUDAGraphMode.FULL:
+                logger.info(
+                    "SM70 CG dispatch: num_reqs=%d num_tokens=%d "
+                    "max_query_len=%d uniform_tok_count=%s cg_mode=%s",
+                    num_reqs,
+                    num_toks,
+                    max_query_len,
+                    uniform_tok_count,
+                    batch_desc.cg_mode.name,
+                )
 
         if batch_desc.num_tokens == 0:
             # All DP ranks have zero tokens to run.
