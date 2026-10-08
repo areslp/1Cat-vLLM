@@ -240,6 +240,58 @@ class PleShortConvAttentionMetadataBuilder(ShortConvAttentionMetadataBuilder):
             num_decode_draft_tokens_cpu=num_decode_draft_tokens_cpu,
         )
 
+    def _build_prepared_spec(
+        self,
+        m: CommonAttentionMetadata,
+        prepared: Any,
+        num_decode_draft_tokens_cpu: torch.Tensor | None,
+    ) -> PleShortConvAttentionMetadata:
+        """The pure speculative FULL-graph metadata over buffers that
+        sm70_mtp_shortconv_meta.prepare_ple_shortconv_group_metadata wrote;
+        every field as the per-group path below returns it."""
+        if prepared.num_reqs != m.num_reqs:
+            raise ValueError(
+                "Prepared PLE short-conv metadata does not match the batch"
+            )
+        batch_size = m.num_reqs
+        return PleShortConvAttentionMetadata(
+            num_prefills=0,
+            num_prefill_tokens=0,
+            num_decodes=0,
+            num_decode_tokens=0,
+            num_reqs=m.num_reqs,
+            num_spec_decodes=prepared.num_spec_decodes,
+            num_spec_decode_tokens=prepared.num_spec_decode_tokens,
+            num_actual_tokens=m.num_actual_tokens,
+            spec_query_len=self.num_spec + 1,
+            max_prefill_query_len=0,
+            query_start_loc=m.query_start_loc,
+            state_indices_tensor=m.block_table_tensor[:0, 0],
+            has_initial_states_p=None,
+            has_initial_states_d=None,
+            non_spec_query_start_loc=None,
+            spec_query_start_loc=self.spec_query_start_loc[: batch_size + 1],
+            spec_state_indices_tensor=self.spec_state_indices_tensor[:batch_size],
+            spec_sequence_masks=self.spec_sequence_masks[:batch_size],
+            spec_token_indx=prepared.spec_token_indx,
+            non_spec_token_indx=prepared.non_spec_token_indx,
+            num_accepted_tokens=self.num_accepted_tokens[:batch_size],
+            num_decode_draft_tokens_cpu=num_decode_draft_tokens_cpu,
+            nums_dict=None,
+            batch_ptr=None,
+            token_chunk_offset_ptr=None,
+            query_start_loc_p=None,
+            query_start_loc_d=None,
+            state_indices_tensor_p=None,
+            state_indices_tensor_d=None,
+            num_computed_tokens_p=None,
+            block_idx_last_scheduled_token=None,
+            block_idx_first_scheduled_token_p=None,
+            block_idx_last_computed_token=None,
+            block_idx_last_scheduled_token_prev_step=None,
+            seq_lens=m.seq_lens,
+        )
+
     def build(  # type: ignore[override]
         self,
         common_prefix_len: int,
@@ -248,9 +300,14 @@ class PleShortConvAttentionMetadataBuilder(ShortConvAttentionMetadataBuilder):
         *,
         num_accepted_tokens: torch.Tensor | None = None,
         num_decode_draft_tokens_cpu: torch.Tensor | None = None,
+        prepared_shortconv: Any | None = None,
         **kwargs: Any,
     ) -> PleShortConvAttentionMetadata:
         m = common_attn_metadata
+        if prepared_shortconv is not None:
+            return self._build_prepared_spec(
+                m, prepared_shortconv, num_decode_draft_tokens_cpu
+            )
         spec_sequence_masks_cpu: torch.Tensor | None = None
         # Detect speculative-decode requests. We use -1 to mark prefill and
         # plain-decode requests, so any value >= 0 is a (multi-query)
