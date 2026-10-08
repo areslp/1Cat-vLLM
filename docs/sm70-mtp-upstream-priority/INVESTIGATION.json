@@ -1,0 +1,425 @@
+{
+  "upstream_base": "c4f6245f841466782752a8c3283e4727565cf17a",
+  "measured_PR_head": "91377976388a60fd69aef87ac9190555f642b30b",
+  "introduced_in_commit": "960f837963a99cd8b09a5b4dbe715a1870b84f3a",
+  "native_implementation_upstream_commit": "0930fd3b6d4c804bfb04abbdabf779108ffcb824",
+  "source_audit": {
+    "upstream": {
+      "source_sha256": "837462418e7617dbfc7e3d27bda438192ddd83f372dbab10ddb227902262d093",
+      "shape": {
+        "experts": 512,
+        "intermediate": 160,
+        "hidden": 2560,
+        "topk": 10
+      },
+      "scope": "tile admission only; other device/shape/operator guards still apply",
+      "native_tile_guard": [
+        "config.get('BLOCK_SIZE_M') == 2",
+        "config.get('BLOCK_SIZE_N') == 128",
+        "config.get('BLOCK_SIZE_K') == 64",
+        "config.get('num_warps') == 4"
+      ],
+      "shapes": {
+        "1": {
+          "config": {
+            "BLOCK_SIZE_M": 2,
+            "BLOCK_SIZE_N": 128,
+            "BLOCK_SIZE_K": 64,
+            "GROUP_SIZE_M": 1,
+            "SPLIT_K": 1,
+            "num_warps": 4,
+            "num_stages": 3
+          },
+          "native_tile_guard_admitted": true
+        },
+        "2": {
+          "config": null,
+          "native_tile_guard_admitted": false
+        },
+        "4": {
+          "config": null,
+          "native_tile_guard_admitted": false
+        },
+        "5": {
+          "config": {
+            "BLOCK_SIZE_M": 2,
+            "BLOCK_SIZE_N": 128,
+            "BLOCK_SIZE_K": 64,
+            "GROUP_SIZE_M": 1,
+            "SPLIT_K": 1,
+            "num_warps": 4,
+            "num_stages": 3
+          },
+          "native_tile_guard_admitted": true
+        },
+        "8": {
+          "config": null,
+          "native_tile_guard_admitted": false
+        },
+        "10": {
+          "config": null,
+          "native_tile_guard_admitted": false
+        },
+        "20": {
+          "config": null,
+          "native_tile_guard_admitted": false
+        },
+        "40": {
+          "config": null,
+          "native_tile_guard_admitted": false
+        }
+      }
+    },
+    "published": {
+      "source_sha256": "122b106bf72adf7c10bf44a285168cc3dd5fa3003ce7625e13d02e364ac78058",
+      "shape": {
+        "experts": 512,
+        "intermediate": 160,
+        "hidden": 2560,
+        "topk": 10
+      },
+      "scope": "tile admission only; other device/shape/operator guards still apply",
+      "native_tile_guard": [
+        "config.get('BLOCK_SIZE_M') == 2",
+        "config.get('BLOCK_SIZE_N') == 128",
+        "config.get('BLOCK_SIZE_K') == 64",
+        "config.get('num_warps') == 4"
+      ],
+      "shapes": {
+        "1": {
+          "config": {
+            "BLOCK_SIZE_M": 2,
+            "BLOCK_SIZE_N": 64,
+            "BLOCK_SIZE_K": 64,
+            "GROUP_SIZE_M": 1,
+            "SPLIT_K": 1,
+            "num_warps": 2,
+            "num_stages": 4
+          },
+          "native_tile_guard_admitted": false
+        },
+        "2": {
+          "config": {
+            "BLOCK_SIZE_M": 2,
+            "BLOCK_SIZE_N": 128,
+            "BLOCK_SIZE_K": 64,
+            "GROUP_SIZE_M": 1,
+            "SPLIT_K": 1,
+            "num_warps": 4,
+            "num_stages": 3
+          },
+          "native_tile_guard_admitted": true
+        },
+        "4": {
+          "config": {
+            "BLOCK_SIZE_M": 2,
+            "BLOCK_SIZE_N": 64,
+            "BLOCK_SIZE_K": 64,
+            "GROUP_SIZE_M": 1,
+            "SPLIT_K": 1,
+            "num_warps": 2,
+            "num_stages": 3
+          },
+          "native_tile_guard_admitted": false
+        },
+        "5": {
+          "config": {
+            "BLOCK_SIZE_M": 2,
+            "BLOCK_SIZE_N": 128,
+            "BLOCK_SIZE_K": 64,
+            "GROUP_SIZE_M": 1,
+            "SPLIT_K": 1,
+            "num_warps": 4,
+            "num_stages": 3
+          },
+          "native_tile_guard_admitted": true
+        },
+        "8": {
+          "config": {
+            "BLOCK_SIZE_M": 2,
+            "BLOCK_SIZE_N": 64,
+            "BLOCK_SIZE_K": 32,
+            "GROUP_SIZE_M": 1,
+            "SPLIT_K": 1,
+            "num_warps": 2,
+            "num_stages": 3
+          },
+          "native_tile_guard_admitted": false
+        },
+        "10": {
+          "config": {
+            "BLOCK_SIZE_M": 2,
+            "BLOCK_SIZE_N": 128,
+            "BLOCK_SIZE_K": 64,
+            "GROUP_SIZE_M": 1,
+            "SPLIT_K": 1,
+            "num_warps": 4,
+            "num_stages": 3
+          },
+          "native_tile_guard_admitted": true
+        },
+        "20": {
+          "config": {
+            "BLOCK_SIZE_M": 2,
+            "BLOCK_SIZE_N": 64,
+            "BLOCK_SIZE_K": 64,
+            "GROUP_SIZE_M": 1,
+            "SPLIT_K": 1,
+            "num_warps": 2,
+            "num_stages": 4
+          },
+          "native_tile_guard_admitted": false
+        },
+        "40": {
+          "config": {
+            "BLOCK_SIZE_M": 2,
+            "BLOCK_SIZE_N": 64,
+            "BLOCK_SIZE_K": 64,
+            "GROUP_SIZE_M": 1,
+            "SPLIT_K": 1,
+            "num_warps": 2,
+            "num_stages": 3
+          },
+          "native_tile_guard_admitted": false
+        }
+      }
+    },
+    "fixed": {
+      "source_sha256": "45e1a4a682839a064f32757116745fe649b98edd90db27bc4dedbcd2b3662b93",
+      "shape": {
+        "experts": 512,
+        "intermediate": 160,
+        "hidden": 2560,
+        "topk": 10
+      },
+      "scope": "tile admission only; other device/shape/operator guards still apply",
+      "native_tile_guard": [
+        "config.get('BLOCK_SIZE_M') == 2",
+        "config.get('BLOCK_SIZE_N') == 128",
+        "config.get('BLOCK_SIZE_K') == 64",
+        "config.get('num_warps') == 4"
+      ],
+      "shapes": {
+        "1": {
+          "config": {
+            "BLOCK_SIZE_M": 2,
+            "BLOCK_SIZE_N": 128,
+            "BLOCK_SIZE_K": 64,
+            "GROUP_SIZE_M": 1,
+            "SPLIT_K": 1,
+            "num_warps": 4,
+            "num_stages": 3
+          },
+          "native_tile_guard_admitted": true
+        },
+        "2": {
+          "config": {
+            "BLOCK_SIZE_M": 2,
+            "BLOCK_SIZE_N": 128,
+            "BLOCK_SIZE_K": 64,
+            "GROUP_SIZE_M": 1,
+            "SPLIT_K": 1,
+            "num_warps": 4,
+            "num_stages": 3
+          },
+          "native_tile_guard_admitted": true
+        },
+        "4": {
+          "config": {
+            "BLOCK_SIZE_M": 2,
+            "BLOCK_SIZE_N": 64,
+            "BLOCK_SIZE_K": 64,
+            "GROUP_SIZE_M": 1,
+            "SPLIT_K": 1,
+            "num_warps": 2,
+            "num_stages": 3
+          },
+          "native_tile_guard_admitted": false
+        },
+        "5": {
+          "config": {
+            "BLOCK_SIZE_M": 2,
+            "BLOCK_SIZE_N": 128,
+            "BLOCK_SIZE_K": 64,
+            "GROUP_SIZE_M": 1,
+            "SPLIT_K": 1,
+            "num_warps": 4,
+            "num_stages": 3
+          },
+          "native_tile_guard_admitted": true
+        },
+        "8": {
+          "config": {
+            "BLOCK_SIZE_M": 2,
+            "BLOCK_SIZE_N": 64,
+            "BLOCK_SIZE_K": 32,
+            "GROUP_SIZE_M": 1,
+            "SPLIT_K": 1,
+            "num_warps": 2,
+            "num_stages": 3
+          },
+          "native_tile_guard_admitted": false
+        },
+        "10": {
+          "config": {
+            "BLOCK_SIZE_M": 2,
+            "BLOCK_SIZE_N": 128,
+            "BLOCK_SIZE_K": 64,
+            "GROUP_SIZE_M": 1,
+            "SPLIT_K": 1,
+            "num_warps": 4,
+            "num_stages": 3
+          },
+          "native_tile_guard_admitted": true
+        },
+        "20": {
+          "config": {
+            "BLOCK_SIZE_M": 2,
+            "BLOCK_SIZE_N": 64,
+            "BLOCK_SIZE_K": 64,
+            "GROUP_SIZE_M": 1,
+            "SPLIT_K": 1,
+            "num_warps": 2,
+            "num_stages": 4
+          },
+          "native_tile_guard_admitted": false
+        },
+        "40": {
+          "config": {
+            "BLOCK_SIZE_M": 2,
+            "BLOCK_SIZE_N": 64,
+            "BLOCK_SIZE_K": 64,
+            "GROUP_SIZE_M": 1,
+            "SPLIT_K": 1,
+            "num_warps": 2,
+            "num_stages": 3
+          },
+          "native_tile_guard_admitted": false
+        }
+      }
+    }
+  },
+  "cpu_before": {
+    "passed": 104,
+    "failed": 3,
+    "failed_cases": [
+      "test_selected_mtp_config_preserves_upstream_projection_dispatch[True-False-1]",
+      "test_selected_mtp_config_preserves_upstream_projection_dispatch[True-True-1]",
+      "test_qwen38_mtp_sm70_decode_config_keeps_the_m1_m5_tiles"
+    ],
+    "cuda_visible_devices": "",
+    "actual_selector_and_dispatcher": true,
+    "kernel_calls": "spies; no GPU numerics or performance measured"
+  },
+  "cpu_after": {
+    "passed": 107,
+    "failed": 0,
+    "cuda_visible_devices": "",
+    "actual_selector_and_dispatcher": true,
+    "native_opt_out_checked": true
+  },
+  "cohorts": [
+    {
+      "group": "main_1024_1_0",
+      "same_request_hash": true,
+      "input_tokens": 1024,
+      "output_tokens": [
+        128,
+        128
+      ],
+      "temperature": 0,
+      "seed": 1234,
+      "common_text_prefix_chars": 6,
+      "text_equal": false,
+      "main_MTP": {
+        "drafts": 55.0,
+        "draft_tokens": 220.0,
+        "accepted_tokens": 72.0,
+        "acceptance_fraction": 0.32727272727272727,
+        "mean_acceptance_length": 2.309090909090909
+      },
+      "published_MTP": {
+        "drafts": 61.0,
+        "draft_tokens": 244.0,
+        "accepted_tokens": 68.0,
+        "acceptance_fraction": 0.2786885245901639,
+        "mean_acceptance_length": 2.1147540983606556
+      },
+      "main_decode_s": 1.841147059109062,
+      "published_decode_s": 1.9429597528651357,
+      "throughput_ratio": 0.9558027311629144,
+      "main_mean_decode_per_draft_s": 0.03347540107471022,
+      "published_mean_decode_per_draft_s": 0.031851799227297306
+    },
+    {
+      "group": "main_1024_1_1",
+      "same_request_hash": true,
+      "input_tokens": 1024,
+      "output_tokens": [
+        128,
+        128
+      ],
+      "temperature": 0,
+      "seed": 1234,
+      "common_text_prefix_chars": 206,
+      "text_equal": false,
+      "main_MTP": {
+        "drafts": 49.0,
+        "draft_tokens": 196.0,
+        "accepted_tokens": 80.0,
+        "acceptance_fraction": 0.40816326530612246,
+        "mean_acceptance_length": 2.63265306122449
+      },
+      "published_MTP": {
+        "drafts": 55.0,
+        "draft_tokens": 220.0,
+        "accepted_tokens": 72.0,
+        "acceptance_fraction": 0.32727272727272727,
+        "mean_acceptance_length": 2.309090909090909
+      },
+      "main_decode_s": 1.6421674322336912,
+      "published_decode_s": 1.753080579917878,
+      "throughput_ratio": 0.9465886837577153,
+      "main_mean_decode_per_draft_s": 0.0335136210659937,
+      "published_mean_decode_per_draft_s": 0.031874192362143235
+    },
+    {
+      "group": "main_1024_1_2",
+      "same_request_hash": true,
+      "input_tokens": 1024,
+      "output_tokens": [
+        128,
+        128
+      ],
+      "temperature": 0,
+      "seed": 1234,
+      "common_text_prefix_chars": 106,
+      "text_equal": false,
+      "main_MTP": {
+        "drafts": 52.0,
+        "draft_tokens": 208.0,
+        "accepted_tokens": 75.0,
+        "acceptance_fraction": 0.3605769230769231,
+        "mean_acceptance_length": 2.4423076923076925
+      },
+      "published_MTP": {
+        "drafts": 58.0,
+        "draft_tokens": 232.0,
+        "accepted_tokens": 70.0,
+        "acceptance_fraction": 0.3017241379310345,
+        "mean_acceptance_length": 2.206896551724138
+      },
+      "main_decode_s": 1.7422126708552241,
+      "published_decode_s": 1.8491346989758313,
+      "throughput_ratio": 0.9526882991588604,
+      "main_mean_decode_per_draft_s": 0.033504089824138925,
+      "published_mean_decode_per_draft_s": 0.03188163274096261
+    }
+  ],
+  "production_mutations": 0,
+  "fixed_head_GPU_performance_measured": false,
+  "full_regression_solved": false,
+  "pending": "controlled GPU qualification of this correction",
+  "fix_commit": "96cedecef355cf1a4865996080ad75021da9d9b7",
+  "confirmed_integration_defect": "M1 residual tile overrides upstream native admission; exact GPU/end-to-end causal attribution pending"
+}
