@@ -207,11 +207,12 @@ def test_old_native_abi_accepts_legacy_but_rejects_silent_typed_override(monkeyp
 def test_compile_key_uses_effective_policy_not_overridden_env(monkeypatch):
     from vllm import envs
     from vllm.compilation.caching import aot_compile_hash_factors
+    from vllm.config import DeviceConfig, VllmConfig
 
     kernel = KernelConfig()
     kernel.sm70_moe.fp8.native.fp8_dense_tune_max_m = 8
     kernel.sm70_moe.fp8.resolve("fp8")
-    cfg = SimpleNamespace(kernel_config=kernel, compute_hash=kernel.compute_hash)
+    cfg = VllmConfig(device_config=DeviceConfig(device="cpu"), kernel_config=kernel)
     before = aot_compile_hash_factors(cfg)
     monkeypatch.setenv("VLLM_SM70_FP8_DENSE_TUNE_MAX_M", "16")
     monkeypatch.setenv("VLLM_SM70_NVFP4_MOE_GROUPED_PREFILL", "1")

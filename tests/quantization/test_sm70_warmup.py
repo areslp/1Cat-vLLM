@@ -337,9 +337,7 @@ def test_nvfp4_warmup_uses_converter_padded_output_size(monkeypatch, compact):
         global_scale=0.125,
     )
     calls = []
-    monkeypatch.setattr(
-        torch.ops._C, "nvfp4_gemm_sm70_out_meta", object(), raising=False
-    )
+    monkeypatch.setattr(torch.ops._C, "nvfp4_gemm_sm70_out", object(), raising=False)
     monkeypatch.setattr(
         warmup.sm70_ops,
         "nvfp4_gemm_sm70_out",

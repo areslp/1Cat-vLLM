@@ -228,7 +228,7 @@ def build_state_contract(
         return spec_sequence_masks_cpu.to(tensor.device, non_blocking=True)
 
     num_rows = spec_sequence_masks_cpu.numel()
-    row_indices: dict[tuple[bool, torch.device], torch.Tensor] = {}
+    mask_row_indices: dict[tuple[bool, torch.device], torch.Tensor] = {}
 
     def _rows(tensor: torch.Tensor, speculative: bool) -> torch.Tensor:
         if spec_sequence_masks_cpu.device.type != "cpu":
@@ -240,11 +240,11 @@ def build_state_contract(
                 f"{tensor.shape[0]}"
             )
         key = (speculative, tensor.device)
-        index = row_indices.get(key)
+        index = mask_row_indices.get(key)
         if index is None:
             mask = spec_sequence_masks_cpu if speculative else ~spec_sequence_masks_cpu
             index = mask.nonzero(as_tuple=True)[0].to(tensor.device, non_blocking=True)
-            row_indices[key] = index
+            mask_row_indices[key] = index
         return tensor.index_select(0, index)
 
     if block_table_tensor.shape[0] != num_rows:

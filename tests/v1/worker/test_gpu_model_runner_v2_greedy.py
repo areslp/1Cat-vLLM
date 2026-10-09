@@ -60,6 +60,7 @@ def test_sm70_v2_decode_uses_model_top_tokens(
     )
     runner.device = torch.device("cuda")
     runner.rejection_sampler = None
+    runner.speculator = None
     runner._sm70_greedy_capability = True
     runner.vllm_config = SimpleNamespace(
         kernel_config=SimpleNamespace(sm70_greedy_verify=False)
