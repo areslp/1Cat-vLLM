@@ -152,7 +152,6 @@
   "platform": 1
  },
  "vllm/model_executor/layers/fused_moe/fused_moe.py": {
-  "model": 1,
   "platform": 29
  },
  "vllm/model_executor/layers/fused_moe/modular_kernel.py": {
@@ -196,8 +195,8 @@
   "platform": 24
  },
  "vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py": {
-  "env": 47,
-  "model": 239,
+  "env": 40,
+  "model": 238,
   "platform": 650
  },
  "vllm/model_executor/layers/mamba/mamba_utils.py": {
@@ -292,9 +291,6 @@
  "vllm/model_executor/layers/vocab_parallel_embedding.py": {
   "model": 124,
   "platform": 231
- },
- "vllm/model_executor/models/qwen2_moe.py": {
-  "env": 1
  },
  "vllm/model_executor/models/qwen3_5_mtp.py": {
   "env": 2
@@ -514,11 +510,11 @@
  "vllm/v1/worker/gpu/model_runner.py": {
   "env": 2,
   "model": 16,
-  "platform": 48
+  "platform": 41
  },
  "vllm/v1/worker/gpu/model_states/mamba_hybrid.py": {
   "model": 82,
-  "platform": 28
+  "platform": 26
  },
  "vllm/v1/worker/gpu/pp_utils.py": {
   "model": 1
@@ -542,8 +538,7 @@
   "model": 6
  },
  "vllm/v1/worker/gpu/spec_decode/eagle/speculator.py": {
-  "model": 1,
-  "platform": 7
+  "platform": 3
  },
  "vllm/v1/worker/gpu/spec_decode/eagle/utils.py": {
   "platform": 1

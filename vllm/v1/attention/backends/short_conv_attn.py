@@ -246,9 +246,10 @@ class PleShortConvAttentionMetadataBuilder(ShortConvAttentionMetadataBuilder):
         prepared: Any,
         num_decode_draft_tokens_cpu: torch.Tensor | None,
     ) -> PleShortConvAttentionMetadata:
-        """The pure speculative FULL-graph metadata over buffers that
-        sm70_mtp_shortconv_meta.prepare_ple_shortconv_group_metadata wrote;
-        every field as the per-group path below returns it."""
+        """Build pure speculative graph metadata from prepared group buffers.
+
+        Every field follows the same contract as the per-group path below.
+        """
         if prepared.num_reqs != m.num_reqs:
             raise ValueError(
                 "Prepared PLE short-conv metadata does not match the batch"

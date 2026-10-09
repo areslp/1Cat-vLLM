@@ -6,6 +6,7 @@ import pytest
 import torch
 from torch import nn
 
+from vllm.model_executor.layers import sm70_draft47 as draft_ops
 from vllm.models.qwen4_exp.nvidia import sm70_mtp_head as head_ops
 
 
@@ -116,9 +117,9 @@ def test_parallel_packet_reuses_compact_transport_without_recomputing_logits(
 
     monkeypatch.setattr(module, "get_tensor_model_parallel_world_size", lambda: 4)
     monkeypatch.setattr(module, "_maybe_sync_top1_all_gather", lambda *args: None)
-    monkeypatch.setattr(module._draft47, "enabled", lambda _: d1a_enabled)
+    monkeypatch.setattr(draft_ops, "enabled", lambda _: d1a_enabled)
     monkeypatch.setattr(
-        module._draft47,
+        draft_ops,
         "top_tokens",
         Mock(side_effect=AssertionError("upstream first")),
     )
@@ -178,9 +179,9 @@ def test_local_top1_precedes_d1a_full_logits_fallback(monkeypatch):
 
     monkeypatch.setattr(module, "get_tensor_model_parallel_world_size", lambda: 4)
     monkeypatch.setattr(module, "_maybe_sync_top1_all_gather", lambda *args: None)
-    monkeypatch.setattr(module._draft47, "enabled", lambda _: True)
+    monkeypatch.setattr(draft_ops, "enabled", lambda _: True)
     monkeypatch.setattr(
-        module._draft47,
+        draft_ops,
         "top_tokens",
         Mock(side_effect=AssertionError("upstream first")),
     )
@@ -213,11 +214,11 @@ def test_d1a_only_receives_transformed_full_logits(monkeypatch, fused_result):
 
     monkeypatch.setattr(module, "get_tensor_model_parallel_world_size", lambda: 4)
     monkeypatch.setattr(module, "_maybe_sync_top1_all_gather", lambda *args: None)
-    monkeypatch.setattr(module._draft47, "enabled", lambda _: True)
+    monkeypatch.setattr(draft_ops, "enabled", lambda _: True)
     fallback = Mock(
         return_value=None if fused_result is None else torch.tensor(fused_result)
     )
-    monkeypatch.setattr(module._draft47, "top_tokens", fallback)
+    monkeypatch.setattr(draft_ops, "top_tokens", fallback)
     monkeypatch.setattr(
         module,
         "tensor_model_parallel_all_gather",

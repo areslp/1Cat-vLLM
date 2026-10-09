@@ -22,12 +22,19 @@ real rows keep the same kernels and the same M.
 
 from collections.abc import Callable, Iterable, Iterator
 from contextlib import contextmanager
+from dataclasses import dataclass
 from typing import Any
 
 import torch
 import torch.nn as nn
 
-from vllm.model_executor.layers import sm70_draft47
+
+@dataclass(frozen=True)
+class PadRowOps:
+    """Optional padding operators supplied by the drafter's policy owner."""
+
+    mask: Callable[[torch.Tensor, torch.Tensor], None]
+    note: Callable[[str], None]
 
 
 def _aliases(x: torch.Tensor, ref: torch.Tensor) -> bool:
@@ -50,11 +57,14 @@ def _scatter_rows(
 class DraftMoERowSelector:
     """Restrict the wrapped MoE layers to ``rows`` while :meth:`select` is active."""
 
-    def __init__(self, layers: Iterable[nn.Module]) -> None:
+    def __init__(
+        self, layers: Iterable[nn.Module], pad_ops: PadRowOps | None = None
+    ) -> None:
         self.layers = tuple(layers)
+        self.pad_ops = pad_ops
         self._rows: torch.Tensor | None = None
         self._num_valid: torch.Tensor | None = None
-        pad_rows = sm70_draft47.enabled("d2a")
+        pad_rows = pad_ops is not None
         self.pad_rows_ready = pad_rows
         for layer in self.layers:
             runner = layer.runner
@@ -72,11 +82,15 @@ class DraftMoERowSelector:
                 continue
             router.select_experts = self._wrap_router(router.select_experts)
         if pad_rows and not self.pad_rows_ready:
-            sm70_draft47.note_route("d2a", "fallback:router")
+            assert pad_ops is not None
+            pad_ops.note("fallback:router")
 
     @classmethod
     def from_model(
-        cls, model: nn.Module, exclude: Iterable[nn.Module] = ()
+        cls,
+        model: nn.Module,
+        exclude: Iterable[nn.Module] = (),
+        pad_ops: PadRowOps | None = None,
     ) -> "DraftMoERowSelector | None":
         from vllm.model_executor.layers.fused_moe.layer import FusedMoE
 
@@ -86,7 +100,7 @@ class DraftMoERowSelector:
             for module in model.modules()
             if isinstance(module, FusedMoE) and id(module) not in excluded
         ]
-        return cls(layers) if layers else None
+        return cls(layers, pad_ops=pad_ops) if layers else None
 
     @contextmanager
     def select(self, rows: torch.Tensor | None) -> Iterator[None]:
@@ -115,7 +129,8 @@ class DraftMoERowSelector:
             topk_weights, topk_ids = original(*args, **kwargs)
             num_valid = self._num_valid
             if num_valid is not None:
-                sm70_draft47.mask_pad_rows_(topk_ids, num_valid)
+                assert self.pad_ops is not None
+                self.pad_ops.mask(topk_ids, num_valid)
             return topk_weights, topk_ids
 
         return select_experts

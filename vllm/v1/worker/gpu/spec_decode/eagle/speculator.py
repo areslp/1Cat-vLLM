@@ -9,15 +9,12 @@ import numpy as np
 import torch
 import torch.nn as nn
 
-from vllm import envs
 from vllm.config import SpeculativeConfig, VllmConfig, get_layers_from_vllm_config
 from vllm.config.compilation import CUDAGraphMode
 from vllm.forward_context import BatchDescriptor, set_forward_context
 from vllm.logger import init_logger
-from vllm.model_executor.layers import sm70_draft47
 from vllm.model_executor.layers.attention_layer_base import AttentionLayerBase
 from vllm.multimodal import MULTIMODAL_REGISTRY
-from vllm.platforms import current_platform
 from vllm.triton_utils import tl, triton
 from vllm.v1.kv_cache_interface import KVCacheConfig
 from vllm.v1.worker.gpu.attn_utils import (
@@ -35,6 +32,7 @@ from vllm.v1.worker.gpu.dp_utils import dispatch_cg_and_sync_dp
 from vllm.v1.worker.gpu.input_batch import InputBatch, InputBuffers
 from vllm.v1.worker.gpu.model_states.interface import ModelState
 from vllm.v1.worker.gpu.sample.gumbel import gumbel_sample
+from vllm.v1.worker.gpu.spec_decode.eagle import sm70_draft_ops as _draft_ops
 from vllm.v1.worker.gpu.spec_decode.eagle.cudagraph import (
     DecodeEagleCudaGraphManager,
     PrefillEagleCudaGraphManager,
@@ -225,7 +223,7 @@ class EagleSpeculator:
         # execute concurrently.
         self.decode_cudagraph_manager.pool = self.prefill_cudagraph_manager.pool
         # ONECAT_DRAFT47 d2b: FULL decode graphs for 6-8 requests as well.
-        sm70_draft47.extend_draft_decode_graphs(self.decode_cudagraph_manager)
+        _draft_ops.extend_decode_graphs(self.decode_cudagraph_manager, self.vllm_config)
 
     def load_model(self, target_model: nn.Module) -> None:
         target_attn_layer_names = get_layers_from_vllm_config(
@@ -257,7 +255,9 @@ class EagleSpeculator:
             single_block = _has_single_mtp_decoder_block(self.model)
             selector = (
                 DraftMoERowSelector.from_model(
-                    self.model, exclude=target_model.modules()
+                    self.model,
+                    exclude=target_model.modules(),
+                    pad_ops=_draft_ops.capture_pad_ops(self.vllm_config),
                 )
                 if single_block
                 else None
@@ -310,65 +310,9 @@ class EagleSpeculator:
     def warmup_sm70_mtp_moe_kernels(
         self, dummy_run: Callable[..., Any]
     ) -> tuple[str, ...]:
-        """Warm the finite Qwen3.8 MTP-MoE prefill and decode signatures."""
-        if (
-            self.method != "mtp"
-            or self.device.type != "cuda"
-            or not current_platform.is_device_capability(70)
-            or not envs.VLLM_SM70_MTP_MOE_TUNED_CONFIG
-        ):
-            return ()
-        if getattr(self, "_sm70_mtp_moe_warmed", False):
-            return ()
-
-        text_config = self.draft_model_config.hf_text_config
-        if not (
-            self.draft_model_config.get_num_experts() == 512
-            and int(getattr(text_config, "num_experts_per_tok", 0)) == 10
-            and self.draft_model_config.get_hidden_size() == 2560
-            and int(getattr(text_config, "moe_intermediate_size", 0)) == 640
-            and self.vllm_config.parallel_config.tensor_parallel_size == 4
-        ):
-            return ()
-        self._sm70_mtp_moe_warmed = True
-
-        warmed: list[str] = []
-        try:
-            if self.max_num_tokens >= 16:
-                # M16 is the smallest sorted-assignment shape with
-                # M * topk divisible by 16. It covers the Triton
-                # specialization used by longer aligned prompt prefills such
-                # as the 152-token HumanEval request; M18 graph capture covers
-                # only the non-divisible specialization.
-                dummy_run(16)
-                warmed.append("mtp_draft_moe_prefill_m16")
-
-            decode_query_len = 1 + self.num_speculative_steps
-            request_sizes = _mtp_decode_warmup_request_sizes(
-                self.vllm_config.compilation_config.cudagraph_capture_sizes,
-                decode_query_len,
-                self.max_num_reqs,
-            )
-            executed_request_sizes = []
-            for num_reqs in request_sizes:
-                num_tokens = decode_query_len * num_reqs
-                if num_tokens > self.max_num_tokens:
-                    continue
-                # Exercise the same verifier/draft row counts that production
-                # graphs advertise. This avoids a first-request JIT without
-                # tying the tuned MoE path to a fixed concurrency.
-                dummy_run(num_tokens, uniform_decode=True)
-                executed_request_sizes.append(num_reqs)
-            torch.accelerator.synchronize()
-            if executed_request_sizes:
-                warmed.append(
-                    "mtp_draft_moe_decode_reqs_"
-                    + "_".join(str(size) for size in executed_request_sizes)
-                )
-        except Exception as err:  # pragma: no cover - best-effort warmup
-            logger.warning_once("SM70 V2 MTP MoE warmup skipped: %s", err)
-            return ()
-        return tuple(warmed)
+        return _draft_ops.warmup_moe(
+            self, dummy_run, _mtp_decode_warmup_request_sizes, logger
+        )
 
     @torch.inference_mode()
     def run_model(
@@ -777,16 +721,7 @@ class EagleSpeculator:
         rows to expert -1. prepare_eagle_decode sets
         query_start_loc[max_num_reqs] to the real request count before the
         decode steps of every propose() call."""
-        if not sm70_draft47.enabled("d2a"):
-            return contextlib.nullcontext()
-        selector = self.prefill_moe_rows
-        if selector is None or not selector.pad_rows_ready:
-            sm70_draft47.note_route("d2a", "fallback:no_selector")
-            return contextlib.nullcontext()
-        num_valid = self.input_buffers.query_start_loc[
-            self.max_num_reqs : self.max_num_reqs + 1
-        ]
-        return selector.pad_rows(num_valid)
+        return _draft_ops.decode_pad_rows(self)
 
     @torch.inference_mode()
     def propose(

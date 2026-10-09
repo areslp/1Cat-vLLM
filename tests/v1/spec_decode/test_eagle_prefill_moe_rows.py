@@ -18,6 +18,7 @@ import vllm.v1.worker.gpu.spec_decode.eagle.speculator as speculator_module
 from vllm.config.compilation import CUDAGraphMode
 from vllm.v1.worker.gpu.spec_decode.eagle.prefill_moe_rows import (
     DraftMoERowSelector,
+    PadRowOps,
 )
 from vllm.v1.worker.gpu.spec_decode.eagle.speculator import (
     EagleSpeculator,
@@ -144,6 +145,59 @@ def test_select_restores_previous_rows_on_error():
         raise RuntimeError("boom")
     _call(layer, hidden)
     assert layer.runner.calls[-1][1] is hidden
+
+
+def test_injected_pad_ops_preserve_real_routes_and_restore_nested_contexts():
+    layer = _moe_layer()
+    ids = torch.arange(12).reshape(6, 2)
+    weights = torch.full((6, 2), 0.5)
+    calls = []
+
+    def route():
+        calls.append("router")
+        return weights, ids.clone()
+
+    def mask(output_ids, num_valid):
+        output_ids[int(num_valid[0]) :] = -1
+
+    layer.runner.router = SimpleNamespace(select_experts=route)
+    layer.runner._quant_method = SimpleNamespace(is_monolithic=False)
+    selector = DraftMoERowSelector([layer], pad_ops=PadRowOps(mask, calls.append))
+    assert selector.pad_rows_ready
+    with selector.pad_rows(torch.tensor([4])):
+        actual_weights, actual_ids = layer.runner.router.select_experts()
+        assert actual_weights is weights
+        assert torch.equal(actual_ids[:4], ids[:4])
+        assert (actual_ids[4:] == -1).all()
+        with pytest.raises(RuntimeError), selector.pad_rows(torch.tensor([2])):
+            _, nested = layer.runner.router.select_experts()
+            assert (nested[2:] == -1).all()
+            raise RuntimeError("restore outer padding boundary")
+        _, restored = layer.runner.router.select_experts()
+        assert torch.equal(restored[:4], ids[:4])
+        assert (restored[4:] == -1).all()
+    _, inactive = layer.runner.router.select_experts()
+    assert torch.equal(inactive, ids)
+    assert calls == ["router"] * 4
+
+
+def test_injected_pad_ops_report_unsupported_router():
+    notes: list[str] = []
+    selector = DraftMoERowSelector(
+        [_moe_layer()], pad_ops=PadRowOps(lambda *args: None, notes.append)
+    )
+    assert not selector.pad_rows_ready
+    assert notes == ["fallback:router"]
+
+
+def test_without_pad_ops_does_not_wrap_router():
+    layer = _moe_layer()
+    original = lambda: (torch.ones(1), torch.zeros(1, dtype=torch.int64))
+    layer.runner.router = SimpleNamespace(select_experts=original)
+    layer.runner._quant_method = SimpleNamespace(is_monolithic=False)
+    selector = DraftMoERowSelector([layer])
+    assert selector.pad_ops is None and not selector.pad_rows_ready
+    assert layer.runner.router.select_experts is original
 
 
 def test_from_model_skips_target_layers(monkeypatch):

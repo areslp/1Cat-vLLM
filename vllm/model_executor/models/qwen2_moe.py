@@ -25,7 +25,6 @@
 # limitations under the License.
 """Inference-only Qwen2MoE model compatible with HuggingFace weights."""
 
-import os
 from collections.abc import Iterable
 from itertools import islice
 from typing import Any
@@ -89,9 +88,8 @@ def _sm70_dump_qwen_mlp_tensor(
         return tensor
     # This diagnostic piggybacks on qwen3_next's graph-buffer dump path. It is
     # intentionally env-gated so normal model execution is unchanged.
-    import os
 
-    if os.getenv("VLLM_SM70_DUMP_QWEN_MLP_INTERNALS") != "1":
+    if envs.VLLM_SM70_DUMP_QWEN_MLP_INTERNALS != "1":
         return tensor
     from vllm.model_executor.models.qwen3_next import _sm70_dump_qwen_layer_tensor
 
@@ -277,7 +275,7 @@ class Qwen2MoeMLP(nn.Module):
             if (
                 not used_batch_epilogue
                 and _fuse47.unit_enabled("h1")
-                and os.getenv("VLLM_SM70_DUMP_QWEN_MLP_INTERNALS") != "1"
+                and envs.VLLM_SM70_DUMP_QWEN_MLP_INTERNALS != "1"
                 and _fuse47.h1_supported(expert_gate, out)
             ):
                 _fuse47.note_route("h1", "fallback")

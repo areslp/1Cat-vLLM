@@ -19,8 +19,8 @@ Units (a comma list, or ``all``; unset or ``0`` keeps every path unchanged):
   all-gathered along dim 0, and one kernel picks the winner with
   ``torch.argmax``'s rules.
 
-Not VLLM_-prefixed: vllm.envs.compile_factors() hashes every VLLM_* variable
-into the torch.compile cache key, and these paths run outside compiled graphs.
+The engine resolves the legacy switch into KernelConfig.sm70_draft once.
+Active drafter policy participates in the engine's graph cache fingerprint.
 """
 
 import os
@@ -28,20 +28,16 @@ import os
 import torch
 
 from vllm import envs
+from vllm.config.sm70_draft import UNITS as UNITS
+from vllm.config.sm70_draft import parse_legacy_units
 from vllm.triton_utils import tl, triton
 
 ENV = "ONECAT_DRAFT47"
-UNITS = ("d2a", "d2b", "d1a")
 DECODE_GRAPH_SIZES = (6, 7, 8)
 
 
 def units() -> frozenset[str]:
-    raw = os.getenv(ENV, "").strip().lower()
-    if raw in ("", "0", "off", "none", "false", "no"):
-        return frozenset()
-    if raw in ("1", "all", "on", "true", "yes"):
-        return frozenset(UNITS)
-    return frozenset(u.strip() for u in raw.split(",") if u.strip() in UNITS)
+    return frozenset(parse_legacy_units(os.getenv(ENV, "")))
 
 
 def enabled(unit: str) -> bool:
@@ -57,14 +53,14 @@ def note_route(unit: str, route: str) -> None:
 # --------------------------------------------------------------------------
 # d2b: FULL drafter decode graphs for 6-8 requests
 # --------------------------------------------------------------------------
-def extend_draft_decode_graphs(manager) -> None:
+def extend_draft_decode_graphs(manager, *, requested: bool | None = None) -> None:
     """Add the 6-8 request shapes to the drafter decode graph manager.
 
     Only this manager's own capture list changes; the shared
     ``compilation_config.cudagraph_capture_sizes`` and the target and draft
     prefill managers keep theirs.
     """
-    if not enabled("d2b"):
+    if not (enabled("d2b") if requested is None else requested):
         return
     if manager is None or not manager.cudagraph_mode:
         note_route("d2b", "fallback:no_graphs")
