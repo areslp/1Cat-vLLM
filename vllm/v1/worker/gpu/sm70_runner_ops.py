@@ -11,6 +11,7 @@ from vllm.config.compilation import CUDAGraphMode
 from vllm.config.sm70_dflash2 import capture_sm70_dflash2_config, sm70_dflash2_enabled
 from vllm.model_executor.layers import sm70_fuse47 as _fuse47
 from vllm.v1.worker.gpu.sample.output import SamplerOutput
+from vllm.v1.worker.gpu.spec_decode.sm70_greedy_verify import greedy_verify
 
 
 def warmup_smallq_metadata(self, logger) -> bool:
@@ -115,7 +116,7 @@ def try_target_sample(runner, hidden_states, input_batch, grammar_output):
     assert runner.rejection_sampler is not None
     _fuse47.note_route("s1", "fused")
     top = _fuse47.tp_local_top1(runner.model, hidden_states)
-    sampled, num_sampled = _fuse47.greedy_verify_from_top1(
+    sampled, num_sampled = greedy_verify(
         top,
         input_batch.input_ids[input_batch.logits_indices],
         input_batch.cu_num_logits,

@@ -468,36 +468,6 @@ def ple_short_conv_spec(
 # --------------------------------------------------------------------------
 # s1: greedy MTP verification from TP-local top-1 pairs
 # --------------------------------------------------------------------------
-@triton.jit
-def _greedy_verify_kernel(
-    sampled_ptr,  # int64 [num_reqs, num_spec + 1]
-    stride_sampled,
-    num_sampled_ptr,  # int32 [num_reqs]
-    top_ptr,  # int64 [num_logits]
-    draft_ptr,  # int [num_logits]
-    cu_ptr,  # int [num_reqs + 1]
-):
-    r = tl.program_id(0)
-    s = tl.load(cu_ptr + r).to(tl.int64)
-    e = tl.load(cu_ptr + r + 1).to(tl.int64)
-    n = e - s
-    accepted = tl.full([], 1, tl.int1)
-    k = tl.zeros([], dtype=tl.int32)
-    # rejection_sampler_utils._rejection_kernel, temp == 0 branch.
-    for i in range(0, n - 1):
-        if accepted:
-            d = tl.load(draft_ptr + s + i + 1).to(tl.int64)
-            a = tl.load(top_ptr + s + i)
-            accepted = accepted & (a == d)
-            tl.store(sampled_ptr + r * stride_sampled + i, tl.where(accepted, d, a))
-            k += accepted.to(tl.int32)
-    # _resample_kernel / _insert_resampled_kernel at temp == 0: only the
-    # bonus token (every draft accepted) is inserted, as the row argmax.
-    if s + k == e - 1:
-        tl.store(sampled_ptr + r * stride_sampled + k, tl.load(top_ptr + e - 1))
-    tl.store(num_sampled_ptr + r, k + 1)
-
-
 def _model_lm_head(model: torch.nn.Module):
     inner = getattr(model, "language_model", model)
     lp = getattr(inner, "logits_processor", None)
@@ -538,29 +508,6 @@ def tp_local_top1(model: torch.nn.Module, hidden_states: torch.Tensor) -> torch.
     max_rank = gathered[:, :, 0].argmax(dim=-1, keepdim=True)
     top = gathered[:, :, 1].gather(dim=-1, index=max_rank)
     return top.squeeze(-1).to(torch.int64)
-
-
-def greedy_verify_from_top1(
-    top: torch.Tensor,
-    draft_sampled: torch.Tensor,
-    cu_num_logits: torch.Tensor,
-    num_speculative_steps: int,
-) -> tuple[torch.Tensor, torch.Tensor]:
-    num_reqs = cu_num_logits.shape[0] - 1
-    sampled = draft_sampled.new_empty(
-        num_reqs, num_speculative_steps + 1, dtype=torch.int64
-    )
-    num_sampled = sampled.new_empty(num_reqs, dtype=torch.int32)
-    _greedy_verify_kernel[(num_reqs,)](
-        sampled,
-        sampled.stride(0),
-        num_sampled,
-        top,
-        draft_sampled,
-        cu_num_logits,
-        num_warps=1,
-    )
-    return sampled, num_sampled
 
 
 def s1_block_reason(runner, input_batch, grammar_output) -> str | None:
