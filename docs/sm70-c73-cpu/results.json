@@ -1,0 +1,37 @@
+{
+  "implementation": "f64666c6b368483ff30b8c9872d5194c579a9635",
+  "upstream": "c73eb2d1d1009e1ab8b980f9c1dea265ba877015",
+  "date_UTC": "2026-10-09",
+  "python": "3.12.13",
+  "torch": "2.10.0+cu128",
+  "platform": "real CpuPlatform in parent and child interpreters",
+  "files": 50,
+  "passed": 1050,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 161,
+  "warnings": 32,
+  "pytest_seconds": 28.44,
+  "skip_reasons": {
+    "requires SM70": 13,
+    "Requires SM70": 45,
+    "SM70 operator and replay validation": 12,
+    "requires SM70 GPU": 11,
+    "SM70 GPU required": 12,
+    "requires the packaged native token ABI": 2,
+    "Requires CUDA GPU and Triton": 3,
+    "CUDA is required for the fused GDN metadata kernel": 22,
+    "requires CUDA": 12,
+    "CUDA graph state replay": 1,
+    "CUDA grouped metadata replay": 1,
+    "CUDA": 6,
+    "SM70 MTP safety tests exercise Triton CUDA helper kernels.": 20,
+    "CUDA lifecycle test": 1
+  },
+  "official_hooks": {
+    "files": 64,
+    "result": "passed"
+  },
+  "qualification": "CPU only; no model weights loaded or CUDA initialized; native/GPU/end-to-end qualification pending",
+  "production": "D remains the previously qualified c64c4824e830301b3f0fec2da47a202e49ede20e; E is not deployed"
+}
