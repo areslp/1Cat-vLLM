@@ -5,6 +5,7 @@
 import torch
 
 from vllm.model_executor.layers.mamba.gdn import qwen_gdn_linear_attn as gdn
+from vllm.model_executor.layers.mamba.gdn import sm70_verify_dispatch as dispatch
 from vllm.model_executor.layers.quantization import sm70_gdn_ba_verify
 
 
@@ -22,7 +23,7 @@ def test_ba_verify_dispatch_uses_upstream_helper_first(monkeypatch):
 
     monkeypatch.setattr(sm70_gdn_ba_verify, "apply_gdn_ba_verify", apply)
 
-    result = gdn._try_sm70_gdn_ba_verify(layer, hidden_states, "layer.0")
+    result = dispatch.try_projection(gdn, layer, hidden_states, "layer.0")
 
     assert result is outputs
     assert len(calls) == 1
@@ -41,8 +42,8 @@ def test_ba_verify_dispatch_preserves_fallback_when_upstream_declines(monkeypatc
     monkeypatch.setattr(sm70_gdn_ba_verify, "apply_gdn_ba_verify", decline)
 
     assert (
-        gdn._try_sm70_gdn_ba_verify(
-            object(), torch.empty((1, 0), dtype=torch.float16), "layer.0"
+        dispatch.try_projection(
+            gdn, object(), torch.empty((1, 0), dtype=torch.float16), "layer.0"
         )
         is None
     )
@@ -58,8 +59,8 @@ def test_ba_verify_dispatch_keeps_projection_dump_on_eager_route(monkeypatch):
     monkeypatch.setattr(sm70_gdn_ba_verify, "apply_gdn_ba_verify", unexpected_call)
 
     assert (
-        gdn._try_sm70_gdn_ba_verify(
-            object(), torch.empty((1, 0), dtype=torch.float16), "layer.0"
+        dispatch.try_projection(
+            gdn, object(), torch.empty((1, 0), dtype=torch.float16), "layer.0"
         )
         is None
     )

@@ -31,6 +31,7 @@ import os
 
 import torch
 
+from vllm import envs
 from vllm.logger import init_logger
 from vllm.triton_utils import tl, triton
 
@@ -580,7 +581,7 @@ def s1_block_reason(runner, input_batch, grammar_output) -> str | None:
         return "synthetic"
     if getattr(runner.speculator, "_debug_proposal_stages", False):
         return "debug"
-    if os.getenv("VLLM_DFLASH_DEBUG_TARGET_LOGITS", "0") == "1":
+    if envs.VLLM_DFLASH_DEBUG_TARGET_LOGITS == "1":
         return "debug_logits"
     if not sampler.can_use_sm70_greedy_token_fastpath(input_batch):
         return "sampling_params"

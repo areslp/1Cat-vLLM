@@ -10,6 +10,9 @@ from vllm.model_executor.layers.fused_moe.fused_moe import (
     force_sm70_mtp_moe_legacy_config,
     fused_moe_kernel,
 )
+from vllm.model_executor.layers.fused_moe.sm70.mtp_decode_config import (
+    _SM70_QWEN38_MTP_MOE_TILES as _QWEN38_TILES,
+)
 
 
 @pytest.fixture(autouse=True)
@@ -33,9 +36,6 @@ def test_mtp_sm70_decode_config_uses_exact_local_tile(m):
     assert config["BLOCK_SIZE_M"] == 8
     assert config["BLOCK_SIZE_N"] == 128
     assert config["BLOCK_SIZE_K"] == 32
-
-
-_QWEN38_TILES = fused_moe_module._SM70_QWEN38_MTP_MOE_TILES
 
 
 @pytest.mark.parametrize("m", sorted(_QWEN38_TILES))

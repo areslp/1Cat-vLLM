@@ -10,6 +10,7 @@ import torch
 from vllm.model_executor.layers.mamba.gdn import (
     qwen_gdn_linear_attn as qwen_gdn,
 )
+from vllm.model_executor.layers.mamba.gdn import sm70_verify_dispatch as dispatch
 
 
 def _planner_case(monkeypatch, *, tokens, state_dtype, enabled=True, contiguous=False):
@@ -36,7 +37,7 @@ def _planner_case(monkeypatch, *, tokens, state_dtype, enabled=True, contiguous=
     monkeypatch.setattr(qwen_gdn, "_resolve_layer_name", lambda name: name)
     monkeypatch.setattr(qwen_gdn, "_ddtree_parent_ids_require_branch", lambda *_: False)
     monkeypatch.setattr(
-        qwen_gdn._gdn_verify_fused, "_UNITS_OVERRIDE", frozenset({"u2"})
+        dispatch._gdn_verify_fused, "_UNITS_OVERRIDE", frozenset({"u2"})
     )
 
     sequences = max(1, tokens // 5)
@@ -103,10 +104,10 @@ def test_upstream_mixed_qkv_eligible_verify_preempts_local_fusion(monkeypatch, t
         monkeypatch, tokens=tokens, state_dtype=torch.float32
     )
 
-    units = qwen_gdn._sm70_gdn_verify_fuse_plan(model, "layer", mixed_qkv)
+    units = dispatch.plan(qwen_gdn, model, "layer", mixed_qkv)
 
     assert (
-        qwen_gdn._sm70_gdn_verify_fuse_block_reason(model, "layer", mixed_qkv)
+        dispatch.block_reason(qwen_gdn, model, "layer", mixed_qkv)
         == "upstream_mixed_qkv"
     )
     assert units == frozenset()
@@ -132,11 +133,9 @@ def test_unqualified_mixed_qkv_keeps_local_fusion(
         contiguous=contiguous,
     )
 
-    units = qwen_gdn._sm70_gdn_verify_fuse_plan(model, "layer", mixed_qkv)
+    units = dispatch.plan(qwen_gdn, model, "layer", mixed_qkv)
 
-    assert (
-        qwen_gdn._sm70_gdn_verify_fuse_block_reason(model, "layer", mixed_qkv) is None
-    )
+    assert dispatch.block_reason(qwen_gdn, model, "layer", mixed_qkv) is None
     assert units == frozenset({"u2"})
 
 
@@ -148,10 +147,10 @@ def test_upstream_mixed_qkv_contiguous_verifier_preempts_local_fusion(monkeypatc
         contiguous=True,
     )
 
-    units = qwen_gdn._sm70_gdn_verify_fuse_plan(model, "layer", mixed_qkv)
+    units = dispatch.plan(qwen_gdn, model, "layer", mixed_qkv)
 
     assert (
-        qwen_gdn._sm70_gdn_verify_fuse_block_reason(model, "layer", mixed_qkv)
+        dispatch.block_reason(qwen_gdn, model, "layer", mixed_qkv)
         == "upstream_mixed_qkv"
     )
     assert units == frozenset()

@@ -23,7 +23,6 @@ from vllm.model_executor.layers.mamba.mamba_utils import (
 from vllm.platforms import current_platform
 from vllm.triton_utils import tl, triton
 from vllm.utils.platform_utils import is_pin_memory_available
-from vllm.v1.attention.backends import sm70_mtp_shortconv_meta as _sc_meta
 from vllm.v1.attention.backends.flash_v100 import (
     DFlash2SmallQGroupDescriptor,
     DFlash2SmallQPreparedMetadata,
@@ -35,9 +34,6 @@ from vllm.v1.attention.backends.gdn_attn import (
     GDNAttentionMetadata,
     GDNAttentionMetadataBuilder,
     prepare_dflash2_gdn_group_metadata,
-)
-from vllm.v1.attention.backends.short_conv_attn import (
-    PleShortConvAttentionMetadataBuilder,
 )
 from vllm.v1.attention.ops.gdn_state import (
     CommonGDNSpecMetadata,
@@ -151,26 +147,11 @@ class MambaHybridModelState(DefaultModelState):
             and self.gdn_state_policy.fused_mtp_metadata
             and self.cache_config.mamba_cache_mode in ("none", "align")
         )
-        # ONECAT_MTP_SHORTCONV_GROUP_META: the PLE short-conv groups' metadata for
-        # MTP pure verify batches in one launch (sm70_mtp_shortconv_meta.py).
-        self._onecat_mtp_shortconv_meta = bool(
-            _sc_meta.enabled()
-            and speculative_config is not None
-            and speculative_config.method == "mtp"
-            and not uses_dflash_selector_engine(vllm_config)
-            and self.cache_config.mamba_cache_mode in ("none", "align")
-            and device.type == "cuda"
-            and current_platform.is_device_capability(70)
-        )
-        if self._onecat_mtp_shortconv_meta:
-            logger.info_once(
-                "ONECAT_MTP_SHORTCONV_GROUP_META: PLE short-conv group metadata in "
-                "one launch for pure MTP verify batches."
+        self._shortconv_metadata_provider = (
+            vllm_config.kernel_config.shortconv_metadata_provider(
+                vllm_config, device, self.cache_config.mamba_cache_mode
             )
-        self._ple_shortconv_builders: (
-            list[tuple[int, PleShortConvAttentionMetadataBuilder]] | None
-        ) = None
-        self._ple_shortconv_descriptor: _sc_meta.ShortConvGroupDescriptor | None = None
+        )
         self._dflash2_gdn_builders: (
             list[tuple[int, GDNAttentionMetadataBuilder]] | None
         ) = None
@@ -328,71 +309,6 @@ class MambaHybridModelState(DefaultModelState):
             self._dflash2_gdn_builders = builders
         return self._dflash2_gdn_builders
 
-    def _get_ple_shortconv_builders(
-        self,
-        attn_groups: list[list[AttentionGroup]],
-    ) -> list[tuple[int, PleShortConvAttentionMetadataBuilder]]:
-        if self._ple_shortconv_builders is None:
-            builders: list[tuple[int, PleShortConvAttentionMetadataBuilder]] = []
-            for kv_cache_group_id, groups in enumerate(attn_groups):
-                for group in groups:
-                    builder = group.get_metadata_builder(0)
-                    if isinstance(builder, PleShortConvAttentionMetadataBuilder):
-                        builders.append((kv_cache_group_id, builder))
-            self._ple_shortconv_builders = builders
-        return self._ple_shortconv_builders
-
-    def _prepare_mtp_shortconv_group_metadata(
-        self,
-        input_batch: InputBatch,
-        block_tables: tuple[torch.Tensor, ...],
-        attn_groups: list[list[AttentionGroup]],
-        query_start_loc_cpu: torch.Tensor,
-        num_decode_draft_tokens_cpu: torch.Tensor,
-        num_accepted_tokens: torch.Tensor,
-        num_reqs: int,
-        num_tokens: int,
-    ) -> dict[int, Any] | None:
-        """ONECAT_MTP_SHORTCONV_GROUP_META for one FULL-graph batch: every PLE
-        short-conv group's graph metadata in one launch, or None with a counted
-        reason, which keeps the per-group path."""
-        reason = _sc_meta.pure_spec_block_reason(
-            num_decode_draft_tokens_cpu, query_start_loc_cpu, num_tokens
-        )
-        prepared_result = None
-        if reason is None:
-            num_spec_decodes = int((num_decode_draft_tokens_cpu >= 0).sum().item())
-            builders = self._get_ple_shortconv_builders(attn_groups)
-            if not builders:
-                reason = "no_groups"
-            else:
-                prepared_result = _sc_meta.prepare_ple_shortconv_group_metadata(
-                    builders_by_group=builders,
-                    block_tables=block_tables,
-                    num_accepted_tokens=num_accepted_tokens,
-                    query_start_loc=input_batch.query_start_loc,
-                    num_spec_decodes=num_spec_decodes,
-                    num_spec_decode_tokens=int(
-                        query_start_loc_cpu[num_spec_decodes].item()
-                    ),
-                    num_reqs=num_reqs,
-                    descriptor=self._ple_shortconv_descriptor,
-                    state_start_indices=(
-                        self._mamba_state_idx_gpu if self._align_mode else None
-                    ),
-                    req_index_mapping=(
-                        input_batch.idx_mapping if self._align_mode else None
-                    ),
-                )
-                if prepared_result is None:
-                    reason = "prepare"
-        if reason is not None or prepared_result is None:
-            _sc_meta.note_route(f"fallback:{reason}")
-            return None
-        prepared, self._ple_shortconv_descriptor = prepared_result
-        _sc_meta.note_route("fused")
-        return prepared
-
     def _get_dflash2_smallq_builders(
         self,
         attn_groups: list[list[AttentionGroup]],
@@ -519,9 +435,12 @@ class MambaHybridModelState(DefaultModelState):
                         )
                         self._dflash2_fused_gdn_metadata_logged = True
 
-            if self._onecat_mtp_shortconv_meta and cudagraph_mode == CUDAGraphMode.FULL:
+            if (
+                self._shortconv_metadata_provider.enabled
+                and cudagraph_mode == CUDAGraphMode.FULL
+            ):
                 prepared_ple_shortconv_metadata = (
-                    self._prepare_mtp_shortconv_group_metadata(
+                    self._shortconv_metadata_provider.prepare(
                         input_batch,
                         block_tables,
                         attn_groups,
@@ -530,6 +449,12 @@ class MambaHybridModelState(DefaultModelState):
                         num_accepted_tokens,
                         num_reqs,
                         num_tokens,
+                        state_start_indices=self._mamba_state_idx_gpu
+                        if self._align_mode
+                        else None,
+                        req_index_mapping=input_batch.idx_mapping
+                        if self._align_mode
+                        else None,
                     )
                 )
 
