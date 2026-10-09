@@ -1,0 +1,740 @@
+{
+  "source_graph_pairs": 40,
+  "equal_runtime_and_benchmark_ast_pairs": 40,
+  "referenced_artifacts": 80,
+  "copied_reference_mismatches": 0,
+  "references_outside_copied_active_directory": 40,
+  "saved_config_pairs": 188,
+  "candidate_config_hash_mismatches": 0,
+  "saved_launch_config_differences": 53,
+  "runtime_source_referenced_config_pairs": 92,
+  "runtime_source_referenced_differences": 25,
+  "runtime_source_referenced_reduction_differences": 8,
+  "runtime_source_referenced_difference_rows": [
+    {
+      "rank": 0,
+      "graph": "backbone",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_5",
+      "choice_key": "lu/b93e21fc63d2f0ff6f32d1bcb0ab25541304ae548013161998115e23d58efc7e.best_config",
+      "runtime_reference": {
+        "kernel": "triton_poi_fused_add_all_reduce_0",
+        "source_basename_utf8_hex": "636c756936656172756f357a7175326d786f7168677862636e637062766134336d356f75716e6c75376d796a37657569346a736e2e7079"
+      },
+      "old": {
+        "XBLOCK": 512,
+        "num_warps": 8,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 1024,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a",
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "4f524e5143324d543636364851495a4e54463532554f55334d464349414d434a4a465833455553445056555559584e4a50464341",
+        "4a32474750364e374e443747444f465a34415335324e4d445a4b4857593343584948464d3445504e594243344d594e5232465841"
+      ]
+    },
+    {
+      "rank": 0,
+      "graph": "backbone",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_5",
+      "choice_key": "zx/d9607852ec586291b833643a5fd9e66110a67647b36540117afbb79959b99f36.best_config",
+      "runtime_reference": {
+        "kernel": "triton_red_fused_2",
+        "source_basename_utf8_hex": "637a786e6f35796d693264747576617976616b3476747a6b7875696f686c7a747762697a74356b347036636362796b736d716d362e7079"
+      },
+      "old": {
+        "XBLOCK": 16,
+        "R0_BLOCK": 32,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 64,
+        "R0_BLOCK": 64,
+        "num_warps": 16,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "fb5fc2d7f8690dd8f9e7d4c3d2c31c045e5712e2f46e9e637c85d7c16e8f4596",
+        "fb5fc2d7f8690dd8f9e7d4c3d2c31c045e5712e2f46e9e637c85d7c16e8f4596"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "4c474648544c44334e494c4a43594c52455a56425459515835505834424a4c5835524c475a374c544e4147475649554951574f41",
+        "4e374c364c504b474649505a4a4b485249475055554d585a4c324633523545475a344e51354e57374441494857515a5250355041"
+      ]
+    },
+    {
+      "rank": 0,
+      "graph": "backbone",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_5",
+      "choice_key": "wn/3e3d034f52efc9fbae531449e094ba18d3a8075d68c28ecad21c969d134397ff.best_config",
+      "runtime_reference": {
+        "kernel": "triton_poi_fused_copy_index_select_slice_split_3",
+        "source_basename_utf8_hex": "63776e34636d3265666f6c6b663672366f6a736861706d64773237377a6a3479686b70343279737a697169756d656a627a6774722e7079"
+      },
+      "old": {
+        "XBLOCK": 256,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 512,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "7cced77f371acaa5aa7d90332a90e0c907727cfefb71d9cc9d997c24557fc44f",
+        "7cced77f371acaa5aa7d90332a90e0c907727cfefb71d9cc9d997c24557fc44f"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "3552525354445a354b59463754555a4147344b54585a4553544942514f4d334c574d504e5a324f474854504b33424c4e59534151",
+        "5a4d50565a41534d4548564d564b534455514f584749483749475055574d545a4654505042464a455748414f4748563458424b51"
+      ]
+    },
+    {
+      "rank": 0,
+      "graph": "eagle_head",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_0",
+      "choice_key": "4z/42217613ee591c0dd4c69cc08cfb0d72bb1312fa6df50eb0110ccef8326a5094.best_config",
+      "runtime_reference": {
+        "kernel": "triton_red_fused__to_copy_add_mean_mul_pow_rsqrt_2",
+        "source_basename_utf8_hex": "63347a62376664656e6a68787234323461616574717779666c3468646370776d62357a66757032686c68626377687134657077332e7079"
+      },
+      "old": {
+        "XBLOCK": 1,
+        "R0_BLOCK": 4096,
+        "num_warps": 16,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 1,
+        "R0_BLOCK": 2048,
+        "num_warps": 16,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "ba27f374f6982634f1ab959ad1e63f726920cfc2c7c821f8e68ec55c3d4d94fc",
+        "ba27f374f6982634f1ab959ad1e63f726920cfc2c7c821f8e68ec55c3d4d94fc"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "37424947445134414b3246564f5333523555364d4649475542535236463554555132455a4349545a415137454d41525243524b41",
+        "55495053434b4137454b485247513548453736464f4e48493553454134335954355758575246474a5748523553514f33564e5951"
+      ]
+    },
+    {
+      "rank": 0,
+      "graph": "eagle_head",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_0",
+      "choice_key": "wv/a66b44fd56054d89b13e718ce25b983bbc1deb972095d2eda179f3c4ded01fce.best_config",
+      "runtime_reference": {
+        "kernel": "triton_red_fused_6",
+        "source_basename_utf8_hex": "637776656636626f726b6666337872627063666d7732346b6e6870376e32653578646e6f6f6232326467676961353679666d35732e7079"
+      },
+      "old": {
+        "XBLOCK": 16,
+        "R0_BLOCK": 32,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 2,
+        "R0_BLOCK": 256,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "fb5fc2d7f8690dd8f9e7d4c3d2c31c045e5712e2f46e9e637c85d7c16e8f4596",
+        "fb5fc2d7f8690dd8f9e7d4c3d2c31c045e5712e2f46e9e637c85d7c16e8f4596"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "455749324c424c433253594549543358534b4932545a3354564e3442425555414c4f4b4452594f41484b5a54495a414635475441",
+        "425a3641565452574445535742324d58544e47375259444343323647544f33335452353544524744355a35525451434e58433441"
+      ]
+    },
+    {
+      "rank": 0,
+      "graph": "eagle_head",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_1",
+      "choice_key": "lu/b93e21fc63d2f0ff6f32d1bcb0ab25541304ae548013161998115e23d58efc7e.best_config",
+      "runtime_reference": {
+        "kernel": "triton_poi_fused_add_all_reduce_0",
+        "source_basename_utf8_hex": "636c756936656172756f357a7175326d786f7168677862636e637062766134336d356f75716e6c75376d796a37657569346a736e2e7079"
+      },
+      "old": {
+        "XBLOCK": 512,
+        "num_warps": 8,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 1024,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a",
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "4f524e5143324d543636364851495a4e54463532554f55334d464349414d434a4a465833455553445056555559584e4a50464341",
+        "4a32474750364e374e443747444f465a34415335324e4d445a4b4857593343584948464d3445504e594243344d594e5232465841"
+      ]
+    },
+    {
+      "rank": 1,
+      "graph": "backbone",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_4",
+      "choice_key": "x5/32e72e9dadf12eb716693ff3fd6110463d795f601c0fdd9a9d2c1ba35a18b780.best_config",
+      "runtime_reference": {
+        "kernel": "triton_poi_fused_add_all_reduce_0",
+        "source_basename_utf8_hex": "6378356a347866656b6f696f776f69617a32766b376f787870756e6773356d3337636e766166636f7032736a786b796672726c332e7079"
+      },
+      "old": {
+        "XBLOCK": 512,
+        "num_warps": 8,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 1024,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a",
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "4f524e5143324d543636364851495a4e54463532554f55334d464349414d434a4a465833455553445056555559584e4a50464341",
+        "4a32474750364e374e443747444f465a34415335324e4d445a4b4857593343584948464d3445504e594243344d594e5232465841"
+      ]
+    },
+    {
+      "rank": 1,
+      "graph": "backbone",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_5",
+      "choice_key": "x5/32e72e9dadf12eb716693ff3fd6110463d795f601c0fdd9a9d2c1ba35a18b780.best_config",
+      "runtime_reference": {
+        "kernel": "triton_poi_fused_add_all_reduce_0",
+        "source_basename_utf8_hex": "6378356a347866656b6f696f776f69617a32766b376f787870756e6773356d3337636e766166636f7032736a786b796672726c332e7079"
+      },
+      "old": {
+        "XBLOCK": 1024,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 512,
+        "num_warps": 8,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a",
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "4a32474750364e374e443747444f465a34415335324e4d445a4b4857593343584948464d3445504e594243344d594e5232465841",
+        "4f524e5143324d543636364851495a4e54463532554f55334d464349414d434a4a465833455553445056555559584e4a50464341"
+      ]
+    },
+    {
+      "rank": 1,
+      "graph": "backbone",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_5",
+      "choice_key": "7d/fa2008111f70d919fd4a69bd867ec9ecad04c1b30ad70b09d4b698721a12823f.best_config",
+      "runtime_reference": {
+        "kernel": "triton_red_fused_2",
+        "source_basename_utf8_hex": "633764626f37323472686a677034677468796d71713463636b636274636335356c61356d376a6e326b366b6d647472706d7a70642e7079"
+      },
+      "old": {
+        "XBLOCK": 64,
+        "R0_BLOCK": 64,
+        "num_warps": 16,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 8,
+        "R0_BLOCK": 256,
+        "num_warps": 16,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "fb5fc2d7f8690dd8f9e7d4c3d2c31c045e5712e2f46e9e637c85d7c16e8f4596",
+        "fb5fc2d7f8690dd8f9e7d4c3d2c31c045e5712e2f46e9e637c85d7c16e8f4596"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "4e374c364c504b474649505a4a4b485249475055554d585a4c324633523545475a344e51354e57374441494857515a5250355041",
+        "434b4e5656445551524c47523356514e4648573759363251455a4843444b58354d4d3549503337504f3444414d4d4246444b5041"
+      ]
+    },
+    {
+      "rank": 1,
+      "graph": "backbone",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_6",
+      "choice_key": "x5/32e72e9dadf12eb716693ff3fd6110463d795f601c0fdd9a9d2c1ba35a18b780.best_config",
+      "runtime_reference": {
+        "kernel": "triton_poi_fused_add_all_reduce_0",
+        "source_basename_utf8_hex": "6378356a347866656b6f696f776f69617a32766b376f787870756e6773356d3337636e766166636f7032736a786b796672726c332e7079"
+      },
+      "old": {
+        "XBLOCK": 1024,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 512,
+        "num_warps": 8,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a",
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "4a32474750364e374e443747444f465a34415335324e4d445a4b4857593343584948464d3445504e594243344d594e5232465841",
+        "4f524e5143324d543636364851495a4e54463532554f55334d464349414d434a4a465833455553445056555559584e4a50464341"
+      ]
+    },
+    {
+      "rank": 1,
+      "graph": "backbone",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_50",
+      "choice_key": "x5/32e72e9dadf12eb716693ff3fd6110463d795f601c0fdd9a9d2c1ba35a18b780.best_config",
+      "runtime_reference": {
+        "kernel": "triton_poi_fused_add_all_reduce_0",
+        "source_basename_utf8_hex": "6378356a347866656b6f696f776f69617a32766b376f787870756e6773356d3337636e766166636f7032736a786b796672726c332e7079"
+      },
+      "old": {
+        "XBLOCK": 1024,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 512,
+        "num_warps": 8,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a",
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "4a32474750364e374e443747444f465a34415335324e4d445a4b4857593343584948464d3445504e594243344d594e5232465841",
+        "4f524e5143324d543636364851495a4e54463532554f55334d464349414d434a4a465833455553445056555559584e4a50464341"
+      ]
+    },
+    {
+      "rank": 1,
+      "graph": "eagle_head",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_0",
+      "choice_key": "4s/a90a96a10a26307bdd525a579b58625b5b11c4bceefc68febce9fae4e9757a72.best_config",
+      "runtime_reference": {
+        "kernel": "triton_poi_fused__to_copy_add_mean_mm_mul_pow_rsqrt_t_view_3",
+        "source_basename_utf8_hex": "63347369326176736f757a77356d6f356a6b6d78346864763378653779626271327a7435326d346e74647a697677337776616e6e2e7079"
+      },
+      "old": {
+        "XBLOCK": 512,
+        "num_warps": 8,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 1024,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a",
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "4852364d464b4c483241414b4c4e4f5144535057435a37564932555959434c4e32345153334e45344a51584f47504f5753355951",
+        "365642474b5356474f37425442444e43484f4d4b36365744414647374f5546444d574f584654494b34344f524336334943415651"
+      ]
+    },
+    {
+      "rank": 1,
+      "graph": "eagle_head",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_0",
+      "choice_key": "ps/57d9486625e88729e5bcda652e947613c16eeb3bb7ae1a502faaa5162fb74c3d.best_config",
+      "runtime_reference": {
+        "kernel": "triton_red_fused_6",
+        "source_basename_utf8_hex": "63707376626a64647a6363356f32637035787077626a6a7a3468707436636a686c703373626d363533327974336b376d637036772e7079"
+      },
+      "old": {
+        "XBLOCK": 2,
+        "R0_BLOCK": 256,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 64,
+        "R0_BLOCK": 64,
+        "num_warps": 16,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "fb5fc2d7f8690dd8f9e7d4c3d2c31c045e5712e2f46e9e637c85d7c16e8f4596",
+        "fb5fc2d7f8690dd8f9e7d4c3d2c31c045e5712e2f46e9e637c85d7c16e8f4596"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "425a3641565452574445535742324d58544e47375259444343323647544f33335452353544524744355a35525451434e58433441",
+        "4e585a44485342554a573647584a4d464b5448354c5443463756504c4f564e4e345151554c4846353634534b44523657464c4e41"
+      ]
+    },
+    {
+      "rank": 2,
+      "graph": "backbone",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_5",
+      "choice_key": "7q/cc9121ecf4d3d85595b5d802d5b70ba330a4c0f193e904047a4ae3a5c60cbef3.best_config",
+      "runtime_reference": {
+        "kernel": "triton_poi_fused_add_all_reduce_0",
+        "source_basename_utf8_hex": "6337716669363637726a7a6a62616c62356876666274376a6863347361686f73633678356b62637a3762647965336966746236372e7079"
+      },
+      "old": {
+        "XBLOCK": 1024,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 512,
+        "num_warps": 8,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a",
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "4a32474750364e374e443747444f465a34415335324e4d445a4b4857593343584948464d3445504e594243344d594e5232465841",
+        "4f524e5143324d543636364851495a4e54463532554f55334d464349414d434a4a465833455553445056555559584e4a50464341"
+      ]
+    },
+    {
+      "rank": 2,
+      "graph": "backbone",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_6",
+      "choice_key": "7q/cc9121ecf4d3d85595b5d802d5b70ba330a4c0f193e904047a4ae3a5c60cbef3.best_config",
+      "runtime_reference": {
+        "kernel": "triton_poi_fused_add_all_reduce_0",
+        "source_basename_utf8_hex": "6337716669363637726a7a6a62616c62356876666274376a6863347361686f73633678356b62637a3762647965336966746236372e7079"
+      },
+      "old": {
+        "XBLOCK": 1024,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 512,
+        "num_warps": 8,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a",
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "4a32474750364e374e443747444f465a34415335324e4d445a4b4857593343584948464d3445504e594243344d594e5232465841",
+        "4f524e5143324d543636364851495a4e54463532554f55334d464349414d434a4a465833455553445056555559584e4a50464341"
+      ]
+    },
+    {
+      "rank": 2,
+      "graph": "backbone",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_50",
+      "choice_key": "7q/cc9121ecf4d3d85595b5d802d5b70ba330a4c0f193e904047a4ae3a5c60cbef3.best_config",
+      "runtime_reference": {
+        "kernel": "triton_poi_fused_add_all_reduce_0",
+        "source_basename_utf8_hex": "6337716669363637726a7a6a62616c62356876666274376a6863347361686f73633678356b62637a3762647965336966746236372e7079"
+      },
+      "old": {
+        "XBLOCK": 512,
+        "num_warps": 8,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 1024,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a",
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "4f524e5143324d543636364851495a4e54463532554f55334d464349414d434a4a465833455553445056555559584e4a50464341",
+        "4a32474750364e374e443747444f465a34415335324e4d445a4b4857593343584948464d3445504e594243344d594e5232465841"
+      ]
+    },
+    {
+      "rank": 2,
+      "graph": "eagle_head",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_0",
+      "choice_key": "vy/76c2662e435d07803b57f30cba64955be29ec9ff0196be669d4ad8ab5e82af40.best_config",
+      "runtime_reference": {
+        "kernel": "triton_poi_fused__to_copy_add_mean_mm_mul_pow_rsqrt_t_view_3",
+        "source_basename_utf8_hex": "63767971643677736f3271797974657777737671757a766463326b34676c356c6434326e3636736b6b707476366b7270336b666d2e7079"
+      },
+      "old": {
+        "XBLOCK": 512,
+        "num_warps": 8,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 1024,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a",
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "4852364d464b4c483241414b4c4e4f5144535057435a37564932555959434c4e32345153334e45344a51584f47504f5753355951",
+        "365642474b5356474f37425442444e43484f4d4b36365744414647374f5546444d574f584654494b34344f524336334943415651"
+      ]
+    },
+    {
+      "rank": 2,
+      "graph": "eagle_head",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_0",
+      "choice_key": "o2/27c88e670072dc9e3764b803d85c82a02985bcb51edb68730ae6c153cbe6c7d3.best_config",
+      "runtime_reference": {
+        "kernel": "triton_red_fused_6",
+        "source_basename_utf8_hex": "636f32787a6d6a67337235696534686a727976337534726e3332637a6d75706764703364617736776f323232726834626d6a6a6b2e7079"
+      },
+      "old": {
+        "XBLOCK": 64,
+        "R0_BLOCK": 64,
+        "num_warps": 16,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 8,
+        "R0_BLOCK": 256,
+        "num_warps": 16,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "fb5fc2d7f8690dd8f9e7d4c3d2c31c045e5712e2f46e9e637c85d7c16e8f4596",
+        "fb5fc2d7f8690dd8f9e7d4c3d2c31c045e5712e2f46e9e637c85d7c16e8f4596"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "4e585a44485342554a573647584a4d464b5448354c5443463756504c4f564e4e345151554c4846353634534b44523657464c4e41",
+        "594c554e4f514836424b57364c33524e414c434354333244344e3758564937564332444e4e4851414e49345a504b56564c443551"
+      ]
+    },
+    {
+      "rank": 3,
+      "graph": "backbone",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_4",
+      "choice_key": "ep/5c59102369f11d14e50652e16646cb58a5b25eb10405b00a37ec4313abdd6121.best_config",
+      "runtime_reference": {
+        "kernel": "triton_poi_fused_add_all_reduce_0",
+        "source_basename_utf8_hex": "6365707a706e716a6e6276707068366f67753734366f37727a636d6f757636616b326568787066686f70356f616a796b3267646c2e7079"
+      },
+      "old": {
+        "XBLOCK": 1024,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 512,
+        "num_warps": 8,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a",
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "4a32474750364e374e443747444f465a34415335324e4d445a4b4857593343584948464d3445504e594243344d594e5232465841",
+        "4f524e5143324d543636364851495a4e54463532554f55334d464349414d434a4a465833455553445056555559584e4a50464341"
+      ]
+    },
+    {
+      "rank": 3,
+      "graph": "backbone",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_5",
+      "choice_key": "ep/5c59102369f11d14e50652e16646cb58a5b25eb10405b00a37ec4313abdd6121.best_config",
+      "runtime_reference": {
+        "kernel": "triton_poi_fused_add_all_reduce_0",
+        "source_basename_utf8_hex": "6365707a706e716a6e6276707068366f67753734366f37727a636d6f757636616b326568787066686f70356f616a796b3267646c2e7079"
+      },
+      "old": {
+        "XBLOCK": 512,
+        "num_warps": 8,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 1024,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a",
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "4f524e5143324d543636364851495a4e54463532554f55334d464349414d434a4a465833455553445056555559584e4a50464341",
+        "4a32474750364e374e443747444f465a34415335324e4d445a4b4857593343584948464d3445504e594243344d594e5232465841"
+      ]
+    },
+    {
+      "rank": 3,
+      "graph": "backbone",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_5",
+      "choice_key": "zh/8065dde34f9ae6ab5d5941d2b645d8bd9a5297a903df21ec57461d9716e0a157.best_config",
+      "runtime_reference": {
+        "kernel": "triton_red_fused_2",
+        "source_basename_utf8_hex": "637a686e796b6f776e6c687a667537786f69776866737a6c65636d32707336617a366b756e6c6335727833766d686433373636322e7079"
+      },
+      "old": {
+        "XBLOCK": 2,
+        "R0_BLOCK": 256,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 64,
+        "R0_BLOCK": 64,
+        "num_warps": 16,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "fb5fc2d7f8690dd8f9e7d4c3d2c31c045e5712e2f46e9e637c85d7c16e8f4596",
+        "fb5fc2d7f8690dd8f9e7d4c3d2c31c045e5712e2f46e9e637c85d7c16e8f4596"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "364442485a5543454d4d54344342564357594f45354e544d424146594c515146564c4e4f425a52515656484d514e425757463251",
+        "4e374c364c504b474649505a4a4b485249475055554d585a4c324633523545475a344e51354e57374441494857515a5250355041"
+      ]
+    },
+    {
+      "rank": 3,
+      "graph": "backbone",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_50",
+      "choice_key": "ep/5c59102369f11d14e50652e16646cb58a5b25eb10405b00a37ec4313abdd6121.best_config",
+      "runtime_reference": {
+        "kernel": "triton_poi_fused_add_all_reduce_0",
+        "source_basename_utf8_hex": "6365707a706e716a6e6276707068366f67753734366f37727a636d6f757636616b326568787066686f70356f616a796b3267646c2e7079"
+      },
+      "old": {
+        "XBLOCK": 512,
+        "num_warps": 8,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 1024,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a",
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "4f524e5143324d543636364851495a4e54463532554f55334d464349414d434a4a465833455553445056555559584e4a50464341",
+        "4a32474750364e374e443747444f465a34415335324e4d445a4b4857593343584948464d3445504e594243344d594e5232465841"
+      ]
+    },
+    {
+      "rank": 3,
+      "graph": "eagle_head",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_0",
+      "choice_key": "tg/782086bc17084d6f67bcae7179f3f5609afd0ef219ec374fd33f320805158203.best_config",
+      "runtime_reference": {
+        "kernel": "triton_poi_fused__to_copy_add_mean_mm_mul_pow_rsqrt_t_view_3",
+        "source_basename_utf8_hex": "63746775726871673564766d6b763234336a6b71656b32716871616132666f6e62776b696f73326f6c346b6b62716a367a7536642e7079"
+      },
+      "old": {
+        "XBLOCK": 512,
+        "num_warps": 8,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 1024,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a",
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "4852364d464b4c483241414b4c4e4f5144535057435a37564932555959434c4e32345153334e45344a51584f47504f5753355951",
+        "365642474b5356474f37425442444e43484f4d4b36365744414647374f5546444d574f584654494b34344f524336334943415651"
+      ]
+    },
+    {
+      "rank": 3,
+      "graph": "eagle_head",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_0",
+      "choice_key": "hq/35634934b91a1ef50e5b716280cfd979478432e98c1034fcb935c1730c03541e.best_config",
+      "runtime_reference": {
+        "kernel": "triton_red_fused_6",
+        "source_basename_utf8_hex": "6368716f616c6571646c33676c766d376c646271746e376e66706166776632786e7937756e67737466667168657736766b6865762e7079"
+      },
+      "old": {
+        "XBLOCK": 16,
+        "R0_BLOCK": 32,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 2,
+        "R0_BLOCK": 256,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "fb5fc2d7f8690dd8f9e7d4c3d2c31c045e5712e2f46e9e637c85d7c16e8f4596",
+        "fb5fc2d7f8690dd8f9e7d4c3d2c31c045e5712e2f46e9e637c85d7c16e8f4596"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "455749324c424c433253594549543358534b4932545a3354564e3442425555414c4f4b4452594f41484b5a54495a414635475441",
+        "425a3641565452574445535742324d58544e47375259444343323647544f33335452353544524744355a35525451434e58433441"
+      ]
+    },
+    {
+      "rank": 3,
+      "graph": "eagle_head",
+      "subgraph": "artifact_compile_range_1_2049_subgraph_1",
+      "choice_key": "ep/5c59102369f11d14e50652e16646cb58a5b25eb10405b00a37ec4313abdd6121.best_config",
+      "runtime_reference": {
+        "kernel": "triton_poi_fused_add_all_reduce_0",
+        "source_basename_utf8_hex": "6365707a706e716a6e6276707068366f67753734366f37727a636d6f757636616b326568787066686f70356f616a796b3267646c2e7079"
+      },
+      "old": {
+        "XBLOCK": 512,
+        "num_warps": 8,
+        "num_stages": 1
+      },
+      "fixed": {
+        "XBLOCK": 1024,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "configs_hash": [
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a",
+        "3ca5c3e34d35093f3c9ab2829a9faeebad5e61c4ca13d5ed6053d7b71ce60d5a"
+      ],
+      "compiled_triton_hash_utf8_hex": [
+        "4f524e5143324d543636364851495a4e54463532554f55334d464349414d434a4a465833455553445056555559584e4a50464341",
+        "4a32474750364e374e443747444f465a34415335324e4d445a4b4857593343584948464d3445504e594243344d594e5232465841"
+      ]
+    }
+  ],
+  "actual_launches_observed": false,
+  "current_cohort_causality_proven": false,
+  "limits": [
+    "Saved choices are not direct observations of launches or CUDA graphs",
+    "Unmapped saved entries can be compile-time candidates, not runtime work",
+    "Equal source ASTs do not imply equal floating reduction trees",
+    "Different valid launch choices do not prove output values differ",
+    "No new GPU experiment or production change was performed"
+  ]
+}

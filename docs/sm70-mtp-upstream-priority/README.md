@@ -73,7 +73,7 @@ heads. This is a narrow regression retest, not comprehensive model admission.
 | Cohort | Pairs | Median corrected/old throughput ratio | Range |
 | --- | --- | --- | --- |
 | Original three 1K/c1 regression prompts, 128 output | 3 | 1.11142 | 1.05011–1.14366 |
-| All 30 unique 1K/c1 prompts, 128 output | 30 | 0.98753 | 0.84964–1.30588 |
+| All 30 1K/c1 observations (26 distinct inputs), 128 output | 30 | 0.98753 | 0.84964–1.30588 |
 | 1K/c4, 128 output/request | 3 | 1.00733 | 0.99518–1.01768 |
 | 1K/c8, 128 output/request | 3 | 1.01668 | 1.00994–1.01947 |
 | 1K/c1, 1024 output | 1 | 1.10513 | Single sample |
@@ -85,8 +85,11 @@ median decode is 1.84942/1.65121s. The expanded c1 cohort has **13 gains and
 Its total time is essentially unchanged; the correction does **not** show a
 uniform c1 performance gain. Most generated texts differ. Pure upstream main
 was not rerun, so the retest cannot establish general main/correction parity.
-The additional 27 c1 prompts repeat earlier concurrency requests and can use
-prefix caching; their wire bodies remain identical between arms.
+The additional 27 c1 requests repeat earlier concurrency inputs; their wire
+bodies remain identical between arms. A later full counter audit confirms
+zero prefix-cache hits, zero cached prompt tokens and zero preemptions in all
+30 c1 observations. Four input pairs are duplicates, so there are 26 distinct
+c1 inputs; the 30 observations are not 30 independent prompts.
 
 Six input scales, invalid expert routes, four real checkpoint TP weight slices,
 M1/M5 and both expert projections were checked: **16 cases, 96 scale checks**.
@@ -152,3 +155,62 @@ long-context requalification, exhaustive operator parity or universal speedup
 is claimed. Production was restored to the previously qualified C after this test;
 no correction is permanently deployed. No upstream PR is merged or marked
 ready. AI assistance was used; submitting human review remains required.
+
+## Expanded c1 follow-up (CPU/read-only)
+
+The 17 slower observations were audited individually. Sixteen use more draft
+rounds (57 extra rounds in total); their extra decode wall is 1.78710s. An
+exact symmetric work/cost decomposition assigns +1.81495s to extra rounds and
+−0.02785s to changed per-round cost. The remaining observation has identical
+text, draft and acceptance counts and is 0.705ms slower (0.038%); a single
+measurement does not establish a repeatable regression. The per-draft ratios
+for all slower observations range from 0.99653 to 1.00042. These are request
+phase wall/work diagnostics, not isolated GPU timing.
+
+The four duplicated input pairs reproduce identical text and draft counts
+within each arm. After averaging each duplicated case, 26 distinct inputs
+have a median corrected/old ratio of 0.98744: 14 cases with extra draft work,
+one equal-work timing difference, and 11 gains. Twenty-eight of the original
+30 output texts differ between arms, so a fixed token budget did not hold the
+generation/acceptance path fixed. `EXPANDED_C1_FINDINGS.md` lists every slower
+observation; `analyze_samples.py` reproduces `SAMPLE_ATTRIBUTION.json` using
+the existing portable saved observations. Per-position acceptance counters
+are in `MTP_ACCEPTED_POSITIONS.json`, with pre-budget-clipping semantics.
+
+A static audit followed the actual saved compile handles for four ranks,
+target and drafter. It compared 80 referenced artifacts (40 pairs), including
+40 old handles pointing outside their copied active directory; those original
+bytes match the copied artifacts exactly. The lowered runtime and compile-time
+benchmark ASTs match for all 40 pairs after ignoring comments and line
+locations, including comments inside embedded Triton source. Torch digests
+and corresponding candidate-configuration hashes match.
+
+Of 188 saved autotune entry pairs, 53 have different launch kwargs or
+warp/stage counts. Ninety-two entry pairs map to generated runtime-source
+references; 25 of those differ, including eight reduction entries. The
+remaining unmapped entries can be compile-time candidates and are not counted
+as runtime launches. Target Q/K normalization differs on three ranks; drafter
+Q/K normalization differs on all four, and another drafter RMS reduction
+differs on rank 0. For example, target rank 0 Q/K reduction changes
+`(XBLOCK,R0_BLOCK,warps)=(16,32,4)` to `(64,64,16)`.
+
+This establishes a concrete saved-configuration confound for the current
+comparison. It does **not** observe actual launches/CUDA-graph selections or
+prove those choices caused a particular output difference. Projection parity
+on the previously tested inputs still does not prove parity on every live M1
+activation. No speculative code fix, cache policy, model load or new GPU
+experiment follows from this static evidence; current-cohort attribution
+needs a separate same-input, same-configuration control. Production stays
+on the previously qualified C. The source correction head is unchanged.
+
+```sh
+.venv/bin/python -m unittest discover -s docs/sm70-mtp-upstream-priority -p "test_*.py" -v
+.venv/bin/python docs/sm70-mtp-upstream-priority/analyze_samples.py --root docs/sm70-mtp-upstream-priority/paired-observations --out /tmp/mtp-sample-attribution.json
+.venv/bin/python docs/sm70-mtp-upstream-priority/audit_saved_artifacts.py --observations docs/sm70-mtp-upstream-priority/COMPILED_OBSERVATIONS.json --out /tmp/mtp-compiled-selection-audit.json
+```
+
+The five new tests verify that normalization ignores comments without erasing
+changed arithmetic, audits benchmark code separately, maps binary Torch cache
+keys/tags correctly, and never relabels saved choices as observed launches or
+causality. Portable metadata reproduces the compiled-selection summary; raw
+generated source and absolute cache/host paths remain private.
