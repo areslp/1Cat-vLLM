@@ -156,7 +156,7 @@ is claimed. Production was restored to the previously qualified C after this tes
 no correction is permanently deployed. No upstream PR is merged or marked
 ready. AI assistance was used; submitting human review remains required.
 
-## Expanded c1 follow-up (CPU/read-only)
+## Expanded c1 follow-up (earlier CPU/read-only audit)
 
 The 17 slower observations were audited individually. Sixteen use more draft
 rounds (57 extra rounds in total); their extra decode wall is 1.78710s. An
@@ -214,3 +214,23 @@ changed arithmetic, audits benchmark code separately, maps binary Torch cache
 keys/tags correctly, and never relabels saved choices as observed launches or
 causality. Portable metadata reproduces the compiled-selection summary; raw
 generated source and absolute cache/host paths remain private.
+
+## Subsequent whole-graph control attempt
+
+The authorized 2026-10-09 common-configuration retest produced **zero valid
+performance pairs**. The old-route arm completed 81 groups, including three
+repeats of all 26 distinct c1 inputs; the corrected-route arm failed post-capture
+startup with an NCCL/CUDA error and completed no timed groups. Both used the
+same source/path/version and a common launch policy, but combo-versus-standalone
+generation differed on two drafter graphs: 38/40 runtime/benchmark AST pairs
+match and 162/168 ordered observed source/config signatures match. Missing
+original kernels and additional defaults invalidate whole-graph alignment.
+This diagnostic startup failure does not prove a native-projection or PR cause.
+
+[CONTROLLED_RETEST_FINDINGS.md](CONTROLLED_RETEST_FINDINGS.md) records actual
+coverage, reduction extents, the control defect and the proposed complete-seed
+control. The portable observations and eight CPU admission tests reproduce the
+failed gate. The original 17 slower observations remain unresolved; no new
+paired speedup or broad quality claim is made. Original C was restored once
+inside the reserved budget and its real Mac-entry checks passed. The corrected
+source head remains unchanged and is not permanently deployed.

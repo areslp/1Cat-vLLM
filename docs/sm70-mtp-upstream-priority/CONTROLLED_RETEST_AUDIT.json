@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "observed_run_comparison_by_rank": [
+    {
+      "rank": 0,
+      "counts": [
+        42,
+        42
+      ],
+      "equal_ordered_signatures": 42,
+      "all_signatures_equal": true
+    },
+    {
+      "rank": 1,
+      "counts": [
+        42,
+        42
+      ],
+      "equal_ordered_signatures": 39,
+      "all_signatures_equal": false
+    },
+    {
+      "rank": 2,
+      "counts": [
+        42,
+        42
+      ],
+      "equal_ordered_signatures": 42,
+      "all_signatures_equal": true
+    },
+    {
+      "rank": 3,
+      "counts": [
+        42,
+        42
+      ],
+      "equal_ordered_signatures": 39,
+      "all_signatures_equal": false
+    }
+  ],
+  "generated_graph_pairs": 40,
+  "equal_runtime_ast_pairs": 38,
+  "equal_benchmark_ast_pairs": 38,
+  "complete_config_and_generated_source_alignment": false,
+  "completed_both_arms": false,
+  "performance_pair_admitted": false,
+  "usable_performance_pairs": 0,
+  "throughput_ratio": null,
+  "validation_errors": [],
+  "limits": [
+    "Autotuner.run observations may include compilation benchmarks",
+    "Generated runtime references are audited separately",
+    "No direct CUDA graph replay trace is claimed",
+    "An incomplete driver with no recorded failures is not a pass",
+    "A startup failure does not isolate its cause",
+    "Wire/input/output validation is a separate required admission gate",
+    "This audit computes admission, not a throughput estimate"
+  ]
+}
