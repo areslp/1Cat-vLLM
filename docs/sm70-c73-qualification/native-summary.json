@@ -1,0 +1,50 @@
+{
+  "implementation": "f64666c6b368483ff30b8c9872d5194c579a9635",
+  "upstream": "c73eb2d1d1009e1ab8b980f9c1dea265ba877015",
+  "native_build_status": "compiled",
+  "completed_targets": [
+    "_moe_C",
+    "_sm70_qsa_indexer_C",
+    "_sm70_qsa_device_C",
+    "_C",
+    "_C_stable_libtorch",
+    "cumem_allocator",
+    "spinloop",
+    "_sm70_sampler_C",
+    "_sm70_exact_reduce_C",
+    "triton_kernels"
+  ],
+  "core_native_source_diff_from_frozen_upstream": 0,
+  "native_policy_abi": {
+    "_C": 55,
+    "_moe_C": 55
+  },
+  "changed_and_added_native_schemas_checked": 123,
+  "native_token_CPU": {
+    "failed": 0,
+    "passed": 2,
+    "skipped": 0
+  },
+  "native_token_scope": "Real native schemas/token parsing; CPU export/reload transport implementations. No CUDA numerical test.",
+  "cuda_initialized_during_readiness": false,
+  "native_CPU_status": "native_CPU_readiness_passed",
+  "pure_upstream_CPU_status": "native_CPU_readiness_passed",
+  "pure_upstream_core_source_identical": true,
+  "ordinary_model_GPU_qualification": "Completed bounded ordinary E scope; exact test and performance limits are recorded in scope.json and observations.json",
+  "native_modules_imported": 12,
+  "ordinary_runtime_modules_imported": 9,
+  "native_embedded_architectures": {
+    "_C": [
+      "sm_70"
+    ],
+    "_moe_C": [
+      "sm_70"
+    ],
+    "_sm70_qsa_device_C": [
+      "sm_70"
+    ],
+    "_sm70_qsa_indexer_C": [
+      "sm_70"
+    ]
+  }
+}

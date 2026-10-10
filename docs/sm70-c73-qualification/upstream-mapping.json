@@ -1,0 +1,54 @@
+{
+  "upstream": "c73eb2d1d1009e1ab8b980f9c1dea265ba877015",
+  "runtime_implementation": "f64666c6b368483ff30b8c9872d5194c579a9635",
+  "PR_test_only_head": "e5f648f235e5bcbb9efe3476258c492eb7ba7ce1",
+  "areas": [
+    {
+      "area": "GDN ownership/typed state",
+      "upstream_reused": "Current GdnStateResources, backend-owned kwargs, execution plans and ordinary block-table selection",
+      "retained": "Additional align/cache-all state indexes, broader verifier adapters, grouped metadata",
+      "upstream_native_first": true
+    },
+    {
+      "area": "MTP native and target sampling",
+      "upstream_reused": "Native M1/M5 admission, TargetSamplingHooks, cached completed logits, native greedy verifier",
+      "retained": "Full-LM-head GEMM top1 fallback, broader guarded layouts",
+      "removed_duplicate": "Local greedy verifier kernel",
+      "upstream_native_first": true
+    },
+    {
+      "area": "Eagle graphs and warmup",
+      "upstream_reused": "Multistep graph manager/pool, ordered WarmupTask executor",
+      "retained": "Scoped selected/padded rows across graph capture, context-only prefill skip and finite extra warmup tasks",
+      "upstream_native_first": true
+    },
+    {
+      "area": "PLE/GDN layer providers",
+      "upstream_reused": "Native mixed/strided/direct-output GDN, PLE ngram/convolution and compact/top1 admission",
+      "retained": "Broader layouts and per-engine shortconv descriptors",
+      "upstream_native_first": true
+    },
+    {
+      "area": "Residual fusion and page4",
+      "upstream_reused": "Upstream core native kernels; unchanged core/build source",
+      "retained": "Guarded shared-gate/expert scratch fusion, selected/padded draft rows and segmented request/query grouped page4",
+      "upstream_native_first": true
+    },
+    {
+      "area": "Configuration and experiments",
+      "upstream_reused": "Typed per-engine policy/owners and current upstream defaults",
+      "retained": "Explicit optional residual feature settings; bounded opt-in pacing remains off",
+      "outside_scope": [
+        "New GSQ/EXL3/IQ3S formats",
+        "NVLink claims on PCIe hardware",
+        "Private production logs/cache/host configuration"
+      ]
+    }
+  ],
+  "later_upstream_not_qualified": [
+    "1140",
+    "1141"
+  ],
+  "PR": "https://github.com/1CatAI/1Cat-vLLM/pull/903",
+  "no_new_duplicate_PR": true
+}

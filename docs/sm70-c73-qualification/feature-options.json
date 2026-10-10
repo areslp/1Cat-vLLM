@@ -1,0 +1,53 @@
+{
+  "upstream": "c73eb2d1d1009e1ab8b980f9c1dea265ba877015",
+  "implementation": "f64666c6b368483ff30b8c9872d5194c579a9635",
+  "common_explicit_serving_options": {
+    "NCCL_MAX_NCHANNELS": "8",
+    "NCCL_MIN_NCHANNELS": "8",
+    "NCCL_P2P_DISABLE": "1",
+    "VLLM_1CAT_PREFILL_PACE_STEPS": "0",
+    "VLLM_QWEN4EXP_PLE_HOST_GIB": "12",
+    "VLLM_SM70_FLASH_ATTN_V100": "1",
+    "VLLM_SM70_MTP_MOE_FP16_EXACT": "1",
+    "VLLM_SM70_MTP_MOE_TUNED_CONFIG": "1",
+    "VLLM_SM70_NVFP4_QWEN38_MOE_QPN_MTP5_DECODE": "1",
+    "VLLM_SM70_QSA_GROUPED_PAD_FIX": "1",
+    "VLLM_SM70_QSA_GROUPED_PAGE4": "1",
+    "VLLM_USE_V2_MODEL_RUNNER": "1"
+  },
+  "residual_feature_options": {
+    "ONECAT_DRAFT47": {
+      "E": "all",
+      "upstream": null
+    },
+    "ONECAT_E7_MODE": {
+      "E": "off",
+      "upstream": null
+    },
+    "ONECAT_FUSE47": {
+      "E": "all",
+      "upstream": null
+    },
+    "ONECAT_GDN_BV48": {
+      "E": "8",
+      "upstream": null
+    },
+    "ONECAT_GDN_FUSE": {
+      "E": "all",
+      "upstream": null
+    },
+    "ONECAT_MTP_PREFILL_KV_ONLY": {
+      "E": "1",
+      "upstream": null
+    },
+    "ONECAT_MTP_SHORTCONV_GROUP_META": {
+      "E": "1",
+      "upstream": null
+    },
+    "ONECAT_QSA48": {
+      "E": "split",
+      "upstream": null
+    }
+  },
+  "comparison": "Both arms use current upstream defaults; upstream equivalents are not disabled. E-only residual feature options enable the patch under review."
+}

@@ -1,0 +1,10 @@
+{
+  "runtime_implementation": "f64666c6b368483ff30b8c9872d5194c579a9635",
+  "PR_test_only_head": "e5f648f235e5bcbb9efe3476258c492eb7ba7ce1",
+  "runtime_diff_files": 0,
+  "test_diff_files": [
+    "tests/kernels/moe/test_sm70_mtp_moe_fp16.py",
+    "tests/kernels/test_sm70_mtp_ple_conv.py"
+  ],
+  "native_build_required_for_test_only_head": false
+}

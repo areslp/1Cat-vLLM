@@ -1,0 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
+
+[default]
+# Generated Torch helper basenames are base32 hashes, not English words.
+extend-ignore-identifiers-re = ["c[a-z2-7]{40,}"]

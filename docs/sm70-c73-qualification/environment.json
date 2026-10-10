@@ -1,0 +1,64 @@
+{
+  "GPUs": [
+    "Tesla V100-PCIE-32GB, 32768 MiB, 580.173.02",
+    "Tesla V100-PCIE-32GB, 32768 MiB, 580.173.02",
+    "Tesla V100-PCIE-32GB, 32768 MiB, 580.173.02",
+    "Tesla V100-PCIE-32GB, 32768 MiB, 580.173.02"
+  ],
+  "topology": {
+    "GPU0_GPU1": "PHB",
+    "GPU2_GPU3": "PHB",
+    "cross_pair": "SYS",
+    "NVLink": false
+  },
+  "CPU": {
+    "CPU(s)": "56",
+    "Model name": "Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz",
+    "NUMA node(s)": "2",
+    "NUMA node0 CPU(s)": "0-13,28-41",
+    "NUMA node1 CPU(s)": "14-27,42-55"
+  },
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "kernel": "7.0.0-31-generic",
+  "torch": "2.10.0+cu128",
+  "CUDA_toolkit": "12.8.93",
+  "target_arch": "7.0",
+  "preparation": "Native build/imports, E component/text, U/E image/video and aligned-choice paired performance completed",
+  "serving": {
+    "dtype": "float16",
+    "TP": 4,
+    "MTP_tokens": 4,
+    "KV": "fp8_e4m3",
+    "block_size": 1632,
+    "max_model_len": 262144,
+    "max_num_seqs": 8,
+    "max_num_batched_tokens": 2048,
+    "NCCL_P2P_DISABLE": 1,
+    "NCCL_channels": 8,
+    "NUMA": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "prefix_caching": true,
+    "mamba_cache_mode": "align",
+    "pacing": 0,
+    "engine_seed": 0,
+    "request_seed": 1234,
+    "weights": "Fixed local Flash-Next NVFP4 conversion; unchanged, not distributed with these records"
+  },
+  "source_commits": {
+    "upstream": "c73eb2d1d1009e1ab8b980f9c1dea265ba877015",
+    "candidate": "f64666c6b368483ff30b8c9872d5194c579a9635"
+  },
+  "compiler_options": {
+    "build_type": "RelWithDebInfo",
+    "CUDA_arch": "sm_70",
+    "nvcc_threads": 1,
+    "host_optimization": "-O2",
+    "CUDA_optimization": "-O2",
+    "CXX_standard": "C++20",
+    "SM70_FP8_QSA": "enabled"
+  }
+}
