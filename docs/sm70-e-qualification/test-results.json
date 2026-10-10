@@ -11432,5 +11432,16 @@
     "policy_hash_unchanged": true,
     "removed_duplicate_local_report_tests": 2,
     "note": "The earlier loaded-route test ID also needed this integration to list its retained draft owner; that fixture now passes. Only the inactive GGUF computation-hash assertion remains an upstream baseline failure."
+  },
+  "final_deployment_checks": {
+    "source_commit": "69801806572ea094b91d5f18864beb22c6c8b6fb",
+    "uncached_cohorts_passed": 3,
+    "groups": [
+      "main_1024_1_0",
+      "main_1024_4_0",
+      "main_65536_1_0"
+    ],
+    "JSON_and_tools_passed": true,
+    "note": "Startup acceptance only; these single repeats are not pooled into the fixed performance comparison."
   }
 }

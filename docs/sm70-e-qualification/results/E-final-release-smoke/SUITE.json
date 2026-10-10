@@ -1,0 +1,38 @@
+{
+  "plan": {
+    "label": "E-final-release-smoke",
+    "base_url": "http://127.0.0.1:8200",
+    "groups": [
+      "main_1024_1_0",
+      "main_1024_4_0",
+      "main_65536_1_0"
+    ],
+    "repetitions": 1,
+    "reset_prefix_cache": false,
+    "cache_control": "request_salt",
+    "require_uncached": true,
+    "runtime_commit": "69801806572ea094b91d5f18864beb22c6c8b6fb"
+  },
+  "started_epoch": 1791621088.9856267,
+  "groups": [
+    {
+      "path": "results/E-final-release-smoke/00-main_1024_1_0.json",
+      "qualified": true,
+      "wall_s": 2.1329476800747216
+    },
+    {
+      "path": "results/E-final-release-smoke/00-main_1024_4_0.json",
+      "qualified": true,
+      "wall_s": 4.153235042933375
+    },
+    {
+      "path": "results/E-final-release-smoke/00-main_65536_1_0.json",
+      "qualified": true,
+      "wall_s": 23.658594171050936
+    }
+  ],
+  "status": "completed",
+  "gpu_before": "index, name, temperature.gpu, clocks.current.sm [MHz], clocks.current.memory [MHz], power.limit [W]\n0, Tesla V100-PCIE-32GB, 41, 1230 MHz, 877 MHz, 250.00 W\n1, Tesla V100-PCIE-32GB, 39, 1230 MHz, 877 MHz, 250.00 W\n2, Tesla V100-PCIE-32GB, 40, 1230 MHz, 877 MHz, 250.00 W\n3, Tesla V100-PCIE-32GB, 38, 1230 MHz, 877 MHz, 250.00 W\n",
+  "finished_epoch": 1791621121.1981046,
+  "gpu_after": "index, name, temperature.gpu, clocks.current.sm [MHz], clocks.current.memory [MHz], power.limit [W]\n0, Tesla V100-PCIE-32GB, 48, 1380 MHz, 877 MHz, 250.00 W\n1, Tesla V100-PCIE-32GB, 46, 1380 MHz, 877 MHz, 250.00 W\n2, Tesla V100-PCIE-32GB, 48, 1380 MHz, 877 MHz, 250.00 W\n3, Tesla V100-PCIE-32GB, 47, 1380 MHz, 877 MHz, 250.00 W\n"
+}

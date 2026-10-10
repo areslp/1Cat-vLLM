@@ -1,5 +1,5 @@
 {
-  "status": "Full fixed-compiler model qualification passed; final upstream-report startup smoke is pending",
+  "status": "Full fixed-compiler model qualification passed; E accepted and serving",
   "upstream_base": "16628e2f0a70761ba6525bf46e5e844c04b3e66f",
   "control_label": "Frozen upstream plus common compatibility fixes",
   "measured_revisions": {
@@ -22,5 +22,6 @@
   ],
   "measured_upstream_base": "4e5357b59294edd31c46e66ae8219503a843b2bd",
   "final_source_commit": "69801806572ea094b91d5f18864beb22c6c8b6fb",
-  "final_source_equivalence": "final-source-equivalence.json"
+  "final_source_equivalence": "final-source-equivalence.json",
+  "final_deployment": "final-deployment.json"
 }

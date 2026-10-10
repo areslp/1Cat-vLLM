@@ -3,5 +3,9 @@
   "upstream_base": "16628e2f0a70761ba6525bf46e5e844c04b3e66f",
   "measured_commit": "d686ca549b6087ad36211d4a2cb771c840399925",
   "version": "1.5.1.dev2742+g698018065",
-  "startup_acceptance": "See final-deployment.json once the independent final smoke completes."
+  "startup_acceptance": "E accepted and serving; see final-deployment.json.",
+  "PR_head": "c07dedb4eb6b08affc4bdcc4d80e71455256a856",
+  "PR_head_difference_from_runtime": [
+    "docs/design/sm70_mtp_residuals.md"
+  ]
 }

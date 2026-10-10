@@ -1,0 +1,23 @@
+{
+  "status": "E accepted and serving",
+  "final_E_commit": "69801806572ea094b91d5f18864beb22c6c8b6fb",
+  "upstream_base": "16628e2f0a70761ba6525bf46e5e844c04b3e66f",
+  "measured_E_commit": "d686ca549b6087ad36211d4a2cb771c840399925",
+  "rollback_D_commit": "c64c4824e830301b3f0fec2da47a202e49ede20e",
+  "actual_production_commit": "69801806572ea094b91d5f18864beb22c6c8b6fb",
+  "accepted_E": true,
+  "PR_head": "c07dedb4eb6b08affc4bdcc4d80e71455256a856",
+  "PR_head_difference_from_runtime": "Documentation only: docs/design/sm70_mtp_residuals.md; no runtime code changes.",
+  "final_smoke_cohorts": 3,
+  "final_protocol_checks_passed": true,
+  "earlier_attempt": "The preceding report-only startup did not reach readiness before its independent deadline. D was restored once at that window close. No numerical failure was observed in that attempt.",
+  "final_window": "Separately authorized 15-minute final startup/smoke window with a 15-minute D recovery reserve; no performance matrix rerun.",
+  "performance_measurement_scope": "Full matrix measures the exact frozen revisions, not the later report-only final source. See final-source-equivalence.json.",
+  "runtime_verification": {
+    "clean_git": true,
+    "GPU_workers": 4,
+    "source_and_native_paths_verified": true,
+    "native_file_count": 8,
+    "health": 200
+  }
+}

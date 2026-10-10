@@ -1,0 +1,42 @@
+{
+  "baseRefName": "main",
+  "headRefOid": "c07dedb4eb6b08affc4bdcc4d80e71455256a856",
+  "isDraft": false,
+  "mergeStateStatus": "UNSTABLE",
+  "mergeable": "MERGEABLE",
+  "statusCheckRollup": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-10T08:30:44Z",
+      "conclusion": "FAILURE",
+      "detailsUrl": "https://github.com/1CatAI/1Cat-vLLM/actions/runs/38038124617/job/114172749654",
+      "name": "pre-run-check",
+      "startedAt": "2026-10-10T08:30:41Z",
+      "status": "COMPLETED",
+      "workflowName": "pre-commit"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-10T08:30:57Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/1CatAI/1Cat-vLLM/actions/runs/38038124623/job/114172749808",
+      "name": "check",
+      "startedAt": "2026-10-10T08:30:41Z",
+      "status": "COMPLETED",
+      "workflowName": "architecture-docs"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-10T08:30:44Z",
+      "conclusion": "SKIPPED",
+      "detailsUrl": "https://github.com/1CatAI/1Cat-vLLM/actions/runs/38038124617/job/114172766101",
+      "name": "pre-commit",
+      "startedAt": "2026-10-10T08:30:44Z",
+      "status": "COMPLETED",
+      "workflowName": "pre-commit"
+    }
+  ],
+  "title": "SM70: integrate retained MTP optimizations with upstream runtime owners",
+  "url": "https://github.com/1CatAI/1Cat-vLLM/pull/903",
+  "gate_reason": "Author has 3 merged PRs; normal hosted pre-commit requires 4 or a maintainer-applied ready/verified label. The full job was skipped; local hooks passed."
+}

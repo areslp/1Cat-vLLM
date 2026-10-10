@@ -4093,6 +4093,30 @@
     "E-fixed-video.json": {
       "source_file_sha256": "951d43f03eb5d907d3b4381eae0a5e468f981e8e33940a277329713031c69c7b",
       "exported_sha256": "c7cea56c88066fb9322c9b1751f78c9223c4b1318cf697a75eb0ffc0763002bf"
+    },
+    "results/E-final-release-smoke/00-main_1024_1_0.json": {
+      "source_file_sha256": "af2f72cda4d1a252659821616064ef5b210da0f2f5c71fcf8ade7976c346fd61",
+      "exported_sha256": "af2f72cda4d1a252659821616064ef5b210da0f2f5c71fcf8ade7976c346fd61"
+    },
+    "results/E-final-release-smoke/00-main_1024_4_0.json": {
+      "source_file_sha256": "3160d85ed6d49e55414736285de9eb1266005442e00382821ff4e81f262b7dda",
+      "exported_sha256": "3160d85ed6d49e55414736285de9eb1266005442e00382821ff4e81f262b7dda"
+    },
+    "results/E-final-release-smoke/00-main_65536_1_0.json": {
+      "source_file_sha256": "38e7c3ed0f87667f20606153ca9de8f690461e6d56dcf95d8074947ddc5a3c84",
+      "exported_sha256": "38e7c3ed0f87667f20606153ca9de8f690461e6d56dcf95d8074947ddc5a3c84"
+    },
+    "results/E-final-release-smoke/SUITE.json": {
+      "source_file_sha256": "62b23b2f7f42380cc5ff4c0ac0d2506ce96befe142bebad664bf739d71d2fe1e",
+      "exported_sha256": "62b23b2f7f42380cc5ff4c0ac0d2506ce96befe142bebad664bf739d71d2fe1e"
+    },
+    "evidence/E-final-release/protocol_features/json_constraint.json": {
+      "source_file_sha256": "cf5ced34a2355763734b9395880e780d987606014c0b4bcc6bbf392c942c8fc1",
+      "exported_sha256": "193cdf155ac9b1038cb32067a42c38db889d0e56d4e4b010bcfce84fbd7973de"
+    },
+    "evidence/E-final-release/protocol_features/tool_auto.json": {
+      "source_file_sha256": "032fd3c1e75a89eda5192bd0b62d8d18fdaaf1b87d70ad28e702c248e51fe7a4",
+      "exported_sha256": "898cf45f0a90bf685f616f966f6e331a75df790293b99129f740623e56dde155"
     }
   }
 }

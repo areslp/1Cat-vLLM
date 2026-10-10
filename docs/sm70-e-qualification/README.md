@@ -145,3 +145,7 @@ those CPU checks.
 
 AI assistance was used. Public artifacts exclude raw operational logs, private
 host paths, credentials and model weights.
+
+## Final deployment status
+
+E accepted and serving. See [final-deployment.json](final-deployment.json).

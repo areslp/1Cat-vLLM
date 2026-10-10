@@ -1,0 +1,9 @@
+{
+  "runtime_qualified_commit": "69801806572ea094b91d5f18864beb22c6c8b6fb",
+  "PR_head": "c07dedb4eb6b08affc4bdcc4d80e71455256a856",
+  "changed_files": [
+    "docs/design/sm70_mtp_residuals.md"
+  ],
+  "runtime_code_unchanged": true,
+  "normal_local_hooks_passed": true
+}
