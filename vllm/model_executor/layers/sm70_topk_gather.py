@@ -131,6 +131,7 @@ def gather_topk_pairs(
 def capture_top1_transport() -> Callable[[torch.Tensor, int, int], torch.Tensor | None]:
     """Resolve policy at layer construction; forward never reads process env."""
     from vllm.config import get_current_vllm_config_or_none
+    from vllm.config.execution_policy import communication_policy
     from vllm.model_executor.layers import sm70_draft47
 
     cfg = get_current_vllm_config_or_none()
@@ -139,10 +140,13 @@ def capture_top1_transport() -> Callable[[torch.Tensor, int, int], torch.Tensor 
         if cfg is not None
         else sm70_draft47.enabled("d1a")
     )
+    custom_ar = communication_policy(cfg).top1_custom_ar
 
     def transport(logits, vocab_start, tp_size):
         if tp_size <= 1 or not enabled:
             return None
-        return sm70_draft47.top_tokens(logits, vocab_start, tp_size)
+        return sm70_draft47.top_tokens(
+            logits, vocab_start, tp_size, custom_ar=custom_ar
+        )
 
     return transport

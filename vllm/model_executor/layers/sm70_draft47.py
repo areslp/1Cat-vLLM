@@ -28,6 +28,7 @@ import os
 import torch
 
 from vllm import envs
+from vllm.config.execution_policy import communication_policy
 from vllm.config.sm70_draft import UNITS as UNITS
 from vllm.config.sm70_draft import parse_legacy_units
 from vllm.triton_utils import tl, triton
@@ -192,7 +193,9 @@ def _global_top1_kernel(
     tl.store(out_ptr + rows, best_i.to(tl.int64), mask=live)
 
 
-def top1_block_reason(logits: torch.Tensor, tp_size: int) -> str | None:
+def top1_block_reason(
+    logits: torch.Tensor, tp_size: int, *, custom_ar: bool | None = None
+) -> str | None:
     if tp_size <= 1:
         return "tp1"
     if not logits.is_cuda:
@@ -203,7 +206,9 @@ def top1_block_reason(logits: torch.Tensor, tp_size: int) -> str | None:
         return "shape"
     if logits.shape[0] > 4096 or logits.shape[1] >= 2**31 - 1:
         return "size"
-    if envs.VLLM_SM70_SYNC_TOP1_ALLGATHER_STEPS or envs.VLLM_SM70_TOP1_CUSTOM_AR:
+    if custom_ar is None:
+        custom_ar = communication_policy().top1_custom_ar
+    if envs.VLLM_SM70_SYNC_TOP1_ALLGATHER_STEPS or custom_ar:
         return "top1_env"
     return None
 
@@ -237,11 +242,15 @@ def global_top1(gathered: torch.Tensor, tp_size: int, num_rows: int) -> torch.Te
 
 
 def top_tokens(
-    logits: torch.Tensor, vocab_start: int, tp_size: int
+    logits: torch.Tensor,
+    vocab_start: int,
+    tp_size: int,
+    *,
+    custom_ar: bool | None = None,
 ) -> torch.Tensor | None:
     """d1a: the global argmax token per row, or None (with a counted reason)
     when the fused path does not apply."""
-    reason = top1_block_reason(logits, tp_size)
+    reason = top1_block_reason(logits, tp_size, custom_ar=custom_ar)
     if reason is not None:
         note_route("d1a", f"fallback:{reason}")
         return None

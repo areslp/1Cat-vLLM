@@ -220,3 +220,35 @@ def test_shortconv_provider_captures_policy_and_owns_each_engine_descriptor(
     for c in calls:
         assert c.kwargs["state_start_indices"] is indices
         assert c.kwargs["req_index_mapping"] is mapping
+
+
+@pytest.mark.parametrize("reverse", [False, True])
+def test_retained_logits_use_each_captured_collective_policy(monkeypatch, reverse):
+    from vllm.config.execution_policy import CommunicationPolicy
+    from vllm.model_executor.layers import logits_processor as module
+
+    monkeypatch.setenv("VLLM_SM70_TOP1_CUSTOM_AR", "1")
+    policies = [CommunicationPolicy(top1_custom_ar=value) for value in (False, True)]
+    for policy in policies:
+        policy.resolve()
+    monkeypatch.setattr(module, "get_tensor_model_parallel_world_size", lambda: 4)
+    processors = []
+    for policy in reversed(policies) if reverse else policies:
+        monkeypatch.setattr(module, "communication_policy", lambda p=policy: p)
+        processors.append(module.LogitsProcessor(16))
+    monkeypatch.setenv("VLLM_SM70_TOP1_CUSTOM_AR", "0")
+    monkeypatch.setattr(module.current_platform, "is_device_capability", lambda _: True)
+    answer = torch.tensor([9])
+    collective = Mock(return_value=answer)
+    monkeypatch.setattr(
+        module,
+        "get_tp_group",
+        lambda: NS(device_communicator=NS(ca_comm=NS(custom_top1_argmax=collective))),
+    )
+    pair = torch.tensor([[1.0, 9.0]])
+    for processor in processors:
+        result = processor._maybe_custom_top1_argmax(pair)
+        assert result is (
+            answer if processor._communication_policy.top1_custom_ar else None
+        )
+    collective.assert_called_once()

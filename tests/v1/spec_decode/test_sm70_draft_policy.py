@@ -8,6 +8,7 @@ from unittest.mock import Mock
 import pytest
 
 from vllm.config import KernelConfig
+from vllm.config.execution_policy import CommunicationPolicy
 from vllm.config.sm70_draft import Sm70DraftConfig, parse_legacy_units
 from vllm.model_executor.layers import sm70_draft47
 from vllm.model_executor.layers.sm70_topk_gather import capture_top1_transport
@@ -47,10 +48,16 @@ def test_top1_transport_retains_its_engine_policy(monkeypatch):
     import vllm.config as config_module
 
     first = SimpleNamespace(
-        kernel_config=KernelConfig(sm70_draft=Sm70DraftConfig(units=("d1a",)))
+        kernel_config=KernelConfig(sm70_draft=Sm70DraftConfig(units=("d1a",))),
+        parallel_config=SimpleNamespace(
+            communication=CommunicationPolicy(top1_custom_ar=False)
+        ),
     )
     second = SimpleNamespace(
-        kernel_config=KernelConfig(sm70_draft=Sm70DraftConfig(units=()))
+        kernel_config=KernelConfig(sm70_draft=Sm70DraftConfig(units=())),
+        parallel_config=SimpleNamespace(
+            communication=CommunicationPolicy(top1_custom_ar=True)
+        ),
     )
     monkeypatch.setattr(config_module, "get_current_vllm_config_or_none", lambda: first)
     enabled = capture_top1_transport()
@@ -69,7 +76,53 @@ def test_top1_transport_retains_its_engine_policy(monkeypatch):
     assert enabled(logits, 256, 4) is result
     assert disabled(logits, 256, 4) is None
     assert enabled(logits, 256, 1) is None
-    kernel.assert_called_once_with(logits, 256, 4)
+    kernel.assert_called_once_with(logits, 256, 4, custom_ar=False)
+
+
+@pytest.mark.parametrize("reverse", [False, True])
+def test_top1_transport_keeps_collective_admission_after_context_change(
+    monkeypatch, reverse
+):
+    import torch
+
+    import vllm.config as config_module
+
+    monkeypatch.setenv("VLLM_SM70_TOP1_CUSTOM_AR", "1")
+    monkeypatch.delenv("VLLM_SM70_SYNC_TOP1_ALLGATHER_STEPS", raising=False)
+    order = (True, False) if reverse else (False, True)
+    transports = []
+    for custom_ar in order:
+        policy = CommunicationPolicy(top1_custom_ar=custom_ar)
+        policy.resolve()
+        cfg = SimpleNamespace(
+            kernel_config=KernelConfig(sm70_draft=Sm70DraftConfig(units=("d1a",))),
+            parallel_config=SimpleNamespace(communication=policy),
+        )
+        monkeypatch.setattr(
+            config_module, "get_current_vllm_config_or_none", lambda c=cfg: c
+        )
+        transports.append(capture_top1_transport())
+    monkeypatch.setattr(config_module, "get_current_vllm_config_or_none", lambda: None)
+    monkeypatch.setenv("VLLM_SM70_TOP1_CUSTOM_AR", "0")
+    # Exercise admission with an eligible layout descriptor, without a CUDA tensor.
+    logits = SimpleNamespace(
+        is_cuda=True,
+        dtype=torch.float16,
+        shape=(1, 32),
+        dim=lambda: 2,
+        stride=lambda _: 1,
+    )
+    reasons = []
+
+    def probe(tensor, start, size, *, custom_ar):
+        reasons.append(
+            sm70_draft47.top1_block_reason(tensor, size, custom_ar=custom_ar)
+        )
+
+    monkeypatch.setattr(sm70_draft47, "top_tokens", probe)
+    for transport in transports:
+        transport(logits, 256, 4)
+    assert reasons == ["top1_env" if value else None for value in order]
 
 
 def test_graph_and_padding_adapters_use_explicit_engine_policy(monkeypatch):

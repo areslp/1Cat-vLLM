@@ -1,0 +1,56 @@
+{
+  "frozen_upstream": "5dc280bb7f073f76c514a4696c5f434a0080c156",
+  "previous_pr_head": "e5f648f235e5bcbb9efe3476258c492eb7ba7ce1",
+  "cpu_scope": {
+    "tests": 1395,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 173,
+    "passed": 1222
+  },
+  "test_file_count": 61,
+  "separate_cold_import": {
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 1
+  },
+  "deselected_in_main_scope": [
+    "test_collective_cold_import_resolves_cuda_platform_before_config"
+  ],
+  "not_collected": {
+    "tests/v1/attention/test_cuda_backend_priority_turing.py": "Initial collection failed: vllm._C is absent; new native build required."
+  },
+  "environment": {
+    "python": "3.12.13",
+    "torch": "2.10.0+cu128",
+    "CUDA_VISIBLE_DEVICES": "",
+    "platform": "CpuPlatform",
+    "HF_HUB_OFFLINE": "1",
+    "TRANSFORMERS_OFFLINE": "1",
+    "cpu_affinity": "one CPU",
+    "OMP_NUM_THREADS": "1"
+  },
+  "harness": "Inherited CpuPlatform bootstrap; --noconftest. Individual unit tests mock dependencies. Cold import runs separately without inherited platform initialization.",
+  "pytest_arguments": [
+    "--noconftest",
+    "-q",
+    "-k",
+    "not test_collective_cold_import_resolves_cuda_platform_before_config"
+  ],
+  "bootstrap_source": "docs/sm70-c73-cpu at b352d3967a166bdc468b21b959ebe98529032d1a",
+  "gpu_executed": false,
+  "native_build_executed": false,
+  "core_native_residual_from_frozen_upstream": false,
+  "attention_native_changed_from_previous_pr": false,
+  "native_rebuild_required": [
+    "core _C configured collective entry point"
+  ],
+  "initial_failures_preserved": [
+    "Collection: missing vllm._C for Turing backend priority test",
+    "Policy hook: retained top1 read migrated environment alias",
+    "New test fixture: non-empty sync-step string 0 enables diagnostic admission block",
+    "New reproduction test type annotations and formatter corrections"
+  ]
+}
