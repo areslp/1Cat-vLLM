@@ -1,0 +1,17 @@
+{
+  "requests": [
+    {
+      "id": "q_json_fields_0",
+      "text": "```json\n{\n  \"a\": 3,\n  \"b\": 5\n}\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 57,
+        "total_tokens": 81,
+        "completion_tokens": 24
+      },
+      "finish_reason": "stop",
+      "input_token_sha256": "5e4a33fb0a97b2b148446707de20b1fb6b75bf8780cfe2e3667e1cdfe2bf1db2",
+      "request_sha256": "c6bebea2bd88d39a924b1edacf439bbaf4377a1aeb20da63255e923c8a146561"
+    }
+  ]
+}

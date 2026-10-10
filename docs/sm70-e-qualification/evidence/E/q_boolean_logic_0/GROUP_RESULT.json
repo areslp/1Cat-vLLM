@@ -1,0 +1,17 @@
+{
+  "requests": [
+    {
+      "id": "q_boolean_logic_0",
+      "text": "true",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 58,
+        "total_tokens": 60,
+        "completion_tokens": 2
+      },
+      "finish_reason": "stop",
+      "input_token_sha256": "57dba2009990a5431f51900c6c828082d1e9943840845dcec1ee02330420a121",
+      "request_sha256": "ed9cb19e45e295f6c85dc1c541c05453e61ed95b3243f75ba76385a6a837b71b"
+    }
+  ]
+}

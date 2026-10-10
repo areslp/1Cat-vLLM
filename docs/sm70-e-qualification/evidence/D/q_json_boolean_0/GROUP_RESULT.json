@@ -1,0 +1,17 @@
+{
+  "requests": [
+    {
+      "id": "q_json_boolean_0",
+      "text": "```json\n{\n  \"ok\": true,\n  \"n\": 2\n}\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 55,
+        "total_tokens": 78,
+        "completion_tokens": 23
+      },
+      "finish_reason": "stop",
+      "input_token_sha256": "52687a13b9a57884473e83be073a6f811b1f9a6be9e252a99ad2063a8469bb29",
+      "request_sha256": "d6266db1380263eb7b8a16e5db2546b1afd64c2f4976401f54c59326ef289b58"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "requests": [
+    {
+      "id": "q_numeric_sort_0",
+      "text": "[-3,0,2,2,11]",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 58,
+        "total_tokens": 71,
+        "completion_tokens": 13
+      },
+      "finish_reason": "stop",
+      "input_token_sha256": "ec6f5e6ba0f623e2ad43ede5c6e3c2d633f9f480eefb9e769f0963b4d28ffc7e",
+      "request_sha256": "08c45e151d09d21d37adfb73b14c1e68d7be6b1b87a2e16b0d691b0e5c3809a1"
+    }
+  ]
+}

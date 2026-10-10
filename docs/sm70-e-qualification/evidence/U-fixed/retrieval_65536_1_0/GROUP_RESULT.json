@@ -1,0 +1,17 @@
+{
+  "requests": [
+    {
+      "id": "retrieval_65536_1_0",
+      "text": "{\n  \"HEAD_KEY\": \"ed59055a886c\",\n  \"MIDDLE_KEY\": \"64c7c1c9a186\",\n  \"TAIL_KEY\": \"8a00f9e69059\"\n}",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 65536,
+        "total_tokens": 65600,
+        "completion_tokens": 64
+      },
+      "finish_reason": "stop",
+      "input_token_sha256": "ea4114a674e5503762878b3dd90363b5c10dba488e3438df0497e5815cdc2c60",
+      "request_sha256": "3a2976de57ebb11e33a6bf9583211e302355ae1240c7f06e8f4ade5fcd7975c4"
+    }
+  ]
+}

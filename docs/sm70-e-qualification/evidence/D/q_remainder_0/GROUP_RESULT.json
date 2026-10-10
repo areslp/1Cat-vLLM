@@ -1,0 +1,17 @@
+{
+  "requests": [
+    {
+      "id": "q_remainder_0",
+      "text": "8",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 51,
+        "total_tokens": 53,
+        "completion_tokens": 2
+      },
+      "finish_reason": "stop",
+      "input_token_sha256": "837a15bf88b9c3c793588f17ce58b3d84860220d561df8cc0639f2a817614adb",
+      "request_sha256": "f94423142df15acaecb1761339ac43bb9769cfd2d0ad4b389c6195c6f3c0bed4"
+    }
+  ]
+}

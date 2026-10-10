@@ -1,0 +1,612 @@
+{
+  "plan": {
+    "label": "D-timed-a",
+    "base_url": "http://127.0.0.1:8200",
+    "groups": [
+      "main_1024_1_0",
+      "main_1024_1_1",
+      "main_1024_4_0",
+      "main_1024_8_0",
+      "main_1024_8_1",
+      "decode_1024_8_0",
+      "main_32768_1_0",
+      "main_65536_1_0",
+      "prefill_main_1024_1_0",
+      "prefill_main_1024_4_0",
+      "prefill_main_1024_8_0",
+      "prefill_main_32768_1_0",
+      "prefill_main_65536_1_0",
+      "regression_c1_00",
+      "regression_c1_01",
+      "regression_c1_02",
+      "regression_c1_03",
+      "regression_c1_04",
+      "regression_c1_05",
+      "regression_c1_06",
+      "regression_c1_07",
+      "regression_c1_08",
+      "regression_c1_09",
+      "regression_c1_10",
+      "regression_c1_11",
+      "regression_c1_12",
+      "regression_c1_13",
+      "regression_c1_14",
+      "regression_c1_15",
+      "regression_c1_16",
+      "regression_c1_17",
+      "regression_c1_18",
+      "regression_c1_19",
+      "regression_c1_20",
+      "regression_c1_21",
+      "regression_c1_22",
+      "regression_c1_23"
+    ],
+    "repetitions": 3,
+    "reset_prefix_cache": false,
+    "cache_control": "request_salt",
+    "require_uncached": true,
+    "runtime_commit": "c64c4824e830301b3f0fec2da47a202e49ede20e"
+  },
+  "started_epoch": 1791605252.8713665,
+  "groups": [
+    {
+      "path": "results/D-timed-a/00-main_1024_1_0.json",
+      "qualified": true,
+      "wall_s": 2.1620386820286512
+    },
+    {
+      "path": "results/D-timed-a/00-main_1024_1_1.json",
+      "qualified": true,
+      "wall_s": 1.9944343492388725
+    },
+    {
+      "path": "results/D-timed-a/00-main_1024_4_0.json",
+      "qualified": true,
+      "wall_s": 4.225587422028184
+    },
+    {
+      "path": "results/D-timed-a/00-main_1024_8_0.json",
+      "qualified": true,
+      "wall_s": 5.618549752980471
+    },
+    {
+      "path": "results/D-timed-a/00-main_1024_8_1.json",
+      "qualified": true,
+      "wall_s": 5.875126420054585
+    },
+    {
+      "path": "results/D-timed-a/00-decode_1024_8_0.json",
+      "qualified": true,
+      "wall_s": 27.721440489869565
+    },
+    {
+      "path": "results/D-timed-a/00-main_32768_1_0.json",
+      "qualified": true,
+      "wall_s": 12.301825469825417
+    },
+    {
+      "path": "results/D-timed-a/00-main_65536_1_0.json",
+      "qualified": true,
+      "wall_s": 23.823049949947745
+    },
+    {
+      "path": "results/D-timed-a/00-prefill_main_1024_1_0.json",
+      "qualified": true,
+      "wall_s": 0.34886750811710954
+    },
+    {
+      "path": "results/D-timed-a/00-prefill_main_1024_4_0.json",
+      "qualified": true,
+      "wall_s": 1.2319220388308167
+    },
+    {
+      "path": "results/D-timed-a/00-prefill_main_1024_8_0.json",
+      "qualified": true,
+      "wall_s": 2.3743514572270215
+    },
+    {
+      "path": "results/D-timed-a/00-prefill_main_32768_1_0.json",
+      "qualified": true,
+      "wall_s": 10.655558631755412
+    },
+    {
+      "path": "results/D-timed-a/00-prefill_main_65536_1_0.json",
+      "qualified": true,
+      "wall_s": 22.157677235081792
+    },
+    {
+      "path": "results/D-timed-a/00-regression_c1_00.json",
+      "qualified": true,
+      "wall_s": 2.004526562988758
+    },
+    {
+      "path": "results/D-timed-a/00-regression_c1_01.json",
+      "qualified": true,
+      "wall_s": 2.065497735980898
+    },
+    {
+      "path": "results/D-timed-a/00-regression_c1_02.json",
+      "qualified": true,
+      "wall_s": 2.1560801370069385
+    },
+    {
+      "path": "results/D-timed-a/00-regression_c1_03.json",
+      "qualified": true,
+      "wall_s": 1.8023787271231413
+    },
+    {
+      "path": "results/D-timed-a/00-regression_c1_04.json",
+      "qualified": true,
+      "wall_s": 2.251233242917806
+    },
+    {
+      "path": "results/D-timed-a/00-regression_c1_05.json",
+      "qualified": true,
+      "wall_s": 2.0904701841063797
+    },
+    {
+      "path": "results/D-timed-a/00-regression_c1_06.json",
+      "qualified": true,
+      "wall_s": 2.0621826169081032
+    },
+    {
+      "path": "results/D-timed-a/00-regression_c1_07.json",
+      "qualified": true,
+      "wall_s": 1.933113943785429
+    },
+    {
+      "path": "results/D-timed-a/00-regression_c1_08.json",
+      "qualified": true,
+      "wall_s": 2.0585907376371324
+    },
+    {
+      "path": "results/D-timed-a/00-regression_c1_09.json",
+      "qualified": true,
+      "wall_s": 2.123958458658308
+    },
+    {
+      "path": "results/D-timed-a/00-regression_c1_10.json",
+      "qualified": true,
+      "wall_s": 2.1524488050490618
+    },
+    {
+      "path": "results/D-timed-a/00-regression_c1_11.json",
+      "qualified": true,
+      "wall_s": 1.73677237611264
+    },
+    {
+      "path": "results/D-timed-a/00-regression_c1_12.json",
+      "qualified": true,
+      "wall_s": 1.9922488112933934
+    },
+    {
+      "path": "results/D-timed-a/00-regression_c1_13.json",
+      "qualified": true,
+      "wall_s": 2.0556601812131703
+    },
+    {
+      "path": "results/D-timed-a/00-regression_c1_14.json",
+      "qualified": true,
+      "wall_s": 1.89880754891783
+    },
+    {
+      "path": "results/D-timed-a/00-regression_c1_15.json",
+      "qualified": true,
+      "wall_s": 2.0230850549414754
+    },
+    {
+      "path": "results/D-timed-a/00-regression_c1_16.json",
+      "qualified": true,
+      "wall_s": 1.8992105522193015
+    },
+    {
+      "path": "results/D-timed-a/00-regression_c1_17.json",
+      "qualified": true,
+      "wall_s": 2.342389868106693
+    },
+    {
+      "path": "results/D-timed-a/00-regression_c1_18.json",
+      "qualified": true,
+      "wall_s": 1.8649388756603003
+    },
+    {
+      "path": "results/D-timed-a/00-regression_c1_19.json",
+      "qualified": true,
+      "wall_s": 2.2780718547292054
+    },
+    {
+      "path": "results/D-timed-a/00-regression_c1_20.json",
+      "qualified": true,
+      "wall_s": 2.090198867022991
+    },
+    {
+      "path": "results/D-timed-a/00-regression_c1_21.json",
+      "qualified": true,
+      "wall_s": 2.0249936869367957
+    },
+    {
+      "path": "results/D-timed-a/00-regression_c1_22.json",
+      "qualified": true,
+      "wall_s": 1.9959797719493508
+    },
+    {
+      "path": "results/D-timed-a/00-regression_c1_23.json",
+      "qualified": true,
+      "wall_s": 1.8708977568894625
+    },
+    {
+      "path": "results/D-timed-a/01-regression_c1_23.json",
+      "qualified": true,
+      "wall_s": 1.8686345047317445
+    },
+    {
+      "path": "results/D-timed-a/01-regression_c1_22.json",
+      "qualified": true,
+      "wall_s": 1.9947794019244611
+    },
+    {
+      "path": "results/D-timed-a/01-regression_c1_21.json",
+      "qualified": true,
+      "wall_s": 2.028759171254933
+    },
+    {
+      "path": "results/D-timed-a/01-regression_c1_20.json",
+      "qualified": true,
+      "wall_s": 2.0861434410326183
+    },
+    {
+      "path": "results/D-timed-a/01-regression_c1_19.json",
+      "qualified": true,
+      "wall_s": 2.278573256917298
+    },
+    {
+      "path": "results/D-timed-a/01-regression_c1_18.json",
+      "qualified": true,
+      "wall_s": 1.8644501441158354
+    },
+    {
+      "path": "results/D-timed-a/01-regression_c1_17.json",
+      "qualified": true,
+      "wall_s": 2.34595461608842
+    },
+    {
+      "path": "results/D-timed-a/01-regression_c1_16.json",
+      "qualified": true,
+      "wall_s": 1.8959859237074852
+    },
+    {
+      "path": "results/D-timed-a/01-regression_c1_15.json",
+      "qualified": true,
+      "wall_s": 2.023548809811473
+    },
+    {
+      "path": "results/D-timed-a/01-regression_c1_14.json",
+      "qualified": true,
+      "wall_s": 1.900082420092076
+    },
+    {
+      "path": "results/D-timed-a/01-regression_c1_13.json",
+      "qualified": true,
+      "wall_s": 2.0553989252075553
+    },
+    {
+      "path": "results/D-timed-a/01-regression_c1_12.json",
+      "qualified": true,
+      "wall_s": 1.9907680419273674
+    },
+    {
+      "path": "results/D-timed-a/01-regression_c1_11.json",
+      "qualified": true,
+      "wall_s": 1.7374016079120338
+    },
+    {
+      "path": "results/D-timed-a/01-regression_c1_10.json",
+      "qualified": true,
+      "wall_s": 2.1500122188590467
+    },
+    {
+      "path": "results/D-timed-a/01-regression_c1_09.json",
+      "qualified": true,
+      "wall_s": 2.1213077176362276
+    },
+    {
+      "path": "results/D-timed-a/01-regression_c1_08.json",
+      "qualified": true,
+      "wall_s": 2.0615744558162987
+    },
+    {
+      "path": "results/D-timed-a/01-regression_c1_07.json",
+      "qualified": true,
+      "wall_s": 1.9350894200615585
+    },
+    {
+      "path": "results/D-timed-a/01-regression_c1_06.json",
+      "qualified": true,
+      "wall_s": 2.057863897178322
+    },
+    {
+      "path": "results/D-timed-a/01-regression_c1_05.json",
+      "qualified": true,
+      "wall_s": 2.0909983669407666
+    },
+    {
+      "path": "results/D-timed-a/01-regression_c1_04.json",
+      "qualified": true,
+      "wall_s": 2.2488324530422688
+    },
+    {
+      "path": "results/D-timed-a/01-regression_c1_03.json",
+      "qualified": true,
+      "wall_s": 1.8007982140406966
+    },
+    {
+      "path": "results/D-timed-a/01-regression_c1_02.json",
+      "qualified": true,
+      "wall_s": 2.1548208203166723
+    },
+    {
+      "path": "results/D-timed-a/01-regression_c1_01.json",
+      "qualified": true,
+      "wall_s": 2.062562398146838
+    },
+    {
+      "path": "results/D-timed-a/01-regression_c1_00.json",
+      "qualified": true,
+      "wall_s": 1.9924387857317924
+    },
+    {
+      "path": "results/D-timed-a/01-prefill_main_65536_1_0.json",
+      "qualified": true,
+      "wall_s": 22.179190571885556
+    },
+    {
+      "path": "results/D-timed-a/01-prefill_main_32768_1_0.json",
+      "qualified": true,
+      "wall_s": 10.628322240896523
+    },
+    {
+      "path": "results/D-timed-a/01-prefill_main_1024_8_0.json",
+      "qualified": true,
+      "wall_s": 2.3604145268909633
+    },
+    {
+      "path": "results/D-timed-a/01-prefill_main_1024_4_0.json",
+      "qualified": true,
+      "wall_s": 1.1577642760239542
+    },
+    {
+      "path": "results/D-timed-a/01-prefill_main_1024_1_0.json",
+      "qualified": true,
+      "wall_s": 0.346425770316273
+    },
+    {
+      "path": "results/D-timed-a/01-main_65536_1_0.json",
+      "qualified": true,
+      "wall_s": 23.833164372947067
+    },
+    {
+      "path": "results/D-timed-a/01-main_32768_1_0.json",
+      "qualified": true,
+      "wall_s": 12.31476918188855
+    },
+    {
+      "path": "results/D-timed-a/01-decode_1024_8_0.json",
+      "qualified": true,
+      "wall_s": 26.534167396835983
+    },
+    {
+      "path": "results/D-timed-a/01-main_1024_8_1.json",
+      "qualified": true,
+      "wall_s": 6.067158600781113
+    },
+    {
+      "path": "results/D-timed-a/01-main_1024_8_0.json",
+      "qualified": true,
+      "wall_s": 5.62951587093994
+    },
+    {
+      "path": "results/D-timed-a/01-main_1024_4_0.json",
+      "qualified": true,
+      "wall_s": 4.05140603100881
+    },
+    {
+      "path": "results/D-timed-a/01-main_1024_1_1.json",
+      "qualified": true,
+      "wall_s": 1.9915922228246927
+    },
+    {
+      "path": "results/D-timed-a/01-main_1024_1_0.json",
+      "qualified": true,
+      "wall_s": 2.152144553139806
+    },
+    {
+      "path": "results/D-timed-a/02-main_1024_1_0.json",
+      "qualified": true,
+      "wall_s": 2.151917248032987
+    },
+    {
+      "path": "results/D-timed-a/02-main_1024_1_1.json",
+      "qualified": true,
+      "wall_s": 1.996251376811415
+    },
+    {
+      "path": "results/D-timed-a/02-main_1024_4_0.json",
+      "qualified": true,
+      "wall_s": 4.123760778922588
+    },
+    {
+      "path": "results/D-timed-a/02-main_1024_8_0.json",
+      "qualified": true,
+      "wall_s": 5.607496186159551
+    },
+    {
+      "path": "results/D-timed-a/02-main_1024_8_1.json",
+      "qualified": true,
+      "wall_s": 5.707834430970252
+    },
+    {
+      "path": "results/D-timed-a/02-decode_1024_8_0.json",
+      "qualified": true,
+      "wall_s": 27.175552561879158
+    },
+    {
+      "path": "results/D-timed-a/02-main_32768_1_0.json",
+      "qualified": true,
+      "wall_s": 12.347810785286129
+    },
+    {
+      "path": "results/D-timed-a/02-main_65536_1_0.json",
+      "qualified": true,
+      "wall_s": 23.840533582028
+    },
+    {
+      "path": "results/D-timed-a/02-prefill_main_1024_1_0.json",
+      "qualified": true,
+      "wall_s": 0.3424284169450402
+    },
+    {
+      "path": "results/D-timed-a/02-prefill_main_1024_4_0.json",
+      "qualified": true,
+      "wall_s": 1.1587983551435173
+    },
+    {
+      "path": "results/D-timed-a/02-prefill_main_1024_8_0.json",
+      "qualified": true,
+      "wall_s": 2.298630452249199
+    },
+    {
+      "path": "results/D-timed-a/02-prefill_main_32768_1_0.json",
+      "qualified": true,
+      "wall_s": 10.630643906071782
+    },
+    {
+      "path": "results/D-timed-a/02-prefill_main_65536_1_0.json",
+      "qualified": true,
+      "wall_s": 22.118847749661654
+    },
+    {
+      "path": "results/D-timed-a/02-regression_c1_00.json",
+      "qualified": true,
+      "wall_s": 2.005368407815695
+    },
+    {
+      "path": "results/D-timed-a/02-regression_c1_01.json",
+      "qualified": true,
+      "wall_s": 2.0660113650374115
+    },
+    {
+      "path": "results/D-timed-a/02-regression_c1_02.json",
+      "qualified": true,
+      "wall_s": 2.1573070529848337
+    },
+    {
+      "path": "results/D-timed-a/02-regression_c1_03.json",
+      "qualified": true,
+      "wall_s": 1.8031460950151086
+    },
+    {
+      "path": "results/D-timed-a/02-regression_c1_04.json",
+      "qualified": true,
+      "wall_s": 2.255128565710038
+    },
+    {
+      "path": "results/D-timed-a/02-regression_c1_05.json",
+      "qualified": true,
+      "wall_s": 2.0917262570001185
+    },
+    {
+      "path": "results/D-timed-a/02-regression_c1_06.json",
+      "qualified": true,
+      "wall_s": 2.060219765175134
+    },
+    {
+      "path": "results/D-timed-a/02-regression_c1_07.json",
+      "qualified": true,
+      "wall_s": 1.9356036996468902
+    },
+    {
+      "path": "results/D-timed-a/02-regression_c1_08.json",
+      "qualified": true,
+      "wall_s": 2.062602711841464
+    },
+    {
+      "path": "results/D-timed-a/02-regression_c1_09.json",
+      "qualified": true,
+      "wall_s": 2.1218110509216785
+    },
+    {
+      "path": "results/D-timed-a/02-regression_c1_10.json",
+      "qualified": true,
+      "wall_s": 2.152772747911513
+    },
+    {
+      "path": "results/D-timed-a/02-regression_c1_11.json",
+      "qualified": true,
+      "wall_s": 1.7405784861184657
+    },
+    {
+      "path": "results/D-timed-a/02-regression_c1_12.json",
+      "qualified": true,
+      "wall_s": 1.9937788657844067
+    },
+    {
+      "path": "results/D-timed-a/02-regression_c1_13.json",
+      "qualified": true,
+      "wall_s": 2.0609155199490488
+    },
+    {
+      "path": "results/D-timed-a/02-regression_c1_14.json",
+      "qualified": true,
+      "wall_s": 1.8976290510036051
+    },
+    {
+      "path": "results/D-timed-a/02-regression_c1_15.json",
+      "qualified": true,
+      "wall_s": 2.025870411656797
+    },
+    {
+      "path": "results/D-timed-a/02-regression_c1_16.json",
+      "qualified": true,
+      "wall_s": 1.8982240562327206
+    },
+    {
+      "path": "results/D-timed-a/02-regression_c1_17.json",
+      "qualified": true,
+      "wall_s": 2.343819838948548
+    },
+    {
+      "path": "results/D-timed-a/02-regression_c1_18.json",
+      "qualified": true,
+      "wall_s": 1.867384605575353
+    },
+    {
+      "path": "results/D-timed-a/02-regression_c1_19.json",
+      "qualified": true,
+      "wall_s": 2.2824483322910964
+    },
+    {
+      "path": "results/D-timed-a/02-regression_c1_20.json",
+      "qualified": true,
+      "wall_s": 2.089618339203298
+    },
+    {
+      "path": "results/D-timed-a/02-regression_c1_21.json",
+      "qualified": true,
+      "wall_s": 2.0276685799472034
+    },
+    {
+      "path": "results/D-timed-a/02-regression_c1_22.json",
+      "qualified": true,
+      "wall_s": 1.9970779991708696
+    },
+    {
+      "path": "results/D-timed-a/02-regression_c1_23.json",
+      "qualified": true,
+      "wall_s": 1.8733728346414864
+    }
+  ],
+  "status": "completed",
+  "gpu_before": "index, name, temperature.gpu, clocks.current.sm [MHz], clocks.current.memory [MHz], power.limit [W]\n0, Tesla V100-PCIE-32GB, 54, 1380 MHz, 877 MHz, 250.00 W\n1, Tesla V100-PCIE-32GB, 51, 1380 MHz, 877 MHz, 250.00 W\n2, Tesla V100-PCIE-32GB, 53, 1380 MHz, 877 MHz, 250.00 W\n3, Tesla V100-PCIE-32GB, 52, 1380 MHz, 877 MHz, 250.00 W\n",
+  "finished_epoch": 1791605835.219014,
+  "gpu_after": "index, name, temperature.gpu, clocks.current.sm [MHz], clocks.current.memory [MHz], power.limit [W]\n0, Tesla V100-PCIE-32GB, 49, 1380 MHz, 877 MHz, 250.00 W\n1, Tesla V100-PCIE-32GB, 47, 1380 MHz, 877 MHz, 250.00 W\n2, Tesla V100-PCIE-32GB, 49, 1380 MHz, 877 MHz, 250.00 W\n3, Tesla V100-PCIE-32GB, 47, 1380 MHz, 877 MHz, 250.00 W\n"
+}

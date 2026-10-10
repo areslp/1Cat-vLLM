@@ -1,0 +1,17 @@
+{
+  "requests": [
+    {
+      "id": "q_ascii_copy_0",
+      "text": "Valpha_8Zq_73",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 55,
+        "total_tokens": 65,
+        "completion_tokens": 10
+      },
+      "finish_reason": "stop",
+      "input_token_sha256": "3a183fdaa12e938f9b3f6a2112c0e853d9c103ae6b02f732626b49e351bc35e9",
+      "request_sha256": "83693630ca0eea1796622b4593a7f05ec8b4c9e98b9a71bdb44c4b6b0ae0087b"
+    }
+  ]
+}

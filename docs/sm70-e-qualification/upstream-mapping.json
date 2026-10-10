@@ -1,0 +1,66 @@
+{
+  "base": "16628e2f0a70761ba6525bf46e5e844c04b3e66f",
+  "E": "69801806572ea094b91d5f18864beb22c6c8b6fb",
+  "core_native_build_diff": [],
+  "upstream_files_checked": {
+    "vllm/v1/attention/backends/gdn_attn.py": {
+      "exists": true,
+      "has_residual_diff": false
+    },
+    "vllm/distributed/parallel_state.py": {
+      "exists": true,
+      "has_residual_diff": false
+    },
+    "vllm/model_executor/layers/quantization/modelopt.py": {
+      "exists": true,
+      "has_residual_diff": false
+    },
+    "vllm/v1/worker/gpu/spec_decode/eagle/cudagraph.py": {
+      "exists": true,
+      "has_residual_diff": false
+    },
+    "vllm/config/speculative_sampling.py": {
+      "exists": true,
+      "has_residual_diff": false
+    },
+    "vllm/config/sm70_native.py": {
+      "exists": true,
+      "has_residual_diff": false
+    },
+    "vllm/config/flash_v100.py": {
+      "exists": true,
+      "has_residual_diff": false
+    },
+    "vllm/config/gdn_projection.py": {
+      "exists": true,
+      "has_residual_diff": false
+    },
+    "vllm/sm70_profiles/acceleration.py": {
+      "exists": true,
+      "has_residual_diff": false
+    }
+  },
+  "runtime_owner_adaptation": "Residual consumers use initialized engine/graph/native policies; copied legacy verifier kernels are not restored.",
+  "remaining_features": [
+    "segmented page4 and grouped multi-KV attention",
+    "broader MTP MoE tile selection with upstream M1/M5 admission",
+    "GDN/PLE/short-convolution and auxiliary MTP fusions",
+    "TP-local greedy transport and selected/padded draft rows",
+    "finite serving-shape warmup and optional JIT telemetry",
+    "disabled-by-default fixed-step prefill pacing compatibility"
+  ],
+  "common_compatibility_fixes": [
+    "Respect explicit Inductor combo configuration through platform defaults"
+  ],
+  "replaced_or_not_reintroduced": [
+    "Legacy native M1/M5 kernels superseded by upstream native admission",
+    "Copied GDN/collective/graph ownership code superseded by initialized upstream owners",
+    "Runtime source overlays replaced by tracked residual modules and normal package builds",
+    "Local diagnostic report serializer superseded by upstream PR1160"
+  ],
+  "explicit_scope_decisions": [
+    "Keep fixed-step pacing available but disabled by default and in qualification",
+    "Keep the same NVFP4 weights and global FP16 runtime",
+    "No GSQ/EXL3/IQ3S migration and no NVLink performance extrapolation"
+  ]
+}

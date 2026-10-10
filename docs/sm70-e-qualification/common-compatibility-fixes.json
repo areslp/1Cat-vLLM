@@ -1,0 +1,28 @@
+{
+  "control_label": "Frozen upstream plus identical compatibility fixes",
+  "upstream_base": "4e5357b59294edd31c46e66ae8219503a843b2bd",
+  "U": "34e555489e81e1b5216e7394d6f40a64e66a4db6",
+  "E": "d686ca549b6087ad36211d4a2cb771c840399925",
+  "shared_fixes": [
+    {
+      "purpose": "Serialize initialized diagnostic filter sets in acceleration reports",
+      "control_commit": "8400056b309dfd086e2d3bc4e08d22b57a6396bf",
+      "candidate_commit": "c0eab88af51ed5d9fa1b06a233e04fb643f030b4",
+      "changes_computation": false
+    },
+    {
+      "purpose": "Preserve explicit Inductor combo configuration through SM70 runtime defaults",
+      "control_commit": "34e555489e81e1b5216e7394d6f40a64e66a4db6",
+      "candidate_commit": "d686ca549b6087ad36211d4a2cb771c840399925",
+      "regression": "Original defaults overwrite four explicit combinations; new five-case test covers defaults and deterministic compilation.",
+      "focused_cpu": "173 passed, no CUDA initialization"
+    }
+  ],
+  "full_control_diff": "common-compatibility-fixes.patch",
+  "performance_comparison": "E versus U, both with the same compatibility fixes and ordinary deterministic compiler configuration",
+  "native_rebuild_required_by_combo_fix": false,
+  "scope": "Exact common fixes used in the measured comparison; the report fix is now upstream and removed from the final PR.",
+  "final_source_commit": "69801806572ea094b91d5f18864beb22c6c8b6fb",
+  "final_upstream_base": "16628e2f0a70761ba6525bf46e5e844c04b3e66f",
+  "upstream_report_fix_PR": 1160
+}

@@ -1,0 +1,612 @@
+{
+  "plan": {
+    "label": "U-timed-a",
+    "base_url": "http://127.0.0.1:18200",
+    "groups": [
+      "main_1024_1_0",
+      "main_1024_1_1",
+      "main_1024_4_0",
+      "main_1024_8_0",
+      "main_1024_8_1",
+      "decode_1024_8_0",
+      "main_32768_1_0",
+      "main_65536_1_0",
+      "prefill_main_1024_1_0",
+      "prefill_main_1024_4_0",
+      "prefill_main_1024_8_0",
+      "prefill_main_32768_1_0",
+      "prefill_main_65536_1_0",
+      "regression_c1_00",
+      "regression_c1_01",
+      "regression_c1_02",
+      "regression_c1_03",
+      "regression_c1_04",
+      "regression_c1_05",
+      "regression_c1_06",
+      "regression_c1_07",
+      "regression_c1_08",
+      "regression_c1_09",
+      "regression_c1_10",
+      "regression_c1_11",
+      "regression_c1_12",
+      "regression_c1_13",
+      "regression_c1_14",
+      "regression_c1_15",
+      "regression_c1_16",
+      "regression_c1_17",
+      "regression_c1_18",
+      "regression_c1_19",
+      "regression_c1_20",
+      "regression_c1_21",
+      "regression_c1_22",
+      "regression_c1_23"
+    ],
+    "repetitions": 3,
+    "reset_prefix_cache": false,
+    "cache_control": "request_salt",
+    "require_uncached": true,
+    "runtime_commit": "73f18754481a63457df155c80b423752b37c0d8f"
+  },
+  "started_epoch": 1791609583.9971645,
+  "groups": [
+    {
+      "path": "results/U-timed-a/00-main_1024_1_0.json",
+      "qualified": true,
+      "wall_s": 2.1257732971571386
+    },
+    {
+      "path": "results/U-timed-a/00-main_1024_1_1.json",
+      "qualified": true,
+      "wall_s": 2.0945825739763677
+    },
+    {
+      "path": "results/U-timed-a/00-main_1024_4_0.json",
+      "qualified": true,
+      "wall_s": 5.180355879943818
+    },
+    {
+      "path": "results/U-timed-a/00-main_1024_8_0.json",
+      "qualified": true,
+      "wall_s": 7.621060740202665
+    },
+    {
+      "path": "results/U-timed-a/00-main_1024_8_1.json",
+      "qualified": true,
+      "wall_s": 7.918303435202688
+    },
+    {
+      "path": "results/U-timed-a/00-decode_1024_8_0.json",
+      "qualified": true,
+      "wall_s": 40.1581497900188
+    },
+    {
+      "path": "results/U-timed-a/00-main_32768_1_0.json",
+      "qualified": true,
+      "wall_s": 12.739255244843662
+    },
+    {
+      "path": "results/U-timed-a/00-main_65536_1_0.json",
+      "qualified": true,
+      "wall_s": 24.899353648070246
+    },
+    {
+      "path": "results/U-timed-a/00-prefill_main_1024_1_0.json",
+      "qualified": true,
+      "wall_s": 0.3431529551744461
+    },
+    {
+      "path": "results/U-timed-a/00-prefill_main_1024_4_0.json",
+      "qualified": true,
+      "wall_s": 1.272267498075962
+    },
+    {
+      "path": "results/U-timed-a/00-prefill_main_1024_8_0.json",
+      "qualified": true,
+      "wall_s": 2.4708079849369824
+    },
+    {
+      "path": "results/U-timed-a/00-prefill_main_32768_1_0.json",
+      "qualified": true,
+      "wall_s": 11.118363671004772
+    },
+    {
+      "path": "results/U-timed-a/00-prefill_main_65536_1_0.json",
+      "qualified": true,
+      "wall_s": 23.120317372027785
+    },
+    {
+      "path": "results/U-timed-a/00-regression_c1_00.json",
+      "qualified": true,
+      "wall_s": 1.9378449507057667
+    },
+    {
+      "path": "results/U-timed-a/00-regression_c1_01.json",
+      "qualified": true,
+      "wall_s": 2.2361044930294156
+    },
+    {
+      "path": "results/U-timed-a/00-regression_c1_02.json",
+      "qualified": true,
+      "wall_s": 2.2228573467582464
+    },
+    {
+      "path": "results/U-timed-a/00-regression_c1_03.json",
+      "qualified": true,
+      "wall_s": 1.9971440159715712
+    },
+    {
+      "path": "results/U-timed-a/00-regression_c1_04.json",
+      "qualified": true,
+      "wall_s": 1.9946638802066445
+    },
+    {
+      "path": "results/U-timed-a/00-regression_c1_05.json",
+      "qualified": true,
+      "wall_s": 2.0274539347738028
+    },
+    {
+      "path": "results/U-timed-a/00-regression_c1_06.json",
+      "qualified": true,
+      "wall_s": 2.161747762002051
+    },
+    {
+      "path": "results/U-timed-a/00-regression_c1_07.json",
+      "qualified": true,
+      "wall_s": 1.9947699480690062
+    },
+    {
+      "path": "results/U-timed-a/00-regression_c1_08.json",
+      "qualified": true,
+      "wall_s": 2.289451016113162
+    },
+    {
+      "path": "results/U-timed-a/00-regression_c1_09.json",
+      "qualified": true,
+      "wall_s": 2.022842306178063
+    },
+    {
+      "path": "results/U-timed-a/00-regression_c1_10.json",
+      "qualified": true,
+      "wall_s": 2.192899046000093
+    },
+    {
+      "path": "results/U-timed-a/00-regression_c1_11.json",
+      "qualified": true,
+      "wall_s": 1.9610469588078558
+    },
+    {
+      "path": "results/U-timed-a/00-regression_c1_12.json",
+      "qualified": true,
+      "wall_s": 2.158431918825954
+    },
+    {
+      "path": "results/U-timed-a/00-regression_c1_13.json",
+      "qualified": true,
+      "wall_s": 2.1261183712631464
+    },
+    {
+      "path": "results/U-timed-a/00-regression_c1_14.json",
+      "qualified": true,
+      "wall_s": 2.0622983328066766
+    },
+    {
+      "path": "results/U-timed-a/00-regression_c1_15.json",
+      "qualified": true,
+      "wall_s": 2.257907432038337
+    },
+    {
+      "path": "results/U-timed-a/00-regression_c1_16.json",
+      "qualified": true,
+      "wall_s": 1.9297898430377245
+    },
+    {
+      "path": "results/U-timed-a/00-regression_c1_17.json",
+      "qualified": true,
+      "wall_s": 2.2271624840795994
+    },
+    {
+      "path": "results/U-timed-a/00-regression_c1_18.json",
+      "qualified": true,
+      "wall_s": 2.0605537267401814
+    },
+    {
+      "path": "results/U-timed-a/00-regression_c1_19.json",
+      "qualified": true,
+      "wall_s": 2.3544610179960728
+    },
+    {
+      "path": "results/U-timed-a/00-regression_c1_20.json",
+      "qualified": true,
+      "wall_s": 2.160193427000195
+    },
+    {
+      "path": "results/U-timed-a/00-regression_c1_21.json",
+      "qualified": true,
+      "wall_s": 2.062609755899757
+    },
+    {
+      "path": "results/U-timed-a/00-regression_c1_22.json",
+      "qualified": true,
+      "wall_s": 2.226534049026668
+    },
+    {
+      "path": "results/U-timed-a/00-regression_c1_23.json",
+      "qualified": true,
+      "wall_s": 1.9626753497868776
+    },
+    {
+      "path": "results/U-timed-a/01-regression_c1_23.json",
+      "qualified": true,
+      "wall_s": 1.9666569959372282
+    },
+    {
+      "path": "results/U-timed-a/01-regression_c1_22.json",
+      "qualified": true,
+      "wall_s": 2.2267515561543405
+    },
+    {
+      "path": "results/U-timed-a/01-regression_c1_21.json",
+      "qualified": true,
+      "wall_s": 2.0636592651717365
+    },
+    {
+      "path": "results/U-timed-a/01-regression_c1_20.json",
+      "qualified": true,
+      "wall_s": 2.159192517865449
+    },
+    {
+      "path": "results/U-timed-a/01-regression_c1_19.json",
+      "qualified": true,
+      "wall_s": 2.353996147867292
+    },
+    {
+      "path": "results/U-timed-a/01-regression_c1_18.json",
+      "qualified": true,
+      "wall_s": 2.061427695211023
+    },
+    {
+      "path": "results/U-timed-a/01-regression_c1_17.json",
+      "qualified": true,
+      "wall_s": 2.226966690272093
+    },
+    {
+      "path": "results/U-timed-a/01-regression_c1_16.json",
+      "qualified": true,
+      "wall_s": 1.9331230837851763
+    },
+    {
+      "path": "results/U-timed-a/01-regression_c1_15.json",
+      "qualified": true,
+      "wall_s": 2.2558308779262006
+    },
+    {
+      "path": "results/U-timed-a/01-regression_c1_14.json",
+      "qualified": true,
+      "wall_s": 2.065680141095072
+    },
+    {
+      "path": "results/U-timed-a/01-regression_c1_13.json",
+      "qualified": true,
+      "wall_s": 2.130038251169026
+    },
+    {
+      "path": "results/U-timed-a/01-regression_c1_12.json",
+      "qualified": true,
+      "wall_s": 2.1596015500836074
+    },
+    {
+      "path": "results/U-timed-a/01-regression_c1_11.json",
+      "qualified": true,
+      "wall_s": 1.9645110117271543
+    },
+    {
+      "path": "results/U-timed-a/01-regression_c1_10.json",
+      "qualified": true,
+      "wall_s": 2.192155787255615
+    },
+    {
+      "path": "results/U-timed-a/01-regression_c1_09.json",
+      "qualified": true,
+      "wall_s": 2.0312090809457004
+    },
+    {
+      "path": "results/U-timed-a/01-regression_c1_08.json",
+      "qualified": true,
+      "wall_s": 2.2880797358229756
+    },
+    {
+      "path": "results/U-timed-a/01-regression_c1_07.json",
+      "qualified": true,
+      "wall_s": 2.000538016203791
+    },
+    {
+      "path": "results/U-timed-a/01-regression_c1_06.json",
+      "qualified": true,
+      "wall_s": 2.157919627148658
+    },
+    {
+      "path": "results/U-timed-a/01-regression_c1_05.json",
+      "qualified": true,
+      "wall_s": 2.0293527911417186
+    },
+    {
+      "path": "results/U-timed-a/01-regression_c1_04.json",
+      "qualified": true,
+      "wall_s": 1.9987182710319757
+    },
+    {
+      "path": "results/U-timed-a/01-regression_c1_03.json",
+      "qualified": true,
+      "wall_s": 1.9958900338970125
+    },
+    {
+      "path": "results/U-timed-a/01-regression_c1_02.json",
+      "qualified": true,
+      "wall_s": 2.228041160851717
+    },
+    {
+      "path": "results/U-timed-a/01-regression_c1_01.json",
+      "qualified": true,
+      "wall_s": 2.2302217669785023
+    },
+    {
+      "path": "results/U-timed-a/01-regression_c1_00.json",
+      "qualified": true,
+      "wall_s": 1.9290751819498837
+    },
+    {
+      "path": "results/U-timed-a/01-prefill_main_65536_1_0.json",
+      "qualified": true,
+      "wall_s": 23.066247972659767
+    },
+    {
+      "path": "results/U-timed-a/01-prefill_main_32768_1_0.json",
+      "qualified": true,
+      "wall_s": 11.118232841137797
+    },
+    {
+      "path": "results/U-timed-a/01-prefill_main_1024_8_0.json",
+      "qualified": true,
+      "wall_s": 2.380743750371039
+    },
+    {
+      "path": "results/U-timed-a/01-prefill_main_1024_4_0.json",
+      "qualified": true,
+      "wall_s": 1.2782789831981063
+    },
+    {
+      "path": "results/U-timed-a/01-prefill_main_1024_1_0.json",
+      "qualified": true,
+      "wall_s": 0.3480237522162497
+    },
+    {
+      "path": "results/U-timed-a/01-main_65536_1_0.json",
+      "qualified": true,
+      "wall_s": 24.884972851723433
+    },
+    {
+      "path": "results/U-timed-a/01-main_32768_1_0.json",
+      "qualified": true,
+      "wall_s": 12.738539582118392
+    },
+    {
+      "path": "results/U-timed-a/01-decode_1024_8_0.json",
+      "qualified": true,
+      "wall_s": 39.55202958872542
+    },
+    {
+      "path": "results/U-timed-a/01-main_1024_8_1.json",
+      "qualified": true,
+      "wall_s": 7.8778022159822285
+    },
+    {
+      "path": "results/U-timed-a/01-main_1024_8_0.json",
+      "qualified": true,
+      "wall_s": 7.477083159144968
+    },
+    {
+      "path": "results/U-timed-a/01-main_1024_4_0.json",
+      "qualified": true,
+      "wall_s": 5.134238838683814
+    },
+    {
+      "path": "results/U-timed-a/01-main_1024_1_1.json",
+      "qualified": true,
+      "wall_s": 2.0946459849365056
+    },
+    {
+      "path": "results/U-timed-a/01-main_1024_1_0.json",
+      "qualified": true,
+      "wall_s": 2.062402551062405
+    },
+    {
+      "path": "results/U-timed-a/02-main_1024_1_0.json",
+      "qualified": true,
+      "wall_s": 2.0627015358768404
+    },
+    {
+      "path": "results/U-timed-a/02-main_1024_1_1.json",
+      "qualified": true,
+      "wall_s": 2.101349418051541
+    },
+    {
+      "path": "results/U-timed-a/02-main_1024_4_0.json",
+      "qualified": true,
+      "wall_s": 5.075360001064837
+    },
+    {
+      "path": "results/U-timed-a/02-main_1024_8_0.json",
+      "qualified": true,
+      "wall_s": 7.581575926858932
+    },
+    {
+      "path": "results/U-timed-a/02-main_1024_8_1.json",
+      "qualified": true,
+      "wall_s": 7.892415557987988
+    },
+    {
+      "path": "results/U-timed-a/02-decode_1024_8_0.json",
+      "qualified": true,
+      "wall_s": 39.86573095899075
+    },
+    {
+      "path": "results/U-timed-a/02-main_32768_1_0.json",
+      "qualified": true,
+      "wall_s": 12.708991406019777
+    },
+    {
+      "path": "results/U-timed-a/02-main_65536_1_0.json",
+      "qualified": true,
+      "wall_s": 24.882029143627733
+    },
+    {
+      "path": "results/U-timed-a/02-prefill_main_1024_1_0.json",
+      "qualified": true,
+      "wall_s": 0.3436492532491684
+    },
+    {
+      "path": "results/U-timed-a/02-prefill_main_1024_4_0.json",
+      "qualified": true,
+      "wall_s": 1.2783354721032083
+    },
+    {
+      "path": "results/U-timed-a/02-prefill_main_1024_8_0.json",
+      "qualified": true,
+      "wall_s": 2.4760552747175097
+    },
+    {
+      "path": "results/U-timed-a/02-prefill_main_32768_1_0.json",
+      "qualified": true,
+      "wall_s": 11.132934457622468
+    },
+    {
+      "path": "results/U-timed-a/02-prefill_main_65536_1_0.json",
+      "qualified": true,
+      "wall_s": 23.130014474038035
+    },
+    {
+      "path": "results/U-timed-a/02-regression_c1_00.json",
+      "qualified": true,
+      "wall_s": 1.9405897282995284
+    },
+    {
+      "path": "results/U-timed-a/02-regression_c1_01.json",
+      "qualified": true,
+      "wall_s": 2.2312231878750026
+    },
+    {
+      "path": "results/U-timed-a/02-regression_c1_02.json",
+      "qualified": true,
+      "wall_s": 2.2287503289990127
+    },
+    {
+      "path": "results/U-timed-a/02-regression_c1_03.json",
+      "qualified": true,
+      "wall_s": 1.9980528559535742
+    },
+    {
+      "path": "results/U-timed-a/02-regression_c1_04.json",
+      "qualified": true,
+      "wall_s": 1.9980209828354418
+    },
+    {
+      "path": "results/U-timed-a/02-regression_c1_05.json",
+      "qualified": true,
+      "wall_s": 2.0311671532690525
+    },
+    {
+      "path": "results/U-timed-a/02-regression_c1_06.json",
+      "qualified": true,
+      "wall_s": 2.161667250096798
+    },
+    {
+      "path": "results/U-timed-a/02-regression_c1_07.json",
+      "qualified": true,
+      "wall_s": 2.000915232114494
+    },
+    {
+      "path": "results/U-timed-a/02-regression_c1_08.json",
+      "qualified": true,
+      "wall_s": 2.2914900267496705
+    },
+    {
+      "path": "results/U-timed-a/02-regression_c1_09.json",
+      "qualified": true,
+      "wall_s": 2.028437920846045
+    },
+    {
+      "path": "results/U-timed-a/02-regression_c1_10.json",
+      "qualified": true,
+      "wall_s": 2.19166973605752
+    },
+    {
+      "path": "results/U-timed-a/02-regression_c1_11.json",
+      "qualified": true,
+      "wall_s": 1.9654533718712628
+    },
+    {
+      "path": "results/U-timed-a/02-regression_c1_12.json",
+      "qualified": true,
+      "wall_s": 2.1621531690470874
+    },
+    {
+      "path": "results/U-timed-a/02-regression_c1_13.json",
+      "qualified": true,
+      "wall_s": 2.1310486872680485
+    },
+    {
+      "path": "results/U-timed-a/02-regression_c1_14.json",
+      "qualified": true,
+      "wall_s": 2.0628300490789115
+    },
+    {
+      "path": "results/U-timed-a/02-regression_c1_15.json",
+      "qualified": true,
+      "wall_s": 2.2578577110543847
+    },
+    {
+      "path": "results/U-timed-a/02-regression_c1_16.json",
+      "qualified": true,
+      "wall_s": 1.9330380470491946
+    },
+    {
+      "path": "results/U-timed-a/02-regression_c1_17.json",
+      "qualified": true,
+      "wall_s": 2.2271766387857497
+    },
+    {
+      "path": "results/U-timed-a/02-regression_c1_18.json",
+      "qualified": true,
+      "wall_s": 2.0638235262595117
+    },
+    {
+      "path": "results/U-timed-a/02-regression_c1_19.json",
+      "qualified": true,
+      "wall_s": 2.357578647788614
+    },
+    {
+      "path": "results/U-timed-a/02-regression_c1_20.json",
+      "qualified": true,
+      "wall_s": 2.1616887259297073
+    },
+    {
+      "path": "results/U-timed-a/02-regression_c1_21.json",
+      "qualified": true,
+      "wall_s": 2.065315240994096
+    },
+    {
+      "path": "results/U-timed-a/02-regression_c1_22.json",
+      "qualified": true,
+      "wall_s": 2.2286081588827074
+    },
+    {
+      "path": "results/U-timed-a/02-regression_c1_23.json",
+      "qualified": true,
+      "wall_s": 1.9662971929647028
+    }
+  ],
+  "status": "completed",
+  "gpu_before": "index, name, temperature.gpu, clocks.current.sm [MHz], clocks.current.memory [MHz], power.limit [W]\n0, Tesla V100-PCIE-32GB, 42, 1230 MHz, 877 MHz, 250.00 W\n1, Tesla V100-PCIE-32GB, 40, 1230 MHz, 877 MHz, 250.00 W\n2, Tesla V100-PCIE-32GB, 42, 1230 MHz, 877 MHz, 250.00 W\n3, Tesla V100-PCIE-32GB, 40, 1230 MHz, 877 MHz, 250.00 W\n",
+  "finished_epoch": 1791610233.9073985,
+  "gpu_after": "index, name, temperature.gpu, clocks.current.sm [MHz], clocks.current.memory [MHz], power.limit [W]\n0, Tesla V100-PCIE-32GB, 49, 1380 MHz, 877 MHz, 250.00 W\n1, Tesla V100-PCIE-32GB, 47, 1380 MHz, 877 MHz, 250.00 W\n2, Tesla V100-PCIE-32GB, 49, 1380 MHz, 877 MHz, 250.00 W\n3, Tesla V100-PCIE-32GB, 47, 1380 MHz, 877 MHz, 250.00 W\n"
+}

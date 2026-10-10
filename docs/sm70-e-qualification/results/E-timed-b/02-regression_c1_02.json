@@ -1,0 +1,121 @@
+{
+  "label": "E-timed-b",
+  "commit": "635d4fc003af65943f75ff0465f009538d32f2b7",
+  "group": "regression_c1_02",
+  "repetition": 2,
+  "requests": [
+    {
+      "id": "regression_c1_02_0",
+      "request_sha256": "a57a002bb6f8e5d602dcdd666361b6e2363c15a2a65b347bf7907012d35e5ec2",
+      "cache_salt": "pr903-7ab-v1:timed-b:2:regression_c1_02:regression_c1_02_0",
+      "input_token_sha256": "23e8b72123d8a71a0a9eaa571bcdc75f4cf5b20b6c34c4626ee8ebc59d4c9b63",
+      "text": "1. The river bends sharply near the willow grove, reflecting the amber sky.\n2. A lone birch tree stands on the island, its roots exposed by the receding tide.\n3. Granite boulders line the northern bank, covered in moss and lichen.\n4. Cedar branches sway gently in the wind above the valley floor.\n5. Juniper bushes cluster tightly along the riverbank, providing shelter for small birds.\n6. The water flows swiftly past the meadow, carrying leaves downstream.\n7. A field of wildflowers borders the lake, contrasting with the dark water.\n",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 1024,
+        "total_tokens": 1152,
+        "completion_tokens": 128
+      },
+      "finish_reason": "length",
+      "wall_s": 2.1392434872686863,
+      "ttft_s": 0.33974177623167634,
+      "last_text_chunk_s": 2.139086263254285,
+      "input_expected": 1024,
+      "requested_output": 128,
+      "fixed_output_budget_completed": true,
+      "request_started_offset_s": 3.42479906976223e-05
+    }
+  ],
+  "concurrency": 1,
+  "wall_s": 2.139382207300514,
+  "actual_output_tokens": 128,
+  "fixed_output_budget_completed": true,
+  "server_metric_delta": {
+    "vllm:spec_decode_num_drafts_total": 57.0,
+    "vllm:spec_decode_num_draft_tokens_total": 228.0,
+    "vllm:spec_decode_num_accepted_tokens_total": 73.0,
+    "vllm:spec_decode_num_accepted_tokens_per_pos_total": 73.0,
+    "vllm:estimated_flops_per_gpu_total": 0.0,
+    "vllm:estimated_read_bytes_per_gpu_total": 0.0,
+    "vllm:estimated_write_bytes_per_gpu_total": 0.0,
+    "vllm:prefix_cache_queries_total": 1024.0,
+    "vllm:prefix_cache_hits_total": 0.0,
+    "vllm:external_prefix_cache_queries_total": 0.0,
+    "vllm:external_prefix_cache_hits_total": 0.0,
+    "vllm:mm_cache_queries_total": 0.0,
+    "vllm:mm_cache_hits_total": 0.0,
+    "vllm:num_preemptions_total": 0.0,
+    "vllm:prompt_tokens_total": 1024.0,
+    "vllm:prompt_tokens_by_source_total": 1024.0,
+    "vllm:prompt_tokens_cached_total": 0.0,
+    "vllm:generation_tokens_total": 128.0,
+    "vllm:request_success_total": 1.0,
+    "vllm:request_prompt_tokens_count": 1.0,
+    "vllm:request_prompt_tokens_sum": 1024.0,
+    "vllm:request_generation_tokens_count": 1.0,
+    "vllm:request_generation_tokens_sum": 128.0,
+    "vllm:iteration_tokens_total_count": 58.0,
+    "vllm:iteration_tokens_total_sum": 1152.0,
+    "vllm:request_max_num_generation_tokens_count": 1.0,
+    "vllm:request_max_num_generation_tokens_sum": 128.0,
+    "vllm:request_params_n_count": 1.0,
+    "vllm:request_params_n_sum": 1.0,
+    "vllm:request_params_max_tokens_count": 1.0,
+    "vllm:request_params_max_tokens_sum": 128.0,
+    "vllm:time_to_first_token_seconds_count": 1.0,
+    "vllm:time_to_first_token_seconds_sum": 0.3354060649871826,
+    "vllm:inter_token_latency_seconds_count": 57.0,
+    "vllm:inter_token_latency_seconds_sum": 1.8007717290893197,
+    "vllm:request_time_per_output_token_seconds_count": 1.0,
+    "vllm:request_time_per_output_token_seconds_sum": 0.014179304953459315,
+    "vllm:e2e_request_latency_seconds_count": 1.0,
+    "vllm:e2e_request_latency_seconds_sum": 2.1359095573425293,
+    "vllm:request_queue_time_seconds_count": 1.0,
+    "vllm:request_queue_time_seconds_sum": 1.9595026969909668e-05,
+    "vllm:request_inference_time_seconds_count": 1.0,
+    "vllm:request_inference_time_seconds_sum": 2.122928585857153,
+    "vllm:request_prefill_time_seconds_count": 1.0,
+    "vllm:request_prefill_time_seconds_sum": 0.32215685676783323,
+    "vllm:request_decode_time_seconds_count": 1.0,
+    "vllm:request_decode_time_seconds_sum": 1.8007717290893197,
+    "vllm:request_prefill_kv_computed_tokens_count": 1.0,
+    "vllm:request_prefill_kv_computed_tokens_sum": 1024.0
+  },
+  "server_phases": {
+    "request_queue_time_seconds": {
+      "count": 1.0,
+      "sum_s": 1.9595026969909668e-05,
+      "mean_s": 1.9595026969909668e-05
+    },
+    "request_prefill_time_seconds": {
+      "count": 1.0,
+      "sum_s": 0.32215685676783323,
+      "mean_s": 0.32215685676783323
+    },
+    "request_decode_time_seconds": {
+      "count": 1.0,
+      "sum_s": 1.8007717290893197,
+      "mean_s": 1.8007717290893197
+    },
+    "time_to_first_token_seconds": {
+      "count": 1.0,
+      "sum_s": 0.3354060649871826,
+      "mean_s": 0.3354060649871826
+    },
+    "e2e_request_latency_seconds": {
+      "count": 1.0,
+      "sum_s": 2.1359095573425293,
+      "mean_s": 2.1359095573425293
+    }
+  },
+  "qualified_metric_counts": true,
+  "cached_tokens": 0.0,
+  "computed_kv_tokens": 1024.0,
+  "expected_prompt_tokens": 1024,
+  "cache_work_qualified": true,
+  "require_cached": false,
+  "priming_cohort": false,
+  "cache_control": "request_salt",
+  "prefix_reset_performed": false,
+  "qualified": true
+}

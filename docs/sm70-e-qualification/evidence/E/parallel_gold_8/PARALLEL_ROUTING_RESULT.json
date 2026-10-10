@@ -1,0 +1,19 @@
+{
+  "concurrency": 8,
+  "strict_gold_checks": [
+    true,
+    true,
+    true,
+    false,
+    true,
+    false,
+    false,
+    false
+  ],
+  "unique_copy_cross_talk": [],
+  "unique_copy_checks": [
+    true,
+    true
+  ],
+  "performance_sample": false
+}

@@ -1,0 +1,17 @@
+{
+  "requests": [
+    {
+      "id": "q_stable_deduplicate_0",
+      "text": "[\"b\",\"a\",\"c\"]",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 62,
+        "total_tokens": 70,
+        "completion_tokens": 8
+      },
+      "finish_reason": "stop",
+      "input_token_sha256": "02d86a16e51568944381bbff081689d07fd50a7cf037a3db970db4d4c055e20a",
+      "request_sha256": "14339f70df249bbc40adc4c44304e7c9cfa969d9079e98a1a44125fb03eb7b7d"
+    }
+  ]
+}

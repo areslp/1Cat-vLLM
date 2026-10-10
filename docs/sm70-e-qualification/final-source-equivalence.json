@@ -1,0 +1,17 @@
+{
+  "measured_commit": "d686ca549b6087ad36211d4a2cb771c840399925",
+  "final_commit": "69801806572ea094b91d5f18864beb22c6c8b6fb",
+  "final_upstream_base": "16628e2f0a70761ba6525bf46e5e844c04b3e66f",
+  "upstream_report_fix": "https://github.com/1CatAI/1Cat-vLLM/pull/1160",
+  "changed_files": [
+    "tests/config/test_sm70_acceleration.py",
+    "tests/config/test_sm70_loaded_routes.py",
+    "vllm/sm70_profiles/acceleration.py"
+  ],
+  "GPU_computation_and_native_sources_unchanged": true,
+  "report_values_equal": true,
+  "policy_hash_unchanged": true,
+  "cuda_initialized": false,
+  "scope": "Final rebase replaces the local reporting serializer with upstream, removes duplicate local tests, and updates the retained draft-owner fixture. Formal performance measurements use the exact earlier commit; the final source receives CPU equivalence checks and a separate startup smoke.",
+  "unchanged_mapped_native_files": 8
+}

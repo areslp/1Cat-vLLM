@@ -1,0 +1,17 @@
+{
+  "requests": [
+    {
+      "id": "q_python_result_0",
+      "text": "[1, 9]",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 65,
+        "total_tokens": 72,
+        "completion_tokens": 7
+      },
+      "finish_reason": "stop",
+      "input_token_sha256": "4da06cd71ebe6a5262edad5927e8d664e03732af51a28e49f7968976423ee987",
+      "request_sha256": "ddcc75669eab547ae308a578d54e70f749170f1609cc9dff9f785ded1b37705a"
+    }
+  ]
+}

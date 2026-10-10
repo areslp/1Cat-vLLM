@@ -1,0 +1,131 @@
+{
+  "status": "repaired_U_E_saved_model_graph_single_candidates_and_common_choices_verified",
+  "review_correction": "The initial configuration-closure conclusion was premature: the review missed the later SM70 platform assignment, which overwrote both combo settings with true. The attempted startup failed before request timing. Earlier process observations do not establish the final repaired process configuration.",
+  "common_platform_fix": {
+    "source": "vllm/platforms/runtime_defaults.py",
+    "original_behavior": "SM70 compile-graph defaults unconditionally assigned combo_kernels=true and benchmark_combo_kernel=true after explicit compiler configuration.",
+    "repaired_behavior": "Use setdefault for each key, preserving explicit choices and retaining true when unspecified; log effective values.",
+    "E_commit": "d686ca549b6087ad36211d4a2cb771c840399925",
+    "U_commit": "34e555489e81e1b5216e7394d6f40a64e66a4db6",
+    "validation_reported_by_primary_agent": {
+      "old_implementation_regression_tests": {"failed": 4, "passed": 1},
+      "repaired_related_tests": {"passed": 173},
+      "cuda_initialized": false,
+      "ordinary_hooks": "passed"
+    }
+  },
+  "torch_version": "2.10.0+cu128",
+  "review_method": "Read installed source and selected process environment fields; parse generated source without importing it. No GPU or model execution by reviewer.",
+  "live_kernel_trace": false,
+  "inductor_compile_config": {
+    "deterministic": true,
+    "triton.autotune_pointwise": false,
+    "max_autotune": false,
+    "max_autotune_pointwise": false,
+    "max_autotune_gemm": false,
+    "coordinate_descent_tuning": false,
+    "combo_kernels": true,
+    "benchmark_combo_kernel": false
+  },
+  "observed_process_environment": {
+    "scope": "Reconfirmed in repaired U and E processes after the common platform fix.",
+    "VLLM_ENABLE_INDUCTOR_MAX_AUTOTUNE": "0",
+    "VLLM_ENABLE_INDUCTOR_COORDINATE_DESCENT_TUNING": "0",
+    "TORCHINDUCTOR_BENCHMARK_FUSION": "unset; installed default false"
+  },
+  "source_findings": {
+    "vllm_single_size_override": "Single-size compilation overwrites max_autotune and coordinate_descent_tuning from the two VLLM environment variables; both were observed as zero.",
+    "vllm_sm70_platform_override": "A later unconditional combo override was missed in the initial review. Both arms now contain the common setdefault fix described above; repaired U startup reports effective combo_kernels=true and benchmark_combo_kernel=false.",
+    "reduction": "Deterministic filtering selects one configuration for ordinary, persistent and cooperative reduction before cached autotuning.",
+    "pointwise": "autotune_pointwise=false with max_autotune=false and max_autotune_pointwise=false selects the ordinary fixed heuristic configuration.",
+    "coordinate_descent": "Disabled explicitly; deterministic mode independently excludes reduction coordinate descent.",
+    "combo_fusion": "benchmark_combo_kernel=false returns before combo performance benchmarking; combo kernel generation uses the ordinary pointwise/reduction heuristics covered above.",
+    "ordinary_fusion": "The relevant environment variable was unset and the installed benchmark_fusion default is false.",
+    "algorithm_selection": "Deterministic mode uses pick_deterministic_choice instead of performance selection.",
+    "mixed_order_reduction": "Split-size autotuning is guarded by not deterministic."
+  },
+  "generated_artifact_review": {
+    "U_deterministic_metadata_records_observed": 84,
+    "E_deterministic_metadata_records_observed": 84,
+    "common_helpers": 84,
+    "candidate_count_histogram": {"U": {"1": 200}, "E": {"1": 200}},
+    "different_common_helper_choices": 0,
+    "state": "Both repaired-startup model graph namespaces verified. Counts cover saved backbone/draft helper records, not all process kernels or a live execution trace.",
+    "E": {
+      "namespace": "2f9c6a5199",
+      "generation_scope": "Namespace confirmed in the actual new E worker stdout log for both backbone and eagle_head. Source metadata restricted to referenced helper filenames generated after 2026-10-10 07:20 UTC.",
+      "source_metadata": {
+        "records": 84,
+        "all_deterministic_true": true,
+        "all_autotune_pointwise_false": true,
+        "all_max_autotune_false": true,
+        "all_max_autotune_pointwise_false": true,
+        "coordinate_descent_tuning": "Not emitted in these metadata records; configured false and runtime default false."
+      },
+      "backbone": {"distinct_rank_helper_records": 48, "serialized_candidate_count_histogram": {"1": 128}, "unresolved_binary_or_metadata_references": 0},
+      "draft": {"distinct_rank_helper_records": 36, "serialized_candidate_count_histogram": {"1": 72}, "unresolved_binary_or_metadata_references": 0},
+      "reader_cuda_initialized": false
+    },
+    "common_model_graph_records": {
+      "backbone": {"common_rank_helpers": 48, "unique_U": 0, "unique_E": 0, "config_differences": 0, "kernel_name_differences": 0, "kernel_hash_differences": 0, "metadata_sha256_differences": 0, "raw_cubin_sha256_differences": 48},
+      "draft": {"common_rank_helpers": 36, "unique_U": 0, "unique_E": 0, "config_differences": 0, "kernel_name_differences": 0, "kernel_hash_differences": 0, "metadata_sha256_differences": 0, "raw_cubin_sha256_differences": 36}
+    },
+    "referenced_cubin_section_review": {
+      "unique_cubins": 29,
+      "different_section_histogram": {".debug_line": 29, ".nv_debug_ptx_txt": 5, ".nv.global.init": 5},
+      "instruction_section_differences": 0,
+      "allocated_init_differences_equal_after_generated_source_path_normalization": 5,
+      "normalization": "Only generated cache source directory and generated Python helper filename strings; no instruction normalization.",
+      "debug_limit": "Debug sections differ; simple source-path normalization did not eliminate all debug encoding differences. No claim of whole-file byte identity."
+    },
+    "outside_compared_model_graph_scope": {
+      "E_additional_generated_metadata_records": 4,
+      "operation": "vllm/model_executor/layers/vocab_parallel_embedding.py:get_masked_input_and_mask",
+      "compilation": "Independent torch.compile(dynamic=True, backend=current_platform.simple_compile_backend), outside the compared backbone/draft helper references.",
+      "observed_flags": {"deterministic": false, "autotune_pointwise": true, "max_autotune": false, "max_autotune_pointwise": false},
+      "arithmetic": "Integer vocabulary-index offset and Boolean validity-mask pointwise operations; no floating-point arithmetic or reduction in the inspected generated helpers.",
+      "coverage_limit": "The 84-helper equality result does not claim every kernel in the serving process uses fixed compiler flags."
+    },
+    "U": {
+      "namespace": "a657675708",
+      "started_epoch": 1791615443.3056853,
+      "generation_scope": "Namespace observed in repaired startup log and saved graph indexes. Source metadata scan restricted to files modified after this startup epoch.",
+      "source_metadata": {
+        "records": 84,
+        "all_deterministic_true": true,
+        "all_autotune_pointwise_false": true,
+        "all_max_autotune_false": true,
+        "all_max_autotune_pointwise_false": true,
+        "coordinate_descent_tuning": "Not emitted in these metadata records; configured false and runtime default false."
+      },
+      "backbone": {
+        "distinct_rank_helper_records": 48,
+        "serialized_candidate_count_histogram": {"1": 128},
+        "unresolved_binary_or_metadata_references": 0
+      },
+      "draft": {
+        "distinct_rank_helper_records": 36,
+        "serialized_candidate_count_histogram": {"1": 72},
+        "unresolved_binary_or_metadata_references": 0
+      },
+      "histogram_note": "Histogram counts serialized occurrences across saved graphs, not deduplicated helpers. Every observed occurrence has exactly one compiled candidate.",
+      "reader_cuda_initialized": false
+    }
+  },
+  "installed_torch_source_sha256": {
+    "_inductor/config.py": "35742623dd7b4b523940a68f0eccd2f68286cc624fe355286ce3783d878aee9c",
+    "_inductor/runtime/triton_heuristics.py": "d730d25c3f0f0e25596ce8c47da740992d783dea30152fef606093fe2c284341",
+    "_inductor/codegen/triton.py": "51a0318c8ed3baa396aabdb4245f24e378e54000aa2882cc87e69d940d337bb9",
+    "_inductor/codegen/triton_combo_kernel.py": "62dacc53fc0c6e9af9947ba03b2715e6cbc4dee7c991c3c0ab09cd2b4c616fef",
+    "_inductor/scheduler.py": "ddf1b3b27fad3eb0e8ebe454ba90d90dab09f72eb78a0e0071c529ce60266825",
+    "_inductor/async_compile.py": "6024dff5d53b97561afcbb1c9e2b464280db141fd9d0103dc4ac237eb658389c",
+    "_inductor/select_algorithm.py": "d8665c33c0eb942e72ebcc3790470ebbc9609c1f0c3320bf82112d63597ac17c"
+  },
+  "limitations": [
+    "This is source, configuration and saved-artifact evidence, not a live kernel trace.",
+    "Configuration review alone does not establish process-to-process output equality or performance qualification.",
+    "Equality covers 84 common saved backbone/draft rank/helper records, not all runtime kernels.",
+    "Four independently compiled integer/Boolean embedding-mask helpers are outside this comparison and retain their own compiler defaults.",
+    "Raw cubin files differ in debug sections and generated-path initialization strings; instruction sections match for the 29 unique referenced binaries."
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "requests": [
+    {
+      "id": "q_sum_0",
+      "text": "45",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 53,
+        "total_tokens": 56,
+        "completion_tokens": 3
+      },
+      "finish_reason": "stop",
+      "input_token_sha256": "7f5d03aa1e8566e2d22ad1204cc5afd212a73b895bf364a9f5fa6b6a3e2d7196",
+      "request_sha256": "70a80858f25a15f6957f1a1db97418627256960b0970b87c1baf1a9fa3784ba5"
+    }
+  ]
+}

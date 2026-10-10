@@ -1,0 +1,26 @@
+{
+  "status": "Full fixed-compiler model qualification passed; final upstream-report startup smoke is pending",
+  "upstream_base": "16628e2f0a70761ba6525bf46e5e844c04b3e66f",
+  "control_label": "Frozen upstream plus common compatibility fixes",
+  "measured_revisions": {
+    "U": "34e555489e81e1b5216e7394d6f40a64e66a4db6",
+    "E": "d686ca549b6087ad36211d4a2cb771c840399925"
+  },
+  "D": "c64c4824e830301b3f0fec2da47a202e49ede20e",
+  "common_fixes": "common-compatibility-fixes.json",
+  "compiler": "inductor-fixed-config.json",
+  "hardware": "4 x Tesla V100 32 GB PCIe, TP4",
+  "precision": "Unchanged NVFP4 weights; global FP16; E4M3 KV; MTP4",
+  "matrix": "Three repeats of 37 cold groups and separate prime/three reuse pairs for 32K/64K",
+  "cache_control": "Unique matching request salts, require zero cached tokens/full computed KV/output budgets for cold cohorts",
+  "historical_observations": "Earlier automatic-tuning U/E/E/U results are retained separately, excluded from clean patch-only attribution because U restart changed output and MTP work in25/26 C1 cases",
+  "scope_limits": [
+    "One startup per fixed arm; no restart reproducibility or production p99 claim",
+    "Concurrent cases use1024-token inputs;32K/64K cases use C1",
+    "D reference uses prior compiler configuration",
+    "All source and native libraries use ordinary loading; no kernel loader hooks"
+  ],
+  "measured_upstream_base": "4e5357b59294edd31c46e66ae8219503a843b2bd",
+  "final_source_commit": "69801806572ea094b91d5f18864beb22c6c8b6fb",
+  "final_source_equivalence": "final-source-equivalence.json"
+}

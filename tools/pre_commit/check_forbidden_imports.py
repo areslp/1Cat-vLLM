@@ -54,6 +54,8 @@ CHECK_IMPORTS = {
             "benchmarks/fused_kernels/layernorm_rms_benchmarks.py",
             "benchmarks/cutlass_benchmarks/w8a8_benchmarks.py",
             "benchmarks/cutlass_benchmarks/sparse_benchmarks.py",
+            # Offline inspection of this comparison's own Torch cache artifacts.
+            "docs/sm70-e-qualification/inspect_compiler_choices.py",
             # cloudpickle
             "vllm/v1/executor/multiproc_executor.py",
             "vllm/v1/executor/ray_executor.py",
@@ -70,6 +72,8 @@ CHECK_IMPORTS = {
             "or 'import pybase64 as base64'."
         ),
         allowed_pattern=re.compile(r"^\s*import\s+pybase64(\s*|\s+as\s+base64\s*)$"),
+        # Triton cache directories use Base32, which pybase64 does not provide.
+        allowed_files={"docs/sm70-e-qualification/inspect_compiler_choices.py"},
     ),
     "re": ForbiddenImport(
         pattern=r"^\s*(?:import\s+re(?:$|\s|,)|from\s+re\s+import)",

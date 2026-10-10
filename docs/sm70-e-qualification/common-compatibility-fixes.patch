@@ -1,0 +1,167 @@
+From 8400056b309dfd086e2d3bc4e08d22b57a6396bf Mon Sep 17 00:00:00 2001
+From: areslp <areslp@users.noreply.github.com>
+Date: Sat, 10 Oct 2026 12:39:28 +0800
+Subject: [PATCH 1/2] Serialize initialized diagnostic filters in acceleration
+ reports
+
+Rebuilding an internal MTP draft configuration after MoE initialization raised TypeError for parsed frozenset filters. Convert sets at the JSON report boundary while retaining the initialized policies and their computation hashes. Cover both standalone and engine-bound diagnostic owners.
+
+Assisted-by: OpenAI Codex
+
+Signed-off-by: areslp <areslp@users.noreply.github.com>
+---
+ tests/config/test_sm70_acceleration.py | 27 ++++++++++++++++++++++++++
+ vllm/sm70_profiles/acceleration.py     | 11 ++++++++++-
+ 2 files changed, 37 insertions(+), 1 deletion(-)
+
+diff --git a/tests/config/test_sm70_acceleration.py b/tests/config/test_sm70_acceleration.py
+index 07ccded7d..8f3d96ce4 100644
+--- a/tests/config/test_sm70_acceleration.py
++++ b/tests/config/test_sm70_acceleration.py
+@@ -1,5 +1,7 @@
+ # SPDX-License-Identifier: Apache-2.0
+ # SPDX-FileCopyrightText: Copyright contributors to the vLLM project
++import copy
++import json
+ from types import SimpleNamespace as NS
+ 
+ import pytest
+@@ -477,3 +479,28 @@ def test_report_never_evaluates_legacy_getters(config, monkeypatch):
+         envs, "__getattr__", Mock(side_effect=AssertionError("report env attribute"))
+     )
+     assert acc.build_report(config) == expected
++
++
++@pytest.mark.parametrize("engine_bound", (False, True))
++def test_report_serializes_initialized_moe_diagnostic_filters(config, engine_bound):
++    from vllm.config.sm70_moe import bind_moe_diagnostics
++
++    # A target has initialized its MoE policies before the MTP draft config
++    # rebuilds the acceleration report. Parsed diagnostic filters are sets.
++    for family in ("awq", "fp8"):
++        getattr(config.kernel_config.sm70_moe, family).resolve(family)
++    if engine_bound:
++        bind_moe_diagnostics(
++            config.kernel_config, config.observability_config.runtime_trace
++        )
++    policy = config.kernel_config.sm70_moe.awq.diagnostics.dump_policy
++    before_filters = copy.deepcopy(policy.filters)
++    before_hash = config.kernel_config.compute_hash()
++    report = acc.build_report(config)
++    json.dumps(report)
++    filters = report["linear_kernel_policies"]["sm70_moe"]["configuration"]["awq"][
++        "diagnostics"
++    ]["dump_policy"]["filters"]
++    assert filters["layers"] == sorted(before_filters["layers"])
++    assert policy.filters == before_filters
++    assert config.kernel_config.compute_hash() == before_hash
+diff --git a/vllm/sm70_profiles/acceleration.py b/vllm/sm70_profiles/acceleration.py
+index b5b665045..22e331bc2 100644
+--- a/vllm/sm70_profiles/acceleration.py
++++ b/vllm/sm70_profiles/acceleration.py
+@@ -21,13 +21,22 @@ if TYPE_CHECKING:
+ logger = init_logger(__name__)
+ 
+ 
++def _json_policy_value(value):
++    # Initialized diagnostic owners contain parsed set/frozenset filters.
++    if isinstance(value, (set, frozenset)):
++        return sorted(value)
++    return json.JSONEncoder().default(value)
++
++
+ def linear_policy_report(kernel_config) -> dict[str, Any]:
+     """Discover migrated policies from KernelConfig, without a parallel registry."""
+     return {
+         field.name: {
+             "scope": "configured_policy",
+             "status": "runtime_guarded",
+-            "configuration": json.loads(json.dumps(asdict(value))),
++            "configuration": json.loads(
++                json.dumps(asdict(value), default=_json_policy_value)
++            ),
+         }
+         for field in fields(kernel_config)
+         if field.name.startswith("sm70_")
+-- 
+2.54.0
+
+
+From 34e555489e81e1b5216e7394d6f40a64e66a4db6 Mon Sep 17 00:00:00 2001
+From: areslp <areslp@users.noreply.github.com>
+Date: Sat, 10 Oct 2026 02:53:11 -0400
+Subject: [PATCH 2/2] Respect explicit SM70 Inductor combo configuration
+
+Keep the usual combo defaults while preserving explicit compiler choices. Unconditionally enabling combo benchmarking made deterministic compilation fail during model startup. Exercise default and explicit settings through the actual SM70 platform policy entry point.
+
+Assisted-by: OpenAI Codex
+Signed-off-by: areslp <areslp@users.noreply.github.com>
+---
+ .../config/test_runtime_default_ownership.py  | 25 +++++++++++++++++++
+ vllm/platforms/runtime_defaults.py            | 13 +++++-----
+ 2 files changed, 32 insertions(+), 6 deletions(-)
+
+diff --git a/tests/config/test_runtime_default_ownership.py b/tests/config/test_runtime_default_ownership.py
+index 24bbf67cc..1589ca326 100644
+--- a/tests/config/test_runtime_default_ownership.py
++++ b/tests/config/test_runtime_default_ownership.py
+@@ -155,6 +155,31 @@ def test_explicit_typed_choices_override_legacy_without_writing_env(monkeypatch)
+     )
+ 
+ 
++@pytest.mark.parametrize(
++    "options",
++    [
++        {},
++        {"combo_kernels": False},
++        {"benchmark_combo_kernel": False},
++        {"combo_kernels": False, "benchmark_combo_kernel": False},
++        {
++            "deterministic": True,
++            "combo_kernels": True,
++            "benchmark_combo_kernel": False,
++        },
++    ],
++)
++def test_sm70_combo_defaults_preserve_explicit_compiler_choices(monkeypatch, options):
++    cfg = engine(spec="mtp")
++    cfg.compilation_config = CompilationConfig(inductor_compile_config=options.copy())
++    before = dict(os.environ)
++    expected = {"combo_kernels": True, "benchmark_combo_kernel": True, **options}
++    apply(cfg, monkeypatch)
++    for name, value in expected.items():
++        assert cfg.compilation_config.inductor_compile_config[name] is value
++    assert os.environ == before
++
++
+ @pytest.mark.parametrize(
+     "tp,pp,temp,partition", [(8, 1, 0.9, None), (4, 2, 0.8, "24,21")]
+ )
+diff --git a/vllm/platforms/runtime_defaults.py b/vllm/platforms/runtime_defaults.py
+index 44a4139f5..cb0309955 100644
+--- a/vllm/platforms/runtime_defaults.py
++++ b/vllm/platforms/runtime_defaults.py
+@@ -677,13 +677,14 @@ def apply_runtime_policy_defaults(self):
+                     "DFlash2 release contract. Remove this override to reuse "
+                     "compiled graph caches without AOT FX-graph reload."
+                 )
+-            self.compilation_config.inductor_compile_config["combo_kernels"] = True
+-            self.compilation_config.inductor_compile_config[
+-                "benchmark_combo_kernel"
+-            ] = True
++            inductor_config = self.compilation_config.inductor_compile_config
++            inductor_config.setdefault("combo_kernels", True)
++            inductor_config.setdefault("benchmark_combo_kernel", True)
+             logger.info_once(
+-                "Using combo_kernels=True and benchmark_combo_kernel=True "
+-                "for SM70 Flash-V100 0.0.3 compile graph quality parity."
++                "Using combo_kernels=%s and benchmark_combo_kernel=%s "
++                "for SM70 Flash-V100 0.0.3 compile graphs.",
++                inductor_config["combo_kernels"],
++                inductor_config["benchmark_combo_kernel"],
+             )
+             logger.info_once(
+                 "Using SM70 Flash-V100 0.0.3 compile CUDA graph policy: "
+-- 
+2.54.0
+

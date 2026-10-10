@@ -1,0 +1,24 @@
+{
+  "quality_groups": [
+    "q_arithmetic_regression_0",
+    "q_arithmetic_regression_1",
+    "q_arithmetic_regression_2",
+    "q_parentheses_0",
+    "q_sum_0",
+    "q_remainder_0",
+    "q_ascii_copy_0",
+    "q_utf8_copy_0",
+    "q_json_fields_0",
+    "q_json_boolean_0",
+    "q_numeric_sort_0",
+    "q_python_result_0",
+    "q_boolean_logic_0",
+    "q_stable_deduplicate_0"
+  ],
+  "additional_groups": [
+    "parallel_gold_8",
+    "protocol_features",
+    "retrieval_32768_1_0",
+    "retrieval_65536_1_0"
+  ]
+}

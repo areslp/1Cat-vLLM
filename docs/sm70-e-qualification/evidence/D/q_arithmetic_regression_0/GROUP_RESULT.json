@@ -1,0 +1,17 @@
+{
+  "requests": [
+    {
+      "id": "q_arithmetic_regression_0",
+      "text": "3925",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 55,
+        "total_tokens": 60,
+        "completion_tokens": 5
+      },
+      "finish_reason": "stop",
+      "input_token_sha256": "b06d30127b13a3fa42c3df6cd57c069c73001e57592d4eb2297809a729fe348f",
+      "request_sha256": "67875e0e4395deb87f5d180cc03d7b4ec89ec97bed462015706fd78582fef852"
+    }
+  ]
+}

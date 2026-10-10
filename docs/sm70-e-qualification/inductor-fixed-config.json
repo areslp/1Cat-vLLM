@@ -1,0 +1,12 @@
+{
+  "inductor_compile_config": {
+    "deterministic": true,
+    "triton.autotune_pointwise": false,
+    "max_autotune": false,
+    "max_autotune_pointwise": false,
+    "max_autotune_gemm": false,
+    "coordinate_descent_tuning": false,
+    "combo_kernels": true,
+    "benchmark_combo_kernel": false
+  }
+}

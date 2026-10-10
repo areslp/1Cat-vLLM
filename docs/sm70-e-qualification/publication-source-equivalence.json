@@ -1,0 +1,91 @@
+{
+  "base": "4e5357b59294edd31c46e66ae8219503a843b2bd",
+  "measured": {
+    "U": "73f18754481a63457df155c80b423752b37c0d8f",
+    "E": "635d4fc003af65943f75ff0465f009538d32f2b7"
+  },
+  "publication_candidates": {
+    "E": "f9280f43fcc1e5c63747646c302d0698f45455b5",
+    "U": "8400056b309dfd086e2d3bc4e08d22b57a6396bf"
+  },
+  "runtime_paths": [
+    "vllm",
+    "csrc",
+    "CMakeLists.txt",
+    "cmake",
+    "setup.py",
+    "flash-attention-v100",
+    "flash_qla"
+  ],
+  "tree_objects": {
+    "U": {
+      "vllm": {
+        "measured": "389608b2323bfb0e489d1d88e6ad7bc8da7ace03",
+        "publication": "389608b2323bfb0e489d1d88e6ad7bc8da7ace03"
+      },
+      "csrc": {
+        "measured": "5bcae66919725f325439fcd36e989126d5054c39",
+        "publication": "5bcae66919725f325439fcd36e989126d5054c39"
+      },
+      "CMakeLists.txt": {
+        "measured": "2ec2ba1101957cee45697548b4847a6ea2bfa9a9",
+        "publication": "2ec2ba1101957cee45697548b4847a6ea2bfa9a9"
+      },
+      "cmake": {
+        "measured": "fa4f3d04ff741692133912a91899d829b7ae68c6",
+        "publication": "fa4f3d04ff741692133912a91899d829b7ae68c6"
+      },
+      "setup.py": {
+        "measured": "ac67efc224def40caa7d3a8d8bec9fee99e8cecc",
+        "publication": "ac67efc224def40caa7d3a8d8bec9fee99e8cecc"
+      },
+      "flash-attention-v100": {
+        "measured": "91cf67693c5127db4fb39968638ab625067e51ab",
+        "publication": "91cf67693c5127db4fb39968638ab625067e51ab"
+      },
+      "flash_qla": {
+        "measured": "c039e8652ef19ea2d30cabe79ebdb8c353dbb027",
+        "publication": "c039e8652ef19ea2d30cabe79ebdb8c353dbb027"
+      }
+    },
+    "E": {
+      "vllm": {
+        "measured": "b197623b302fddc3ed46e6767d55467cd1027d24",
+        "publication": "b197623b302fddc3ed46e6767d55467cd1027d24"
+      },
+      "csrc": {
+        "measured": "5bcae66919725f325439fcd36e989126d5054c39",
+        "publication": "5bcae66919725f325439fcd36e989126d5054c39"
+      },
+      "CMakeLists.txt": {
+        "measured": "2ec2ba1101957cee45697548b4847a6ea2bfa9a9",
+        "publication": "2ec2ba1101957cee45697548b4847a6ea2bfa9a9"
+      },
+      "cmake": {
+        "measured": "fa4f3d04ff741692133912a91899d829b7ae68c6",
+        "publication": "fa4f3d04ff741692133912a91899d829b7ae68c6"
+      },
+      "setup.py": {
+        "measured": "ac67efc224def40caa7d3a8d8bec9fee99e8cecc",
+        "publication": "ac67efc224def40caa7d3a8d8bec9fee99e8cecc"
+      },
+      "flash-attention-v100": {
+        "measured": "0b0fa355070b05bf0f2e49a988bc24709689ae75",
+        "publication": "0b0fa355070b05bf0f2e49a988bc24709689ae75"
+      },
+      "flash_qla": {
+        "measured": "c039e8652ef19ea2d30cabe79ebdb8c353dbb027",
+        "publication": "c039e8652ef19ea2d30cabe79ebdb8c353dbb027"
+      }
+    }
+  },
+  "differences": {
+    "U": [],
+    "E": [
+      "docs/design/architecture/runtime_reference.md",
+      "docs/design/sm70_mtp_residuals.md"
+    ]
+  },
+  "note": "E adds generated architecture documentation only; commit metadata uses the public account identity. U tree is identical. No running checkout was changed.",
+  "scope": "Historical automatic-tuning runs only; the fixed comparison measures the runtime-commits.json revisions directly."
+}

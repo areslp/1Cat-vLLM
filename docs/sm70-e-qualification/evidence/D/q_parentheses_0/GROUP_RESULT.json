@@ -1,0 +1,17 @@
+{
+  "requests": [
+    {
+      "id": "q_parentheses_0",
+      "text": "165",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 57,
+        "total_tokens": 61,
+        "completion_tokens": 4
+      },
+      "finish_reason": "stop",
+      "input_token_sha256": "6bae4e7b7e88c60c06c1bb50352e00f023728aad0bf2802d3fb57a6c0eb8c38e",
+      "request_sha256": "47496b7021dbd224a423e4d77fe7a1df901ff26dc52d39e60637e516e001c1b0"
+    }
+  ]
+}

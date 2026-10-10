@@ -1,0 +1,37 @@
+{
+  "U": {
+    "commit": "34e555489e81e1b5216e7394d6f40a64e66a4db6",
+    "clean_git": true,
+    "gpu_worker_count": 4,
+    "working_directory_matches_source": true,
+    "pythonpath_selects_source_first": true,
+    "all_gpu_workers_belong_to_expected_service": true,
+    "native_file_sha256": {
+      "flash-attention-v100/flash_attn_v100/flash_attn_v100_cuda.cpython-312-x86_64-linux-gnu.so": "f8cc2e515d99bd0cd0e33548b1cf3d3041eb90bbfc542d0538b223770e71b7c3",
+      "flash_qla/ops/gated_delta_rule/chunk/sm70/flash_qla_sm70_gdn_strided.so": "37e32f3ca6e622d05d13265048ea93060f8c17d9194f404b82658bb7fae791f3",
+      "vllm/_C.abi3.so": "0109f8a68264d442ec4ec7465fba0cea0b5b58eee54183aacad433bf995ea88d",
+      "vllm/_C_stable_libtorch.abi3.so": "e9bdd96e4693e526c2a323f1fcf328baaf057f38b331a4d8bff00f5c5f12a6cd",
+      "vllm/_moe_C.abi3.so": "ef42d3208442e55eff95f8667a4faac85ec00c3eeed4ad58e48a83705a9a7d12",
+      "vllm/_sm70_qsa_indexer_C.cpython-312-x86_64-linux-gnu.so": "320772ccfed968c334b84977f8d2abd233d3395f17edd81a6718d7c47644cfc1",
+      "vllm/_sm70_sampler_C.abi3.so": "dfdc8c15390b4c347d976ee380673e2f6ee05fd61908047dcafe34d74e908953",
+      "vllm/vllm_flash_attn/_vllm_fa2_C.abi3.so": "6e20f6990c9297fcebd62fa758e0db68f0b4ef63eb191dac1357f23def33cbed"
+    },
+    "explicit_runtime_options": {
+      "NCCL_P2P_DISABLE": "1",
+      "NCCL_MIN_NCHANNELS": "8",
+      "NCCL_MAX_NCHANNELS": "8",
+      "VLLM_USE_V2_MODEL_RUNNER": "1",
+      "VLLM_SM70_FLASH_ATTN_V100": "1",
+      "VLLM_SM70_QSA_GROUPED_PAGE4": "1",
+      "VLLM_SM70_QSA_GROUPED_PAD_FIX": "1",
+      "VLLM_QWEN4EXP_PLE_HOST_GIB": "12",
+      "VLLM_1CAT_PREFILL_PACE_STEPS": "0",
+      "VLLM_SM70_NVFP4_QWEN38_MOE_QPN_MTP5_DECODE": "1",
+      "VLLM_SM70_MTP_MOE_FP16_EXACT": "1",
+      "VLLM_SM70_MTP_MOE_TUNED_CONFIG": "1",
+      "VLLM_ENABLE_INDUCTOR_MAX_AUTOTUNE": "0",
+      "VLLM_ENABLE_INDUCTOR_COORDINATE_DESCENT_TUNING": "0"
+    },
+    "verification_scope": "Read actual service cwd/PYTHONPATH, GPU worker cgroups and mapped native files; no live per-kernel call trace."
+  }
+}
