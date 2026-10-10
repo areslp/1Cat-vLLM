@@ -1,5 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-FileCopyrightText: Copyright contributors to the vLLM project
+import copy
+import json
 from types import SimpleNamespace as NS
 
 import pytest
@@ -477,3 +479,28 @@ def test_report_never_evaluates_legacy_getters(config, monkeypatch):
         envs, "__getattr__", Mock(side_effect=AssertionError("report env attribute"))
     )
     assert acc.build_report(config) == expected
+
+
+@pytest.mark.parametrize("engine_bound", (False, True))
+def test_report_serializes_initialized_moe_diagnostic_filters(config, engine_bound):
+    from vllm.config.sm70_moe import bind_moe_diagnostics
+
+    # A target has initialized its MoE policies before the MTP draft config
+    # rebuilds the acceleration report. Parsed diagnostic filters are sets.
+    for family in ("awq", "fp8"):
+        getattr(config.kernel_config.sm70_moe, family).resolve(family)
+    if engine_bound:
+        bind_moe_diagnostics(
+            config.kernel_config, config.observability_config.runtime_trace
+        )
+    policy = config.kernel_config.sm70_moe.awq.diagnostics.dump_policy
+    before_filters = copy.deepcopy(policy.filters)
+    before_hash = config.kernel_config.compute_hash()
+    report = acc.build_report(config)
+    json.dumps(report)
+    filters = report["linear_kernel_policies"]["sm70_moe"]["configuration"]["awq"][
+        "diagnostics"
+    ]["dump_policy"]["filters"]
+    assert filters["layers"] == sorted(before_filters["layers"])
+    assert policy.filters == before_filters
+    assert config.kernel_config.compute_hash() == before_hash

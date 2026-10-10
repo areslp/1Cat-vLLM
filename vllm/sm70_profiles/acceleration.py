@@ -21,13 +21,22 @@ if TYPE_CHECKING:
 logger = init_logger(__name__)
 
 
+def _json_policy_value(value):
+    # Initialized diagnostic owners contain parsed set/frozenset filters.
+    if isinstance(value, (set, frozenset)):
+        return sorted(value)
+    return json.JSONEncoder().default(value)
+
+
 def linear_policy_report(kernel_config) -> dict[str, Any]:
     """Discover migrated policies from KernelConfig, without a parallel registry."""
     return {
         field.name: {
             "scope": "configured_policy",
             "status": "runtime_guarded",
-            "configuration": json.loads(json.dumps(asdict(value))),
+            "configuration": json.loads(
+                json.dumps(asdict(value), default=_json_policy_value)
+            ),
         }
         for field in fields(kernel_config)
         if field.name.startswith("sm70_")
