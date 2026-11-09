@@ -2,6 +2,8 @@
 # SPDX-FileCopyrightText: Copyright contributors to the vLLM project
 """Custom Sparse Attention Indexer layers."""
 
+import os
+
 import torch
 
 import vllm.envs as envs
@@ -163,6 +165,28 @@ def sparse_attn_indexer(
         )
     attn_metadata_narrowed = attn_metadata[k_cache_prefix]
     assert isinstance(attn_metadata_narrowed, DeepseekV32IndexerMetadata)
+    if os.environ.get("VLLM_PPU_SPARSE_REF", "0").lower() in {
+        "1",
+        "true",
+        "yes",
+        "on",
+    }:
+        from vllm.model_executor.layers.ppu_sparse_indexer_ref import (
+            ppu_reference_sparse_indexer,
+        )
+
+        return ppu_reference_sparse_indexer(
+            hidden_states,
+            kv_cache,
+            q_quant,
+            k,
+            weights,
+            quant_block_size,
+            topk_tokens,
+            topk_indices_buffer,
+            skip_k_cache_insert,
+            attn_metadata_narrowed,
+        )
     slot_mapping = attn_metadata_narrowed.slot_mapping
     has_decode = attn_metadata_narrowed.num_decodes > 0
     has_prefill = attn_metadata_narrowed.num_prefills > 0
@@ -518,6 +542,8 @@ class SparseAttnIndexer(CustomOp):
             current_platform.is_cuda()
             and not _is_volta_or_turing_cuda()
             and not has_deep_gemm()
+            and os.environ.get("VLLM_PPU_SPARSE_REF", "0").lower()
+            not in {"1", "true", "yes", "on"}
         ):
             raise RuntimeError(
                 "Sparse Attention Indexer CUDA op requires DeepGEMM to be installed."

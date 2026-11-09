@@ -152,6 +152,11 @@ def _get_backend_priorities_cached(
                 AttentionBackendEnum.TRITON_MLA,
                 AttentionBackendEnum.FLASHMLA_SPARSE,
             ]
+            # The PPU reference backend advertises itself only when
+            # VLLM_PPU_SPARSE_REF is enabled; keeping it first lets the
+            # selector reject all hardware-specific sparse kernels on PPU
+            # before falling through to the reference implementation.
+            backends.insert(0, AttentionBackendEnum.PPU_SPARSE_REF)
             if device_capability.major == 7 and device_capability.minor in (0, 2):
                 backends.insert(0, AttentionBackendEnum.GLM5_SM70_SPARSE)
             return backends

@@ -745,6 +745,21 @@ class Indexer(nn.Module):
         return self.indexer_op(hidden_states, q_fp8, k, weights)
 
 
+class SharedIndexerPlaceholder:
+    """Attribute-only stand-in for layers that reuse a previous full indexer.
+
+    GLM-5.3 checkpoints store indexer weights only for the periodic "full"
+    layers; intervening "shared" layers reuse the top-k selections produced by
+    the preceding full layer.  The placeholder supplies the buffer/topk
+    metadata consumed by the attention wrapper without creating parameters that
+    do not exist in the checkpoint.
+    """
+
+    def __init__(self, topk_tokens: int, topk_indices_buffer: torch.Tensor | None):
+        self.topk_tokens = topk_tokens
+        self.topk_indices_buffer = topk_indices_buffer
+
+
 def _try_load_fp8_indexer_wk(name, tensor, buf, params_dict, loaded_params):
     """
     We fuse the WK and weights_proj projections, but in some checkpoints WK is stored
@@ -995,28 +1010,43 @@ class DeepseekV2MLAAttention(nn.Module):
 
         _skip_topk = False
         if self.is_v32:
-            self.indexer_rope_emb = get_rope(
-                qk_rope_head_dim,
-                max_position=max_position_embeddings,
-                rope_parameters=config.rope_parameters,
-                is_neox_style=not getattr(config, "indexer_rope_interleave", False),
+            layer_idx = extract_layer_index(prefix)
+            indexer_types = getattr(config, "indexer_types", None)
+            is_shared_indexer = (
+                isinstance(indexer_types, (list, tuple))
+                and 0 <= layer_idx < len(indexer_types)
+                and indexer_types[layer_idx] == "shared"
             )
-            self.indexer = Indexer(
-                vllm_config,
-                config,
-                hidden_size,
-                q_lora_rank,
-                quant_config,
-                cache_config,
-                topk_indices_buffer,
-                f"{prefix}.indexer",
-                is_inplace_rope=self.indexer_rope_emb.enabled(),
-            )
+            if is_shared_indexer:
+                # Reuse the top-k buffer written by the preceding full layer.
+                self.indexer_rope_emb = None
+                self.indexer = SharedIndexerPlaceholder(
+                    config.index_topk, topk_indices_buffer
+                )
+                _skip_topk = True
+            else:
+                self.indexer_rope_emb = get_rope(
+                    qk_rope_head_dim,
+                    max_position=max_position_embeddings,
+                    rope_parameters=config.rope_parameters,
+                    is_neox_style=not getattr(config, "indexer_rope_interleave", False),
+                )
+                self.indexer = Indexer(
+                    vllm_config,
+                    config,
+                    hidden_size,
+                    q_lora_rank,
+                    quant_config,
+                    cache_config,
+                    topk_indices_buffer,
+                    f"{prefix}.indexer",
+                    is_inplace_rope=self.indexer_rope_emb.enabled(),
+                )
 
             # Enable IndexCache for DeepSeek models to reduce redundant top-k
             # token selection computations in sparse attention.
             use_index_cache = getattr(config, "use_index_cache", False)
-            if use_index_cache:
+            if use_index_cache and not is_shared_indexer:
                 # IndexCache config
                 # Refer: https://arxiv.org/abs/2603.12201 for more details.
                 _index_topk_freq = getattr(config, "index_topk_freq", 1)

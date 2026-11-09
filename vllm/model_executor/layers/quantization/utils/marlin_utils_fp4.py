@@ -11,6 +11,7 @@ from vllm.model_executor.layers.quantization.utils.marlin_utils import (
     get_marlin_input_dtype,
     marlin_make_workspace_new,
     marlin_permute_bias,
+    marlin_permute_scales,
     marlin_quant_input,
     should_use_atomic_add_reduce,
     sm70_marlin_logical_scales,
@@ -21,6 +22,16 @@ from vllm.scalar_type import scalar_types
 FP4_MARLIN_SUPPORTED_GROUP_SIZES = [16]
 
 logger = init_logger(__name__)
+
+
+def _use_sm70_marlin_scale_layout() -> bool:
+    """SM70 TurboMind kernels consume logical scales; generic Marlin uses the
+    packed N-tile permutation.  PPU reports capability 8.0 and therefore needs
+    the generic layout even though the surrounding MXFP4 code originated on
+    SM70."""
+    return current_platform.is_cuda() and current_platform.is_device_capability_family(
+        70
+    )
 
 
 def is_fp4_marlin_supported():
@@ -251,7 +262,12 @@ def prepare_fp4_layer_for_marlin(
         weight_scale = weight_scale.view(torch.float8_e8m0fnu)
 
     weight_scale = weight_scale.to(param_dtype)
-    weight_scale = sm70_marlin_logical_scales(
+    scale_layout = (
+        sm70_marlin_logical_scales
+        if _use_sm70_marlin_scale_layout()
+        else marlin_permute_scales
+    )
+    weight_scale = scale_layout(
         s=weight_scale,
         size_k=part_size_k,
         size_n=part_size_n,
@@ -470,10 +486,15 @@ def prepare_moe_fp4_layer_for_marlin(
         if is_nvfp4:
             combined_scale_factor = _nvfp4_compute_scale_factor(scales, param_dtype)
 
+        scale_layout = (
+            sm70_marlin_logical_scales
+            if _use_sm70_marlin_scale_layout()
+            else marlin_permute_scales
+        )
         for i in range(e):
             scale = scales[i].T
 
-            marlin_scales = sm70_marlin_logical_scales(
+            marlin_scales = scale_layout(
                 s=scale,
                 size_k=size_k,
                 size_n=size_n,
@@ -601,9 +622,14 @@ def prepare_moe_mxfp4_layer_for_marlin(
         else:
             size_n, size_k = k, n
 
+        scale_layout = (
+            sm70_marlin_logical_scales
+            if _use_sm70_marlin_scale_layout()
+            else marlin_permute_scales
+        )
         for i in range(e):
             scale = scales[i].T
-            marlin_scales = sm70_marlin_logical_scales(
+            marlin_scales = scale_layout(
                 s=scale,
                 size_k=size_k,
                 size_n=size_n,

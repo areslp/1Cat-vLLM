@@ -101,6 +101,9 @@ _CONFIG_REGISTRY: dict[str, type[PretrainedConfig]] = LazyConfigDict(
     deepseek_v4="DeepseekV4Config",
     deepseek_v41="DeepseekV41Config",
     deepseek_v41_text="DeepseekV41TextConfig",
+    # GLM-5.3 uses the DeepSeek-V3 MLA/DSA config surface but ships a
+    # distinct model_type; Transformers does not yet register it.
+    glm_moe_dsa="DeepseekV3Config",
     flex_olmo="FlexOlmoConfig",
     fireredlid="FireRedLIDConfig",
     funaudiochat="FunAudioChatConfig",

@@ -81,6 +81,7 @@ class AttentionBackendEnum(Enum, metaclass=_AttentionBackendEnumMeta):
         "vllm.v1.attention.backends.mla.flashmla_sparse.FlashMLASparseBackend"
     )
     GLM5_SM70_SPARSE = "vllm.models.glm5next.sm70.sparse.Glm5NextSM70SparseBackend"
+    PPU_SPARSE_REF = "vllm.v1.attention.backends.mla.ppu_sparse_ref.PPUSparseRefBackend"
     FLASH_ATTN_MLA = "vllm.v1.attention.backends.mla.flashattn_mla.FlashAttnMLABackend"
     NO_ATTENTION = "vllm.v1.attention.backends.no_attention.NoAttentionBackend"
     FLEX_ATTENTION = "vllm.v1.attention.backends.flex_attention.FlexAttentionBackend"
