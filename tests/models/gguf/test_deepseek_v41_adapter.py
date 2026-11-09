@@ -50,6 +50,52 @@ def metadata(adapter):
     }
 
 
+def q4km_metadata(adapter):
+    tensors = metadata(adapter)
+    for name in tensors:
+        if "_exps.weight" in name:
+            tensors[name].tensor_type = (
+                gguf.GGMLQuantizationType.Q6_K
+                if "_down_" in name
+                else gguf.GGMLQuantizationType.Q4_K
+            )
+    tensors["blk.0.attn_output_a.weight"].shape = (4096, 8192)
+    for layer in range(40):
+        tensors[f"blk.{layer}.exp_probs_b_vl.bias"] = SimpleNamespace(
+            shape=(384,), tensor_type=gguf.GGMLQuantizationType.F32
+        )
+    for layer in (1, 14):
+        tensors[f"blk.{layer}.engram_embd.weight"] = SimpleNamespace(
+            shape=(256, 4), tensor_type=gguf.GGMLQuantizationType.Q4_K
+        )
+    for name in (
+        "engram_token_map.weight",
+        "engram_primes.weight",
+        "engram_offsets.weight",
+        "engram_multipliers.weight",
+    ):
+        del tensors[name]
+    return tensors
+
+
+def add_synthetic_engram_constants(adapter):
+    return {
+        "engram_token_map.weight": SimpleNamespace(
+            shape=(adapter.config.vocab_size,),
+            tensor_type=gguf.GGMLQuantizationType.I32,
+        ),
+        "engram_primes.weight": SimpleNamespace(
+            shape=(24, 2), tensor_type=gguf.GGMLQuantizationType.I64
+        ),
+        "engram_offsets.weight": SimpleNamespace(
+            shape=(24, 2), tensor_type=gguf.GGMLQuantizationType.I64
+        ),
+        "engram_multipliers.weight": SimpleNamespace(
+            shape=(4, 2), tensor_type=gguf.GGMLQuantizationType.I64
+        ),
+    }
+
+
 def test_complete_backbone_has_1008_unique_names_and_no_norm_offset(adapter):
     assert isinstance(adapter, DeepseekV41Adapter)
     names = adapter.build_name_map(metadata(adapter))
@@ -59,6 +105,68 @@ def test_complete_backbone_has_1008_unique_names_and_no_norm_offset(adapter):
     assert names["engram_multipliers.weight"] == "model.engram_multipliers"
     assert adapter.is_linear(names["blk.0.attn_output_a.weight"])
     assert not adapter.is_linear(names["blk.0.ffn_gate_inp.weight"])
+
+
+def test_q4km_layout_ignores_vl_and_engram_payload_tensors(adapter):
+    tensors = q4km_metadata(adapter)
+    tensors.update(add_synthetic_engram_constants(adapter))
+    names = adapter.build_name_map(tensors)
+    assert len(names) == 1008
+    assert "blk.0.exp_probs_b_vl.bias" not in names
+    assert "blk.1.engram_embd.weight" not in names
+    assert names["blk.0.attn_output_a.weight"] == (
+        "model.layers.0.attn.wo_a.weight"
+    )
+
+
+def test_q4km_2d_output_projection_keeps_packed_rows(adapter):
+    kind = gguf.GGMLQuantizationType.Q4_K
+    packed = np.arange(8192 * 4, dtype=np.uint8).reshape(8192, 4)
+    tensor = SimpleNamespace(shape=(4096, 8192), tensor_type=kind, data=packed)
+    raw = "blk.0.attn_output_a.weight"
+    target = "model.layers.0.attn.wo_a.weight"
+    loaded = dict(adapter.weights({raw: tensor}, {raw: target}, torch.float16))
+    weight = loaded[target.removesuffix(".weight") + ".qweight"]
+    assert weight.shape == (8192, 4)
+    np.testing.assert_array_equal(weight.numpy(), packed)
+
+
+def test_engram_hash_metadata_is_restored_as_model_order_tensors(adapter, tmp_path):
+    path = tmp_path / "metadata.gguf"
+    writer = gguf.GGUFWriter(path, "deepseek41")
+    token_map = np.arange(adapter.config.vocab_size, dtype=np.int32) % 99092
+    primes = np.arange(1, 49, dtype=np.int64) * 1000
+    offsets = np.concatenate(([0], np.cumsum(primes[:23])))
+    offsets = np.concatenate(
+        (offsets, [0], np.cumsum(primes[24:-1]))
+    )
+    multipliers = np.arange(1, 9, dtype=np.int64) * 2 + 1
+    writer.add_array("deepseek41.engram.token_map", token_map.tolist())
+    writer.add_array("deepseek41.engram.primes", primes.tolist())
+    writer.add_array("deepseek41.engram.offsets", offsets.tolist())
+    writer.add_array("deepseek41.engram.multipliers", multipliers.tolist())
+    writer.write_header_to_file()
+    writer.write_kv_data_to_file()
+    writer.close()
+
+    tensors = {}
+    adapter.add_metadata_tensors(tensors, path)
+    assert set(tensors) == {
+        "engram_token_map.weight",
+        "engram_primes.weight",
+        "engram_offsets.weight",
+        "engram_multipliers.weight",
+    }
+    assert tuple(tensors["engram_primes.weight"].shape) == (24, 2)
+    np.testing.assert_array_equal(
+        tensors["engram_primes.weight"].data, primes.reshape(2, 24)
+    )
+    np.testing.assert_array_equal(
+        tensors["engram_offsets.weight"].data, offsets.reshape(2, 24)
+    )
+    np.testing.assert_array_equal(
+        tensors["engram_multipliers.weight"].data, multipliers.reshape(2, 4)
+    )
 
 
 @pytest.mark.parametrize("change", ["missing", "extra", "shape", "format", "pair"])

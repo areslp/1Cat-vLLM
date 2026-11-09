@@ -13,6 +13,9 @@ from vllm._sm70.policy import register_policy_op
 from .gguf_native import native_dense
 
 
+V41_FP16_EXPERT_TYPES = frozenset((12, 14, 16, 17, 29))
+
+
 def v41_fp16_experts(
     x,
     ids,
@@ -46,8 +49,8 @@ def v41_fp16_experts(
         or probabilities.dtype != torch.float32
         or probabilities.device != x.device
         or swiglu_limit != 10.0
-        or source_type not in (16, 17, 29)
-        or down_type not in (16, 17, 29)
+        or source_type not in V41_FP16_EXPERT_TYPES
+        or down_type not in V41_FP16_EXPERT_TYPES
         or gate.ndim != 3
         or gate.shape[1] != 576
         or up.shape != gate.shape

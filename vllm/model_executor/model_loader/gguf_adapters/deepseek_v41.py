@@ -79,6 +79,8 @@ _FLOATING = (
     gguf.GGMLQuantizationType.F32,
     gguf.GGMLQuantizationType.BF16,
 )
+_EXPERT_TYPES = frozenset((12, 14, 16, 17, 29))
+_IGNORED_SUFFIXES = (".exp_probs_b_vl.bias", ".engram_embd.weight")
 
 
 class DeepseekV41Adapter:
@@ -188,6 +190,11 @@ class DeepseekV41Adapter:
         return result
 
     def build_name_map(self, tensors):
+        tensors = {
+            name: tensor
+            for name, tensor in tensors.items()
+            if not name.endswith(_IGNORED_SUFFIXES)
+        }
         missing, extra = (
             self.expected.keys() - tensors.keys(),
             tensors.keys() - self.expected.keys(),
@@ -199,9 +206,14 @@ class DeepseekV41Adapter:
             )
         result = {}
         for raw, tensor in tensors.items():
-            if tuple(map(int, tensor.shape)) != self.expected[raw]:
+            shape = tuple(map(int, tensor.shape))
+            expected = self.expected[raw]
+            if shape != expected and not (
+                raw.endswith(".attn_output_a.weight")
+                and shape == (expected[0], expected[1] * expected[2])
+            ):
                 raise ValueError(f"V4.1 GGUF shape mismatch: {raw}")
-            if "_exps.weight" in raw and int(tensor.tensor_type) not in (16, 17, 29):
+            if "_exps.weight" in raw and int(tensor.tensor_type) not in _EXPERT_TYPES:
                 raise ValueError(f"Unsupported V4.1 original expert format: {raw}")
             if raw in _GLOBAL:
                 result[raw] = _GLOBAL[raw]
@@ -217,6 +229,87 @@ class DeepseekV41Adapter:
             ):
                 raise ValueError(f"V4.1 gate/up formats differ at layer {layer}")
         return result
+
+    def add_metadata_tensors(self, tensors, model_path):
+        """Restore Engram hash constants stored as GGUF metadata.
+
+        Recent V4.1 GGUF releases move the four small integer tables out of
+        the tensor list.  They are still the same values the runtime needs;
+        expose them as synthetic ReaderTensors so the normal strict coverage
+        and loader paths remain authoritative.
+        """
+        missing = [
+            name
+            for name in (
+                "engram_token_map.weight",
+                "engram_primes.weight",
+                "engram_offsets.weight",
+                "engram_multipliers.weight",
+            )
+            if name not in tensors
+        ]
+        if not missing:
+            return
+        reader = gguf.GGUFReader(model_path, mode="r")
+
+        def values(*keys, dtype):
+            for key in keys:
+                field = reader.get_field(key)
+                if field is not None:
+                    return np.asarray(field.contents(), dtype=dtype)
+            raise ValueError(
+                "V4.1 GGUF is missing Engram metadata: " + ", ".join(keys)
+            )
+
+        token_map = values(
+            "deepseek41.engram.token_map", "engram.token_map", dtype=np.int32
+        )
+        primes = values(
+            "deepseek41.engram.primes", "ple.head_vocab_sizes", dtype=np.int64
+        )
+        if reader.get_field("deepseek41.engram.offsets") is not None:
+            offsets = values("deepseek41.engram.offsets", dtype=np.int64)
+        else:
+            # The converter stores one global offset array for the combined
+            # per-layer table. The hash kernel addresses each layer channel
+            # locally, so remove the preceding layer's row range.
+            offsets = values("ple.head_offsets", dtype=np.int64).copy()
+            rows = primes.size // 2
+            offsets[rows:] -= offsets[rows]
+        multipliers = values(
+            "deepseek41.engram.multipliers",
+            "ple.layer_multipliers",
+            dtype=np.int64,
+        )
+        expected = {
+            "engram_token_map.weight": (token_map, (self.config.vocab_size,), np.int32),
+            "engram_primes.weight": (primes, (2, 24), np.int64),
+            "engram_offsets.weight": (offsets, (2, 24), np.int64),
+            "engram_multipliers.weight": (multipliers, (2, 4), np.int64),
+        }
+        for name in missing:
+            data, model_shape, dtype = expected[name]
+            if data.size != int(np.prod(model_shape)):
+                raise ValueError(
+                    f"V4.1 Engram metadata {name} has {data.size} values, "
+                    f"expected {int(np.prod(model_shape))}"
+                )
+            model_data = data.reshape(model_shape).astype(dtype, copy=False)
+            # ReaderTensor.shape follows GGUF's stored dimension order, while
+            # ReaderTensor.data is the NumPy (model) order used by the loader.
+            stored_shape = np.asarray(model_shape[::-1], dtype=np.uint32)
+            tensors[name] = gguf.ReaderTensor(
+                name=name,
+                tensor_type=gguf.GGMLQuantizationType.I32
+                if dtype == np.int32
+                else gguf.GGMLQuantizationType.I64,
+                shape=stored_shape,
+                n_elements=model_data.size,
+                n_bytes=model_data.nbytes,
+                data_offset=0,
+                data=model_data,
+                field=None,
+            )
 
     @staticmethod
     def is_linear(name):

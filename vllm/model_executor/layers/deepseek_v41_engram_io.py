@@ -25,21 +25,47 @@ class EngramTableSpec:
     path: str
     offset: int
     rows: int
+    source_type: int
 
 
 def engram_table_specs(path):
-    reader = gguf.GGUFReader(path, mode="r")
+    from pathlib import Path
+
     expected = ("blk.1.engram_embd.weight", "blk.14.engram_embd.weight")
-    tensors = {t.name: t for t in reader.tensors}
-    if set(tensors) != set(expected):
+    root = Path(path)
+    paths = sorted(root.glob("*.gguf")) if root.is_dir() else [root]
+    found = {}
+    for candidate in paths:
+        reader = gguf.GGUFReader(str(candidate), mode="r")
+        for tensor in reader.tensors:
+            if tensor.name in expected:
+                if tensor.name in found:
+                    raise ValueError(
+                        f"V4.1 Engram table is duplicated: {tensor.name}"
+                    )
+                found[tensor.name] = (candidate, tensor)
+    if set(found) != set(expected):
         raise ValueError("V4.1 Engram sidecar must contain exactly layers 1 and 14")
     result = []
     for name in expected:
-        t = tensors[name]
-        if int(t.tensor_type) != 20 or len(t.shape) != 2 or int(t.shape[0]) != 256:
-            raise ValueError("V4.1 shared Engram requires IQ4_NL rows of width 256")
+        candidate, t = found[name]
+        source_type = int(t.tensor_type)
+        if source_type not in (20, 12):
+            raise ValueError(
+                "V4.1 shared Engram requires IQ4_NL or Q4_K rows"
+            )
+        if len(t.shape) != 2 or int(t.shape[0]) != 256:
+            raise ValueError("V4.1 shared Engram rows must be width 256")
+        block, size = gguf.GGML_QUANT_SIZES[source_type]
+        if 256 % block or (256 // block) * size != 144:
+            raise ValueError("V4.1 shared Engram rows must be 144 bytes")
         result.append(
-            EngramTableSpec(os.path.abspath(path), int(t.data_offset), int(t.shape[1]))
+            EngramTableSpec(
+                os.path.abspath(candidate),
+                int(t.data_offset),
+                int(t.shape[1]),
+                source_type,
+            )
         )
     return tuple(result)
 
@@ -203,6 +229,7 @@ class SharedEngramRank:
         if rank not in range(4) or torch.accelerator.current_device_index() != rank:
             raise ValueError("Select the TP rank's CUDA device before mapping Engram")
         self.data, self.control, self.rank = data, control, rank
+        self.specs = tuple(specs)
         self.maximum = max_tokens * 24
         self.native = _native()
         words, self.channel_words, self.rank_words = (
@@ -280,13 +307,14 @@ class SharedEngramRank:
                 grid=(1,),
             )
             _consume.warmup(self.control_view, self.counters, **meta, grid=(1,))
-        dequantize_gguf_rows(
-            torch.zeros(1, 144, device=self.rank, dtype=torch.uint8),
-            20,
-            256,
-            torch.float16,
-            True,
-        )
+        for spec in self.specs:
+            dequantize_gguf_rows(
+                torch.zeros(1, 144, device=self.rank, dtype=torch.uint8),
+                spec.source_type,
+                256,
+                torch.float16,
+                True,
+            )
         torch.accelerator.synchronize(self.rank)
         self.ready = True
 
@@ -331,7 +359,9 @@ class SharedEngramRank:
         )
         first = channel * self.maximum * 144
         raw = self.mapped[first : first + count * 144].view(count, 144)
-        result = dequantize_gguf_rows(raw, 20, 256, torch.float16, True)
+        result = dequantize_gguf_rows(
+            raw, self.specs[channel].source_type, 256, torch.float16, True
+        )
         _consume[(1,)](self.control_view, self.counters, **self._meta(channel))
         return result.view(tokens, 6144)
 

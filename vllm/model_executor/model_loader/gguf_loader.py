@@ -149,6 +149,8 @@ class GGUFModelLoader(BaseModelLoader):
             local = self._prepare_weights(model_config)
             self._native_adapter = adapter
             self._native_tensors = gguf_tensor_index(gguf_shard_paths(local))
+            if hasattr(adapter, "add_metadata_tensors"):
+                adapter.add_metadata_tensors(self._native_tensors, local)
             return adapter.build_name_map(self._native_tensors)
         # Get text config to handle both nested (multimodal) and flat
         # (text-only) config structures. For multimodal models like
