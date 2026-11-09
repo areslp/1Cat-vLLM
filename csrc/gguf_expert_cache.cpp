@@ -114,10 +114,19 @@ class PrefillCopies {
       if (capture == cudaStreamCaptureStatusNone) {
         cudaMemcpyAttributes attributes{};
         attributes.srcAccessOrder = cudaMemcpySrcAccessOrderStream;
-        size_t first = 0, failed = 0;
+        size_t first = 0;
+#if CUDART_VERSION >= 13000
+        // CUDA 13 dropped the failed-index out-parameter; the call reports the
+        // failure through its return status instead.
+        auto status = cudaMemcpyBatchAsync(
+            destinations_.data(), sources_.data(), bytes_.data(), count_,
+            &attributes, &first, 1, stream);
+#else
+        size_t failed = 0;
         auto status = cudaMemcpyBatchAsync(
             destinations_.data(), sources_.data(), bytes_.data(), count_,
             &attributes, &first, 1, &failed, stream);
+#endif
         if (status == cudaSuccess) return;
         if (status != cudaErrorNotSupported)
           check(status, "batch prefill copies");
