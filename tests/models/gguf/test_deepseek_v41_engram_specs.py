@@ -42,15 +42,17 @@ def test_engram_specs_use_q4_k_or_iq4_nl_rows_across_shards(tmp_path, kind):
 def test_engram_specs_reject_non_144_byte_rows(tmp_path):
     path = tmp_path / "bad.gguf"
     writer = gguf.GGUFWriter(path, "deepseek41-engram")
+    # Q4_0 rows are 8 * 18 = 144 bytes wide, so the writer accepts them but
+    # the V4.1 Engram path must reject the unsupported source type.
     writer.add_tensor(
         "blk.1.engram_embd.weight",
         np.zeros((2, 8 * 18), dtype=np.uint8),
-        raw_dtype=gguf.GGMLQuantizationType.Q8_0,
+        raw_dtype=gguf.GGMLQuantizationType.Q4_0,
     )
     writer.add_tensor(
         "blk.14.engram_embd.weight",
-        np.zeros((2, 8 * 34), dtype=np.uint8),
-        raw_dtype=gguf.GGMLQuantizationType.Q8_0,
+        np.zeros((2, 8 * 18), dtype=np.uint8),
+        raw_dtype=gguf.GGMLQuantizationType.Q4_0,
     )
     writer.write_header_to_file()
     writer.write_kv_data_to_file()
