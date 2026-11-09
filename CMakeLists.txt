@@ -758,6 +758,18 @@ if(VLLM_REGISTER_BASIC_ACTIVATION_IN_C)
   target_compile_definitions(_C PRIVATE VLLM_REGISTER_BASIC_ACTIVATION_IN_C=1)
 endif()
 
+# Host-side expert-cache lane (C++ with the CUDA runtime). It contains no
+# device kernels, so every CUDA build needs it: gating it on SM70 silently
+# removes the Engram lane from non-SM70 targets such as the PPU 8.0 build.
+if(VLLM_GPU_LANG STREQUAL "CUDA")
+  define_extension_target(
+    _gguf_expert_cache_C DESTINATION vllm LANGUAGE CUDA
+    SOURCES "csrc/gguf_expert_cache.cpp"
+    ARCHITECTURES ${VLLM_GPU_ARCHES}
+    LIBRARIES "${TORCH_INSTALL_PREFIX}/lib/libtorch_python.so"
+    WITH_SOABI)
+endif()
+
 # Keep the accepted SM70 chunked sampler in a separate wheel module so adding
 # it does not perturb the quality- and speed-frozen primary vllm._C module.
 if(VLLM_GPU_LANG STREQUAL "CUDA" AND SM70_TURBOMIND_ARCHS)
@@ -847,14 +859,6 @@ if(VLLM_GPU_LANG STREQUAL "CUDA" AND SM70_TURBOMIND_ARCHS)
     _sm70_qsa_device_C DESTINATION vllm LANGUAGE CUDA
     SOURCES "csrc/sm70_turbomind/ops/qsa_device_history_sm70.cu"
     COMPILE_FLAGS ${VLLM_GPU_FLAGS}
-    ARCHITECTURES "70"
-    LIBRARIES "${TORCH_INSTALL_PREFIX}/lib/libtorch_python.so"
-    WITH_SOABI)
-  # Host-side expert-cache lane (C++ with the CUDA runtime); prebuilt so
-  # installed wheels do not need the source tree or a JIT toolchain.
-  define_extension_target(
-    _gguf_expert_cache_C DESTINATION vllm LANGUAGE CUDA
-    SOURCES "csrc/gguf_expert_cache.cpp"
     ARCHITECTURES "70"
     LIBRARIES "${TORCH_INSTALL_PREFIX}/lib/libtorch_python.so"
     WITH_SOABI)

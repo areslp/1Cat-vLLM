@@ -1355,6 +1355,11 @@ if _is_hip():
     ext_modules.append(CMakeExtension(name="vllm._rocm_C"))
 
 if _is_cuda():
+    # Host-side expert-cache lane used by Engram. It has no device kernels and
+    # must be present on every CUDA build, not only SM70 targets.
+    ext_modules.append(
+        CMakeExtension(name="vllm._gguf_expert_cache_C", py_limited_api=False)
+    )
     if _cuda_arch_contains(7, 0) or _cuda_arch_contains(7, 2):
         ext_modules.append(CMakeExtension(name="vllm._sm70_sampler_C"))
         # These extensions use pybind11/libtorch_python and therefore require
@@ -1370,9 +1375,6 @@ if _is_cuda():
         )
         ext_modules.append(
             CMakeExtension(name="vllm._sm70_exact_reduce_C", py_limited_api=False)
-        )
-        ext_modules.append(
-            CMakeExtension(name="vllm._gguf_expert_cache_C", py_limited_api=False)
         )
         ext_modules.append(
             CMakeExtension(name="vllm._h3_w8a16_C", py_limited_api=False)
