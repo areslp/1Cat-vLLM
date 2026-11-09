@@ -189,6 +189,20 @@ def bundle_tcmalloc(build_lib: str) -> None:
     logger.info("Bundled tcmalloc into wheel: %s", bundle_path)
 
 
+def should_bundle_flash_attn_v100() -> bool:
+    """Flash-V100 is SM70/SM72-only.
+
+    PPU's nvcc wrapper reports __CUDA_ARCH__==800 even with -arch=sm_70, so the
+    Volta guard in fused_mma.h cannot be satisfied on a PPU 8.0 build. When an
+    explicit architecture list is present, bundle only if it actually targets
+    SM70/SM72; keep the historical behavior when the list is unset.
+    """
+    arches = _cuda_arches_from_env()
+    if arches is None:
+        return True
+    return any(arch in ((7, 0), (7, 2)) for arch in arches)
+
+
 def bundle_flash_attn_v100(build_lib: str) -> None:
     """Build and embed the SM70 Flash-V100 package into the 1Cat wheel."""
     if not FLASH_ATTN_V100_ROOT.exists():
@@ -517,9 +531,15 @@ class cmake_build_ext(build_ext):
             # Bundle companion kernels beside them just like the native _C
             # extensions; wheel builds still stage everything in build_lib.
             bundle_dir = str(ROOT_DIR) if self.inplace else self.build_lib
-            bundle_flash_attn_v100(
-                str(FLASH_ATTN_V100_ROOT) if self.inplace else self.build_lib
-            )
+            if should_bundle_flash_attn_v100():
+                bundle_flash_attn_v100(
+                    str(FLASH_ATTN_V100_ROOT) if self.inplace else self.build_lib
+                )
+            else:
+                logger.info(
+                    "Skipping Flash-V100 bundle: "
+                    "TORCH_CUDA_ARCH_LIST has no SM70/SM72"
+                )
             bundle_flash_qla_sm70(bundle_dir, self.build_temp)
 
         # copy vllm/vllm_flash_attn/**/*.py from self.build_lib to current

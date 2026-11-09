@@ -488,8 +488,8 @@ class Worker(WorkerBase):
         with (
             self._maybe_get_memory_pool_context(tag="weights"),
             set_current_vllm_config(self.vllm_config),
-            # 20 MiB is the minimum PyTorch allows for max_split_size_mb.
-            self._scoped_allocator_max_split(max_split_size_mb=20),
+            # 32 MiB is the minimum PPU PyTorch accepts; NVIDIA accepts 20.
+            self._scoped_allocator_max_split(max_split_size_mb=32),
         ):
             self.model_runner.load_model(load_dummy_weights=load_dummy_weights)
 
