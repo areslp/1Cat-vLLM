@@ -7,6 +7,7 @@ pre-mix are not compatible. The initial implementation deliberately admits
 one request and at most 16K total tokens, with prefix caching disabled.
 """
 
+import os
 from collections.abc import Iterable
 from typing import Any
 
@@ -69,6 +70,7 @@ from .quant_rope import apply_rope, attention_qdq, rope_table
 
 _HC_FUSED = envs.VLLM_V41_HC_FUSED == "1"
 _ROUTER_FUSED = envs.VLLM_V41_ROUTER_FUSED == "1"
+_SM80_COMPAT = os.environ.get("VLLM_V41_SM80_COMPAT", "0") == "1"
 
 
 class V41Norm(nn.Module):
@@ -981,9 +983,13 @@ class DeepseekV41ForCausalLM(nn.Module, SupportsEagle3):
         super().__init__()
         c = self.config = vllm_config.model_config.hf_text_config
         p, s = vllm_config.parallel_config, vllm_config.scheduler_config
+        sm70 = current_platform.is_device_capability(70)
+        sm80_compat = (
+            _SM80_COMPAT and current_platform.is_device_capability(80)
+        )
         if (
             not current_platform.is_cuda()
-            or not current_platform.is_device_capability(70)
+            or not (sm70 or sm80_compat)
             or vllm_config.model_config.dtype != torch.float16
             or get_tensor_model_parallel_world_size() != 4
             or p.pipeline_parallel_size != 1
@@ -1000,8 +1006,9 @@ class DeepseekV41ForCausalLM(nn.Module, SupportsEagle3):
             )
         ):
             raise ValueError(
-                "V4.1 first version requires SM70 FP16 TP4, one request, "
-                "<=16K, chunks <=16384, synchronous scheduling, no prefix caching"
+                "V4.1 requires SM70 (or SM80 with VLLM_V41_SM80_COMPAT=1), "
+                "FP16 TP4, one request, <=16K, chunks <=16384, synchronous "
+                "scheduling, no prefix caching"
             )
         if (
             c.model_type != "deepseek_v41_text"

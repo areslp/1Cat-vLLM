@@ -17,12 +17,18 @@ import torch
 
 import vllm.envs as envs
 from vllm.logger import init_logger
+from vllm.platforms import current_platform
 
 logger = init_logger(__name__)
 
 ENABLED = envs.VLLM_V41_DENSE_TM == "1"
 MAX_M = 8
 _TYPES = {8, 13}  # Q8_0, Q5_K
+
+
+def _sm70_runtime() -> bool:
+    """The prepared TurboMind planes and dmv13 kernels are SM70-only."""
+    return current_platform.is_device_capability(70)
 
 
 def _segment_shapes(model, extra=()):
@@ -177,7 +183,11 @@ def attach_lm_head(lm_head) -> bool:
 
     The original GGUF head stays for any M>8 call; dmv13 serves verify/draft.
     """
-    if not ENABLED or getattr(lm_head, "v41_small_m", None) is not None:
+    if (
+        not ENABLED
+        or not _sm70_runtime()
+        or getattr(lm_head, "v41_small_m", None) is not None
+    ):
         return False
     from vllm.model_executor.layers.quantization import sm70_dmv13_projection as d13
 
@@ -212,8 +222,13 @@ def attach_lm_head(lm_head) -> bool:
 
 def prepare(model, extra_groups=()) -> dict:
     """Convert and attach small-M runners; returns a short admission report."""
-    report = dict(enabled=ENABLED, converted=0, fused_groups=0, skipped=[])
-    if not ENABLED:
+    report = dict(
+        enabled=ENABLED and _sm70_runtime(),
+        converted=0,
+        fused_groups=0,
+        skipped=[],
+    )
+    if not report["enabled"]:
         return report
     from vllm.model_executor.layers.quantization import gguf_dense_hmma
 
